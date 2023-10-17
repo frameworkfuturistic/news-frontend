@@ -37,7 +37,7 @@ const HomeLayout = ({ data, wpx, header = "" }) => {
                             <>
                             <div className='flex items-center gap-2'>
                                 <div>
-                                    <img src={elem?.image} alt="image" srcset="" className='border h-10' />
+                                    <img src={elem?.image} alt="image" srcset="" className='border h-14' />
                                 </div>
                                 <div className='flex flex-col gap-1'>
                                     <span className='text-zinc-800 text-sm'>{elem?.heading}</span>
@@ -60,7 +60,7 @@ const HomeLayout = ({ data, wpx, header = "" }) => {
                             <>
                             <div className='flex items-center gap-2'>
                                 <div>
-                                    <img src={elem?.image} alt="image" srcset="" className='border h-10' />
+                                    <img src={elem?.image} alt="image" srcset="" className='border h-14' />
                                 </div>
                                 <div className='flex flex-col gap-1'>
                                     <span className='text-zinc-800 text-sm'>{elem?.heading}</span>
