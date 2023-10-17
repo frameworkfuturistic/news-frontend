@@ -106,7 +106,7 @@ const HomeIndex = () => {
       <NewsCategoriesIndex wpx={wpx} menu={newsCategoriesMenu} />
       {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />}
       <HomeLayout data={data} wpx={wpx} />
-      <HomeLayout data={data} wpx={wpx} header={"मुख्य समाचार"}/>
+      <HomeLayout data={data} wpx={wpx} header={"मुख्य समाचार"} />
     </>
   )
 }

@@ -51,6 +51,10 @@ const HomeLayout = ({ data, wpx, header = "" }) => {
 
                     <div className='col-span-12 md:col-span-4 flex flex-col gap-6'>
 
+                    {header && <header className='w-full col-span-12 border-t border-b'>
+                        <span className='font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block'>Other</span>
+                    </header>}
+
                         {
                             data?.smallNews?.slice(5,10)?.map((elem) => 
                             <>
