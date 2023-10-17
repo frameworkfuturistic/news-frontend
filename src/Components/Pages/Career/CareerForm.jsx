@@ -3,7 +3,6 @@
 // 👉 Component   : CareerForm
 // 👉 Date        : 20-09-2023
 // 👉 Status      : Close
-// 👉 Description : Infraction recording form (Apply and edit) for fines & penalty.
 // 👉 Functions   :  
 //                  1. buttonStyle             -> To style button by passing color name.
 //                  2. inputBox                -> Function to map input field.
@@ -48,22 +47,25 @@ const CareerForm = (props) => {
 
   // 👉 CSS Constants 👈
   const labelStyle = 'text-gray-800 text-sm'
-  const inputStyle = (key) => {
-    const style = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
-    return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`
-  }
+  // const inputStyle = (key) => {
+  //   const style = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
+  //   return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`
+  // }
 
-  const fileStyle = (key) => {
-    const style = 'block w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200'
-    return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`
-  }
+  // const fileStyle = (key) => {
+  //   const style = 'block w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200'
+  //   return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`
+  // }
+
+  const inputStyle = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
+  const fileStyle = 'block w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200'
 
   // 👉 Basic Details Fields JSON👈
   const basicForm = [
     {
       title: "Applied For",
       key: "appliedFor",
-      width: `w-full md:w-[25%]`,
+      width: "w-full md:w-[20%]",
       type: 'select',
       hint: "Enter violation section",
       required: true,
@@ -85,52 +87,64 @@ const CareerForm = (props) => {
         { id: 15, value: 'Research Executives' },
       ],
       okey: 'value',
-      ovalue: 'value'
+      ovalue: 'value',
+      required: true
     },
     { title: "Upload Photo", key: "photo", type: 'file', hint: "Upload Photo", required: true, accept: '.jpg, .jpeg, .png', width: "w-full md:w-[20%]" },
-    { title: "Name", key: "name", type: 'text', hint: "Enter your name", width: "w-full md:w-[20%]" },
-    { title: "Present Address", key: "address", type: 'text', hint: "Enter present address", width: "w-full md:w-[50%]" },
-    { title: "Email", key: "email", type: 'email', hint: "Enter email" },
-    { title: "Permanent Address", key: "paddress", type: 'text', hint: "Enter permanent address", width: "w-full md:w-[50%]" },
-    { title: "Mobile No.", key: "mobile", type: 'text', hint: "Enter mobile no." },
+    { title: "Name", key: "name", type: 'text', hint: "Enter your name", width: "w-full md:w-[20%]", required: true },
+    { title: "Email", key: "email", type: 'email', hint: "Enter email", required: true, width: "w-full md:w-[20%]", },
+    { title: "Mobile No.", key: "mobile", type: 'text', hint: "Enter mobile no.", required: true, width: "w-full md:w-[20%]", },
+    { title: "DOB", key: "dob", type: 'date', hint: "Enter mobile no.", required: true, width: "w-full md:w-[20%]", },
+    {
+      title: "Qualification", key: "qualification", type: 'select', hint: "Enter mobile no.", options: [
+        { id: 1, value: "Masters" },
+        { id: 2, value: "Graduate" },
+        { id: 3, value: "BA" },
+        { id: 4, value: "BSc" },
+        { id: 5, value: "BCom" },
+        { id: 6, value: "Matriculation" },
+      ], okey: 'value', ovalue: 'value', required: true, width: "w-full md:w-[20%]"
+    },
 
+  ]
+
+  let addresForm = [
+    { title: "Present Address", key: "address", type: 'text', hint: "Enter present address", width: "w-full md:w-[48%]", required: true },
+    { title: "Permanent Address", key: "paddress", type: 'text', hint: "Enter permanent address", width: "w-full md:w-[48%]", required: true },
+  ]
+
+  // 👉 Work Experience Fields JSON👈
+  const workForm = [
+    { title: "Currently Working", key: 'isWorking', type: 'select', required: true, width: 'md:w-[15%] w-full', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], ovalue: 'value', otitle: 'title' },
+    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1' },
+    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1' },
+  ]
+
+  const expectedForm = [
+    { title: "Expected Salary", key: 'eSalary', type: 'text', width: "", hint: "Enter expected salary", check: "", required: true },
   ]
 
   // 👉 Formik initial values 👈
   const initialValues = {
-    name: '',
-    mobileNo: '',
-    email: '',
-    holdingNo: '',
-    guardianName: '',
-    tradeLicenseNo: '',
-    wardId: '',
-
-    streetAddress1: '',
-    streetAddress2: '',
-    city: '',
-    region: '',
-    pincode: '',
-
-    department: "",
-    violationSection: "",
-    violationMade: '',
-    violationPlace: '',
-
-    isWitness: '0',
-    witnessName: '',
-    witnessMobile: '',
-
-    geoTaggedPhoto: '',
-    videoAudio: '',
-    pdf: '',
-
+    appliedFor: "",
+    photo: "",
+    name: "",
+    email: "",
+    mobile: "",
+    dob: "",
+    qualification: "",
+    address: "",
+    paddress: "",
+    isWorking: "0",
+    pSalary: "",
+    salaryDoc: "",
+    eSalary: "",
     remarks: ''
   }
 
   // 👉 Formik validation schema 👈
   const schema = yup.object().shape(
-    [...basicForm]?.reduce((acc, elem) => {
+    [...basicForm, ...addresForm, ...workForm, ...expectedForm]?.reduce((acc, elem) => {
       if ((elem?.type != 'select' && elem?.type != 'option') && elem.required) {
         acc[elem.key] = yup.string().required(elem.hint);
       }
@@ -154,12 +168,32 @@ const CareerForm = (props) => {
     enableReinitialize: true,
     validationSchema: schema,
     onSubmit: (values) => {
-      console.log('enterd')
-
       submitFun(values)
+      toast.success('Successfully applied form !!!')
+      navigate('/')
     }
   })
 
+  const inputBox = (key, title = '', type, width = '', hint = '', required = false, accept, value = '', options = [], okey = '', ovalue = '') => {
+    return (
+      <div className={`flex flex-col ${width} `}>
+        {title != '' && <label htmlFor={key} className={labelStyle}>{title} {required && <span className='text-red-500 text-xs font-bold'>*</span>} : </label>}
+        {type != 'disabled' && type != 'select' && type != 'file' && <input {...formik.getFieldProps(key)} type={type} className={inputStyle + ` ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`} name={key} id="" placeholder={hint} />}
+        {type != 'disabled' && type == 'file' && <input {...formik.getFieldProps(key)} type={type} className={fileStyle + `${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`} name={key} id="" placeholder={hint} accept={accept} />}
+        {type != 'disabled' && type == 'select' && <select {...formik.getFieldProps(key)} className={inputStyle + ` ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+
+          <option value="">Select</option>
+          {
+            options?.map((elem) => <option className='' value={elem[okey]}>{elem[ovalue]}</option>)
+          }
+
+        </select>}
+        {type == 'disabled' &&
+          <input disabled className={inputStyle + ' focus:border-zinc-300 border-zinc-200'} value={sloader ? 'Loading...' : value} />
+        }
+      </div>
+    );
+  }
 
   // 👉 Function 1 👈
   const buttonStyle = (color) => {
@@ -179,14 +213,11 @@ const CareerForm = (props) => {
     const value = e.target.value;
 
     { name == "name" && formik.setFieldValue("name", allowCharacterInput(value, formik.values?.name, 50)) }
-    { name == "mobileNo" && formik.setFieldValue("mobileNo", allowNumberInput(value, formik.values?.mobileNo, 10)) }
+    { name == "mobile" && formik.setFieldValue("mobile", allowNumberInput(value, formik.values?.mobile, 10)) }
+    { name == "pSalary" && formik.setFieldValue("pSalary", allowNumberInput(value, formik.values?.pSalary, 20)) }
+    { name == "eSalary" && formik.setFieldValue("eSalary", allowNumberInput(value, formik.values?.eSalary, 20)) }
     { name == "email" && formik.setFieldValue("email", allowMailInput(value, formik.values?.email, 50)) }
-    { name == "holdingNo" && formik.setFieldValue("holdingNo", allowCharacterNumberInput(value, formik.values?.holdingNo, 20)) }
-    { name == "pincode" && formik.setFieldValue("pincode", allowNumberInput(value, formik.values?.pincode, 6)) }
-    { name == 'city' && formik.setFieldValue("city", allowCharacterInput(value, formik.values.city, 100)) }
-    { name == 'region' && formik.setFieldValue("region", allowCharacterInput(value, formik.values.region, 100)) }
-    { name == "witnessName" && formik.setFieldValue("witnessName", allowCharacterInput(value, formik.values?.witnessName, 50)) }
-    { name == "witnessMobile" && formik.setFieldValue("witnessMobile", allowNumberInput(value, formik.values?.witnessMobile, 10)) }
+    
 
 
     switch (name) {
@@ -201,7 +232,7 @@ const CareerForm = (props) => {
   // 👉 Function 11 👈
   const submitFun = (values) => {
 
-    console.log(":::::::Submitting values::::::", values, violationData)
+    console.log(":::::::Submitting values::::::", values)
 
     let fd = new FormData()
 
@@ -256,42 +287,11 @@ const CareerForm = (props) => {
 
           <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Basic Details</header>
 
-          <div className='flex flex-col gap-1'>
-            <label htmlFor="" className={labelStyle}>Applied For <span className='text-red-500 font-semibold'>*</span></label>
-            <select name="appliedFor" {...formik.getFieldProps('appliedFor')} className={inputStyle('appliedFor')} id="">
-              <option value="">Select</option>
-              {
-                [
-                  { id: 1, value: 'Reporter' },
-                  { id: 2, value: 'Anchor' },
-                  { id: 3, value: 'VT Editor' },
-                  { id: 4, value: 'Graphics Designer' },
-                  { id: 5, value: 'Camera Person' },
-                  { id: 6, value: 'Bulletin Producer/Producer' },
-                  { id: 7, value: 'Programming Producer' },
-                  { id: 8, value: 'Marketing Executives/Manager' },
-                  { id: 9, value: 'PCR Executives' },
-                  { id: 10, value: 'MCR Executives' },
-                  { id: 11, value: 'IT/Car Room' },
-                  { id: 12, value: 'INPUT Executives' },
-                  { id: 13, value: 'Social Media Executives' },
-                  { id: 14, value: 'Make Up Artist' },
-                  { id: 15, value: 'Research Executives' },
-                ]?.map((elem, index) => <option key={index} value={elem?.value}>{elem?.value}</option>)
-              }
-            </select>
-          </div>
-
-          <div className='flex flex-col gap-1'>
-            <label htmlFor="" className={labelStyle}>Upload Photo <span className='text-red-500 font-semibold'>*</span></label>
-            <input type="file" name="photo" className={fileStyle('photo')} id="" />
-          </div>
-
-          <div className='flex flex-col gap-1'>
-            <label htmlFor="" className={labelStyle}>Name <span className='text-red-500 font-semibold'>*</span></label>
-            <input type="text" name="name" className={inputStyle('name')} id="" />
-          </div>
-
+          {
+            basicForm?.map((elem) => {
+              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.okey, elem?.ovalue)
+            })
+          }
         </section>
 
         {/* 👉 Address Details 👈 */}
@@ -299,19 +299,40 @@ const CareerForm = (props) => {
 
           <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Address</header>
 
-
+          {
+            addresForm?.map((elem) => {
+              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, elem?.okey, elem?.ovalue)
+            })
+          }
 
         </section>
-        {/* 👉 Evidence Documents 👈 */}
+
+        {/* 👉 Witness Details 👈 */}
         <section className='flex gap-4 flex-wrap my-6'>
 
-          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Evidence</header>
+          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Work Experience</header>
 
-          <div className={`flex flex-col `}>
-            <label htmlFor={'geoTaggedPhoto'} className={labelStyle}>Geo Tagged Photo <span className='text-red-500 text-xs font-bold'>*</span> : </label>
-            <input type='file' accept='.png, .jpg, .jpeg' {...formik.getFieldProps('geoTaggedPhoto')} className={fileStyle + `${(formik.touched.geoTaggedPhoto && formik.errors.geoTaggedPhoto) ? ' border-red-200 placeholder:text-red-400 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`} />
+          {
+            workForm?.slice(0, (formik.values?.isWorking == '0' ? 1 : 3))?.map((elem) => {
+              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.ovalue, elem?.otitle)
+            })
+          }
+
+          {
+            expectedForm?.map((elem) => {
+              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, elem?.ovalue, elem?.otitle)
+            })
+          }
+
+        </section>
+
+        <section className='flex gap-4 flex-wrap mb-6'>
+
+          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Remarks</header>
+
+          <div className={`flex flex-col md:w-[40%] w-full `}>
+            <input {...formik.getFieldProps('remarks')} type='text' className={inputStyle + ` ${(formik.touched.remarks && formik.errors.remarks) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`} name='remarks' id="" placeholder='Enter remarks' />
           </div>
-
 
         </section>
 
