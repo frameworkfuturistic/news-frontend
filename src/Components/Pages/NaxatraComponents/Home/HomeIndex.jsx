@@ -3,6 +3,7 @@ import BrandingIndex from '../Branding/BrandingIndex'
 import NewsCategoriesIndex from '../NewsCategories/NewsCategoriesIndex'
 import BreakingNewsIndex from '../BreakinNews/BreakingNewsIndex'
 import HomeLayout from './HomeLayout'
+import Footerlayout from '../Footer/Footerlayout'
 
 const HomeIndex = () => {
 
@@ -100,14 +101,16 @@ const HomeIndex = () => {
   let breakingNews = "राज्यसभा में भी महिला आरक्षण विधेयक पारित, महिला सांसदों ने PM मोदी के साथ मनाया जश्न"
 
   return (
-    <>
+    <div className='relative'>
       <BrandingIndex wpx={wpx} menu={brandingMenu} />
       <div className='h-[1.7rem]'></div>
       <NewsCategoriesIndex wpx={wpx} menu={newsCategoriesMenu} />
       {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />}
       <HomeLayout data={data} wpx={wpx} />
       <HomeLayout data={data} wpx={wpx} header={"मुख्य समाचार"} />
-    </>
+
+      <Footerlayout />
+    </div>
   )
 }
 
