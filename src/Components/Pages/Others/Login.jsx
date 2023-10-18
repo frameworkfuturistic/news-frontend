@@ -96,7 +96,7 @@ const Login = () => {
             </div>
 
             <div className='flex flex-col gap-2 my-4'>
-              <label htmlFor="" className={labelStyle}>Username or Email <span className='text-red-500'>*</span> </label>
+              <label htmlFor="" className={labelStyle}>Password <span className='text-red-500'>*</span> </label>
               <input type="password" name="password" id="" className={formik.touched.password && formik.errors.password ? inputStyleR : inputStyle} placeholder='Enter password' />
             </div>
 

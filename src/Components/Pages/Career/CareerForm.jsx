@@ -118,7 +118,7 @@ const CareerForm = (props) => {
 
   // 👉 Work Experience Fields JSON👈
   const workForm = [
-    { title: "Currently Working", key: 'isWorking', type: 'select', required: true, width: 'md:w-[15%] w-full', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], ovalue: 'value', otitle: 'title' },
+    { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
     { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1' },
     { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1' },
     { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1' },
@@ -127,9 +127,9 @@ const CareerForm = (props) => {
   const expectedForm = [
     { title: "Expected Salary", key: 'eSalary', type: 'text', width: "", hint: "Enter expected salary", check: "", required: true },
     { title: "Reference Name", key: 'rName1', type: 'text', width: "", hint: "Enter first reference name", check: "", required: true },
-        { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true },
+    { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true },
     { title: "Reference Name 2", key: 'rName2', type: 'text', width: "", hint: "Enter second reference name", check: "", required: false },
-        { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false },
+    { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false },
     { title: "Work Link URL", key: 'workLink', type: 'text', width: "", hint: "Enter work link url", check: "", required: false },
     { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false },
   ]
@@ -150,12 +150,12 @@ const CareerForm = (props) => {
     salaryDoc: "",
     eSalary: "",
     companyName: "",
-rName1: "",
-rName2: "",
-rMobile1: "",
-rMobile2: "",
-workLink: "",
-workVideo: "",
+    rName1: "",
+    rName2: "",
+    rMobile1: "",
+    rMobile2: "",
+    workLink: "",
+    workVideo: "",
     remarks: ''
   }
 
@@ -186,8 +186,8 @@ workVideo: "",
     validationSchema: schema,
     onSubmit: (values) => {
       submitFun(values)
-      toast.success('Successfully applied form !!!')
-      navigate('/')
+      // toast.success('Successfully applied form !!!')
+      // navigate('/')
     }
   })
 
@@ -226,9 +226,11 @@ workVideo: "",
   // 👉 Function 7 👈
   const handleChange = async (e) => {
 
+    
     const name = e.target.name;
     const value = e.target.value;
-
+    
+    console.log(name, ":", value)
     { name == "name" && formik.setFieldValue("name", allowCharacterInput(value, formik.values?.name, 50)) }
     { name == "mobile" && formik.setFieldValue("mobile", allowNumberInput(value, formik.values?.mobile, 10)) }
     { name == "rMobile1" && formik.setFieldValue("rMobile1", allowNumberInput(value, formik.values?.rMobile1, 10)) }
@@ -236,7 +238,7 @@ workVideo: "",
     { name == "pSalary" && formik.setFieldValue("pSalary", allowNumberInput(value, formik.values?.pSalary, 20)) }
     { name == "eSalary" && formik.setFieldValue("eSalary", allowNumberInput(value, formik.values?.eSalary, 20)) }
     { name == "email" && formik.setFieldValue("email", allowMailInput(value, formik.values?.email, 50)) }
-    
+
 
 
     switch (name) {
@@ -246,14 +248,14 @@ workVideo: "",
         setProfileDoc(file)
 
       } break;
-case "workVideo" : {
-  let file = e.target.files[0]
-  setWorkVideo(file)
-} break;
-case "salaryDoc" : {
-  let file = e.target.files[0]
-  setSalaryDocument(file)
-} break;
+      case "workVideo": {
+        let file = e.target.files[0]
+        setWorkVideo(file)
+      } break;
+      case "salaryDoc": {
+        let file = e.target.files[0]
+        setSalaryDocument(file)
+      } break;
     }
   }
 
@@ -264,37 +266,38 @@ case "salaryDoc" : {
 
     let fd = new FormData()
 
-fd.append("appliedFor", values?.appliedFor)
-fd.append("photo", profileDoc)
-fd.append("name", values?.name)
-fd.append("email", values?.email)
-fd.append("mobile", values?.mobile)
-fd.append("dob", values?.dob)
-fd.append("qualification", values?.qualification)
-fd.append("address", values?.address)
-fd.append("paddress", values?.paddress)
-fd.append("isWorking:", values?.isWorking)
-fd.append("pSalary", values?.pSalary)
-fd.append("salaryDoc", values?.salaryDoc)
-fd.append("eSalary", salaryDocument)
-fd.append("companyName", values?.companyName)
-fd.append("rName1", values?.rName1)
-fd.append("rName2", values?.rName2)
-fd.append("rMobile1", values?.rMobile1)
-fd.append("rMobile2", values?.rMobile2)
-fd.append("workLink", values?.workLink)
-fd.append("workVideo", workVideo)
-fd.append("remarks", values?.remarks)
+    fd.append("appliedFor", values?.appliedFor)
+    fd.append("photo", profileDoc)
+    fd.append("name", values?.name)
+    fd.append("email", values?.email)
+    fd.append("mobile", values?.mobile)
+    fd.append("dob", values?.dob)
+    fd.append("qualification", values?.qualification)
+    fd.append("presentAddress", values?.address)
+    fd.append("permanentAddress", values?.paddress)
+    fd.append("isWorking:", values?.isWorking)
+    fd.append("presentSalary", values?.pSalary)
+    fd.append("salaryDoc", salaryDocument)
+    fd.append("expectedSalary", values?.eSalary)
+    fd.append("companyName", values?.companyName)
+    fd.append("rName1", values?.rName1)
+    fd.append("rName2", values?.rName2)
+    fd.append("rMobile1", values?.rMobile1)
+    fd.append("rMobile2", values?.rMobile2)
+    fd.append("workLink", values?.workLink)
+    fd.append("workVideo", workVideo)
+    fd.append("remarks", values?.remarks)
 
     setLoader(true)
 
     axios
       .post(apiCareerForm, fd, ApiMultipartHeader)
       .then((res) => {
-        setIsSubmit(res?.data?.status)
+        // setIsSubmit(res?.data?.status)
         if (res?.data?.status) {
           toast.success("Submitted Successfully !!!")
-          setSubmissionData(res?.data?.data)
+          // setSubmissionData(res?.data?.data)
+          navigate('/')
         } else {
           activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
         }
@@ -314,90 +317,90 @@ fd.append("remarks", values?.remarks)
 
       {/* 👉 Error Card 👈 */}
       <ErrorCard activateBottomErrorCard={activateBottomErrorCard} state={errorState} message={errorMessage} />
-      
-      <div className='h-screen w-screen flex justify-center relative'>
 
-      <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute top-2 left-2"} onClick={() => window.history.back()}>Back</button>
+      <div className='h-full w-screen flex justify-center relative'>
 
-      {/* 👉 Main 👈 */}
-      <form onChange={(e) => (formik.handleChange(e), handleChange(e))} onSubmit={formik.handleSubmit} className='w-full h-screen py-4 px-4 md:px-6 border-zinc-200 bg-zinc-50 max-w-[1366px] border border-zinc-100]'>
+        <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute top-2 left-2"} onClick={() => window.history.back()}>Back</button>
 
-        {/* 👉 Header 👈 */}
-        <header className='border-b pb-2 mb-6 justify-center items-center'>
+        {/* 👉 Main 👈 */}
+        <form onChange={(e) => (formik.handleChange(e), handleChange(e))} onSubmit={formik.handleSubmit} className='w-full h-full py-4 px-4 md:px-6 border-zinc-200 bg-zinc-50 max-w-[1366px] border '>
 
-          {/* 👉 Title 👈 */}
-          <main>
-            <article>
-              <figure className='text-base md:text-2xl font-semibold text-center'>
-                Naxatra Career Form
-              </figure>
-            </article>
-          </main>
+          {/* 👉 Header 👈 */}
+          <header className='border-b pb-2 mb-6 justify-center items-center'>
 
-        </header>
+            {/* 👉 Title 👈 */}
+            <main>
+              <article>
+                <figure className='text-base md:text-2xl font-semibold text-center'>
+                  Naxatra Career Form
+                </figure>
+              </article>
+            </main>
 
-        {/* 👉 Basic Details 👈 */}
-        <section className='flex gap-4 flex-wrap '>
+          </header>
 
-          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Basic Details</header>
+          {/* 👉 Basic Details 👈 */}
+          <section className='flex gap-4 flex-wrap '>
 
-          {
-            basicForm?.map((elem) => {
-              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.okey, elem?.ovalue)
-            })
-          }
-        </section>
+            <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Basic Details</header>
 
-        {/* 👉 Address Details 👈 */}
-        <section className='flex gap-4 flex-wrap my-6'>
+            {
+              basicForm?.map((elem) => {
+                return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.okey, elem?.ovalue)
+              })
+            }
+          </section>
 
-          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Address</header>
+          {/* 👉 Address Details 👈 */}
+          <section className='flex gap-4 flex-wrap my-6'>
 
-          {
-            addresForm?.map((elem) => {
-              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, elem?.okey, elem?.ovalue)
-            })
-          }
+            <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Address</header>
 
-        </section>
+            {
+              addresForm?.map((elem) => {
+                return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, "", elem?.ovalue)
+              })
+            }
 
-        {/* 👉 Witness Details 👈 */}
-        <section className='flex gap-4 flex-wrap my-6'>
+          </section>
 
-          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Work Experience</header>
+          {/* 👉 Witness Details 👈 */}
+          <section className='flex gap-4 flex-wrap my-6'>
 
-          {
-            workForm?.slice(0, (formik.values?.isWorking == '0' ? 1 : 5))?.map((elem) => {
-              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.ovalue, elem?.otitle)
-            })
-          }
+            <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Work Experience</header>
 
-          {
-            expectedForm?.map((elem) => {
-              return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, elem?.ovalue, elem?.otitle)
-            })
-          }
+            {
+              workForm?.slice(0, (formik.values?.isWorking == '0' ? 1 : 5))?.map((elem) => {
+                return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.okey, elem?.ovalue)
+              })
+            }
 
-        </section>
+            {
+              expectedForm?.map((elem) => {
+                return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, elem?.ovalue, elem?.otitle)
+              })
+            }
 
-        <section className='flex gap-4 flex-wrap mb-6'>
+          </section>
 
-          <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Remarks</header>
+          <section className='flex gap-4 flex-wrap mb-6'>
 
-          <div className={`flex flex-col md:w-[40%] w-full `}>
-            <input {...formik.getFieldProps('remarks')} type='text' className={inputStyle + ` ${(formik.touched.remarks && formik.errors.remarks) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`} name='remarks' id="" placeholder='Enter remarks' />
-          </div>
+            <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Remarks</header>
 
-        </section>
+            <div className={`flex flex-col md:w-[40%] w-full `}>
+              <input {...formik.getFieldProps('remarks')} type='text' className={inputStyle + ` ${(formik.touched.remarks && formik.errors.remarks) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`} name='remarks' id="" placeholder='Enter remarks' />
+            </div>
 
-        <footer>
-          <button type="submit" className={buttonStyle('green')}>Submit</button>
-        </footer>
+          </section>
 
-      </form >
+          <footer className=''>
+            <button type="submit" className={buttonStyle('green')}>Submit</button>
+          </footer>
+
+
+        </form >
       </div>
 
-    
 
       {/* 👉 Dialog form 👈 */}
       <dialog ref={dialogRef} className="relative overflow-clip animate__animated animate__zoomIn animate__faster">

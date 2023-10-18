@@ -7,6 +7,7 @@ import axios from 'axios'
 import { ApiList } from '@/Components/Api/ApiList'
 import { ApiJsonHeader } from '@/Components/Api/ApiJsonHeader'
 import { toast } from 'react-hot-toast'
+import './Style.css'
 
 const BrandingIndex = (props) => {
 
@@ -41,7 +42,7 @@ const BrandingIndex = (props) => {
             {
               props?.menu?.slice(0, 10)?.map((elem, index) =>
                 <>
-                  <span className={`text-xs  font-semibold cursor-pointer ${elem?.path == "/career" ? " text-red-600 " : " text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
+                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-xs px-2 drop-shadow-md py-0.5" : " text-xs  font-semibold text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 

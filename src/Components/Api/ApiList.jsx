@@ -9,7 +9,9 @@ export const ApiList = () => {
   apiLogin        : url + "/api/auth/login",
   apiLogout       : url + "/api/auth/logout",
   
-  apiCareerForm       : url + "/api/",
+  apiCareerForm       : url + "/api/v1/job/apply",
+
+  apiGetNewsById       : url + "/api/",
 
   api         :   url + "/api/categories", // 'User asks category list
   api         :   url + "/api/categories", // 'User creates/ updates categor
