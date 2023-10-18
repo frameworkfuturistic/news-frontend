@@ -46,7 +46,7 @@ const Login = () => {
     setloader(true)
 
     let payload = {
-      // email: values?.email,
+      email: values?.email,
       password: values?.password
     }
 
