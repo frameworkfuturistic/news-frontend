@@ -44,6 +44,9 @@ const CareerForm = (props) => {
   const [loader, setLoader] = useState(false)
   const [errorState, setErrorState] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [profileDoc, setProfileDoc] = useState(null)
+  const [workVideo, setWorkVideo] = useState(null)
+  const [salaryDocument, setSalaryDocument] = useState(null)
 
   // 👉 CSS Constants 👈
   const labelStyle = 'text-gray-800 text-sm'
@@ -116,12 +119,19 @@ const CareerForm = (props) => {
   // 👉 Work Experience Fields JSON👈
   const workForm = [
     { title: "Currently Working", key: 'isWorking', type: 'select', required: true, width: 'md:w-[15%] w-full', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], ovalue: 'value', otitle: 'title' },
+    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1' },
     { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1' },
     { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1' },
   ]
 
   const expectedForm = [
     { title: "Expected Salary", key: 'eSalary', type: 'text', width: "", hint: "Enter expected salary", check: "", required: true },
+    { title: "Reference Name", key: 'rName1', type: 'text', width: "", hint: "Enter first reference name", check: "", required: true },
+        { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true },
+    { title: "Reference Name 2", key: 'rName2', type: 'text', width: "", hint: "Enter second reference name", check: "", required: false },
+        { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false },
+    { title: "Work Link URL", key: 'workLink', type: 'text', width: "", hint: "Enter work link url", check: "", required: false },
+    { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false },
   ]
 
   // 👉 Formik initial values 👈
@@ -139,6 +149,13 @@ const CareerForm = (props) => {
     pSalary: "",
     salaryDoc: "",
     eSalary: "",
+    companyName: "",
+rName1: "",
+rName2: "",
+rMobile1: "",
+rMobile2: "",
+workLink: "",
+workVideo: "",
     remarks: ''
   }
 
@@ -214,6 +231,8 @@ const CareerForm = (props) => {
 
     { name == "name" && formik.setFieldValue("name", allowCharacterInput(value, formik.values?.name, 50)) }
     { name == "mobile" && formik.setFieldValue("mobile", allowNumberInput(value, formik.values?.mobile, 10)) }
+    { name == "rMobile1" && formik.setFieldValue("rMobile1", allowNumberInput(value, formik.values?.rMobile1, 10)) }
+    { name == "rMobile2" && formik.setFieldValue("rMobile2", allowNumberInput(value, formik.values?.rMobile2, 10)) }
     { name == "pSalary" && formik.setFieldValue("pSalary", allowNumberInput(value, formik.values?.pSalary, 20)) }
     { name == "eSalary" && formik.setFieldValue("eSalary", allowNumberInput(value, formik.values?.eSalary, 20)) }
     { name == "email" && formik.setFieldValue("email", allowMailInput(value, formik.values?.email, 50)) }
@@ -221,11 +240,20 @@ const CareerForm = (props) => {
 
 
     switch (name) {
-      case 'geoTaggedPhoto': {
+      case 'photo': {
 
+        let file = e.target.files[0]
+        setProfileDoc(file)
 
       } break;
-
+case "workVideo" : {
+  let file = e.target.files[0]
+  setWorkVideo(file)
+} break;
+case "salaryDoc" : {
+  let file = e.target.files[0]
+  setSalaryDocument(file)
+} break;
     }
   }
 
@@ -235,6 +263,28 @@ const CareerForm = (props) => {
     console.log(":::::::Submitting values::::::", values)
 
     let fd = new FormData()
+
+fd.append("appliedFor", values?.appliedFor)
+fd.append("photo", profileDoc)
+fd.append("name", values?.name)
+fd.append("email", values?.email)
+fd.append("mobile", values?.mobile)
+fd.append("dob", values?.dob)
+fd.append("qualification", values?.qualification)
+fd.append("address", values?.address)
+fd.append("paddress", values?.paddress)
+fd.append("isWorking:", values?.isWorking)
+fd.append("pSalary", values?.pSalary)
+fd.append("salaryDoc", values?.salaryDoc)
+fd.append("eSalary", salaryDocument)
+fd.append("companyName", values?.companyName)
+fd.append("rName1", values?.rName1)
+fd.append("rName2", values?.rName2)
+fd.append("rMobile1", values?.rMobile1)
+fd.append("rMobile2", values?.rMobile2)
+fd.append("workLink", values?.workLink)
+fd.append("workVideo", workVideo)
+fd.append("remarks", values?.remarks)
 
     setLoader(true)
 
@@ -264,6 +314,10 @@ const CareerForm = (props) => {
 
       {/* 👉 Error Card 👈 */}
       <ErrorCard activateBottomErrorCard={activateBottomErrorCard} state={errorState} message={errorMessage} />
+      
+      <div className='h-screen w-screen flex justify-center relative'>
+
+      <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute top-2 left-2"} onClick={() => window.history.back()}>Back</button>
 
       {/* 👉 Main 👈 */}
       <form onChange={(e) => (formik.handleChange(e), handleChange(e))} onSubmit={formik.handleSubmit} className='w-full h-screen py-4 px-4 md:px-6 border-zinc-200 bg-zinc-50 max-w-[1366px] border border-zinc-100]'>
@@ -313,7 +367,7 @@ const CareerForm = (props) => {
           <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Work Experience</header>
 
           {
-            workForm?.slice(0, (formik.values?.isWorking == '0' ? 1 : 3))?.map((elem) => {
+            workForm?.slice(0, (formik.values?.isWorking == '0' ? 1 : 5))?.map((elem) => {
               return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, elem?.accept, '', elem?.options, elem?.ovalue, elem?.otitle)
             })
           }
@@ -341,6 +395,9 @@ const CareerForm = (props) => {
         </footer>
 
       </form >
+      </div>
+
+    
 
       {/* 👉 Dialog form 👈 */}
       <dialog ref={dialogRef} className="relative overflow-clip animate__animated animate__zoomIn animate__faster">

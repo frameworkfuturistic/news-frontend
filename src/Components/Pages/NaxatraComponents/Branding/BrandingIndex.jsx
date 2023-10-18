@@ -33,7 +33,7 @@ const BrandingIndex = (props) => {
 
   return (
     <>
-      <div className='w-screen border-b flex justify-center items-center animate__animated animate__slideInDown animate__faster'>
+      <div className='w-screen border-b flex justify-center items-center animate__animated animate__slideInDown animate__faster z-50'>
         <div className={`max-w-[${props?.wpx}] h-full w-full flex justify-between md:px-10`} >
 
           <div className='flex gap-2 md:gap-4 items-center md:px-0 px-2 md:py-0 py-2'>
@@ -41,7 +41,7 @@ const BrandingIndex = (props) => {
             {
               props?.menu?.slice(0, 10)?.map((elem, index) =>
                 <>
-                  <span className='text-xs text-zinc-500 font-semibold cursor-pointer' onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
+                  <span className={`text-xs  font-semibold cursor-pointer ${elem?.path == "/career" ? " text-red-600 " : " text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 

@@ -8,6 +8,7 @@ import { FiYoutube } from 'react-icons/fi'
 import { VscThreeBars } from 'react-icons/vsc'
 import { RxCross2 } from 'react-icons/rx'
 import { BsChevronDown } from 'react-icons/bs'
+import './style.css'
 
 const NewsCategoriesIndex = (props) => {
 
@@ -39,12 +40,12 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4' onClick={() => navigate('/')}>
-              <img src={logo} className='w-10 md:w-16 scale-150' alt="" srcset="" />
+              <img src={logo} className='w-10 md:w-16 scale-150 zoom-in-out-box' alt="" srcset="" />
             </span>
 
             {
               props?.menu?.map((item) => <>
-                <span className='text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200'>
+                <span className='text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
                   <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? " " : " ") + ' hover:underline flex gap-1 items-center'} onClick={() => {
                     dropFun(item?.title)
                   }}><span>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
@@ -53,7 +54,7 @@ const NewsCategoriesIndex = (props) => {
                     {
                       item?.subMenu?.map((elem) => <>
                         <li class="relative cursor-pointer">
-                          <NavLink to={elem?.path} className={({ isActive }) => (isActive ? " " : " ") + ' bg-blue-900 hover:bg-blue-800 text-sm border-b px-2 py-1 flex items-center'} onClick={() => {
+                          <NavLink to={elem?.path} className={({ isActive }) => (isActive ? " " : " ") + '  z-50 bg-blue-900 hover:bg-blue-800 text-sm border-b px-2 py-1 flex items-center'} onClick={() => {
                           }}><span>{elem?.title}</span></NavLink>
                         </li>
                       </>)
