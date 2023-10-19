@@ -113,26 +113,26 @@ const CareerForm = (props) => {
   ]
 
   let addresForm = [
-    { title: "Present Address", key: "address", type: 'text', hint: "Enter present address", width: "w-full md:w-[48%]", required: true },
-    { title: "Permanent Address", key: "paddress", type: 'text', hint: "Enter permanent address", width: "w-full md:w-[48%]", required: true },
+    { title: "Present Address", key: "address", type: 'text', hint: "Enter present address", width: "w-full md:w-[100%]", required: true },
+    { title: "Permanent Address", key: "paddress", type: 'text', hint: "Enter permanent address", width: "w-full md:w-[100%]", required: true },
   ]
 
   // 👉 Work Experience Fields JSON👈
   const workForm = [
     { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
-    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1' , required: true},
-    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1' , required: true },
-    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1' ,   },
+    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
+    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
+    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
   ]
 
   const expectedForm = [
-    { title: "Expected Salary", key: 'eSalary', type: 'text', width: "", hint: "Enter expected salary", check: "", required: true },
-    { title: "Reference Name", key: 'rName1', type: 'text', width: "", hint: "Enter first reference name", check: "", required: true },
-    { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true },
-    { title: "Reference Name 2", key: 'rName2', type: 'text', width: "", hint: "Enter second reference name", check: "", required: false },
-    { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false },
-    { title: "Work Link URL", key: 'workLink', type: 'text', width: "", hint: "Enter work link url", check: "", required: false },
-    { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false },
+    { title: "Expected Salary", key: 'eSalary', type: 'text', width: "", hint: "Enter expected salary", check: "", required: true, width: 'md:w-[15%] w-full' },
+    { title: "Reference Name", key: 'rName1', type: 'text', width: "", hint: "Enter first reference name", check: "", required: true, width: 'md:w-[15%] w-full' },
+    { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true, width: 'md:w-[15%] w-full' },
+    { title: "Reference Name 2", key: 'rName2', type: 'text', width: "", hint: "Enter second reference name", check: "", required: false, width: 'md:w-[15%] w-full' },
+    { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false, width: 'md:w-[15%] w-full' },
+    { title: "Work Link URL", key: 'workLink', type: 'text', width: "", hint: "Enter work link url", check: "", required: false, width: 'md:w-[15%] w-full' },
+    { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false, width: 'md:w-[15%] w-full' },
   ]
 
   // 👉 Formik initial values 👈
@@ -163,16 +163,17 @@ const CareerForm = (props) => {
   // 👉 Formik validation schema 👈
   const schema = yup.object().shape(
     [...basicForm, ...addresForm, ...workForm, ...expectedForm]?.reduce((acc, elem) => {
-      if ((elem?.type != 'select' && elem?.type != 'option') && elem.required) {
+      if ((elem?.type != 'select' && elem?.type != 'option') && elem.required && !elem?.check) {
         acc[elem.key] = yup.string().required(elem.hint);
       }
-      if (elem?.type == 'select' || elem?.type == 'option') {
-        if (elem?.check) {
+      if (elem?.type == 'select' || elem?.type == 'option' || elem?.check) {
+        if (elem?.check == 'isWorking') {
           acc[elem.key] = yup.string().when(elem?.check, {
             is: (value) => value == '1',
             then: () => yup.string().required(elem?.hint)
           });
         } else {
+          console.log('first')
           acc[elem.key] = yup.string().required(elem.hint);
         }
       }
@@ -192,6 +193,8 @@ const CareerForm = (props) => {
     }
   })
 
+  console.log("formik", formik.errors, formik.values.isWorking)
+
   const inputBox = (key, title = '', type, width = '', hint = '', required = false, accept, value = '', options = [], okey = '', ovalue = '') => {
     return (
       <div className={`flex flex-col ${width} `}>
@@ -207,7 +210,7 @@ const CareerForm = (props) => {
 
         </select>}
         {type == 'disabled' &&
-          <input disabled className={inputStyle + ' focus:border-zinc-300 border-zinc-200'} value={sloader ? 'Loading...' : value} />
+          <input disabled className={inputStyle + ' focus:border-zinc-300 border-zinc-200'} value={value} />
         }
       </div>
     );
@@ -227,10 +230,10 @@ const CareerForm = (props) => {
   // 👉 Function 7 👈
   const handleChange = async (e) => {
 
-    
+
     const name = e.target.name;
     const value = e.target.value;
-    
+
     console.log(name, ":", value)
     { name == "name" && formik.setFieldValue("name", allowCharacterInput(value, formik.values?.name, 50)) }
     { name == "mobile" && formik.setFieldValue("mobile", allowNumberInput(value, formik.values?.mobile, 10)) }
@@ -256,6 +259,14 @@ const CareerForm = (props) => {
       case "salaryDoc": {
         let file = e.target.files[0]
         setSalaryDocument(file)
+      } break;
+      case "addressCheck": {
+        let checked = e.target.checked;
+        if(checked){
+          formik.setFieldValue('paddress', formik.values.address)
+        } else {
+          formik.setFieldValue('paddress', '')
+        }
       } break;
     }
   }
@@ -352,14 +363,21 @@ const CareerForm = (props) => {
           </section>
 
           {/* 👉 Address Details 👈 */}
-          <section className='flex gap-4 flex-wrap my-6'>
+          <section className='flex gap-4 flex-wrap items-center my-6'>
 
             <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Address</header>
 
             {
-              addresForm?.map((elem) => {
-                return inputBox(elem?.key, elem?.title, elem?.type, elem?.width, elem?.hint, elem?.required, "", '', elem?.options, "", elem?.ovalue)
-              })
+              inputBox(addresForm[0]?.key, addresForm[0]?.title, addresForm[0]?.type, addresForm[0]?.width, addresForm[0]?.hint, addresForm[0]?.required, "", '', addresForm[0]?.options, "", addresForm[0]?.ovalue)
+            }
+
+            <div className='flex flex-col justify-center w-full md:[5%]'>
+              <label htmlFor="" className={labelStyle}>Same As Present Address: </label>
+            <input type="checkbox" name="addressCheck" className={"cursor-pointer form-checkbox h-5 w-5 text-slate-800"} onChange={(e) => handleChange(e)} id="" />
+            </div>
+
+            {
+              inputBox(addresForm[1]?.key, addresForm[1]?.title, addresForm[1]?.type, addresForm[1]?.width, addresForm[1]?.hint, addresForm[1]?.required, "", '', addresForm[1]?.options, "", addresForm[1]?.ovalue)
             }
 
           </section>
