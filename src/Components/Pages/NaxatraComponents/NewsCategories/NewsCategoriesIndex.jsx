@@ -9,25 +9,14 @@ import { VscThreeBars } from 'react-icons/vsc'
 import { RxCross2 } from 'react-icons/rx'
 import { BsChevronDown } from 'react-icons/bs'
 import './style.css'
-import styled, { keyframes } from 'styled-components';
+ 
 import { SocialIcon } from 'react-social-icons'
 const NewsCategoriesIndex = (props) => {
 
   const [toggle, setToggle] = useState(false)
   const [dropDown, setdropDown] = useState(false)
   const [dropName, setdropName] = useState('')
-  const flipWithRotate = keyframes`
-  0% {
-      transform: perspective(400px) scaleX(1);
-  }
-  100% {
-      transform: perspective(400px) scaleX(-1);
-  }
-`;
-const MyStyledComponent = styled.div`
-    animation: ${flipWithRotate} 2s linear infinite;
-`;
-
+ 
   const navigate = useNavigate()
 
   const dropFun = (val) => {
@@ -52,8 +41,7 @@ const MyStyledComponent = styled.div`
             </span>
 
             <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4 ' onClick={() => navigate('/')}>
-            <MyStyledComponent>  <img src={logo} className='w-12  md:w-16 scale-150 zoom-in-out-box' alt="" srcSet=""   /></MyStyledComponent>
-            
+            <img src={logo} className='w-12  md:w-16 scale-150  ' alt="" srcSet=""   /> 
             </span>
 
             {

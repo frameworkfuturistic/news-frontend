@@ -16,7 +16,7 @@ const Footerlayout = () => {
   return (
     <div className='bg-black'>
       <div className='grid grid-cols-12   p-2 m-2  my-2  '>
-       <div className='col-span-3'>
+       <div className='col-span-12 lg:col-span-4'>
          <div>
             <img src={footerlogo} alt="" className='p-2 my-6' />
                <p className='p-3 text-white'>आपका अपने चहेते चैनल "नक्षत्र न्यूज़ हिंदी" में तहे दिल से स्वागत है। ये चैनल आप लोगों के बीच रहना पसंद करता है। राजनीति सहित देश के बड़े मुद्दों पर सवाल करना ही हमारी पहचान है। जन-जन तक की आवाज को हमने देश के कोने-कोने में पहुंचाया है इसी तरीके से आप "नक्षत्र न्यूज़ हिंदी" को प्यार देते रहिए। हम भी बेबाक, बेखौफ बोलते रहेंगे।</p>
@@ -24,7 +24,7 @@ const Footerlayout = () => {
                       <div className='flex'><GoDotFill  className='text-white my-1 mx-1'/> <p className='text-white'>Phone: +91-8271776646</p></div>
                   </div> 
             </div>
-             <div className='col-span-3 my-5'>
+             <div className='col-span-12 lg:col-span-4 my-5'>
                 <div> 
               <div className =" my-2  w-1/2 h-1 bg-red-500     ">
               <div className ="h-px border-red-500  w-full "></div>
@@ -50,7 +50,7 @@ const Footerlayout = () => {
                       <p className='text-white mx-2'>	साहेबगंज : खटिया पर ढोकर 12 किमी की दूरी तय कर मरीजों को…</p>
                   </div>
              </div>
-             <div className='col-span-3 text-white my-6 '>
+             <div className='col-span-12 lg:col-span-4 text-white my-6 '>
               <div> 
               <div className =" my-2  w-1/2 h-1 bg-red-500     ">
               <div className ="h-px border-red-500  w-full "></div>
