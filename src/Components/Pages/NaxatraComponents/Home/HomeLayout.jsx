@@ -82,7 +82,7 @@ const HomeLayout = (props) => {
               </video>
               :
               <img
-                src={props?.data?.bigNews?.image}
+                src={props?.data?.rightMenu?.image}
                 alt="Image"
                 srcset=""
                 className="border h-60 w-full"
