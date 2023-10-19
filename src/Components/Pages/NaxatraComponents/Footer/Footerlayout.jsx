@@ -98,6 +98,7 @@ const Footerlayout = () => {
                  </div>    
                  <div className="h-px w-80 bg-gray-600 my-1"></div>
              </div>
+             {/*
              <div className='col-span-3 text-white my-6'>
           
              <div className='my-8 mx-5 '>
@@ -140,6 +141,7 @@ const Footerlayout = () => {
              </div> 
          
              </div>
+              */}
             </div>
             <div className='h-14 bg-gray-900 w-full flex  flex-row  '>
         <p className='flex text-lg font-normal text-white mx-6 my-2  tex justify-start text-center'>Live Channel </p>

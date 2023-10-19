@@ -119,7 +119,7 @@ const HomeIndex = () => {
   ]
 
   const newsCategoriesMenu = [
-    { title: "Home", path: "/", subMenu: [] },
+    { title: "होम", path: "/", subMenu: [] },
     { title: "मुख्य समाचार", path: "/", subMenu: [] },
     { title: "झारखंड", path: "/", subMenu: [] },
     { title: "बिहार", path: "/", subMenu: [] },
@@ -130,9 +130,9 @@ const HomeIndex = () => {
     { title: "टैकनोलजी", path: "/", subMenu: [] },
     { title: "राशिफल", path: "/", subMenu: [] },
     {title: "धार्मिक", path: "", subMenu: []},
-    {title: "Sports", path: "", subMenu: [
-      {title: "Cricket", path: "#"},
-      {title: "Hockey", path: "#"},
+    {title: "खेल", path: "", subMenu: [
+      {title: "क्रिकेट", path: "#"},
+      {title: "हॉकी", path: "#"},
     ]},
   ]
   // <iframe width="560" height="315" src="https://www.youtube.com/embed/cWTTDvKUFdY?si=OEP67HkZ-RcgDafN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -212,8 +212,8 @@ const HomeIndex = () => {
     rightMenu: 
       {
         header: "",
-        source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        heading: "Durga Puja 2023: चक्रव्यूह को पार कर श्रद्धालु मां का कर पाएंगे दर्शन, बकरी बाजार में दिखेगा भव्य पूजा पंडाल",
+       
+        heading: "Durga Puja  : चक्रव्यूह को पार कर श्रद्धालु मां का कर पाएंगे दर्शन, बकरी बाजार में दिखेगा भव्य पूजा पंडाल",
         content: "रांची : राजधानी रांची में दुर्गा पूजा को लेकर काफी धूम देखा जा रहा है. कई भव्य पंडाल बन रहे हैं जो लोगों को काफी	",
         place: "Kanhaiya Taleja",
         id: 56,
