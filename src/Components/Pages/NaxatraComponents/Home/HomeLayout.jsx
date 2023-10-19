@@ -101,7 +101,7 @@ const HomeLayout = (props) => {
               />
 
               <div className="py-2 text-zinc-700">
-                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.rightMenu?.id)}>
+                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.bigNews?.id, props?.index)}>
                   {props?.data?.bigNews?.heading}
                 </span>
               </div>
@@ -129,7 +129,7 @@ const HomeLayout = (props) => {
                       />
                     </div>
                     <div className="flex flex-col gap-1">
-                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id)}>
+                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id, props?.index)}>
                         {elem?.heading}
                       </span>
                       <span className="text-sm text-zinc-500">{elem?.date}</span>
@@ -151,23 +151,8 @@ const HomeLayout = (props) => {
 
 
               {props?.data?.rightMenu?.type == 'video'
-                ?
+                &&
                 <>
-                  {/* <video
-                  controls
-                  onError={(e) => console.log('Error loading video:', e)}
-                  className={`border ${isPiPMode ? 'pip-mode' : ''}`}
-                  onPlay={() => handleVideoPlay(props.data.rightMenu.source)}
-                >
-                  <source src={props.data.rightMenu.source} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                {isPiPMode && (
-                  <button onClick={handleExitPiPMode}>Exit PiP Mode</button>
-                )}
-                {!isPiPMode && (
-                  <button onClick={handlePiPMode}>Enter PiP Mode</button>
-                )} */}
 
                   <Video
                     data={props?.data?.rightMenu}
@@ -176,16 +161,9 @@ const HomeLayout = (props) => {
                     currentVideo={currentVideo}
                     setCurrentVideo={setCurrentVideo}
                   />
-                  {/* {isPiPMode && (
-                  <button onClick={() => handleExitPiPMode()}>Exit PiP Mode</button>
-                )}
-                {!isPiPMode && (
-                  <button onClick={() => handleEnterPiPMode()}>Enter PiP Mode</button>
-                )} */}
-
                 </>
-                :
-                <img
+                }
+                {props?.data?.rightMenu?.type == 'image' && <img
                   src={props?.data?.bigNews?.image}
                   alt="Image"
                   srcset=""
@@ -193,7 +171,7 @@ const HomeLayout = (props) => {
                 />}
 
               <div className="py-2 text-zinc-700">
-                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.rightMenu?.id)}>
+                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.rightMenu?.id, props?.index)}>
                   {props?.data?.rightMenu?.heading}
                 </span>
               </div>
