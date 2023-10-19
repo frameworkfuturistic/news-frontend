@@ -291,7 +291,7 @@ const CareerForm = (props) => {
     fd.append("permanentAddress", values?.paddress)
     fd.append("isWorking", values?.isWorking)
     fd.append("presentSalary", values?.pSalary)
-    fd.append("salaryDoc", salaryDocument)
+    salaryDocument && fd.append("salaryDoc", salaryDocument)
     fd.append("expectedSalary", values?.eSalary)
     fd.append("companyName", values?.companyName)
     fd.append("rName1", values?.rName1)
@@ -299,7 +299,7 @@ const CareerForm = (props) => {
     fd.append("rMobile1", values?.rMobile1)
     fd.append("rMobile2", values?.rMobile2)
     fd.append("workLink", values?.workLink)
-    fd.append("workVideo", workVideo)
+    workVideo && fd.append("workVideo", workVideo)
     fd.append("remarks", values?.remarks)
 
     setLoader(true)
