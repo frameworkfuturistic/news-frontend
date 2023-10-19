@@ -7,10 +7,10 @@ const HomeLayout = (props) => {
         <div
           className={`max-w-[${props?.wpx}] h-full w-full grid grid-cols-12 md:px-10 gap-8`}
         >
-          {props?.header && (
+          {props?.data?.bigNews?.header && (
             <header className="w-full col-span-12 border-t border-b">
               <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                {props?.header}
+                {props?.data?.bigNews?.header}
               </span>
             </header>
           )}
@@ -64,18 +64,29 @@ const HomeLayout = (props) => {
 
           <div className="col-span-12 md:col-span-4 flex flex-col">
 
-          {props?.data?.rightMenu?.header && (
-            <header className="w-full col-span-12 border-t border-b">
-              <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                {props?.data?.rightMenu?.header}
-              </span>
-            </header>
-          )}
-          
-          <video controls onError={(e) => console.log('Error loading video:', e)} className="border">
-          <source src={props?.data?.rightMenu?.source} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+            {props?.data?.rightMenu?.header && (
+              <header className="w-full col-span-12 border-t border-b">
+                <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
+                  {props?.data?.rightMenu?.header}
+                </span>
+              </header>
+            )}
+
+
+            {props?.data?.rightMenu?.type == 'video'
+              ?
+
+              <video controls onError={(e) => console.log('Error loading video:', e)} className="border">
+                <source src={props?.data?.rightMenu?.source} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              :
+              <img
+                src={props?.data?.bigNews?.image}
+                alt="Image"
+                srcset=""
+                className="border h-60 w-full"
+              />}
 
             <div className="py-2 text-zinc-700">
               <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.rightMenu?.id)}>

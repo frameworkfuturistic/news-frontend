@@ -1,20 +1,32 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '@/Components/assets/logo.webp'
-import { FaXTwitter } from 'react-icons/fa6'
-import { FiFacebook } from 'react-icons/fi'
-import { BsInstagram } from 'react-icons/bs'
-import { FiYoutube } from 'react-icons/fi'
+// import { FaXTwitter } from 'react-icons/fa6'
+// import { FiFacebook } from 'react-icons/fi'
+// import { BsInstagram } from 'react-icons/bs'
+// import { FiYoutube } from 'react-icons/fi'
 import { VscThreeBars } from 'react-icons/vsc'
 import { RxCross2 } from 'react-icons/rx'
 import { BsChevronDown } from 'react-icons/bs'
 import './style.css'
-
+import styled, { keyframes } from 'styled-components';
+import { SocialIcon } from 'react-social-icons'
 const NewsCategoriesIndex = (props) => {
 
   const [toggle, setToggle] = useState(false)
   const [dropDown, setdropDown] = useState(false)
   const [dropName, setdropName] = useState('')
+  const flipWithRotate = keyframes`
+  0% {
+      transform: perspective(400px) scaleX(1);
+  }
+  100% {
+      transform: perspective(400px) scaleX(-1);
+  }
+`;
+const MyStyledComponent = styled.div`
+    animation: ${flipWithRotate} 2s linear infinite;
+`;
 
   const navigate = useNavigate()
 
@@ -39,8 +51,9 @@ const NewsCategoriesIndex = (props) => {
               <VscThreeBars />
             </span>
 
-            <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4' onClick={() => navigate('/')}>
-              <img src={logo} className='w-10 md:w-16 scale-150 zoom-in-out-box' alt="" srcset="" />
+            <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4 ' onClick={() => navigate('/')}>
+            <MyStyledComponent>  <img src={logo} className='w-12  md:w-16 scale-150 zoom-in-out-box' alt="" srcSet=""   /></MyStyledComponent>
+            
             </span>
 
             {
@@ -50,7 +63,7 @@ const NewsCategoriesIndex = (props) => {
                     dropFun(item?.title)
                   }}><span>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
 
-                  {(item?.subMenu?.length > 0 && (dropDown && dropName == item?.title)) && <ul class="block absolute cursor-pointer z-50 animate__animated animate__fadeIn animate__faster" >
+                  {(item?.subMenu?.length > 0 && (dropDown && dropName == item?.title)) && <ul className ="block absolute cursor-pointer z-50 animate__animated animate__fadeIn animate__faster" >
                     {
                       item?.subMenu?.map((elem) => <>
                         <li class="relative cursor-pointer">
@@ -67,10 +80,11 @@ const NewsCategoriesIndex = (props) => {
           </div>
 
           <div className='flex gap-x-4 gap-y-2 text-base md:text-xl items-center'>
-            <span className='cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi")}><FaXTwitter /></span>
-            <span className='cursor-pointer ' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><FiFacebook /></span>
-            <span className='cursor-pointer ' onClick={() => window.open("https://www.instagram.com/", "_blank")}><BsInstagram /></span>
-            <span className='cursor-pointer text-lg md:text-2xl' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><FiYoutube /></span>
+          <span className='cursor-pointer text-lg md:text-2xl' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><SocialIcon url="https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q" /></span>
+            <span className='cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi")}> <SocialIcon url="https://twitter.com" /></span>
+            <span className='cursor-pointer ' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><SocialIcon url="https://www.facebook.com/naxatranewshindi" /></span>
+            <span className='cursor-pointer ' onClick={() => window.open("https://www.instagram.com/", "_blank")}><SocialIcon url="https://www.instagram.com/" /></span>
+       
           </div>
 
         </div>
