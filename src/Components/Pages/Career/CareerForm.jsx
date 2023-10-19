@@ -106,7 +106,8 @@ const CareerForm = (props) => {
         { id: 4, value: "BSc" },
         { id: 5, value: "BCom" },
         { id: 6, value: "Matriculation" },
-        { id: 7, value: "Others" },
+        { id: 7, value: "Mass Communication" },
+        { id: 8, value: "Others" },
       ], okey: 'value', ovalue: 'value', required: true, width: "w-full md:w-[20%]"
     },
 
