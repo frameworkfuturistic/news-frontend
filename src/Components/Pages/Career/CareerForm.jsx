@@ -413,7 +413,18 @@ const CareerForm = (props) => {
           </section>
 
           <footer className=''>
+          {
+                loader ?
+                  <RotatingLines
+                    strokeColor="grey"
+                    strokeWidth="5"
+                    animationDuration="0.75"
+                    width="25"
+                    visible={true}
+                  />
+                  :
             <button type="submit" className={buttonStyle('green')}>Submit</button>
+          }
           </footer>
 
 
