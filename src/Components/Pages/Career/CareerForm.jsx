@@ -106,6 +106,7 @@ const CareerForm = (props) => {
         { id: 4, value: "BSc" },
         { id: 5, value: "BCom" },
         { id: 6, value: "Matriculation" },
+        { id: 7, value: "Others" },
       ], okey: 'value', ovalue: 'value', required: true, width: "w-full md:w-[20%]"
     },
 
@@ -119,9 +120,9 @@ const CareerForm = (props) => {
   // 👉 Work Experience Fields JSON👈
   const workForm = [
     { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
-    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1' },
-    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1' },
-    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1' },
+    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1' , required: true},
+    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1' , required: true },
+    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1' , required: true },
   ]
 
   const expectedForm = [
@@ -290,8 +291,7 @@ const CareerForm = (props) => {
 
     setLoader(true)
 
-    axios
-      .post(apiCareerForm, fd, ApiMultipartHeader)
+    axios.post(apiCareerForm, fd, ApiMultipartHeader)
       .then((res) => {
         // setIsSubmit(res?.data?.status)
         if (res?.data?.status) {
