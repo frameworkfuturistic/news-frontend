@@ -17,7 +17,7 @@ const HomeIndex = () => {
   const {apiGetNewsById} = ApiList()
   
   const [bClose, setBClose] = useState(true)
-  const [pageToggle, setPageToggle] = useState(true)
+  const [pageToggle, setPageToggle] = useState(false)
   const [pageData, setPageData] = useState(
     { bigNews: {
     image: footerImage1,
@@ -314,10 +314,8 @@ const HomeIndex = () => {
     setPageToggle(true)
 
     return;
-
-    console.log(id)
-
-    axios.post(apiGetNewsById, {id: id}, ApiJsonHeader)
+  console.log(id)
+     axios.post(apiGetNewsById, {id: id}, ApiJsonHeader)
     .then((res) => {
       console.log("Page response => ", res)
       if(res?.data?.status){

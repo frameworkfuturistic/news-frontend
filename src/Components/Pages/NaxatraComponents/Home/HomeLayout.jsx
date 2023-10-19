@@ -47,7 +47,7 @@ const HomeLayout = (props) => {
                     <img
                       src={elem?.image}
                       alt="image"
-                      srcset=""
+                      srcSet=""
                       className="border h-14"
                     />
                   </div>
