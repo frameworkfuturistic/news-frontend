@@ -275,7 +275,7 @@ const CareerForm = (props) => {
     fd.append("qualification", values?.qualification)
     fd.append("presentAddress", values?.address)
     fd.append("permanentAddress", values?.paddress)
-    fd.append("isWorking:", values?.isWorking)
+    fd.append("isWorking", values?.isWorking)
     fd.append("presentSalary", values?.pSalary)
     fd.append("salaryDoc", salaryDocument)
     fd.append("expectedSalary", values?.eSalary)
