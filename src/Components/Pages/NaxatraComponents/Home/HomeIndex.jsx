@@ -218,12 +218,12 @@ const HomeIndex = () => {
       rightMenu:
       {
         header: "",
-        source: footerImage1,
-        type: 'image',
+        source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        type: "video",
         heading: "Durga Puja  : चक्रव्यूह को पार कर श्रद्धालु मां का कर पाएंगे दर्शन, बकरी बाजार में दिखेगा भव्य पूजा पंडाल",
         content: "रांची : राजधानी रांची में दुर्गा पूजा को लेकर काफी धूम देखा जा रहा है. कई भव्य पंडाल बन रहे हैं जो लोगों को काफी	",
         place: "Kanhaiya Taleja",
-        id: 56,
+        id: 5,
         date: "Oct 17, 2023",
       }
     },
@@ -336,12 +336,15 @@ const HomeIndex = () => {
   }
 
   return (
-    <div className='relative'>
-      <BrandingIndex wpx={wpx} menu={brandingMenu} />
-      <div className='h-[1.7rem]'></div>
-      <NewsCategoriesIndex wpx={wpx} menu={newsCategoriesMenu} />
-      {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />}
+    <>
+      <div className='fixed top-0 bg-white z-50'>
+        <BrandingIndex wpx={wpx} menu={brandingMenu} />
+        <div className='h-[1.7rem]'></div>
+        <NewsCategoriesIndex wpx={wpx} menu={newsCategoriesMenu} />
+      </div>
 
+      <div className='mt-[140px]'>
+        {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />}
       {
         !pageToggle && data?.map((elem, index) => <>
           <HomeLayout key={index} data={elem} wpx={wpx} getFun={(id) => getDetailFun(id)} />
@@ -353,7 +356,9 @@ const HomeIndex = () => {
       }
 
       <Footerlayout />
-    </div>
+      </div>
+
+    </>
   )
 }
 

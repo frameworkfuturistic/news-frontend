@@ -10,7 +10,7 @@ const BreakingNewsIndex = (props) => {
         <div className={`max-w-[${props?.wpx}] bg-red-600 h-full w-full flex justify-between px-4 py-1 rounded-full font-semibold`} >
             <div className='font-semibold md:text-base text-xs flex'>
             <span className='uppercase italic border-r-2 pr-1 md:mr-2 w-[15%]'>Breaking News</span>
-            <Marquee className='pl-1 md:pl-1 z-0'>राज्यसभा में भी महिला आरक्षण विधेयक पारित, महिला सांसदों ने PM मोदी के साथ मनाया जश्न</Marquee>
+            <Marquee style={{zIndex: 0}} className='pl-1 md:pl-1 z-0'>राज्यसभा में भी महिला आरक्षण विधेयक पारित, महिला सांसदों ने PM मोदी के साथ मनाया जश्न</Marquee>
             </div>
 
             <div className='flex items-center' onClick={() => props?.bClose(false)}>

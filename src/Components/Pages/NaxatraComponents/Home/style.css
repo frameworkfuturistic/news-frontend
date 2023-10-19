@@ -1,0 +1,15 @@
+/* .video-container {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .pip-mode {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+  } */
+  
+
+  video:-webkit-media-controls-enclosure {
+    background-color: transparent; /* Set the background color to transparent */
+  }

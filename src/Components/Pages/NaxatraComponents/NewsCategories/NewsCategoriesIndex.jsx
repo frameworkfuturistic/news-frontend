@@ -41,12 +41,12 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4 ' onClick={() => navigate('/')}>
-            <img src={logo} className='w-12  md:w-16 scale-150  ' alt="" srcSet=""   /> 
+            <img src={logo} className='w-12  md:w-16 scale-[1.7] ' alt="" srcSet=""   /> 
             </span>
 
             {
               props?.menu?.map((item) => <>
-                <span className='text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
+                <span style={{zIndex: 999}} className='text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
                   <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? " " : " ") + ' hover:underline flex gap-1 items-center'} onClick={() => {
                     dropFun(item?.title)
                   }}><span>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
@@ -67,11 +67,11 @@ const NewsCategoriesIndex = (props) => {
 
           </div>
 
-          <div className='flex gap-x-4 gap-y-2 text-base md:text-xl items-center'>
-          <span className='cursor-pointer text-lg md:text-2xl' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><SocialIcon url="https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q" /></span>
-            <span className='cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi")}> <SocialIcon url="https://twitter.com" /></span>
-            <span className='cursor-pointer ' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><SocialIcon url="https://www.facebook.com/naxatranewshindi" /></span>
-            <span className='cursor-pointer ' onClick={() => window.open("https://www.instagram.com/", "_blank")}><SocialIcon url="https://www.instagram.com/" /></span>
+          <div className='flex gap-x-4 gap-y-2 text-base md:text-xl  items-center'>
+          <span className='flex rounded-full cursor-pointer' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q" /></span>
+            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi")}> <SocialIcon className='rounded-full w-4 h-4' url="https://twitter.com" /></span>
+            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.facebook.com/naxatranewshindi" /></span>
+            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://www.instagram.com/", "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.instagram.com/" /></span>
        
           </div>
 

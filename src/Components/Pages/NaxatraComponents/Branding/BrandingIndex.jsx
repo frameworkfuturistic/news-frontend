@@ -38,11 +38,11 @@ const BrandingIndex = (props) => {
         <div className={`max-w-[${props?.wpx}] h-full w-full flex justify-between md:px-10`} >
 
           <div className='flex gap-2 md:gap-4 items-center md:px-0 px-2 md:py-0 py-2'>
-            <span className='text-sm md:block hidden font-semibold cursor-pointer' onClick={() => navigate('/')}>Naxatra</span>
+            <span className=' md:block hidden font-semibold cursor-pointer' onClick={() => navigate('/')}>Naxatra</span>
             {
               props?.menu?.slice(0, 10)?.map((elem, index) =>
                 <>
-                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-xs px-2 drop-shadow-md py-0.5" : " text-xs  font-semibold text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
+                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-sm px-2 drop-shadow-md py-0.5" : " text-sm  font-semibold text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 
