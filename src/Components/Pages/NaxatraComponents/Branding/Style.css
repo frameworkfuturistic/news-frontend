@@ -1,0 +1,18 @@
+.colorChange{
+    animation: mymove 1s infinite;
+}
+
+@keyframes mymove {
+  0% {
+    color: white;
+    background-color: green;
+}
+  50% {
+    color: white;
+    background-color: blue;
+}
+  100% {
+    color: white;
+    background-color: red;
+}
+}

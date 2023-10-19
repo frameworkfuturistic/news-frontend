@@ -7,6 +7,7 @@ import axios from 'axios'
 import { ApiList } from '@/Components/Api/ApiList'
 import { ApiJsonHeader } from '@/Components/Api/ApiJsonHeader'
 import { toast } from 'react-hot-toast'
+import './Style.css'
 
 const BrandingIndex = (props) => {
 
@@ -33,7 +34,7 @@ const BrandingIndex = (props) => {
 
   return (
     <>
-      <div className='w-screen border-b flex justify-center items-center animate__animated animate__slideInDown animate__faster'>
+      <div className='w-screen border-b flex justify-center items-center animate__animated animate__slideInDown animate__faster z-50'>
         <div className={`max-w-[${props?.wpx}] h-full w-full flex justify-between md:px-10`} >
 
           <div className='flex gap-2 md:gap-4 items-center md:px-0 px-2 md:py-0 py-2'>
@@ -41,7 +42,7 @@ const BrandingIndex = (props) => {
             {
               props?.menu?.slice(0, 10)?.map((elem, index) =>
                 <>
-                  <span className='text-xs text-zinc-500 font-semibold cursor-pointer' onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
+                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-xs px-2 drop-shadow-md py-0.5" : " text-xs  font-semibold text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 
