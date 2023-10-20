@@ -133,7 +133,7 @@ const CareerForm = (props) => {
     { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true, width: 'md:w-[15%] w-full' },
     { title: "Reference Name 2", key: 'rName2', type: 'text', width: "", hint: "Enter second reference name", check: "", required: false, width: 'md:w-[15%] w-full' },
     { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false, width: 'md:w-[15%] w-full' },
-    { title: "Work Link URL", key: 'workLink', type: 'text', width: "", hint: "Enter work link url", check: "", required: false, width: 'md:w-[15%] w-full' },
+    { title: "Work Link URL", key: 'workLink', type: 'url', width: "", hint: "Enter work link only url", check: "", required: false, width: 'md:w-[15%] w-full' },
     { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false, width: 'md:w-[15%] w-full' },
   ]
 
