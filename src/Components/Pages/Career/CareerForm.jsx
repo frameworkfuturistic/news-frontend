@@ -123,8 +123,8 @@ const CareerForm = (props) => {
   // 👉 Work Experience Fields JSON👈
   const workForm = [
     { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select isWorking', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
-    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
-    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
+    { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full', required: true },
+    { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full', required: true },
     { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Upload Salary Proof", check: "isWorking", checkValue: '2', width: 'md:w-[15%] w-full' },
   ]
 
