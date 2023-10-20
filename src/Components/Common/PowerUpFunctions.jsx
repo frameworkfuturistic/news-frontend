@@ -309,15 +309,15 @@ export const indianAmount = (value) => {
 //  here file is getting from handleChange of doucment i.e. e.target.files[0]
 export const checkSizeValidation = (file) => {
 
-    const fileType = (file?.name)?.split('.')[(file?.name)?.split('.').length - 1]
+    const fileType = (file?.name)?.split('.')[(file?.name)?.split('.').length - 1]?.toLowerCase()
     const fileSize = (file?.size) / (1024 * 1024)
 
     switch (fileType) {
         case 'jpeg': {
-            if (fileSize <= 1) {
+            if (fileSize <= 2) {
                 return true;
             } else {
-                toast('Image must be less than 1Mb', {
+                toast('Image must be less than 2Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -325,10 +325,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'jpg': {
-            if (fileSize <= 1) {
+            if (fileSize <= 2) {
                 return true;
             } else {
-                toast('Image must be less than 1Mb', {
+                toast('Image must be less than 2Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -336,10 +336,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'png': {
-            if (fileSize <= 1) {
+            if (fileSize <= 2) {
                 return true;
             } else {
-                toast('Image must be less than 1Mb', {
+                toast('Image must be less than 2Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -347,10 +347,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'pdf': {
-            if (fileSize <= 10) {
+            if (fileSize <= 2) {
                 return true;
             } else {
-                toast('PDF must be less than 10Mb', {
+                toast('PDF must be less than 2Mb', {
                     icon: '🔔',
                     duration: 3000
                 })

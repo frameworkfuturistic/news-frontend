@@ -5,7 +5,7 @@ import "../Home/style.css";
 
 const ContentIndex = (props) => {
 
- 
+
   const [isPiPMode, setIsPiPMode] = useState(false);
   // State to track the currently playing video
   const [currentVideo, setCurrentVideo] = useState(null);
@@ -48,36 +48,36 @@ const ContentIndex = (props) => {
   //     setCurrentVideo(data.source);
   //   }
 
-    useEffect(() => {
-      const videoElement = videoRef.current;
+  useEffect(() => {
+    const videoElement = videoRef.current;
 
-      if (videoElement) {
-        const options = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.5,
-        };
+    if (videoElement) {
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5,
+      };
 
-        const handleIntersection = (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsPiPMode(false);
-            } else if (!isPiPMode) {
-              // It's important to call handleEnterPiPMode within a user gesture
-              // Here, we're using the Intersection Observer callback
-              handleEnterPiPMode();
-            }
-          });
-        };
+      const handleIntersection = (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsPiPMode(false);
+          } else if (!isPiPMode) {
+            // It's important to call handleEnterPiPMode within a user gesture
+            // Here, we're using the Intersection Observer callback
+            handleEnterPiPMode();
+          }
+        });
+      };
 
-        const observer = new IntersectionObserver(handleIntersection, options);
-        observer.observe(videoElement);
+      const observer = new IntersectionObserver(handleIntersection, options);
+      observer.observe(videoElement);
 
-        return () => {
-          observer.disconnect();
-        };
-      }
-    }, [props?.data?.rightMenu?.source, isPiPMode]);
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [props?.data?.rightMenu?.source, isPiPMode]);
 
 
   return (
@@ -110,7 +110,7 @@ const ContentIndex = (props) => {
               <img src={props?.data?.bigNews?.image} alt="" srcset="" />
             </div>
             <div className="my-4 mb-6">
-              <span className=" font-semibold">{props?.data?.bigNews?.content?.split(":")[0]}: </span>
+              <span className=" font-semibold">{props?.data?.bigNews?.content?.split(":")[0]} </span>
               <span className="">{props?.data?.bigNews?.content?.split(":")[1]}</span>
             </div>
 
@@ -124,7 +124,7 @@ const ContentIndex = (props) => {
             }
           </div>
 
-          <div className="col-span-12 md:col-span-4 flex flex-col">
+          {/* <div className="col-span-12 md:col-span-4 flex flex-col">
 
             {props?.data?.rightMenu?.header && (
               <header className="w-full col-span-12 border-t border-b">
@@ -134,25 +134,25 @@ const ContentIndex = (props) => {
               </header>
             )}
 
-{props?.data?.rightMenu?.type == 'video'
-                &&
-                <>
+            {props?.data?.rightMenu?.type == 'video'
+              &&
+              <>
 
-                  <Video
-                    data={props?.data?.rightMenu}
-                    isPlaying={currentVideo === props?.data?.rightMenu?.id}
-                    onPlay={handlePlay}
-                    currentVideo={currentVideo}
-                    setCurrentVideo={setCurrentVideo}
-                  />
-                </>
-                }
-                {props?.data?.rightMenu?.type == 'image' && <img
-                  src={props?.data?.bigNews?.image}
-                  alt="Image"
-                  srcset=""
-                  className="border h-60 w-full"
-                />}
+                <Video
+                  data={props?.data?.rightMenu}
+                  isPlaying={currentVideo === props?.data?.rightMenu?.id}
+                  onPlay={handlePlay}
+                  currentVideo={currentVideo}
+                  setCurrentVideo={setCurrentVideo}
+                />
+              </>
+            }
+            {props?.data?.rightMenu?.type == 'image' && <img
+              src={props?.data?.bigNews?.image}
+              alt="Image"
+              srcset=""
+              className="border h-60 w-full"
+            />}
 
             <div className="py-2 text-zinc-700">
               <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.rightMenu?.id)}>
@@ -167,6 +167,84 @@ const ContentIndex = (props) => {
 
             <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
               {props?.data?.rightMenu?.content}
+            </div>
+
+            <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[50vh] mt-10">
+              <header className="w-full col-span-12 border-t border-b">
+                <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
+                  You May Also Like
+                </span>
+              </header>
+
+              <div className=" overflow-y-auto ">
+                {props?.data?.smallNews?.map((elem) => (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <div>
+                        <img
+                          src={elem?.image}
+                          alt="image"
+                          srcset=""
+                          className="border h-14"
+                        />
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id)}>
+                          {elem?.heading}
+                        </span>
+                        <span className="text-sm text-zinc-500">{elem?.date}</span>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
+            </div>
+
+          </div> */}
+
+          <div className="col-span-12 md:col-span-4 flex flex-col">
+
+            {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header && (
+              <header className="w-full col-span-12 border-t border-b">
+                <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
+                  {props?.data?.rightMenu?.header}
+                </span>
+              </header>
+            )}
+
+            {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.type == 'video'
+              ?
+              <>
+
+                <Video
+                  data={props?.data?.rightMenu}
+                  isPlaying={currentVideo === props?.data?.rightMenu?.id}
+                  onPlay={handlePlay}
+                  currentVideo={currentVideo}
+                  setCurrentVideo={setCurrentVideo}
+                />
+              </>
+            :
+             <img
+              src={props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.image}
+              alt="Image"
+              srcset=""
+              className="border h-60 w-full"
+            />}
+
+            <div className="py-2 text-zinc-700">
+              <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.rightMenu?.id)}>
+                {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.heading}
+              </span>
+            </div>
+
+            <div className="text-sm text-gray-500 flex justify-between">
+              <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.author}</span>
+              <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.date}</span>
+            </div>
+
+            <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
+              {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.content}
             </div>
 
             <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[50vh] mt-10">

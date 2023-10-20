@@ -22,7 +22,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { allowCharacterInput, allowCharacterNumberInput, allowMailInput, allowNumberInput, checkErrorMessage, checkSizeValidation, indianAmount, nullToNA } from '@/Components/Common/PowerupFunctions'
+import { allowCharacterInput, allowCharacterNumberInput, allowMailInput, allowNumberInput, checkErrorMessage, checkSizeValidation, getCurrentDate, indianAmount, nullToNA } from '@/Components/Common/PowerupFunctions'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { FiAlertCircle } from 'react-icons/fi'
@@ -30,6 +30,7 @@ import { ApiMultipartHeader } from '@/Components/Api/ApiMultipartHeader'
 import ErrorCard from '@/Components/Common/ErrorCard'
 import { ApiList } from '@/Components/Api/ApiList'
 import { RotatingLines } from 'react-loader-spinner'
+import { BiBadgeCheck } from 'react-icons/bi'
 
 const CareerForm = (props) => {
 
@@ -53,12 +54,12 @@ const CareerForm = (props) => {
   const labelStyle = 'text-gray-800 text-sm'
   // const inputStyle = (key) => {
   //   const style = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
-  //   return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`
+  //   return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`
   // }
 
   // const fileStyle = (key) => {
   //   const style = 'block w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200'
-  //   return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`
+  //   return `${style} ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-500 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`
   // }
 
   const inputStyle = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
@@ -71,7 +72,7 @@ const CareerForm = (props) => {
       key: "appliedFor",
       width: "w-full md:w-[20%]",
       type: 'select',
-      hint: "Enter violation section",
+      hint: "Select Applied For",
       required: true,
       options: [
         { id: 1, value: 'Reporter' },
@@ -96,11 +97,11 @@ const CareerForm = (props) => {
     },
     { title: "Upload Photo", key: "photo", type: 'file', hint: "Upload Photo", required: true, accept: '.jpg, .jpeg, .png', width: "w-full md:w-[20%]" },
     { title: "Name", key: "name", type: 'text', hint: "Enter your name", width: "w-full md:w-[20%]", required: true },
-    { title: "Email", key: "email", type: 'email', hint: "Enter email", required: true, width: "w-full md:w-[20%]", },
-    { title: "Mobile No.", key: "mobile", type: 'text', hint: "Enter mobile no.", required: true, width: "w-full md:w-[20%]", },
-    { title: "DOB", key: "dob", type: 'date', hint: "Enter mobile no.", required: true, width: "w-full md:w-[20%]", },
+    { title: "Email", key: "email", type: 'email', hint: "Enter your email", required: true, width: "w-full md:w-[20%]", },
+    { title: "Mobile No.", key: "mobile", type: 'text', hint: "Enter your mobile no.", required: true, width: "w-full md:w-[20%]", },
+    { title: "DOB", key: "dob", type: 'date', hint: "Enter your dob", required: true, width: "w-full md:w-[20%]", },
     {
-      title: "Qualification", key: "qualification", type: 'select', hint: "Enter mobile no.", options: [
+      title: "Qualification", key: "qualification", type: 'select', hint: "Select qualification", options: [
         { id: 1, value: "Masters" },
         { id: 2, value: "Graduate" },
         { id: 3, value: "BA" },
@@ -121,10 +122,10 @@ const CareerForm = (props) => {
 
   // 👉 Work Experience Fields JSON👈
   const workForm = [
-    { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
+    { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select isWorking', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
     { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
     { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
-    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
+    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Upload Salary Proof", check: "isWorking", checkValue: '2', width: 'md:w-[15%] w-full' },
   ]
 
   const expectedForm = [
@@ -133,8 +134,8 @@ const CareerForm = (props) => {
     { title: "Reference Mobile No.", key: 'rMobile1', type: 'text', width: "", hint: "Enter first reference mobile no.", check: "", required: true, width: 'md:w-[15%] w-full' },
     { title: "Reference Name 2", key: 'rName2', type: 'text', width: "", hint: "Enter second reference name", check: "", required: false, width: 'md:w-[15%] w-full' },
     { title: "Reference Mobile No. 2", key: 'rMobile2', type: 'text', width: "", hint: "Enter second reference mobile no.", check: "", required: false, width: 'md:w-[15%] w-full' },
-    { title: "Work Link URL", key: 'workLink', type: 'text', width: "", hint: "Enter work link url", check: "", required: false, width: 'md:w-[15%] w-full' },
-    { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false, width: 'md:w-[15%] w-full' },
+    { title: "Work Link URL", key: 'workLink', type: 'url', width: "", hint: "Enter work link only url", check: "", required: false, width: 'md:w-[15%] w-full' },
+    // { title: "Work Video", key: 'workVideo', type: 'file', width: "", hint: "Enter work video", check: "", accept: ".mp4, .webm, .mkv", required: false, width: 'md:w-[15%] w-full' },
   ]
 
   // 👉 Formik initial values 👈
@@ -165,17 +166,20 @@ const CareerForm = (props) => {
   // 👉 Formik validation schema 👈
   const schema = yup.object().shape(
     [...basicForm, ...addresForm, ...workForm, ...expectedForm]?.reduce((acc, elem) => {
-      if ((elem?.type != 'select' && elem?.type != 'option') && elem.required && !elem?.check) {
-        acc[elem.key] = yup.string().required(elem.hint);
+      if(elem?.type != 'date'){
+        if ((elem?.type != 'select' && elem?.type != 'option') && elem.required && !elem?.check) {
+          acc[elem.key] = yup.string().required(elem.hint);
+        }
+      } else {
+        acc[elem.key] = yup.string().required(elem.hint)?.max(new Date(getCurrentDate()), "Wrong Date! Re-enter your dob");
       }
       if (elem?.type == 'select' || elem?.type == 'option' || elem?.check) {
         if (elem?.check == 'isWorking') {
           acc[elem.key] = yup.string().when(elem?.check, {
-            is: (value) => value == '1',
+            is: (value) => value == elem?.checkValue,
             then: () => yup.string().required(elem?.hint)
           });
         } else {
-          console.log('first')
           acc[elem.key] = yup.string().required(elem.hint);
         }
       }
@@ -190,10 +194,14 @@ const CareerForm = (props) => {
     validationSchema: schema,
     onSubmit: (values) => {
       submitFun(values)
-      // toast.success('Successfully applied form !!!')
       // navigate('/')
     }
   })
+
+  const checkValidaion = () => {
+    const array = Object.entries(formik.errors).map(([key, value]) => value);
+    array && array?.length > 0 && (toast.error(JSON.stringify(array)), activateBottomErrorCard(true, JSON.stringify(array)))
+  }
 
   console.log("formik", formik.errors, formik.values.isWorking)
 
@@ -201,9 +209,9 @@ const CareerForm = (props) => {
     return (
       <div className={`flex flex-col ${width} `}>
         {title != '' && <label htmlFor={key} className={labelStyle}>{title} {required && <span className='text-red-500 text-xs font-bold'>*</span>} : </label>}
-        {type != 'disabled' && type != 'select' && type != 'file' && <input {...formik.getFieldProps(key)} type={type} className={inputStyle + ` ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`} name={key} id="" placeholder={hint} />}
-        {type != 'disabled' && type == 'file' && <input {...formik.getFieldProps(key)} type={type} className={fileStyle + `${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`} name={key} id="" placeholder={hint} accept={accept} />}
-        {type != 'disabled' && type == 'select' && <select {...formik.getFieldProps(key)} className={inputStyle + ` ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+        {type != 'disabled' && type != 'select' && type != 'file' && <input {...formik.getFieldProps(key)} max={type == 'date' ? getCurrentDate() : null} type={type} className={inputStyle + ` ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`} name={key} id="" placeholder={hint} />}
+        {type != 'disabled' && type == 'file' && <input {...formik.getFieldProps(key)} type={type} className={fileStyle + `${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-500 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`} name={key} id="" placeholder={hint} accept={accept} />}
+        {type != 'disabled' && type == 'select' && <select {...formik.getFieldProps(key)} className={inputStyle + ` ${(formik.touched[key] && formik.errors[key]) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
           <option value="">Select</option>
           {
@@ -245,12 +253,14 @@ const CareerForm = (props) => {
     { name == "eSalary" && formik.setFieldValue("eSalary", allowNumberInput(value, formik.values?.eSalary, 20)) }
     { name == "email" && formik.setFieldValue("email", allowMailInput(value, formik.values?.email, 50)) }
 
-
-
     switch (name) {
       case 'photo': {
 
         let file = e.target.files[0]
+        if (!checkSizeValidation(file)) {
+          formik.setFieldValue('photo', '')
+          return;
+        }
         setProfileDoc(file)
 
       } break;
@@ -260,11 +270,15 @@ const CareerForm = (props) => {
       } break;
       case "salaryDoc": {
         let file = e.target.files[0]
+        if (!checkSizeValidation(file)) {
+          formik.setFieldValue('salaryDoc', '')
+          return;
+        }
         setSalaryDocument(file)
       } break;
       case "addressCheck": {
         let checked = e.target.checked;
-        if(checked){
+        if (checked) {
           formik.setFieldValue('paddress', formik.values.address)
         } else {
           formik.setFieldValue('paddress', '')
@@ -299,7 +313,7 @@ const CareerForm = (props) => {
     fd.append("rMobile1", values?.rMobile1)
     fd.append("rMobile2", values?.rMobile2)
     fd.append("workLink", values?.workLink)
-    workVideo && fd.append("workVideo", workVideo)
+    // workVideo && fd.append("workVideo", workVideo)
     fd.append("remarks", values?.remarks)
 
     setLoader(true)
@@ -309,8 +323,7 @@ const CareerForm = (props) => {
         // setIsSubmit(res?.data?.status)
         if (res?.data?.status) {
           toast.success("Submitted Successfully !!!")
-          // setSubmissionData(res?.data?.data)
-          navigate('/')
+          dialogRef.current.showModal()
         } else {
           activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
         }
@@ -329,7 +342,18 @@ const CareerForm = (props) => {
     <>
 
       {/* 👉 Error Card 👈 */}
-      <ErrorCard activateBottomErrorCard={activateBottomErrorCard} state={errorState} message={errorMessage} />
+      <ErrorCard activateErrorCard={activateBottomErrorCard} status={errorState} message={errorMessage} />
+
+      {loader &&
+        <div className='fixed h-screen w-screen z-50 flex justify-center items-center backdrop-brightness-50 '>
+          <RotatingLines
+            strokeColor="white"
+            strokeWidth="5"
+            animationDuration="0.75"
+            width="55"
+            visible={true}
+          />
+        </div>}
 
       <div className='h-full w-screen flex justify-center relative'>
 
@@ -355,6 +379,8 @@ const CareerForm = (props) => {
           {/* 👉 Basic Details 👈 */}
           <section className='flex gap-4 flex-wrap '>
 
+            <note className="text-sm font-semibold text-slate-100 border px-4 py-1 bg-slate-500">Note: Document must be less than 2Mb</note>
+
             <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Basic Details</header>
 
             {
@@ -375,7 +401,7 @@ const CareerForm = (props) => {
 
             <div className='flex flex-col justify-center w-full md:[5%]'>
               <label htmlFor="" className={labelStyle}>Same As Present Address: </label>
-            <input type="checkbox" name="addressCheck" className={"cursor-pointer form-checkbox h-5 w-5 text-slate-800"} onChange={(e) => handleChange(e)} id="" />
+              <input type="checkbox" name="addressCheck" className={"cursor-pointer form-checkbox h-5 w-5 text-slate-800"} onChange={(e) => handleChange(e)} id="" />
             </div>
 
             {
@@ -408,44 +434,41 @@ const CareerForm = (props) => {
             <header className='w-full text-gray-700 -mb-3 font-semibold font-serif'>Remarks</header>
 
             <div className={`flex flex-col md:w-[40%] w-full `}>
-              <input {...formik.getFieldProps('remarks')} type='text' className={inputStyle + ` ${(formik.touched.remarks && formik.errors.remarks) ? ' border-red-200 placeholder:text-red-400 ' : ' focus:border-zinc-300 border-zinc-200'}`} name='remarks' id="" placeholder='Enter remarks' />
+              <input {...formik.getFieldProps('remarks')} type='text' className={inputStyle + ` ${(formik.touched.remarks && formik.errors.remarks) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`} name='remarks' id="" placeholder='Enter remarks' />
             </div>
 
           </section>
 
           <footer className=''>
-          {
-                loader ?
-                  <RotatingLines
-                    strokeColor="grey"
-                    strokeWidth="5"
-                    animationDuration="0.75"
-                    width="25"
-                    visible={true}
-                  />
-                  :
-            <button type="submit" className={buttonStyle('green')}>Submit</button>
-          }
+            {
+              loader ?
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="25"
+                  visible={true}
+                />
+                :
+                <button onClick={() => checkValidaion()} type="submit" className={buttonStyle('green')}>Submit</button>
+            }
           </footer>
-
 
         </form >
       </div>
 
 
       {/* 👉 Dialog form 👈 */}
-      <dialog ref={dialogRef} className="relative overflow-clip animate__animated animate__zoomIn animate__faster">
-        <div className=' z-50 px-6 py-4 flex flex-col gap-4 '>
-          <div className='flex items-center gap-6'>
-            <span className='text-green-500 p-2 block rounded-full drop-shadow-md shadow-green-300'><FiAlertCircle size={25} /></span>
-            <div className='flex flex-col gap-2'>
-              <span className='text-xl font-semibold border-b pb-1'>Confirmation</span>
-              <span className='text-base'>Are you sure want to approve ?</span>
+      <dialog ref={dialogRef} className="fixed overflow-clip animate__animated animate__zoomIn animate__faster">
+        <div className=' z-50 px-6 py-4 pb-6 flex flex-col gap-4 '>
+          <div className='flex flex-col items-center gap-2'>
+            <span className='text-green-500 p-2 block rounded-full drop-shadow-md shadow-green-300'><BiBadgeCheck size={80} /></span>
+            <div className='flex flex-col gap-2 text-xl font-semibold text-slate-700'>
+              <span>Successfully Applied Naxatra Career Form</span>
             </div>
           </div>
-          <div className='flex justify-end gap-2'>
-            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => dialogRef.current.close()}>No</button>
-            <button className='text-white bg-green-500 hover:bg-green-600 px-4 py-1 text-sm ' onClick={() => editFun()}>Yes</button>
+          <div className='flex justify-center gap-2 mt-4'>
+            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => (dialogRef.current.close(), navigate('/'))}>Close</button>
           </div>
         </div>
       </dialog>

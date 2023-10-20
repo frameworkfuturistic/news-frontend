@@ -69,7 +69,7 @@ const NewsCategoriesIndex = (props) => {
 
           <div className='flex gap-x-4 gap-y-2 text-base md:text-xl  items-center'>
           <span className='flex rounded-full cursor-pointer' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q" /></span>
-            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi")}> <SocialIcon className='rounded-full w-4 h-4' url="https://twitter.com" /></span>
+            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi", "_blank")}> <SocialIcon className='rounded-full w-4 h-4' url="https://twitter.com" /></span>
             <span className='flex rounded-full cursor-pointer ' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.facebook.com/naxatranewshindi" /></span>
             <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://www.instagram.com/", "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.instagram.com/" /></span>
        

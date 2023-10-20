@@ -6,6 +6,7 @@ const ErrorCard = (props) => {
 
     useEffect(() => {
         props?.status ? dialogRef.current.showModal() : dialogRef.current.close()
+        console.log(props?.status)
     },[props?.status])
 
     const closeFun = () => {
@@ -14,7 +15,7 @@ const ErrorCard = (props) => {
     }
 
     return (
-        <dialog ref={dialogRef} className="bg-red-100 border backdrop:backdrop-brightness-75 border-red-400 text-red-700 pl-4 pr-16 py-3 rounded relative shadow-xl" role="alert">
+        <dialog ref={dialogRef} className="fixed animate__animated animate__zoomIn animate__faster bg-red-100 border backdrop:backdrop-brightness-75 border-red-400 text-red-700 pl-4 pr-16 py-3 rounded shadow-xl" role="alert">
             <strong className="font-bold"></strong>
             <span className="block sm:inline">{props?.message}</span>
             <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
