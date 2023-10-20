@@ -32,6 +32,14 @@ const BrandingIndex = (props) => {
     .finally(() => dialogRef.current.close())
   }
 
+  const navigateFun = (path) => {
+    if(path == '/career'){
+      window.open("http://naxatranewshindi.com/career", "_blank")
+    } else {
+      navigate(path)
+    }
+  }
+
   return (
     <>
       <div className='w-screen border-b flex justify-center items-center animate__animated animate__slideInDown animate__faster z-50'>
@@ -42,7 +50,7 @@ const BrandingIndex = (props) => {
             {
               props?.menu?.slice(0, 10)?.map((elem, index) =>
                 <>
-                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-sm px-2 drop-shadow-md py-0.5" : " text-sm  font-semibold text-zinc-500" }`} onClick={() => navigate(elem?.path)} key={index}>{elem?.title}</span>
+                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-sm px-2 drop-shadow-md py-0.5" : " text-sm  font-semibold text-zinc-500" }`} onClick={() => navigateFun(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 
