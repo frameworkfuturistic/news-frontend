@@ -124,7 +124,7 @@ const CareerForm = (props) => {
     { title: "Currently Working", key: 'isWorking', type: 'select', hint: 'Select violation made', options: [{ title: 'Yes', value: '1' }, { title: "No", value: '0' }], okey: 'value', ovalue: 'title', required: true, width: 'md:w-[15%] w-full' },
     { title: "Company Name", key: 'companyName', type: 'text', width: "", hint: "Enter company name", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
     { title: "Present Salary", key: 'pSalary', type: 'text', width: "", hint: "Enter present salary", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
-    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '1', width: 'md:w-[15%] w-full' },
+    { title: "Salary Proof", key: 'salaryDoc', type: 'file', width: "", hint: "Enter witness mobile no.", check: "isWorking", checkValue: '2', width: 'md:w-[15%] w-full' },
   ]
 
   const expectedForm = [
@@ -171,7 +171,7 @@ const CareerForm = (props) => {
       if (elem?.type == 'select' || elem?.type == 'option' || elem?.check) {
         if (elem?.check == 'isWorking') {
           acc[elem.key] = yup.string().when(elem?.check, {
-            is: (value) => value == '1',
+            is: (value) => value == elem?.checkValue,
             then: () => yup.string().required(elem?.hint)
           });
         } else {

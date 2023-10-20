@@ -33,11 +33,11 @@ const BrandingIndex = (props) => {
   }
 
   const navigateFun = (path) => {
-    if(path == '/career'){
-      window.open("http://naxatranewshindi.com/career", "_blank")
-    } else {
+    // if(path == '/career'){
+    //   window.open("http://naxatranewshindi.com/career", "_blank")
+    // } else {
       navigate(path)
-    }
+    // }
   }
 
   return (
