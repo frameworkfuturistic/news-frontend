@@ -71,8 +71,8 @@ const ContentIndex = () => {
 
   useEffect(() => {
 
-      window.scroll(0,-100);
-    
+    window.scroll(0, -100);
+
     const videoElement = videoRef.current;
 
     if (videoElement) {
@@ -107,10 +107,10 @@ const ContentIndex = () => {
   return (
     <>
       {data?.smallNews?.length > 0 &&
-        <div className="w-screen flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
+        <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
 
           <div
-            className={`max-w-[${wpx}] h-full w-full grid grid-cols-12 md:px-10 gap-8`}
+            className={` h-full w-full grid grid-cols-12 md:px-10 gap-8`}
           >
             <div className="w-full col-span-12 -mb-20 -mt-4">
               <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigate('/')}>Back</button>
@@ -270,7 +270,7 @@ const ContentIndex = () => {
                 {data?.smallNews[data?.smallNews?.length - 1]?.content}
               </div>
 
-              <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[50vh] mt-10">
+              <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
                 <header className="w-full col-span-12 border-t border-b">
                   <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
                     You May Also Like
@@ -280,17 +280,15 @@ const ContentIndex = () => {
                 <div className=" overflow-y-auto ">
                   {data?.smallNews?.map((elem) => (
                     <>
-                      <div className="flex items-center gap-2">
-                        <div>
-                          <img
-                            src={elem?.image}
-                            alt="image"
-                            srcset=""
-                            className="border h-14"
-                          />
-                        </div>
-                        <div className="flex flex-col gap-1">
-                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id)}>
+                      <div className="grid grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
+                        <img
+                          src={elem?.image}
+                          alt="image"
+                          srcSet=""
+                          className="border h-14 w-full col-span-4 object-cover bg-cover"
+                        />
+                        <div className="flex flex-col gap-1 col-span-8">
+                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id, props?.index)}>
                             {elem?.heading}
                           </span>
                           <span className="text-sm text-zinc-500">{elem?.date}</span>
