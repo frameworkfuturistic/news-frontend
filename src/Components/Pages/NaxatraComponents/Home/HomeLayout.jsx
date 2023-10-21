@@ -46,148 +46,156 @@ const HomeLayout = (props) => {
   //     setCurrentVideo(data.source);
   //   }
 
-    useEffect(() => {
-      const videoElement = videoRef.current;
+  useEffect(() => {
+    const videoElement = videoRef.current;
 
-      if (videoElement) {
-        const options = {
-          root: null,
-          rootMargin: '0px',
-          threshold: 0.5,
-        };
+    if (videoElement) {
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5,
+      };
 
-        const handleIntersection = (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setIsPiPMode(false);
-            } else if (!isPiPMode) {
-              // It's important to call handleEnterPiPMode within a user gesture
-              // Here, we're using the Intersection Observer callback
-              handleEnterPiPMode();
-            }
-          });
-        };
+      const handleIntersection = (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsPiPMode(false);
+          } else if (!isPiPMode) {
+            // It's important to call handleEnterPiPMode within a user gesture
+            // Here, we're using the Intersection Observer callback
+            handleEnterPiPMode();
+          }
+        });
+      };
 
-        const observer = new IntersectionObserver(handleIntersection, options);
-        observer.observe(videoElement);
+      const observer = new IntersectionObserver(handleIntersection, options);
+      observer.observe(videoElement);
 
-        return () => {
-          observer.disconnect();
-        };
-      }
-    }, [props?.data?.rightMenu?.source, isPiPMode]);
-
-
-    return (
-      <>
-          <div
-            className={`h-full w-full grid grid-cols-12 gap-8 md:px-4 p-2 mb-6 border-b`}
-          >
-            {props?.data?.bigNews?.header && (
-              <header className="w-full col-span-12 border-t border-b">
-                <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                  {props?.data?.bigNews?.header}
-                </span>
-              </header>
-            )}
-
-            <div className="col-span-12 md:col-span-4 flex flex-col">
-              <img
-                src={props?.data?.bigNews?.image}
-                alt="Image"
-                srcset=""
-                className="border h-60 w-full"
-              />
-
-              <div className="py-2 text-zinc-700">
-                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.bigNews?.id, props?.index)}>
-                  {props?.data?.bigNews?.heading}
-                </span>
-              </div>
-
-              <div className="text-sm text-gray-500 flex justify-between">
-                <span>{props?.data?.bigNews?.author}</span>
-                <span>{props?.data?.bigNews?.date}</span>
-              </div>
-
-              <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-                {props?.data?.bigNews?.content}
-              </div>
-            </div>
-
-            <div className="col-span-12 md:col-span-4 flex flex-col gap-6 overflow-y-auto md:h-[45vh]">
-              {props?.data?.smallNews?.map((elem) => (
-                <>
-                  <div className="flex items-center gap-2">
-                    <div>
-                      <img
-                        src={elem?.image}
-                        alt="image"
-                        srcSet=""
-                        className="border h-14"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id, props?.index)}>
-                        {elem?.heading}
-                      </span>
-                      <span className="text-sm text-zinc-500">{elem?.date}</span>
-                    </div>
-                  </div>
-                </>
-              ))}
-            </div>
-
-            <div className="col-span-12 md:col-span-4 flex flex-col">
-
-              {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header && (
-                <header className="w-full col-span-12 border-t border-b">
-                  <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                    {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header}
-                  </span>
-                </header>
-              )}
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [props?.data?.rightMenu?.source, isPiPMode]);
 
 
-              {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.type == 'video'
-                ?
-                <>
+  return (
+    <>
+      <div
+        className={`h-full w-full grid grid-cols-12 gap-8 md:px-4 p-2 py-4 mb-6 border-b ${props?.index % 2 == 0 && 'bg-gray-100'}`}
+      >
+        {props?.data?.bigNews?.header && (
+          <header className="w-full col-span-12 border-t border-b">
+            <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
+              {props?.data?.bigNews?.header}
+            </span>
+          </header>
+        )}
 
-                  <Video
-                    data={props?.data?.rightMenu}
-                    isPlaying={currentVideo === props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.id}
-                    onPlay={handlePlay}
-                    currentVideo={currentVideo}
-                    setCurrentVideo={setCurrentVideo}
-                  />
-                </>
-                :
-                 <img
-                  src={props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.image}
-                  alt="Image"
-                  srcset=""
-                  className="border h-60 w-full"
-                />}
+        <div className="col-span-12 md:col-span-4 flex flex-col">
+          <img
+            src={props?.data?.bigNews?.image}
+            alt="Image"
+            srcset=""
+            className="border h-60 w-full"
+          />
 
-              <div className="py-2 text-zinc-700">
-                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.id, props?.index)}>
-                  {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.heading}
-                </span>
-              </div>
-
-              <div className="text-sm text-gray-500 flex justify-between">
-                <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.author}</span>
-                <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.date}</span>
-              </div>
-
-              <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-                {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.content}
-              </div>
-            </div>
-            
+          <div className="py-2 text-zinc-700">
+            <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.bigNews?.id, props?.index)}>
+              {props?.data?.bigNews?.heading}
+            </span>
           </div>
-      </>
-    );
-  };
 
-  export default HomeLayout;
+          <div className="text-sm text-gray-500 flex justify-between">
+            <span>{props?.data?.bigNews?.author}</span>
+            <span>{props?.data?.bigNews?.date}</span>
+          </div>
+
+          <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
+            {props?.data?.bigNews?.content}
+          </div>
+        </div>
+
+        <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[55vh]">
+
+          <header className="w-full col-span-12 border-t border-b">
+            <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
+              You May Also Like
+            </span>
+          </header>
+
+          <div className="overflow-y-auto">
+            {props?.data?.smallNews?.map((elem) => (
+              <>
+                <div className="grid grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
+                    <img
+                      src={elem?.image}
+                      alt="image"
+                      srcSet=""
+                      className="border h-14 w-full col-span-4 object-cover bg-cover"
+                    />
+                  <div className="flex flex-col gap-1 col-span-8">
+                    <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id, props?.index)}>
+                      {elem?.heading}
+                    </span>
+                    <span className="text-sm text-zinc-500">{elem?.date}</span>
+                  </div>
+                </div>
+              </>
+            ))}
+          </div>
+
+        </div>
+
+        <div className="col-span-12 md:col-span-4 flex flex-col">
+
+          {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header && (
+            <header className="w-full col-span-12 border-t border-b">
+              <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
+                {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header}
+              </span>
+            </header>
+          )}
+
+
+          {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.type == 'video'
+            ?
+            <>
+
+              <Video
+                data={props?.data?.rightMenu}
+                isPlaying={currentVideo === props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.id}
+                onPlay={handlePlay}
+                currentVideo={currentVideo}
+                setCurrentVideo={setCurrentVideo}
+              />
+            </>
+            :
+            <img
+              src={props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.image}
+              alt="Image"
+              srcset=""
+              className="border h-60 w-full"
+            />}
+
+          <div className="py-2 text-zinc-700">
+            <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.id, props?.index)}>
+              {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.heading}
+            </span>
+          </div>
+
+          <div className="text-sm text-gray-500 flex justify-between">
+            <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.author}</span>
+            <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.date}</span>
+          </div>
+
+          <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
+            {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.content}
+          </div>
+        </div>
+
+      </div>
+    </>
+  );
+};
+
+export default HomeLayout;

@@ -70,6 +70,9 @@ const ContentIndex = () => {
   //   }
 
   useEffect(() => {
+
+      window.scroll(0,-100);
+    
     const videoElement = videoRef.current;
 
     if (videoElement) {
