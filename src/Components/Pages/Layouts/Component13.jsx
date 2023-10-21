@@ -12,7 +12,7 @@ useEffect(() => {
   return (
     <>
 
-      <div className='border-t border-b h-[25rem] w-full bg-white flex flex-col md:px-4 px-2 mb-4 md:mb-6'>
+      <div className='border-t border-b h-[25rem] w-full bg-white flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
         <div className='w-full h-[80%]'>
 
@@ -22,6 +22,8 @@ useEffect(() => {
             content={props?.data[0]?.bigNews?.content}
             image={props?.data[0]?.bigNews?.image}
           />
+
+          <span className='text-xs bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>Top News</span>
 
         </div>
 
