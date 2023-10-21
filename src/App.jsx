@@ -15,22 +15,32 @@ import ErrorPage from '@/Components/Pages/Others/404/ErrorPage';
 import Login from './Components/Pages/Others/Login';
 import 'animate.css'
 import CareerForm from './Components/Pages/Career/CareerForm';
+import LayoutIndex from './Components/Pages/Layouts/LayoutIndex';
+import ContentIndex from './Components/Pages/NaxatraComponents/Content/ContentIndex';
+import NavBarRoutes from './Components/Pages/Others/NavBarRoutes';
 
 function App() {
 
   // 👉 State constants 👈
   const [refresh, setrefresh] = useState(0)
+  const wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
   // 👉 Context data (used globally) 👈
   const contextData = {
-    refresh, setrefresh,
+    refresh, setrefresh, 
+    wpx
   }
 
   // 👉 Public Routes Json 👈
   const publicRoutes = [
-    { path: "/", element: <HomeIndex /> },
     { path: "/login", element: <Login /> },
     { path: "/career", element: <CareerForm /> },
+  ]
+
+  const navBarRoutes = [
+    { path: "/", element: <HomeIndex /> },
+    { path: "/layout", element: <LayoutIndex /> },
+    { path: "/news-details/:id/:index?", element: <ContentIndex /> },
   ]
 
   // 👉 Private Routes Json 👈
@@ -158,6 +168,14 @@ function App() {
               <Route key={index} path={elem?.path} element={elem?.element} />
             )
           }
+
+          <Route element={<NavBarRoutes />}>
+          {
+            navBarRoutes?.map((elem, index) =>
+              <Route key={index} path={elem?.path} element={elem?.element} />
+            )
+          }
+          </Route>
 
           <Route element={<ProtectedRoutes />}>
 

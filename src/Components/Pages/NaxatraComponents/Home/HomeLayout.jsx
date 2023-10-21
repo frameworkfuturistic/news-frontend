@@ -80,9 +80,8 @@ const HomeLayout = (props) => {
 
     return (
       <>
-        <div className="w-screen flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-8">
           <div
-            className={`max-w-[${props?.wpx}] h-full w-full grid grid-cols-12 md:px-10 gap-8`}
+            className={`h-full w-full grid grid-cols-12 gap-8 md:px-4 p-2 mb-6 border-b`}
           >
             {props?.data?.bigNews?.header && (
               <header className="w-full col-span-12 border-t border-b">
@@ -187,7 +186,6 @@ const HomeLayout = (props) => {
             </div>
             
           </div>
-        </div>
       </>
     );
   };

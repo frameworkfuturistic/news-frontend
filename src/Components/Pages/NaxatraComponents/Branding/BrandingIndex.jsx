@@ -18,6 +18,13 @@ const BrandingIndex = (props) => {
   const dialogRef = useRef()
   let token = localStorage.getItem('token')
 
+  const brandingMenu = [
+    { title: "Home", path: "/" },
+    { title: "About Us", path: "/" },
+    { title: "Contact Us", path: "/" },
+    { title: "Apply For Job", path: "/career" },
+  ];
+
   const navigate = useNavigate()
 
   const LogOutUser = () => {
@@ -48,13 +55,13 @@ const BrandingIndex = (props) => {
           <div className='flex gap-2 md:gap-4 items-center md:px-0 px-2 md:py-0 py-2'>
             <span className=' md:block hidden font-semibold cursor-pointer' onClick={() => navigate('/')}>Naxatra</span>
             {
-              props?.menu?.slice(0, 10)?.map((elem, index) =>
+              brandingMenu?.slice(0, 10)?.map((elem, index) =>
                 <>
                   <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-sm px-2 drop-shadow-md py-0.5" : " text-sm  font-semibold text-zinc-500" }`} onClick={() => navigateFun(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 
-            {props?.menu?.length > 10 && <span className={`transition-all duration-200 bg-zinc-200 h-full p-2 text-sm cursor-pointer`} onClick={() => setToggle(!toggle)}> <span className={`${toggle ? 'rotate-180 ' : ' '} block transition-all duration-200`}> <FaChevronDown /> </span> </span>}
+            {brandingMenu?.length > 10 && <span className={`transition-all duration-200 bg-zinc-200 h-full p-2 text-sm cursor-pointer`} onClick={() => setToggle(!toggle)}> <span className={`${toggle ? 'rotate-180 ' : ' '} block transition-all duration-200`}> <FaChevronDown /> </span> </span>}
           </div>
 
           <div className='flex items-center'>
@@ -72,7 +79,7 @@ const BrandingIndex = (props) => {
 
             <div className='flex gap-4 items-center'>
               {
-                props?.menu?.slice(10,)?.map((elem, index) =>
+                brandingMenu?.slice(10,)?.map((elem, index) =>
                   <>
                     <span className='text-xs text-zinc-400 font-semibold' key={index}>{elem?.title}</span>
                   </>)

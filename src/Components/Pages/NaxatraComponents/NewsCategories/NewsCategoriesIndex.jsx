@@ -19,6 +19,28 @@ const NewsCategoriesIndex = (props) => {
  
   const navigate = useNavigate()
 
+  const newsCategoriesMenu = [
+    { title: "होम", path: "/", subMenu: [] },
+    { title: "मुख्य समाचार", path: "/", subMenu: [] },
+    { title: "झारखंड", path: "/", subMenu: [] },
+    { title: "बिहार", path: "/", subMenu: [] },
+    { title: "राज्य", path: "/", subMenu: [] },
+    { title: "देश", path: "/", subMenu: [] },
+    { title: "मनोरंजन", path: "/", subMenu: [] },
+    { title: "व्यापार", path: "/", subMenu: [] },
+    { title: "टैकनोलजी", path: "/", subMenu: [] },
+    { title: "राशिफल", path: "/", subMenu: [] },
+    { title: "धार्मिक", path: "", subMenu: [] },
+    {
+      title: "खेल",
+      path: "",
+      subMenu: [
+        { title: "क्रिकेट", path: "#" },
+        { title: "हॉकी", path: "#" },
+      ],
+    },
+  ];
+
   const dropFun = (val) => {
     setdropDown(!dropDown)
     setdropName(val)
@@ -45,7 +67,7 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             {
-              props?.menu?.map((item) => <>
+              newsCategoriesMenu?.map((item) => <>
                 <span style={{zIndex: 999}} className='text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
                   <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? " " : " ") + ' hover:underline flex gap-1 items-center'} onClick={() => {
                     dropFun(item?.title)
@@ -88,7 +110,7 @@ const NewsCategoriesIndex = (props) => {
           </div>
 
           {
-            props?.menu?.map((item) => <>
+            newsCategoriesMenu?.map((item) => <>
               <span className='flex flex-col justify-between text-sm transition-all duration-200'>
                 <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? "bg-blue-800 " : " ") + ` p-2 border-b border-blue-800  ` + 'flex gap-1 items-center'} onClick={() => {
                   dropFun(item?.title)
