@@ -414,7 +414,8 @@ export const newsJson = [
 
       rightMenu: {
         header: "",
-
+        source: "https://youtu.be/bZBLXUz6rFM?si=QEu3fesdahwg5K0I",
+        type:"video",
         heading:
           "Durga Puja  : चक्रव्यूह को पार कर श्रद्धालु मां का कर पाएंगे दर्शन, बकरी बाजार में दिखेगा भव्य पूजा पंडाल",
         content:

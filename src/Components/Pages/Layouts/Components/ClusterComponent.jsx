@@ -33,12 +33,11 @@ const ClusterComponent = ({ data = [], split = '1' }) => {
         }
     },[split])
     
-    console.log(width)
     
     return (
         <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-between`}>
             {
-                data?.slice(0, parseInt(split))?.map((elem, index) =>
+                data?.slice(1, parseInt(split)+1)?.map((elem, index) =>
                     <>
                         <div className={`${width} grid grid-cols-12 border-t border-gray-300 p-2`} key={index}>
                             

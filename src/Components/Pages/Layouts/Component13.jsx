@@ -23,7 +23,7 @@ useEffect(() => {
             image={props?.data[0]?.bigNews?.image}
           />
 
-          <span className='text-xs bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>Top News</span>
+          <span className='text-xs bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>मुख्य समाचार</span>
 
         </div>
 

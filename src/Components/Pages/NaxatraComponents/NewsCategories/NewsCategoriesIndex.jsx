@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '@/Components/assets/logo.webp'
-// import { FaXTwitter } from 'react-icons/fa6'
-// import { FiFacebook } from 'react-icons/fi'
-// import { BsInstagram } from 'react-icons/bs'
-// import { FiYoutube } from 'react-icons/fi'
+import { FaXTwitter } from 'react-icons/fa6'
+import { BsFacebook, BsInstagram, BsYoutube } from 'react-icons/bs'
 import { VscThreeBars } from 'react-icons/vsc'
 import { RxCross2 } from 'react-icons/rx'
 import { BsChevronDown } from 'react-icons/bs'
 import './style.css'
  
-import { SocialIcon } from 'react-social-icons'
-import twitter from '@/Components/assets/twitterIcon.png'
 const NewsCategoriesIndex = (props) => {
 
   const [toggle, setToggle] = useState(false)
@@ -91,10 +87,10 @@ const NewsCategoriesIndex = (props) => {
           </div>
 
           <div className='flex gap-x-4 gap-y-2 text-base md:text-xl  items-center'>
-          <span className='flex rounded-full cursor-pointer' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q" /></span>
-            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi", "_blank")}>  <img src={twitter} className='rounded-full w-11 h-11'  />  </span>
-            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.facebook.com/naxatranewshindi" /></span>
-            <span className='flex rounded-full cursor-pointer ' onClick={() => window.open("https://www.instagram.com/", "_blank")}><SocialIcon className='rounded-full w-4 h-4' url="https://www.instagram.com/" /></span>
+          <span className='flex rounded-full cursor-pointer bg-red-600 p-1.5' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><BsYoutube /></span>
+            <span className='flex rounded-full cursor-pointer bg-black p-1.5 ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi", "_blank")}>  <FaXTwitter  />  </span>
+            <span className='flex rounded-full cursor-pointer bg-white text-blue-700 text-[28px]' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><BsFacebook /></span>
+            <span className='flex rounded-full cursor-pointer bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500  p-1.5' onClick={() => window.open("https://www.instagram.com/", "_blank")}><BsInstagram /></span>
        
           </div>
 
