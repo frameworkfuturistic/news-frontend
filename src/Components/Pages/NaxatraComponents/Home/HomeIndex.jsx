@@ -42,7 +42,7 @@ const HomeIndex = () => {
   return (
     <>
 
-      <Component13 data={newsJson} />
+      <Component13 data={newsJson[0]} />
 
       {
         newsJson?.map((elem, index) => <>

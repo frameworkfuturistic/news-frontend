@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import './style.css'
 import Video from "./Video";
+import VideoIndex from "./VideoIndex";
 
 const HomeLayout = (props) => {
 
@@ -83,35 +84,35 @@ const HomeLayout = (props) => {
       <div
         className={`h-full w-full grid grid-cols-12 gap-8 md:px-4 p-2 py-4 mb-6 border-b ${props?.index % 2 == 0 && 'bg-zinc-50 shadow-sm border-t'}`}
       >
-        {props?.data?.bigNews?.header && (
+        {props?.data?.news?.header && (
           <header className="w-full col-span-12 border-t border-b">
             <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-              {props?.data?.bigNews?.header}
+              {props?.data?.news?.header}
             </span>
           </header>
         )}
 
         <div className="col-span-12 md:col-span-4 flex flex-col">
           <img
-            src={props?.data?.bigNews?.image}
+            src={props?.data?.news?.source}
             alt="Image"
             srcset=""
             className="border h-60 w-full"
           />
 
           <div className="py-2 text-zinc-700">
-            <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.bigNews?.id, props?.index)}>
-              {props?.data?.bigNews?.heading}
+            <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.news?.id, props?.index)}>
+              {props?.data?.news?.heading}
             </span>
           </div>
 
           <div className="text-sm text-gray-500 flex justify-between">
-            <span>{props?.data?.bigNews?.author}</span>
-            <span>{props?.data?.bigNews?.date}</span>
+            <span>{props?.data?.news?.author}</span>
+            <span>{props?.data?.news?.date}</span>
           </div>
 
           <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-            {props?.data?.bigNews?.content}
+            {props?.data?.news?.content}
           </div>
         </div>
 
@@ -124,7 +125,7 @@ const HomeLayout = (props) => {
           </header>
 
           <div className="overflow-y-auto">
-            {props?.data?.smallNews?.map((elem) => (
+            {props?.data?.news?.map((elem) => (
               <>
                 <div className="grid grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
                     <img
@@ -148,48 +149,44 @@ const HomeLayout = (props) => {
 
         <div className="col-span-12 md:col-span-4 flex flex-col">
 
-          {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header && (
+          {props?.data?.news[props?.data?.news?.length - 1]?.header && (
             <header className="w-full col-span-12 border-t border-b">
               <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.header}
+                {props?.data?.news[props?.data?.news?.length - 1]?.header}
               </span>
             </header>
           )}
 
 
-          {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.type == 'video'
+          {props?.data?.news[props?.data?.news?.length - 1]?.type == 'video'
             ?
             <>
 
-              <Video
-                data={props?.data?.rightMenu}
-                isPlaying={currentVideo === props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.id}
-                onPlay={handlePlay}
-                currentVideo={currentVideo}
-                setCurrentVideo={setCurrentVideo}
+              <VideoIndex
+                data={props?.data}
               />
             </>
             :
             <img
-              src={props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.image}
+              src={props?.data?.news[props?.data?.news?.length - 1]?.image}
               alt="Image"
               srcset=""
               className="border h-60 w-full"
             />}
 
           <div className="py-2 text-zinc-700">
-            <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.id, props?.index)}>
-              {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.heading}
+            <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(props?.data?.news[props?.data?.news?.length - 1]?.id, props?.index)}>
+              {props?.data?.news[props?.data?.news?.length - 1]?.heading}
             </span>
           </div>
 
           <div className="text-sm text-gray-500 flex justify-between">
-            <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.author}</span>
-            <span>{props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.date}</span>
+            <span>{props?.data?.news[props?.data?.news?.length - 1]?.author}</span>
+            <span>{props?.data?.news[props?.data?.news?.length - 1]?.date}</span>
           </div>
 
           <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-            {props?.data?.smallNews[props?.data?.smallNews?.length - 1]?.content}
+            {props?.data?.news[props?.data?.news?.length - 1]?.content}
           </div>
         </div>
 

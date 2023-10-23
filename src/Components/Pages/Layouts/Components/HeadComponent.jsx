@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import VideoIndex from '../../NaxatraComponents/Home/VideoIndex'
 
-const HeadComponent = ({heading = '', content = '', image = '', cid = ''}) => {
+const HeadComponent = (props) => {
 
-    const navigate = useNavigate() 
+    const navigate = useNavigate()
 
     return (
         <>
@@ -11,17 +12,22 @@ const HeadComponent = ({heading = '', content = '', image = '', cid = ''}) => {
 
                 <div className="w-[45%] flex flex-col p-4 gap-8">
 
-                    <h1 className='font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${cid}/0`)}>
-                        {heading}
+                    <h1 className='font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/0`)}>
+                        {props?.heading}
                     </h1>
 
                     <p className='text-gray-600 text-ellipsis line-clamp-4'>
-                        {content}
+                        {props?.content}
                     </p>
 
                 </div>
 
-                    <img src={image} alt="" className='p-2 h-full object-cover w-[50%]' srcset="" />
+                {props?.type == 'video' ?
+                    <div className='p-2 h-full object-cover w-[40%]'>
+                        <VideoIndex data={props} className='p-2 h-full object-cover w-[50%]' />
+                    </div>
+                    :
+                    <img src={props?.source} alt="" className='p-2 h-full object-cover w-[50%]' srcset="" />}
 
             </div>
         </>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import VideoIndex from '../../NaxatraComponents/Home/VideoIndex'
 
 const ClusterComponent = ({ data = [], split = '1' }) => {
 
@@ -9,7 +10,7 @@ const ClusterComponent = ({ data = [], split = '1' }) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        switch(split){
+        switch (split) {
             case '1': {
                 setWidth('w-full md:w-[calc(100%/1.2)]')
                 setContainer('w-[100%*1]')
@@ -31,18 +32,23 @@ const ClusterComponent = ({ data = [], split = '1' }) => {
                 setContainer('w-[100%*5]')
             } break;
         }
-    },[split])
-    
-    
+    }, [split])
+
+
     return (
         <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-between`}>
             {
-                data?.slice(1, parseInt(split)+1)?.map((elem, index) =>
+                data?.slice(1, parseInt(split) + 1)?.map((elem, index) =>
                     <>
                         <div className={`${width} grid grid-cols-12 border-t border-gray-300 p-2`} key={index}>
-                            
-                                <img src={elem?.image} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
 
+                            {elem?.type == 'video' ?
+                                <div className='col-span-4 object-contain mx-2 bg-contain h-16'>
+                                    <VideoIndex data={elem} className='p-2 h-full object-cover' />
+                                </div>
+                                :
+                                <img src={elem?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
+                            }
                             <div className="col-span-8">
                                 <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/0`)}>
                                     {elem?.heading}

@@ -8,6 +8,8 @@ const Component13 = (props) => {
 useEffect(() => {
   window.scroll(0,-50);
 },[])
+
+console.log(props?.data?.news[0]?.id)
   
   return (
     <>
@@ -17,10 +19,11 @@ useEffect(() => {
         <div className='w-full h-[80%]'>
 
           <HeadComponent
-            heading={props?.data[0]?.bigNews?.heading}
-            cid={props?.data[0]?.bigNews?.id}
-            content={props?.data[0]?.bigNews?.content}
-            image={props?.data[0]?.bigNews?.image}
+            heading={props?.data?.news[0]?.heading}
+            cid={props?.data?.news[0]?.id}
+            content={props?.data?.news[0]?.sections[0]?.content}
+            source={props?.data?.news[0]?.source}
+            type={props?.data?.news[0]?.type}
           />
 
           <span className='text-xs bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>मुख्य समाचार</span>
@@ -28,7 +31,7 @@ useEffect(() => {
         </div>
 
         <div className=' w-full h-[100px] '>
-            <ClusterComponent data={props?.data[0]?.smallNews} split={'3'} />
+            <ClusterComponent data={props?.data?.news} split={'3'} />
         </div>
 
       </div>

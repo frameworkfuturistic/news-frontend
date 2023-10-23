@@ -7,30 +7,16 @@ import { VscThreeBars } from 'react-icons/vsc'
 import { RxCross2 } from 'react-icons/rx'
 import { BsChevronDown } from 'react-icons/bs'
 import './style.css'
- 
+
 const NewsCategoriesIndex = (props) => {
 
   const [toggle, setToggle] = useState(false)
   const [dropDown, setdropDown] = useState(false)
   const [dropName, setdropName] = useState('')
- 
+
   const navigate = useNavigate()
 
   const newsCategoriesMenu = [
-<<<<<<< HEAD
-    { title: "होम", path: "/", subMenu: [] ,  },
-    { title: "मुख्य समाचार", path: "/", subMenu: [] },
-    { title: "झारखंड", path: "/", subMenu: [] },
-    { title: "बिहार", path: "/", subMenu: [] },
-    { title: "राज्य", path: "/", subMenu: [] },
-    { title: "देश", path: "/", subMenu: [] },
-    { title: "मनोरंजन", path: "/", subMenu: [] },
-    { title: "व्यापार", path: "/", subMenu: [] },
-    { title: " टेक्नोलॉजी ", path: "/", subMenu: [] },
-    { title: "राशिफल", path: "/", subMenu: [] },
-    { title: "धार्मिक", path: "", subMenu: [] },
-=======
-    { title: "होम", route: "/", subMenu: [] },
     { title: "मुख्य समाचार", route: "/", subMenu: [] },
     { title: "झारखंड", route: "/", subMenu: [] },
     { title: "बिहार", route: "/", subMenu: [] },
@@ -41,7 +27,6 @@ const NewsCategoriesIndex = (props) => {
     { title: " टेक्नोलॉजी ", route: "/", subMenu: [] },
     { title: "राशिफल", route: "/", subMenu: [] },
     { title: "धार्मिक", route: "", subMenu: [] },
->>>>>>> 7d38f9d43a588ffb643a714d6ddcaa47cf76fc8d
     {
       title: "खेल",
       route: "",
@@ -74,38 +59,42 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4 ' onClick={() => navigate('/')}>
-            <img src={logo} className='w-12  md:w-16 scale-[1.9] ' alt="" srcSet=""   /> 
+              <img src={logo} className='w-12  md:w-16 scale-[1.9] ' alt="" srcSet="" />
             </span>
+
+            <div style={{ zIndex: 999 }} className=' ml-2 text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
+              <NavLink to={'/'} className={'  hover:underline flex gap-1 items-center '}>होम</NavLink>
+            </div>
 
             {
               newsCategoriesMenu?.map((item) => <>
-                <span style={{zIndex: 999}} className='text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
-                  <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? " " : " ") + ' hover:underline flex gap-1 items-center'} onClick={() => {
+                <div style={{ zIndex: 999 }} className=' text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
+                  <a href={item?.route} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
                     dropFun(item?.title)
-                  }}><span>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
+                  }}><span className='block'>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></a>
 
-                  {(item?.subMenu?.length > 0 && (dropDown && dropName == item?.title)) && <ul className ="block absolute cursor-pointer z-50 animate__animated animate__fadeIn animate__faster" >
+                  {(item?.subMenu?.length > 0 && (dropDown && dropName == item?.title)) && <ul className="block absolute cursor-pointer z-50 animate__animated animate__fadeIn animate__faster" >
                     {
                       item?.subMenu?.map((elem) => <>
                         <li class="relative cursor-pointer">
-                          <NavLink to={elem?.path} className={({ isActive }) => (isActive ? " " : " ") + '  z-50 bg-blue-900 hover:bg-blue-800 text-sm border-b px-2 py-1 flex items-center'} onClick={() => {
-                          }}><span>{elem?.title}</span></NavLink>
+                          <a href={elem?.route} className={'  z-50 bg-blue-900 hover:bg-blue-800 text-sm border-b px-2 py-1 flex items-center'} onClick={() => {
+                          }}><span>{elem?.title}</span></a>
                         </li>
                       </>)
                     }
                   </ul>}
-                </span>
+                </div>
               </>)
             }
 
           </div>
 
           <div className='flex gap-x-4 gap-y-2 text-base md:text-xl  items-center'>
-          <span className='flex rounded-full cursor-pointer bg-red-600 p-1.5' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><BsYoutube /></span>
-            <span className='flex rounded-full cursor-pointer bg-black p-1.5 ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi", "_blank")}>  <FaXTwitter  />  </span>
+            <span className='flex rounded-full cursor-pointer bg-red-600 p-1.5' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><BsYoutube /></span>
+            <span className='flex rounded-full cursor-pointer bg-black p-1.5 ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi", "_blank")}>  <FaXTwitter />  </span>
             <span className='flex rounded-full cursor-pointer bg-white text-blue-700 text-[28px]' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><BsFacebook /></span>
             <span className='flex rounded-full cursor-pointer bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500  p-1.5' onClick={() => window.open("https://www.instagram.com/", "_blank")}><BsInstagram /></span>
-       
+
           </div>
 
         </div>

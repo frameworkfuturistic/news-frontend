@@ -5,6 +5,7 @@ import "../Home/style.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { contextVar } from "@/Components/Context/ContextVar";
 import { newsJson } from "../Home/NewsJson";
+import VideoIndex from "../Home/VideoIndex";
 
 const ContentIndex = () => {
 
@@ -21,12 +22,11 @@ const ContentIndex = () => {
 
   useEffect(() => {
 
-    const filteredNews = newsJson[index]?.smallNews?.filter(item => item?.id == id);
+    const filteredNews = newsJson[index]?.news?.filter(item => item?.id == id);
 
     setdata({
       bigNews: filteredNews[0],
-      smallNews: newsJson[index]?.smallNews,
-      rightMenu: newsJson[index]?.rightMenu
+      smallNews: newsJson[index]?.news,
     });
 
   }, [id, index])
@@ -130,7 +130,12 @@ const ContentIndex = () => {
                 </div>
               </div>
               <div className="flex justify-center">
-                <img src={data?.bigNews?.image} alt="" srcset="" />
+                {
+                  data?.bigNews?.type == 'video' ?
+                    <VideoIndex data={data?.bigNews} />
+                    :
+                    <img src={data?.bigNews?.source} alt="" srcset="" />
+                }
               </div>
               <div className="my-4 mb-6">
                 <span className=" font-semibold">{data?.bigNews?.content?.split(":")[0]} </span>
@@ -147,101 +152,15 @@ const ContentIndex = () => {
               }
             </div>
 
-            {/* <div className="col-span-12 md:col-span-4 flex flex-col">
-
-            {data?.rightMenu?.header && (
-              <header className="w-full col-span-12 border-t border-b">
-                <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                  {data?.rightMenu?.header}
-                </span>
-              </header>
-            )}
-
-            {data?.rightMenu?.type == 'video'
-              &&
-              <>
-
-                <Video
-                  data={data?.rightMenu}
-                  isPlaying={currentVideo === data?.rightMenu?.id}
-                  onPlay={handlePlay}
-                  currentVideo={currentVideo}
-                  setCurrentVideo={setCurrentVideo}
-                />
-              </>
-            }
-            {data?.rightMenu?.type == 'image' && <img
-              src={data?.bigNews?.image}
-              alt="Image"
-              srcset=""
-              className="border h-60 w-full"
-            />}
-
-            <div className="py-2 text-zinc-700">
-              <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(data?.rightMenu?.id)}>
-                {data?.rightMenu?.heading}
-              </span>
-            </div>
-
-            <div className="text-sm text-gray-500 flex justify-between">
-              <span>{data?.rightMenu?.author}</span>
-              <span>{data?.rightMenu?.date}</span>
-            </div>
-
-            <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-              {data?.rightMenu?.content}
-            </div>
-
-            <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[50vh] mt-10">
-              <header className="w-full col-span-12 border-t border-b">
-                <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                  You May Also Like
-                </span>
-              </header>
-
-              <div className=" overflow-y-auto ">
-                {data?.smallNews?.map((elem) => (
-                  <>
-                    <div className="flex items-center gap-2">
-                      <div>
-                        <img
-                          src={elem?.image}
-                          alt="image"
-                          srcset=""
-                          className="border h-14"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id)}>
-                          {elem?.heading}
-                        </span>
-                        <span className="text-sm text-zinc-500">{elem?.date}</span>
-                      </div>
-                    </div>
-                  </>
-                ))}
-              </div>
-            </div>
-
-          </div> */}
-
             <div className="col-span-12 md:col-span-4 flex flex-col">
-
-              {data?.smallNews[data?.smallNews?.length - 1]?.header && (
-                <header className="w-full col-span-12 border-t border-b">
-                  <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
-                    {data?.rightMenu?.header}
-                  </span>
-                </header>
-              )}
 
               {data?.smallNews[data?.smallNews?.length - 1]?.type == 'video'
                 ?
                 <>
 
                   <Video
-                    data={data?.rightMenu}
-                    isPlaying={currentVideo === data?.rightMenu?.id}
+                    data={data?.smallNews[data?.smallNews?.length - 1]}
+                    isPlaying={currentVideo === data?.smallNews[data?.smallNews?.length - 1]?.id}
                     onPlay={handlePlay}
                     currentVideo={currentVideo}
                     setCurrentVideo={setCurrentVideo}
@@ -249,7 +168,7 @@ const ContentIndex = () => {
                 </>
                 :
                 <img
-                  src={data?.smallNews[data?.smallNews?.length - 1]?.image}
+                  src={data?.smallNews[data?.smallNews?.length - 1]?.source}
                   alt="Image"
                   srcset=""
                   className="border h-60 w-full"
@@ -281,12 +200,21 @@ const ContentIndex = () => {
                   {data?.smallNews?.map((elem) => (
                     <>
                       <div className="grid grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
-                        <img
-                          src={elem?.image}
-                          alt="image"
-                          srcSet=""
-                          className="border h-14 w-full col-span-4 object-cover bg-cover"
-                        />
+
+                        {
+                          elem?.type == 'video'
+                            ?
+                            <div className=" h-14 w-full col-span-4 object-cover bg-cover">
+                              <VideoIndex data={elem} />
+                            </div>
+                            :
+                            <img
+                              src={elem?.source}
+                              alt="image"
+                              srcSet=""
+                              className="border h-14 w-full col-span-4 object-cover bg-cover"
+                            />
+                        }
                         <div className="flex flex-col gap-1 col-span-8">
                           <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id, props?.index)}>
                             {elem?.heading}

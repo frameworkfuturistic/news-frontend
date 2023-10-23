@@ -51,10 +51,12 @@ import Bjpghosnaweer from "@/Components/assets/Bjp ghosnaweer.jpeg";
 
 export const newsJson = [
   {
-    category: '',
+    category: 'Top-News',
     news: [
       {
-        image: todaysbannagupta,
+        // source: todaysbannagupta,
+        source: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+        type: 'video',
         heading:
           "झारखंड में नेता प्रतिपक्ष मिलने के बाद से आयोग में नियुक्ति का रास्ता हुआ साफ    ",
         sections: [
@@ -69,7 +71,7 @@ export const newsJson = [
         date: "Oct 19, 2023",
       },
       {
-        image: stationRoad,
+        source: stationRoad,
         heading:
           " Durga Puja 2023: जननी व जन्मभूमि की थीम पर बना रांची रेलवे स्टेशन पूजा पंडाल ",
         id: 2,
@@ -84,7 +86,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: jharkhandpolice,
+        source: jharkhandpolice,
         heading:
           "कुमार गौरव बने रांची के ट्रैफिक एसपी, 23 आईपीएस अधिकारियों की ट्रांसफर-पोस्टिंग",
         sections: [
@@ -99,7 +101,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: Orrisaweather,
+        source: Orrisaweather,
         heading:
           "Weather Update :  पर्व त्योहार में साफ रहेगा मौसम, पहाडों की ठंडी हवाओं का होगा आगमन ",
         sections: [
@@ -114,7 +116,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: OrmanjhiZoo,
+        source: OrmanjhiZoo,
         heading: "PVUNL ने बिरसा जू में एशियाई शेरों को लिया गोद",
         sections: [
           {
@@ -127,7 +129,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: Rojgaaryozna,
+        source: Rojgaaryozna,
         heading:
           "मुख्यमंत्री रोजगार सृजन योजना के लाभुक को गोड्डा डीसी ने सौंपी स्कॉर्पियो की चाबी",
         sections: [
@@ -142,7 +144,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: smartcityhospital,
+        source: smartcityhospital,
         heading:
           "रांची स्मार्ट सिटी अपोलो मल्टी सुपर स्पेशियलिटी हॉस्पिटल का होगा निर्माण, सीएम ने भूमि पूजन का दिया निर्देश ",
         sections: [
@@ -156,7 +158,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: vishnupandal,
+        source: vishnupandal,
         heading:
           "भगवान विष्णु के 9 रूपों को देखना है तो कोकर के बांधगाड़ी पूजा पंडाल आइए",
         sections: [
@@ -171,7 +173,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: bannagupta,
+        source: bannagupta,
         heading:
           "डेंटल काउंसिल ऑफ झारखंड के कार्यों की जांच की मांग, यूथ कांग्रेस ने मंत्री बन्ना गुप्ता को सौंपा ज्ञापन",
         sections: [
@@ -186,7 +188,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: Policealert,
+        source: Policealert,
         heading:
           "रांची: दुर्गापूजा को लेकर पुलिस अलर्ट, उपद्रवियों से निपटने के लिए किया मॉक ड्रिल",
         sections: [
@@ -201,7 +203,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: transferorder,
+        source: transferorder,
         heading:
           "झारखंड प्रशासनिक सेवा के 20 अधिकारियों की ट्रांसफर-पोस्टिंग, जानें कौन कहां गये",
         sections: [
@@ -216,7 +218,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: todayhemant,
+        source: todayhemant,
         heading:
           "Durga Puja 2023: सीएम हेमंत सोरेन ने माता रानी से राज्य वासियों के लिए सुख-समृद्धि की कामना की",
         sections: [
@@ -231,7 +233,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: garbanight,
+        source: garbanight,
         heading:
           "रांची में  डांडिया और गरबा की धूम पर जमकर थिरके लोग",
         sections: [
@@ -246,7 +248,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: breakingnewslive,
+        source: breakingnewslive,
         heading:
           "Jharkhand Breaking News Live : लातेहार में 5 लाख का इनामी सबजोनल कमांडर गिरफ्तार ",
         sections: [
@@ -261,7 +263,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: moditrain,
+        source: moditrain,
         heading:
           "देश को मिली पहली रैपिड ट्रेन नमो भारत, जानिए क्या होंगी सुविधाएं",
         sections: [
@@ -276,7 +278,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: jharkhandpolice,
+        source: jharkhandpolice,
         heading:
           "झारखंड हाईकोर्ट जज के बॉडीगार्ड की गोली लगने से मौत ",
         sections: [
@@ -291,7 +293,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: breakingnewslive,
+        source: breakingnewslive,
         heading:
           "Jharkhand Breaking News Live : लातेहार में 5 लाख का इनामी सबजोनल कमांडर गिरफ्तार ",
         sections: [
@@ -306,7 +308,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: jharkhandpolice,
+        source: jharkhandpolice,
         heading:
           "पांच लाख का इनामी सबजोनल कमांडर समेत दो नक्सली गिरफ्तार",
         sections: [
@@ -321,7 +323,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: todaysbannagupta,
+        source: todaysbannagupta,
         heading:
           "झारखंड में नेता प्रतिपक्ष मिलने के बाद से आयोग गठन का रास्ता हुआ साफ     ",
         sections: [
@@ -336,7 +338,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: nidasyalya,
+        source: nidasyalya,
         heading:
           "शराब कारोबारी योगेंद्र तिवारी से 8 दिनों तक ईडी करेगी पूछताछ  ",
         sections: [
@@ -351,7 +353,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: yamunaexpress,
+        source: yamunaexpress,
         heading:
           "यमुना एक्सप्रेसवे पर हादसा, पलामू में रहने वाले पांच लोगों की मौत ",
         sections: [
@@ -366,7 +368,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: zaepnews,
+        source: zaepnews,
         heading:
           "जैप-1 में सप्तमी के दिन फूलपाती शोभा यात्रा बना आकर्षण का केंद्र ",
         sections: [
@@ -381,7 +383,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: sansmarandiwas,
+        source: sansmarandiwas,
         heading:
           "झारखंड पुलिस ने संस्मरण दिवस पर शहीदों को दी श्रद्धांजलि  ",
         sections: [
@@ -396,7 +398,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: Bjpghosnaweer,
+        source: Bjpghosnaweer,
         heading:
           "बीजेपी ने हेमंत सोरेन को कहा घोषणावीर, प्रतुल शाहदेव ने लगाए कई आरोप",
         sections: [
@@ -411,7 +413,7 @@ export const newsJson = [
         date: "Oct., 2023",
       },
       {
-        image: kodarmanews,
+        source: kodarmanews,
         heading:
           "कोडरमा में 70 से ज्यादा लोग बीमार, जानें कारण ",
         sections: [
@@ -432,7 +434,7 @@ export const newsJson = [
     category: '',
     news: [
       {
-        image: Ajsuprty,
+        source: Ajsuprty,
         heading:
           "पूर्व आईएएस अधिकारी ब्रज मोहन कुमार आजसू पार्टी में हुए शामिल   ",
         content: "",
@@ -448,55 +450,55 @@ export const newsJson = [
         date: "Oct 19, 2023",
       },
       {
-        image: footerimg3,
+        source: footerimg3,
         heading: "रांची के हरमू मैदान में 28 अक्टूबर को बीजेपी की संकल्प ",
         id: 13,
         date: "Oct., 2023",
       },
       {
-        image: footerimg2,
+        source: footerimg2,
         heading: "साहेबगंज : खटिया पर ढोकर 12 किमी की दूरी तय कर मरीजों को",
         id: 14,
         date: "Oct., 2023",
       },
       {
-        image: footerimg3,
+        source: footerimg3,
         heading: "Jharkhand Breaking News Live: हजारीबाग के लौटवा डैम में ",
         id: 15,
         date: "Oct., 2023",
       },
       {
-        image: footerimg2,
+        source: footerimg2,
         heading: "सीएम हेमंत सोरेन ने 827 शिक्षकों को सौंपा नियुक्ति पत्र",
         id: 16,
         date: "Oct., 2023",
       },
       {
-        image: footerimg3,
+        source: footerimg3,
         heading: "बाबूलाल मरांडी का हेमंत सोरेन पर निशाना, पूर्व आईएएस विजय",
         id: 17,
         date: "Oct., 2023",
       },
       {
-        image: footerimg2,
+        source: footerimg2,
         heading: "Jharkhand Breaking News Live: सीएम हेमंत सोरेन ने 827",
         id: 18,
         date: "Oct., 2023",
       },
       {
-        image: footerimg3,
+        source: footerimg3,
         heading: "अमर कुमार बाउरी बने झारखंड बीजेपी विधायक दल के नेता, जेपी",
         id: 19,
         date: "Oct., 2023",
       },
       {
-        image: footerimg2,
+        source: footerimg2,
         heading: "बीजेपी की संकल्प यात्रा के समापन पर चर्चा, रांची में",
         id: 20,
         date: "Oct., 2023",
       },
       {
-        image: footerimg3,
+        source: footerimg3,
         heading: "विनिता घोष वतन वापस आई, इजरायल में युद्ध के बीच फंसी थी",
         id: 21,
         date: "Oct., 2023",
