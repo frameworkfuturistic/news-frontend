@@ -17,23 +17,20 @@ const NewsCategoriesIndex = (props) => {
   const navigate = useNavigate()
 
   const newsCategoriesMenu = [
-    { title: "मुख्य समाचार", route: "/", subMenu: [] },
-    { title: "झारखंड", route: "/", subMenu: [] },
-    { title: "बिहार", route: "/", subMenu: [] },
-    { title: "राज्य", route: "/", subMenu: [] },
-    { title: "देश", route: "/", subMenu: [] },
-    { title: "मनोरंजन", route: "/", subMenu: [] },
-    { title: "व्यापार", route: "/", subMenu: [] },
-    { title: " टेक्नोलॉजी ", route: "/", subMenu: [] },
-    { title: "राशिफल", route: "/", subMenu: [] },
-    { title: "धार्मिक", route: "", subMenu: [] },
+    { title: "मुख्य समाचार", route: "MukhyaSamachar", subMenu: [] },
+    { title: "झारखंड", route: "Jharkhand", subMenu: [] },
+    { title: "बिहार", route: "Bihar", subMenu: [] },
+    { title: "राज्य", route: "Rajya", subMenu: [] },
+    { title: "देश", route: "Desh", subMenu: [] },
+    { title: "मनोरंजन", route: "Manoranjan", subMenu: [] },
+    { title: "व्यापार", route: "Vyapaar", subMenu: [] },
+    { title: " टेक्नोलॉजी ", route: "Technology", subMenu: [] },
+    { title: "राशिफल", route: "Rashifal", subMenu: [] },
+    { title: "धार्मिक", route: "Dharmik", subMenu: [] },
     {
       title: "खेल",
-      route: "",
-      subMenu: [
-        { title: "क्रिकेट", route: "#" },
-        { title: "हॉकी", route: "#" },
-      ],
+      route: "Khel",
+      subMenu: [],
     },
   ];
 
@@ -69,7 +66,7 @@ const NewsCategoriesIndex = (props) => {
             {
               newsCategoriesMenu?.map((item) => <>
                 <div style={{ zIndex: 999 }} className=' text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
-                  <a href={item?.route} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
+                  <a href={`#${item?.route}`} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
                     dropFun(item?.title)
                   }}><span className='block'>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></a>
 

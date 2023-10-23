@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import VideoIndex from '../../NaxatraComponents/Home/VideoIndex'
 
-const ClusterComponent = ({ data = [], split = '1' }) => {
+const ClusterComponent = ({ data = [], split = '1', index='0' }) => {
 
     const [width, setWidth] = useState('w-full md:w-full')
     const [container, setContainer] = useState('w-full')
@@ -50,7 +50,7 @@ const ClusterComponent = ({ data = [], split = '1' }) => {
                                 <img src={elem?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
                             }
                             <div className="col-span-8">
-                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/0`)}>
+                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/${index}`)}>
                                     {elem?.heading}
                                 </h1>
                             </div>

@@ -12,7 +12,7 @@ const HeadComponent = (props) => {
 
                 <div className="w-[45%] flex flex-col p-4 gap-8">
 
-                    <h1 className='font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/0`)}>
+                    <h1 className='font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/${props?.index}`)}>
                         {props?.heading}
                     </h1>
 

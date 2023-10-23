@@ -33,8 +33,6 @@ const HomeIndex = () => {
     axios.post(apiGetNews, {}, ApiJsonHeader).then((res) => {
       console.log("Page response => ", res);
       if (res?.data?.status) {
-        setPageData(res?.data?.data);
-        setPageToggle(true);
       }
     });
   },[])
@@ -42,13 +40,20 @@ const HomeIndex = () => {
   return (
     <>
 
-      <Component13 data={newsJson[0]} />
+    {
+      newsJson?.map((elem, index) => 
+      <>
+        {elem?.news?.length > 0 && <Component13 key={index} index={index} data={elem} />}
+      </>)
+    }
 
-      {
+      
+
+      {/* {
         newsJson?.map((elem, index) => <>
           <HomeLayout key={index} index={index} data={elem} wpx={wpx} getFun={(id, index) => getDetailFun(id, index)} />
         </>)
-      }
+      } */}
 
     </>
   )
