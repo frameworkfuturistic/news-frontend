@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomeLayout from "./HomeLayout";
 import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
@@ -8,7 +8,7 @@ import { newsJson } from "./NewsJson";
 import Component13 from "../../Layouts/Component13";
 
 const HomeIndex = () => {
-  const { apiGetNewsById } = ApiList();
+  const { apiGetNewsById, apiGetNews   } = ApiList();
 
   let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
@@ -28,6 +28,16 @@ const HomeIndex = () => {
       }
     });
   };
+
+  useEffect(() => {
+    axios.post(apiGetNews, {}, ApiJsonHeader).then((res) => {
+      console.log("Page response => ", res);
+      if (res?.data?.status) {
+        setPageData(res?.data?.data);
+        setPageToggle(true);
+      }
+    });
+  },[])
 
   return (
     <>

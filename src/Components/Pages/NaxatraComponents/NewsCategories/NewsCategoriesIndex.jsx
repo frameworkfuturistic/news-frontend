@@ -17,23 +17,23 @@ const NewsCategoriesIndex = (props) => {
   const navigate = useNavigate()
 
   const newsCategoriesMenu = [
-    { title: "होम", path: "/", subMenu: [] },
-    { title: "मुख्य समाचार", path: "/", subMenu: [] },
-    { title: "झारखंड", path: "/", subMenu: [] },
-    { title: "बिहार", path: "/", subMenu: [] },
-    { title: "राज्य", path: "/", subMenu: [] },
-    { title: "देश", path: "/", subMenu: [] },
-    { title: "मनोरंजन", path: "/", subMenu: [] },
-    { title: "व्यापार", path: "/", subMenu: [] },
-    { title: " टेक्नोलॉजी ", path: "/", subMenu: [] },
-    { title: "राशिफल", path: "/", subMenu: [] },
-    { title: "धार्मिक", path: "", subMenu: [] },
+    { title: "होम", route: "/", subMenu: [] },
+    { title: "मुख्य समाचार", route: "/", subMenu: [] },
+    { title: "झारखंड", route: "/", subMenu: [] },
+    { title: "बिहार", route: "/", subMenu: [] },
+    { title: "राज्य", route: "/", subMenu: [] },
+    { title: "देश", route: "/", subMenu: [] },
+    { title: "मनोरंजन", route: "/", subMenu: [] },
+    { title: "व्यापार", route: "/", subMenu: [] },
+    { title: " टेक्नोलॉजी ", route: "/", subMenu: [] },
+    { title: "राशिफल", route: "/", subMenu: [] },
+    { title: "धार्मिक", route: "", subMenu: [] },
     {
       title: "खेल",
-      path: "",
+      route: "",
       subMenu: [
-        { title: "क्रिकेट", path: "#" },
-        { title: "हॉकी", path: "#" },
+        { title: "क्रिकेट", route: "#" },
+        { title: "हॉकी", route: "#" },
       ],
     },
   ];
