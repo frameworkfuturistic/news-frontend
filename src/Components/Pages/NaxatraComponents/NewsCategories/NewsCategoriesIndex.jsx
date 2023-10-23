@@ -17,7 +17,7 @@ const NewsCategoriesIndex = (props) => {
   const navigate = useNavigate()
 
   const newsCategoriesMenu = [
-    { title: "होम", path: "/", subMenu: [] },
+    { title: "होम", path: "/", subMenu: [] ,  },
     { title: "मुख्य समाचार", path: "/", subMenu: [] },
     { title: "झारखंड", path: "/", subMenu: [] },
     { title: "बिहार", path: "/", subMenu: [] },
@@ -60,7 +60,7 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             <span className='md:pl-0 pl-2 text-sm font-semibold cursor-pointer relative md:px-4 ' onClick={() => navigate('/')}>
-            <img src={logo} className='w-12  md:w-16 scale-[1.7] ' alt="" srcSet=""   /> 
+            <img src={logo} className='w-12  md:w-16 scale-[1.9] ' alt="" srcSet=""   /> 
             </span>
 
             {
@@ -102,7 +102,7 @@ const NewsCategoriesIndex = (props) => {
         <div className='w-[60%] h-full bg-blue-900 animate__animated animate__slideInLeft animate__faster text-zinc-50 '>
 
           <div className='flex justify-between items-center border-b border-blue-800 p-2'>
-            <span><img src={logo} className='w-10 md:w-16 drop-shadow-md' alt="" srcset="" /></span>
+            <span><img src={logo} className='w-10 md:w-16 drop-shadow-md' alt="" srcSet="" /></span>
             <span onClick={() => setToggle(false)} className='text-xl'><RxCross2 /></span>
           </div>
 
