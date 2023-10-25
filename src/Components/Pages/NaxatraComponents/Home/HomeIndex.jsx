@@ -43,7 +43,11 @@ const HomeIndex = () => {
 
     if(type){
       let data = newsJson?.filter(item => item?.categoryId == type)
-      setnewsData(data)
+      if(data[0]?.news?.length == 0){
+        setnewsData(newsJson)
+      } else {
+        setnewsData(data)
+      }
     } else {
       setnewsData(newsJson)
     }

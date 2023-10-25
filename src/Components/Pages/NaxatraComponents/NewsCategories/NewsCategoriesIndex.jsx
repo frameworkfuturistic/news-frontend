@@ -66,7 +66,7 @@ const NewsCategoriesIndex = (props) => {
             {
               newsCategoriesMenu?.map((item) => <>
                 <div style={{ zIndex: 999 }} className=' text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
-                  <NavLink href={`#${item?.route}`} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
+                  <NavLink to={`${item?.route}`} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
                     dropFun(item?.title)
                   }}><span className='block'>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
 
