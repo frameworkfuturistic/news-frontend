@@ -61,7 +61,7 @@ const HomeIndex = () => {
     {
       newsData?.length > 0 && newsData?.map((elem, index) => 
       <>
-        {elem?.news?.length > 0 && <Component13 key={index} index={index} data={elem} />}
+        {elem?.news?.length > 0 && <Component13 key={index} data={elem} />}
       </>)
     }
 

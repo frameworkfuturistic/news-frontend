@@ -22,7 +22,7 @@ const Component13 = (props) => {
         <div className='w-full h-[80%]'>
 
           <HeadComponent
-            index={props?.index}
+            categoryId={props?.data?.categoryId}
             heading={props?.data?.news[0]?.heading}
             cid={props?.data?.news[0]?.id}
             content={props?.data?.news[0]?.sections[0]?.content}
@@ -35,7 +35,7 @@ const Component13 = (props) => {
         </div>
 
         <div className=' w-full h-[100px] '>
-          <ClusterComponent index={props?.index} data={props?.data?.news} split={'3'} />
+          <ClusterComponent categoryId={props?.data?.categoryId} data={props?.data?.news} split={'3'} />
         </div>
 
       </div>
@@ -70,7 +70,7 @@ const Component13 = (props) => {
                         />
                     }
                     <div className="flex flex-col gap-1 col-span-8">
-                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${props?.index}`)}>
+                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${props?.data?.categoryId}`)}>
                         {elem?.heading}
                       </span>
                       <span className="text-sm text-zinc-500">{elem?.date}</span>

@@ -54,7 +54,7 @@ const ClusterComponent = (props) => {
                                 <img src={elem?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
                             }
                             <div className="col-span-8">
-                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/${props?.index}`)}>
+                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/${props?.categoryId}`)}>
                                     {elem?.heading}
                                 </h1>
                             </div>
