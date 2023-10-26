@@ -82,8 +82,8 @@ const HomeLayout = (props) => {
   return (
     <>
       <div
-        className={`h-full w-full grid grid-cols-12 gap-8 md:px-4 p-2 py-4 mb-6 border-b ${props?.index % 2 == 0 && 'bg-zinc-50 shadow-sm border-t'}`}
-      >
+        className={`h-full w-full grid grid-cols-12 gap-8 md:px-4 p-2 py-4 mb-6 border-b ${props?.index % 2 == 0 && 'bg-zinc-50 shadow-sm border-t'}`} 
+        >
         {props?.data?.news?.header && (
           <header className="w-full col-span-12 border-t border-b">
             <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
