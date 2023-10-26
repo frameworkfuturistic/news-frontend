@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { newsJson } from "./NewsJson";
 import Component13 from "../../Layouts/Component13";
 import { useState } from "react";
+import MukhyaSamachar from "../../Layouts/MukhyaSamachar";
 
 const HomeIndex = () => {
   const { apiGetNewsById, apiGetNews   } = ApiList();
@@ -58,12 +59,20 @@ const HomeIndex = () => {
   return (
     <>
 
-    {
-      newsData?.length > 0 && newsData?.map((elem, index) => 
+{
+      newsData?.length > 0 && newsData?.filter(item => item?.categoryId == 'MukhyaSamachar')?.map((elem, index) => 
       <>
-        {elem?.news?.length > 0 && <Component13 key={index} data={elem} />}
+        {elem?.news?.length > 0 && <MukhyaSamachar ind={index} key={index} data={elem} />}
       </>)
     }
+    
+    {
+      newsData?.length > 0 && newsData?.filter(item => item?.categoryId != 'MukhyaSamachar')?.map((elem, index) => 
+      <>
+        {elem?.news?.length > 0 && <Component13 ind={index} key={index} data={elem} />}
+      </>)
+    }
+
 
       
 

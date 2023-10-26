@@ -9,6 +9,8 @@ const Component13 = (props) => {
 
   const navigate = useNavigate()
 
+  console.log("--1--", props?.ind)
+
   useEffect(() => {
     window.scroll(0, -50);
   }, [])
@@ -22,12 +24,14 @@ const Component13 = (props) => {
         <div className='w-full h-[80%]'>
 
           <HeadComponent
+          cIndex={props?.ind}
             categoryId={props?.data?.categoryId}
             heading={props?.data?.news[0]?.heading}
             cid={props?.data?.news[0]?.id}
             content={props?.data?.news[0]?.sections[0]?.content}
             source={props?.data?.news[0]?.source}
             type={props?.data?.news[0]?.type}
+            csource={props?.data?.news[0]?.sections[0]?.source}
           />
 
           <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.data?.category}</span>
@@ -41,24 +45,24 @@ const Component13 = (props) => {
       </div>
 
       {
-        props?.data?.news?.length > 3 &&
+        props?.data?.news?.length > 4 &&
         <>
-          <div className="col-span-12 md:col-span-4 flex flex-col gap-6 h-auto mb-4 md:h-[80vh] mt-10">
+          <div className="col-span-12 md:col-span-4 flex flex-col gap-6 h-auto mb-4  mt-10">
             <header className="w-full col-span-12 border-t border-b">
               <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
                 You May Also Like
               </span>
             </header>
 
-            <div className="w-full flex flex-wrap h-[30rem] overflow-y-auto ">
-              {props?.data?.news?.map((elem) => (
+            <div className="w-full flex flex-wrap overflow-y-auto ">
+              {props?.data?.news?.slice(4, )?.map((elem) => (
                 <>
                   <div className="grid w-full md:w-1/2 grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
 
                     {
                       elem?.type == 'video'
                         ?
-                        <div className=" h-14 w-full col-span-4 object-cover bg-cover">
+                        <div className=" w-full col-span-4 object-cover bg-cover">
                           <VideoIndex data={elem} />
                         </div>
                         :

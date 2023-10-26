@@ -40,7 +40,7 @@ const ClusterComponent = (props) => {
 
 
     return (
-        <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-between`}>
+        <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-start`}>
             {
                 Array.isArray(props?.data) && props?.data?.slice(1, parseInt(props?.split || '3') + 1)?.map((elem, index) =>
                     <>

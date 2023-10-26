@@ -152,6 +152,12 @@ const ContentIndex = () => {
                 data?.bigNews?.sections?.map((elem) =>
                   <div className="mb-6">
                     <h3 className="mb-2 font-semibold">{elem.title}</h3>
+                    {
+                  elem?.type == 'video' ?
+                    <VideoIndex data={elem} />
+                    :
+                    <img src={elem?.source} alt="" srcset="" />
+                }
                     <div className="mb-2">{elem.content}</div>
                   </div>
                 )

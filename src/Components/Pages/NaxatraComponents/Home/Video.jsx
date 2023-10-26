@@ -3,6 +3,8 @@ import './style.css'
 
 const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
   const [isPiPMode, setIsPiPMode] = useState(false);
+  const [run, setrun] = useState(0)
+
   const videoRef = useRef(null);
 
   const handleEnterPiPMode = () => {
@@ -24,6 +26,7 @@ const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
   };
 
   const handlePlayVideo = () => {
+    setrun(run + 1)
     // Pause the currently playing video before starting a new one
     if (currentVideo !== data?.id) {
       setCurrentVideo(data?.id);
@@ -66,12 +69,18 @@ const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
         observer.disconnect();
       };
     }
+
+  //  run == 0 && handlePlayVideo()
+    
   }, [data, isPiPMode]);
+
 
   return (
     <div>
       <video
         ref={videoRef}
+        autoPlay
+        muted 
         controls
         onError={(e) => console.log('Error loading video:', e)}
         className={`border ${isPiPMode ? 'pip-mode' : ''}`}
@@ -85,6 +94,10 @@ const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
       ) : (
         <button onClick={handleEnterPiPMode}>Enter PiP Mode</button>
       )} */}
+
+
+
+      
     </div>
   );
 };
