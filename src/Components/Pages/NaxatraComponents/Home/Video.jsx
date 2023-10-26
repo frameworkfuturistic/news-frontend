@@ -68,6 +68,8 @@ const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
     }
   }, [data, isPiPMode]);
 
+  console.log("main video component ::::::::", data)
+
   return (
     <div>
       <video

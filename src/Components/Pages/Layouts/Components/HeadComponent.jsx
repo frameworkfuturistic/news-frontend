@@ -16,8 +16,13 @@ const HeadComponent = (props) => {
                         {props?.heading}
                     </h1>
 
-                    <p className='text-gray-600 text-ellipsis line-clamp-4'>
-                        {props?.content}
+                    <p className='text-gray-600 text-ellipsis line-clamp-4 flex object-cover '>
+                        {
+                            props?.csource ? 
+                            <img src={props?.csource} className='w-full md:w-[20rem]' alt="" srcset="" />
+                            :
+                            props?.content
+                        }
                     </p>
 
                 </div>

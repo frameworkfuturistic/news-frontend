@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import HeadComponent from './Components/HeadComponent'
-import ClusterComponent from './Components/ClusterComponent';
+import MHeadComponent from './Components/MHeadComponent'
+import MClusterComponent from './Components/MClusterComponent';
 import VideoIndex from '../NaxatraComponents/Home/VideoIndex';
 import { useNavigate } from 'react-router-dom';
 
 
-const Component13 = (props) => {
+const MukhyaSamachar = (props) => {
 
   const navigate = useNavigate()
 
@@ -17,18 +17,18 @@ const Component13 = (props) => {
   return (
     <>
 
-      <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-[25rem] w-full bg-white flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
+      <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-[35rem] w-full bg-white flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
         <div className='w-full h-[80%]'>
 
-          <HeadComponent
+          <MHeadComponent
             categoryId={props?.data?.categoryId}
             heading={props?.data?.news[0]?.heading}
             cid={props?.data?.news[0]?.id}
             content={props?.data?.news[0]?.sections[0]?.content}
-            source={props?.data?.news[0]?.source}
+            source={props?.data?.news[0]}
             type={props?.data?.news[0]?.type}
-            csource={props?.data?.news[0]?.sections[0]?.source}
+            csource={props?.data?.news[0]?.sections[0]}
           />
 
           <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.data?.category}</span>
@@ -36,7 +36,7 @@ const Component13 = (props) => {
         </div>
 
         <div className=' w-full h-[100px] '>
-          <ClusterComponent categoryId={props?.data?.categoryId} data={props?.data?.news} split={'3'} />
+          <MClusterComponent data={props?.data?.news} split={'3'} />
         </div>
 
       </div>
@@ -59,7 +59,7 @@ const Component13 = (props) => {
                     {
                       elem?.type == 'video'
                         ?
-                        <div className=" h-14 w-full col-span-4 object-cover bg-cover">
+                        <div className=" h-10 w-full col-span-4 object-cover bg-cover">
                           <VideoIndex data={elem} />
                         </div>
                         :
@@ -71,7 +71,7 @@ const Component13 = (props) => {
                         />
                     }
                     <div className="flex flex-col gap-1 col-span-8">
-                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${props?.data?.categoryId}`)}>
+                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${elem?.categoryId}`)}>
                         {elem?.heading}
                       </span>
                       <span className="text-sm text-zinc-500">{elem?.date}</span>
@@ -88,4 +88,4 @@ const Component13 = (props) => {
   )
 }
 
-export default Component13
+export default MukhyaSamachar

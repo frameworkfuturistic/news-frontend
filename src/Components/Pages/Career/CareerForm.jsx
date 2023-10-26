@@ -206,7 +206,7 @@ const CareerForm = (props) => {
 
   const checkValidaion = () => {
     const array = Object.entries(formik.errors).map(([key, value]) => value);
-    array && array?.length > 0 && (toast.error(JSON.stringify(array)), activateBottomErrorCard(true, JSON.stringify(array)))
+    array && array?.length > 0 && toast.error("Validation Error! " + JSON.stringify(array[0]))
   }
 
   console.log("formik", formik.errors, formik.values.isWorking)
