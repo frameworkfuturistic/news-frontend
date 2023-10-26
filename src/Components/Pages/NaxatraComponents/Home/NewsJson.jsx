@@ -112,8 +112,6 @@ export const newsJson = [
         id: 55,
 
       },
-       
-
       {
         source: ravandhan,
         type: 'image',
@@ -152,7 +150,6 @@ export const newsJson = [
         id: 12,
 
       },
-
       {
         category: 'झारखंड',
         source: jharkhandpolice,
@@ -296,9 +293,6 @@ export const newsJson = [
         id: 54,
 
       },
-    
-
-
       {
         category: 'झारखंड',
         source: shaebganj,
