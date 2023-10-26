@@ -34,7 +34,6 @@ import smartcityhospital from "@/Components/assets/smartcityhospital.jpeg";
 import vishnupandal from "@/Components/assets/vishnupandal.jpeg";
 import bannagupta from "@/Components/assets/bannagupta.jpeg";
 import Policealert from "@/Components/assets/Policealert.jpeg";
- 
 import todayhemant from "@/Components/assets/todayhemant.jpeg";
 import garbanight from "@/Components/assets/garbanight.jpeg";
 import breakingnewslive from "@/Components/assets/breakingnewslive.jpeg";
