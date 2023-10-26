@@ -17,19 +17,19 @@ const NewsCategoriesIndex = (props) => {
   const navigate = useNavigate()
 
   const newsCategoriesMenu = [
-    { title: "मुख्य समाचार", route: "MukhyaSamachar", subMenu: [] },
-    { title: "झारखंड", route: "Jharkhand", subMenu: [] },
-    { title: "बिहार", route: "Bihar", subMenu: [] },
-    { title: "राज्य", route: "Rajya", subMenu: [] },
-    { title: "देश", route: "Desh", subMenu: [] },
-    { title: "मनोरंजन", route: "Manoranjan", subMenu: [] },
-    { title: "व्यापार", route: "Vyapaar", subMenu: [] },
-    { title: " टेक्नोलॉजी ", route: "Technology", subMenu: [] },
-    { title: "राशिफल", route: "Rashifal", subMenu: [] },
-    { title: "धार्मिक", route: "Dharmik", subMenu: [] },
+    { title: "मुख्य समाचार", route: "/MukhyaSamachar", subMenu: [] },
+    { title: "झारखंड", route: "/Jharkhand", subMenu: [] },
+    { title: "बिहार", route: "/Bihar", subMenu: [] },
+    { title: "राज्य", route: "/Rajya", subMenu: [] },
+    { title: "देश", route: "/Desh", subMenu: [] },
+    { title: "मनोरंजन", route: "/Manoranjan", subMenu: [] },
+    { title: "व्यापार", route: "/Vyapaar", subMenu: [] },
+    { title: " टेक्नोलॉजी ", route: "/Technology", subMenu: [] },
+    { title: "राशिफल", route: "/Rashifal", subMenu: [] },
+    { title: "धार्मिक", route: "/Dharmik", subMenu: [] },
     {
       title: "खेल",
-      route: "Khel",
+      route: "/Khel",
       subMenu: [],
     },
   ];
@@ -66,9 +66,9 @@ const NewsCategoriesIndex = (props) => {
             {
               newsCategoriesMenu?.map((item) => <>
                 <div style={{ zIndex: 999 }} className=' text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
-                  <a href={`#${item?.route}`} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
+                  <NavLink to={`${item?.route}`} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
                     dropFun(item?.title)
-                  }}><span className='block'>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></a>
+                  }}><span className='block'>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
 
                   {(item?.subMenu?.length > 0 && (dropDown && dropName == item?.title)) && <ul className="block absolute cursor-pointer z-50 animate__animated animate__fadeIn animate__faster" >
                     {
@@ -111,6 +111,7 @@ const NewsCategoriesIndex = (props) => {
               <span className='flex flex-col justify-between text-sm transition-all duration-200'>
                 <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? "bg-blue-800 " : " ") + ` p-2 border-b border-blue-800  ` + 'flex gap-1 items-center'} onClick={() => {
                   dropFun(item?.title)
+                  setToggle(false)
                 }}><span>{item?.title}</span> <span className={`${item?.subMenu?.length > 0 ? `block ${(dropDown && dropName == item?.title) && 'rotate-180 '}` : 'hidden'}`}><BsChevronDown /></span></NavLink>
 
                 {(item?.subMenu?.length > 0 && (dropDown && dropName == item?.title)) && <ul class="block cursor-pointer mt-2 " >

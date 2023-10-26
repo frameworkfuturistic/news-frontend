@@ -168,7 +168,13 @@ const CareerForm = (props) => {
     [...basicForm, ...addresForm, ...workForm, ...expectedForm]?.reduce((acc, elem) => {
       if(elem?.type != 'date'){
         if ((elem?.type != 'select' && elem?.type != 'option') && elem.required && !elem?.check) {
-          acc[elem.key] = yup.string().required(elem.hint);
+          if(elem?.key == "mobile" || elem?.key == "rMobile1" || elem?.key == "rMobile2")
+          {
+            acc[elem.key] = yup.string().min(10, `Invalid! ${elem?.hint}`).required(elem.hint);
+          } else {
+            acc[elem.key] = yup.string().required(elem.hint);
+          }
+          return acc;
         }
       } else {
         acc[elem.key] = yup.string().required(elem.hint)?.max(new Date(getCurrentDate()), "Wrong Date! Re-enter your dob");

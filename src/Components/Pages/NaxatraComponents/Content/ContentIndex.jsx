@@ -22,11 +22,17 @@ const ContentIndex = () => {
 
   useEffect(() => {
 
-    const filteredNews = newsJson[index]?.news?.filter(item => item?.id == id);
+    window.scroll(0,0)
+
+    const filteredNews = newsJson?.filter(item => item?.categoryId == index);
+
+    const newsData = filteredNews[0]?.news?.filter(item => item?.id == id)
+
 
     setdata({
-      bigNews: filteredNews[0],
-      smallNews: newsJson[index]?.news,
+      main: filteredNews[0],
+      bigNews: newsData[0],
+      smallNews: filteredNews[0]?.news,
     });
 
   }, [id, index])
@@ -175,7 +181,7 @@ const ContentIndex = () => {
                 />}
 
               <div className="py-2 text-zinc-700">
-                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => props?.getFun(data?.rightMenu?.id)}>
+                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${data?.smallNews[data?.smallNews?.length - 1]?.id}/${data?.main?.categoryId}`)}>
                   {data?.smallNews[data?.smallNews?.length - 1]?.heading}
                 </span>
               </div>
@@ -186,7 +192,7 @@ const ContentIndex = () => {
               </div>
 
               <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-                {data?.smallNews[data?.smallNews?.length - 1]?.content}
+                {data?.smallNews[data?.smallNews?.length - 1]?.sections[0]?.content}
               </div>
 
               <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
@@ -216,7 +222,7 @@ const ContentIndex = () => {
                             />
                         }
                         <div className="flex flex-col gap-1 col-span-8">
-                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => props?.getFun(elem?.id, props?.index)}>
+                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${data?.main?.categoryId}`)}>
                             {elem?.heading}
                           </span>
                           <span className="text-sm text-zinc-500">{elem?.date}</span>
