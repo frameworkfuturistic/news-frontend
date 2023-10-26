@@ -8,7 +8,7 @@ const HeadComponent = (props) => {
 
     return (
         <>
-            <div className='flex flex-wrap-reverse justify-between w-full h-full'>
+            <div className={`flex flex-wrap-reverse justify-between w-full h-full ${parseInt(props?.cIndex) % 2 == 0 ? 'flex-row ' : 'flex-row-reverse '}`}>
 
                 <div className="w-full md:w-[45%] flex flex-col p-4 gap-8">
 
@@ -16,7 +16,7 @@ const HeadComponent = (props) => {
                         {props?.heading}
                     </h1>
 
-                    <p className='text-gray-600 text-ellipsis line-clamp-4 flex object-cover '>
+                    <p className={`text-gray-600 text-ellipsis line-clamp-4 ${props?.csource ? " flex object-cover" : ""}  `}>
                         {
                             props?.csource ? 
                             <img src={props?.csource} className='w-full md:w-[20rem]' alt="" srcset="" />

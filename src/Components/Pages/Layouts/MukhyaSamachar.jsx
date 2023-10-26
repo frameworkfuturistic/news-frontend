@@ -9,6 +9,8 @@ const MukhyaSamachar = (props) => {
 
   const navigate = useNavigate()
 
+  console.log("--1--", props?.ind)
+
   useEffect(() => {
     window.scroll(0, -50);
   }, [])
@@ -17,11 +19,12 @@ const MukhyaSamachar = (props) => {
   return (
     <>
 
-      <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-[35rem] w-full bg-white flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
+      <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-[35rem] w-full bg-slate-600  flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
         <div className='w-full h-[80%]'>
 
           <MHeadComponent
+            cIndex={props?.ind}
             categoryId={props?.data?.categoryId}
             heading={props?.data?.news[0]?.heading}
             cid={props?.data?.news[0]?.id}
@@ -31,7 +34,7 @@ const MukhyaSamachar = (props) => {
             csource={props?.data?.news[0]?.sections[0]}
           />
 
-          <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.data?.category}</span>
+          {/* <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.data?.category}</span> */}
 
         </div>
 
@@ -42,24 +45,24 @@ const MukhyaSamachar = (props) => {
       </div>
 
       {
-        props?.data?.news?.length > 3 &&
+        props?.data?.news?.length > 4 &&
         <>
-          <div className="col-span-12 md:col-span-4 flex flex-col gap-6 h-auto mb-4 md:h-[80vh] mt-10">
+          <div className="col-span-12 md:col-span-4 flex flex-col gap-6 h-auto mb-4 mt-10">
             <header className="w-full col-span-12 border-t border-b">
               <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
                 You May Also Like
               </span>
             </header>
 
-            <div className="w-full flex flex-wrap h-[30rem] overflow-y-auto ">
-              {props?.data?.news?.map((elem) => (
+            <div className="w-full flex flex-wrap overflow-y-auto ">
+              {props?.data?.news?.slice(4,)?.map((elem) => (
                 <>
                   <div className="grid w-full md:w-1/2 grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
 
                     {
                       elem?.type == 'video'
                         ?
-                        <div className=" h-10 w-full col-span-4 object-cover bg-cover">
+                        <div className=" overflow-hidden w-full col-span-4 object-cover bg-cover">
                           <VideoIndex data={elem} />
                         </div>
                         :
@@ -67,14 +70,14 @@ const MukhyaSamachar = (props) => {
                           src={elem?.source}
                           alt="image"
                           srcSet=""
-                          className="border h-14 w-full col-span-4 object-cover bg-cover"
+                          className="border h-20 w-full col-span-4 object-cover bg-cover"
                         />
                     }
                     <div className="flex flex-col gap-1 col-span-8">
-                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${elem?.categoryId}`)}>
+                      <span className="text-slate-50 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${elem?.categoryId}`)}>
                         {elem?.heading}
                       </span>
-                      <span className="text-sm text-zinc-500">{elem?.date}</span>
+                      <span className="text-sm text-slate-50">{elem?.date}</span>
                     </div>
                   </div>
                 </>

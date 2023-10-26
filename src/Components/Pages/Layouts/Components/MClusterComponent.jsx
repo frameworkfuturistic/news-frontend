@@ -40,7 +40,7 @@ const MClusterComponent = (props) => {
 
 
     return (
-        <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-between`}>
+        <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-start`}>
             {
                 Array.isArray(props?.data) && props?.data?.slice(1, parseInt(props?.split || '3') + 1)?.map((elem, index) =>
                     <>
@@ -54,7 +54,7 @@ const MClusterComponent = (props) => {
                                 <img src={elem?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
                             }
                             <div className="col-span-8">
-                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/${elem?.categoryId}`)}>
+                                <h1 className='hover:text-red-500 text-slate-50 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/${elem?.categoryId}`)}>
                                     {elem?.heading}
                                 </h1>
                             </div>

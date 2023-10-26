@@ -4,17 +4,17 @@ import VideoIndex from '../../NaxatraComponents/Home/VideoIndex'
 
 const MHeadComponent = (props) => {
 
-    console.log(props?.source?.source, props?.csource)
+    console.log("--2--", props?.cIndex)
 
     const navigate = useNavigate()
 
     return (
         <>
-            <div className='flex flex-wrap-reverse justify-between w-full h-full'>
+            <div className={`flex flex-wrap-reverse justify-between w-full h-full text-white ${parseInt(props?.cIndex) % 2 == 0 ? 'flex-row ' : 'flex-row-reverse '}`}>
 
                 <div className="w-full md:w-[45%] flex flex-col p-4 gap-2">
 
-                    <h1 className='font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/${props?.source?.categoryId}`)}>
+                    <h1 className='font-bold text-slate-50 text-2xl pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/${props?.source?.categoryId}`)}>
                         {props?.heading}
                     </h1>
 
@@ -25,7 +25,7 @@ const MHeadComponent = (props) => {
                             :
                             <img src={props?.csource?.source} alt="" className='p-2 object-contain h-max w-full md:w-[50%]  ' srcset="" />}
 
-                    <p className='text-gray-600 text-ellipsis line-clamp-4 flex object-cover '>
+                    <p className='text-slate-50 text-ellipsis line-clamp-4 flex object-cover '>
                         {
                             props?.content
                         }

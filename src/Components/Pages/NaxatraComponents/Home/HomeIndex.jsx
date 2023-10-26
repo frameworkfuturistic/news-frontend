@@ -62,14 +62,14 @@ const HomeIndex = () => {
 {
       newsData?.length > 0 && newsData?.filter(item => item?.categoryId == 'MukhyaSamachar')?.map((elem, index) => 
       <>
-        {elem?.news?.length > 0 && <MukhyaSamachar key={index} data={elem} />}
+        {elem?.news?.length > 0 && <MukhyaSamachar ind={index} key={index} data={elem} />}
       </>)
     }
     
     {
       newsData?.length > 0 && newsData?.filter(item => item?.categoryId != 'MukhyaSamachar')?.map((elem, index) => 
       <>
-        {elem?.news?.length > 0 && <Component13 key={index} data={elem} />}
+        {elem?.news?.length > 0 && <Component13 ind={index} key={index} data={elem} />}
       </>)
     }
 
