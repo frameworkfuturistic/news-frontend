@@ -20,7 +20,7 @@ const MHeadComponent = (props) => {
 
                         {props?.csource?.type == 'video' ?
                             <div className='p-2 h-full object-cover w-full md:w-[40%] '>
-                                <VideoIndex data={props?.csource} className='p-2 h-full object-cover w-[50%] ' />
+                                <VideoIndex data={props?.csource} className='p-4 h-full object-cover w-[50%] ' />
                             </div>
                             :
                             <img src={props?.csource?.source} alt="" className='p-2 object-contain h-max w-full md:w-[50%]  ' srcset="" />}
@@ -35,7 +35,7 @@ const MHeadComponent = (props) => {
                 </div>
 
                     {props?.source?.type == 'video' ?
-                            <div className='p-2 h-full object-cover w-full md:w-[50%] '>
+                            <div className='p-2 py-8 h-full object-cover w-full md:w-[50%] '>
                                 <VideoIndex data={props?.source} className='p-2 h-full object-cover w-[50%] ' />
                             </div>
                             :
