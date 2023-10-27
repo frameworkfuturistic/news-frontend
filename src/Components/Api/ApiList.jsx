@@ -13,6 +13,8 @@ export const ApiList = () => {
 
   apiGetNews           : url + "/api/crud/content/v1/show",
   apiGetNewsById       : url + "/api/",
+  
+  api_getCareerList       : url + "/api/v1/job/list",
 
 }
 

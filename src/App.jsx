@@ -18,16 +18,19 @@ import CareerForm from './Components/Pages/Career/CareerForm';
 import LayoutIndex from './Components/Pages/Layouts/LayoutIndex';
 import ContentIndex from './Components/Pages/NaxatraComponents/Content/ContentIndex';
 import NavBarRoutes from './Components/Pages/Others/NavBarRoutes';
+import CareerIndex from './Components/Pages/Admin/Career/CareerIndex';
 
 function App() {
 
   // 👉 State constants 👈
   const [refresh, setrefresh] = useState(0)
+  const [toggleBar, settoggleBar] = useState(true)
   const wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
   // 👉 Context data (used globally) 👈
   const contextData = {
     refresh, setrefresh, 
+    toggleBar, settoggleBar,
     wpx
   }
 
@@ -45,8 +48,7 @@ function App() {
 
   // 👉 Private Routes Json 👈
   const privateRoutes = [
-    { path: "/", element: <HomeIndex /> },
-    { path: "/career", element: <CareerForm /> },
+    { path: "/career-admin", element: <CareerIndex /> },
   ]
 
   let data = {

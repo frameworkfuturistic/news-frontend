@@ -1,1 +1,0 @@
-export const Token = window.localStorage.getItem('token' || '')

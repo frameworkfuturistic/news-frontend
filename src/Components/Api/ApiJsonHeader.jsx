@@ -1,7 +1,9 @@
-import { Token } from "./Token";
+const token = window.localStorage.getItem('token')
 
 export const ApiJsonHeader = {
-    'Content-Type': 'application/json',
+   headers: {
+     'Content-Type': 'application/json',
     Accept: "application/json",
-    Authorization: `Bearer ${Token}`
+    Authorization: `Bearer ${token}`
+   }
 }

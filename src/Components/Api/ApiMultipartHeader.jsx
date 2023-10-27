@@ -1,7 +1,9 @@
-import { Token } from "./Token";
+const token = window.localStorage.getItem('token')
 
 export const ApiMultipartHeader = {
-    'Content-Type': 'application/json',
-    Accept: "application/json",
-    Authorization: `Bearer ${Token}`
+    headers: {
+        'Content-Type': "multipart/form-data",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`
+    }
 }

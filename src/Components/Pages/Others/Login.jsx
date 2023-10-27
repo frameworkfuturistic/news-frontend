@@ -59,7 +59,7 @@ const Login = () => {
           toast.success("Login Successfully !!!")
           localStorage.setItem('token', res?.data?.data?.token)
           localStorage.setItem("userDetails", JSON.stringify(res?.data?.data))
-          navigate('/')
+          navigate('/career-admin')
         } else {
           toast.error(res?.data?.message)
           activateErrorCard(true, res?.data?.message)
