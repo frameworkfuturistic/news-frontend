@@ -28,11 +28,18 @@ import { RotatingLines } from "react-loader-spinner";
 import CareerFormView from "./CareerFormView";
 
 const CareerIndex = () => {
-
     // 👉 API constants 👈
     const { api_getCareerList } = ApiList()
 
+    const token = window.localStorage.getItem('token');
 
+        const ApiHeader = {
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`
+        }
+        };
     // 👉 Dialog useRef 👈
     const dialogRef = useRef()
 
@@ -197,10 +204,10 @@ const CareerIndex = () => {
             toDate: formik.values.uptoDate,
         }
 
-        console.log(ApiJsonHeader)
+        console.log(ApiHeader)
 
         axios
-            .post(api_getCareerList, payload, ApiJsonHeader)
+            .post(api_getCareerList, payload, ApiHeader)
             .then((res) => {
                 if (res?.data?.status) {
                     setcareerData(res?.data?.data)

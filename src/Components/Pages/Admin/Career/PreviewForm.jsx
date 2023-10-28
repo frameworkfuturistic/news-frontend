@@ -16,7 +16,7 @@ const PreviewForm = ({data, status}) => {
             <div>
               <p className='text-base font-bold font-serif text-cyan-600'>Basic Details  </p>
               <div className='  flex my-2 '>
-                <p className='text-sm font-medium mx-2 '>Applied for :  </p>
+                <p className='text-sm font-medium mx-2 '> Applied for :  </p>
                 <p className=' mx-2 '> {data?.applied_for} </p>
               </div>
               <div className='  flex my-2 '>
