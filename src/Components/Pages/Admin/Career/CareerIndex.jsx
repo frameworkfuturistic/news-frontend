@@ -32,8 +32,7 @@ const CareerIndex = () => {
     const { api_getCareerList } = ApiList()
 
     const token = window.localStorage.getItem('token');
-
-        const ApiHeader = {
+      const ApiHeader = {
         headers: {
             'Content-Type': 'application/json',
             Accept: "application/json",

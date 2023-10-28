@@ -162,10 +162,8 @@ function App() {
       <Toaster />
 
       <contextVar.Provider value={contextData}>
-
-        <Routes>
-
-          {
+      <Routes>
+         {
             publicRoutes?.map((elem, index) =>
               <Route key={index} path={elem?.path} element={elem?.element} />
             )
