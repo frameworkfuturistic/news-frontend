@@ -13,7 +13,7 @@ const BrandingIndex = (props) => {
 
   const [toggle, setToggle] = useState(false)
 
-  const {apiLogout} = ApiList()
+  const { apiLogout } = ApiList()
 
   const dialogRef = useRef()
   let token = localStorage.getItem('token')
@@ -29,21 +29,21 @@ const BrandingIndex = (props) => {
 
   const LogOutUser = () => {
     axios.post(apiLogout, {}, ApiJsonHeader)
-    .then((res) => {
-      if(res?.data?.status){
-        localStorage.clear()
-        window.location.reload()
-        toast.success("Logout Successfully !!!")
-      }
-    })
-    .finally(() => dialogRef.current.close())
+      .then((res) => {
+        if (res?.data?.status) {
+          localStorage.clear()
+          window.location.reload()
+          toast.success("Logout Successfully !!!")
+        }
+      })
+      .finally(() => dialogRef.current.close())
   }
 
   const navigateFun = (path) => {
     // if(path == '/career'){
     //   window.open("http://naxatranewshindi.com/career", "_blank")
     // } else {
-      navigate(path)
+    navigate(path)
     // }
   }
 
@@ -57,17 +57,22 @@ const BrandingIndex = (props) => {
             {
               brandingMenu?.slice(0, 10)?.map((elem, index) =>
                 <>
-                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-sm px-2 drop-shadow-md py-0.5" : " text-sm  font-semibold text-zinc-500" }`} onClick={() => navigateFun(elem?.path)} key={index}>{elem?.title}</span>
+                  <span className={`cursor-pointer ${elem?.path == "/career" ? " colorChange font-bold text-sm px-2 drop-shadow-md py-0.5" : " text-sm  font-semibold text-zinc-500"}`} onClick={() => navigateFun(elem?.path)} key={index}>{elem?.title}</span>
                 </>)
             }
 
             {brandingMenu?.length > 10 && <span className={`transition-all duration-200 bg-zinc-200 h-full p-2 text-sm cursor-pointer`} onClick={() => setToggle(!toggle)}> <span className={`${toggle ? 'rotate-180 ' : ' '} block transition-all duration-200`}> <FaChevronDown /> </span> </span>}
           </div>
 
-          <div className='flex items-center'>
+          <div className='flex items-center gap-2'>
+           
+            {token &&
+              <button className='flex gap-2 items-center bg-green-600 hover:bg-green-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/career-admin')}><span>Dashboard</span></button>}
+
             {!token ? <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/login')}><span>Sign In</span> <span className='text-lg'><BiUser /></span></button>
               :
               <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => dialogRef.current.showModal()}><span>Sign Out</span></button>}
+
           </div>
 
         </div>

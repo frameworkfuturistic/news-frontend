@@ -47,7 +47,8 @@ const Login = () => {
 
     let payload = {
       email: values?.email,
-      password: values?.password
+      password: values?.password,
+      type: "web"
     }
 
     axios.post(apiLogin, payload, ApiJsonHeader)

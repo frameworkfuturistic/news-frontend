@@ -70,28 +70,6 @@ const CareerIndex = () => {
 
     }
 
-    // {
-    //     "id": 118,
-    //     "applied_for": "Anchor",
-    //     "photo": "http://live.framework-futuristic.com/media/1698391846-PHOTO-4124589632.png",
-    //     "name": "test",
-    //     "email": "admin@gmail.com",
-    //     "mobile": "4124589632",
-    //     "dob": "2023-10-20",
-    //     "qualification": "Masters",
-    //     "present_address": "tstststs",
-    //     "permanent_address": "tstststs",
-    //     "is_working": "No",
-    //     "present_salary": "",
-    //     "salary_doc": "",
-    //     "work_link": "",
-    //     "expected_salary": "5000.00",
-    //     "ref_name1": "anshu",
-    //     "ref_name2": "",
-    //     "ref_mobile2": "",
-    //     "applied_date": "2023-10-27"
-    //   },
-
     // 👉 Table Columns 👈
     const COLUMNS = [
         {

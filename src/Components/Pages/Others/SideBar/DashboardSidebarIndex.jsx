@@ -5,6 +5,7 @@ import { contextVar } from '@/Components/context/contextVar'
 const DashboardSidebarIndex = () => {
 
   let menuList = [
+    {name: "Home", path:'/', children:[]},
     {name: "Career Applied List", path:'/career-admin', children:[]},
   ]
 
