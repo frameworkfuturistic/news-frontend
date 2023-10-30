@@ -78,7 +78,7 @@ function ListTable(props) {
             <div className=" p-4 overflow-x-auto bg-white">
                 <div className="inline-block min-w-full rounded-lg overflow-hidden bg-white">
                     <table {...getTableBodyProps} className="min-w-full leading-normal">
-                        <thead className='font-bold text-left text-sm bg-sky-50'>
+                        <thead className='font-bold text-left text-sm bg-cyan-50'>
                             {
                                 headerGroups?.map((headerGroup) => (
                                     <tr {...headerGroup.getHeaderGroupProps()}>

@@ -4,13 +4,12 @@ import { contextVar } from '@/Components/context/contextVar'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BiLogOutCircle } from 'react-icons/bi';
 import { Tooltip } from 'react-tooltip';
-import { BsBell } from 'react-icons/bs';
-import { RotatingLines } from 'react-loader-spinner';
-import { ApiJsonHeader } from '@/Components/Api/ApiJsonHeader';
 import { ApiList } from '@/Components/Api/ApiList';
 import { FiAlertCircle } from 'react-icons/fi';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import ApiJsonHeader from '@/Components/Api/ApiJsonHeader';
+import { RxCross2 } from 'react-icons/rx';
 
 
 const TopHeader = () => {
@@ -19,7 +18,7 @@ const TopHeader = () => {
 
   const { toggleBar, settoggleBar } = useContext(contextVar)
 
-  const {apiLogout} = ApiList()
+  const { apiLogout } = ApiList()
 
   const dialogRef = useRef()
 
@@ -27,17 +26,17 @@ const TopHeader = () => {
 
   // CALLBACK FUNCTION 
   const LogOutUser = () => {
-    axios.post(apiLogout, {}, ApiJsonHeader)
-    .then((res) => {
-      if(res?.data?.status){
-        localStorage.clear()
-        toast.success("Logout Successfully !!!")
-      }
-    })
-    .finally(() => {
-      dialogRef.current.close()
-      navigate('/')
-    })
+    axios.post(apiLogout, {}, ApiJsonHeader())
+      .then((res) => {
+        if (res?.data?.status) {
+          localStorage.clear()
+          toast.success("Logout Successfully !!!")
+        }
+      })
+      .finally(() => {
+        dialogRef.current.close()
+        navigate('/')
+      })
   }
 
 
@@ -65,16 +64,18 @@ const TopHeader = () => {
           }}>
             <span className='cursor-pointer text-gray-700 text-xl' ><AiOutlineBars /></span>
           </div>
-            <span className='font-semibold text-xl '>Naxatra News</span>
+          <span className='font-semibold text-xl '>Naxatra News</span>
         </div>
         <div className='flex items-center sm:gap-4 gap-2'>
           <span className='sm:visible flex items-center '>
-          <Tooltip anchorId="logout" className='z-50' />
+            <Tooltip anchorId="logout" className='z-50' />
             <button id='logout' data-tooltip-content="Log Out" onClick={() => dialogRef.current.showModal()} className='text-2xl font-semibold'><BiLogOutCircle /></button></span>
         </div>
       </div>
-     
+
       <dialog ref={dialogRef} className='backdrop:backdrop-brightness-75 animate__animated animate__slideInLeft animate__faster'>
+
+        <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => dialogRef.current.close()}><RxCross2 /></span>
 
         <div className='border bg-white z-50 px-6 py-4 flex flex-col gap-4'>
           <div className='flex items-center gap-6'>

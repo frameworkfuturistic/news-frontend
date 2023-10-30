@@ -5,9 +5,9 @@ import { BiUser } from 'react-icons/bi'
 import { FiAlertCircle } from 'react-icons/fi'
 import axios from 'axios'
 import { ApiList } from '@/Components/Api/ApiList'
-import { ApiJsonHeader } from '@/Components/Api/ApiJsonHeader'
 import { toast } from 'react-hot-toast'
 import './Style.css'
+import ApiJsonHeader from '@/Components/Api/ApiJsonHeader'
 
 const BrandingIndex = (props) => {
 
@@ -28,7 +28,7 @@ const BrandingIndex = (props) => {
   const navigate = useNavigate()
 
   const LogOutUser = () => {
-    axios.post(apiLogout, {}, ApiJsonHeader)
+    axios.post(apiLogout, {}, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
           localStorage.clear()

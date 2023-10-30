@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import HomeLayout from "./HomeLayout";
 import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
-import { ApiJsonHeader } from "@/Components/Api/ApiJsonHeader";
+import  ApiJsonHeader  from "@/Components/Api/ApiJsonHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { newsJson } from "./NewsJson";
 import Component13 from "../../Layouts/Component13";
@@ -26,7 +26,7 @@ const HomeIndex = () => {
 
     return;
     console.log(id);
-    axios.post(apiGetNewsById, { id: id }, ApiJsonHeader).then((res) => {
+    axios.post(apiGetNewsById, { id: id }, ApiJsonHeader()).then((res) => {
       console.log("Page response => ", res);
       if (res?.data?.status) {
         setPageData(res?.data?.data);
@@ -36,7 +36,7 @@ const HomeIndex = () => {
   };
 
   useEffect(() => {
-    // axios.post(apiGetNews, {}, ApiJsonHeader).then((res) => {
+    // axios.post(apiGetNews, {}, ApiJsonHeader()).then((res) => {
     //   console.log("Page response => ", res);
     //   if (res?.data?.status) {
     //   }

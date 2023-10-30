@@ -1,17 +1,3 @@
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 👉 Author      : R U Bharti
-// 👉 Component   : CareerIndex
-// 👉 Date        : 21-09-2023
-// 👉 Status      : Close
-// 👉 Description : CRUD opeartion for department, section and violation master.
-// 👉 Functions   :  
-//                  1. activateBottomErrorCard -> Activate error card to show in screen.
-//                  2. handleModal             -> To handle dialog type.
-//                  3. getViolationList        -> To get violation list.
-//                  4. inputBox                -> To map input field.
-//                  5. submitFun               -> Submit final data
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // 👉 Importing Packages 👈
 import React, { useEffect, useRef, useState } from "react";
 import ListTable from "@/Components/Common/ListTable/ListTable";
@@ -23,26 +9,30 @@ import { useFormik } from "formik";
 import ErrorCard from "@/Components/Common/ErrorCard";
 import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
-import CareerFormView from "./CareerFormView";
 import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
+import { FiAlertCircle } from "react-icons/fi";
+import { RxCross2 } from "react-icons/rx";
 
-const CareerIndex = () => {
+const NewsIndex = () => {
+
     // 👉 API constants 👈
-    const { api_getCareerList } = ApiList()
+    const { api_getNewsList } = ApiList()
 
     // 👉 Dialog useRef 👈
-    const dialogRef = useRef()
+    const dialogRef = useRef(null)
 
     // 👉 State constants 👈
-    const [careerData, setcareerData] = useState([])
+    const [newsData, setnewsData] = useState([])
     const [loader, setLoader] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const [errorState, setErrorState] = useState(false)
-    const [viewStatus, setViewStatus] = useState(false)
+    const [mType, setMType] = useState('')
     const [viewData, setViewData] = useState(null)
 
     // 👉 CSS constants 👈
-    const addButton = "float-right focus:outline-none border border-cyan-900 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-cyan-900 hover:text-white text-cyan-900 flex items-center"
+    const addButton = "float-right focus:outline-none border border-green-500 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-green-500 hover:text-white text-green-500 flex items-center"
+    const editButton = "float-right focus:outline-none border border-cyan-900 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-cyan-900 hover:text-white text-cyan-900 flex items-center"
+    const deleteButton = "float-right focus:outline-none border border-red-500 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-red-500 hover:text-white text-red-500 flex items-center"
     const labelStyle = 'text-gray-800 text-sm'
     const inputStyle = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
 
@@ -56,13 +46,20 @@ const CareerIndex = () => {
     // 👉 Function 2 👈
     const handleModal = (type, data = null) => {
 
-        console.log(type, ":::::::::", data)
+        setMType(type)
 
-        switch(type){
-            case 'view':{
-                setViewStatus(true)
+        switch (type) {
+            case 'add': {
+                dialogRef.current.showModal()
+            } break;
+            case 'edit': {
                 setViewData(data)
-            }break;
+                dialogRef.current.showModal()
+            } break;
+            case 'delete': {
+                setViewData(data)
+                dialogRef.current.showModal()
+            } break;
         }
 
     }
@@ -74,24 +71,38 @@ const CareerIndex = () => {
             Cell: ({ row }) => <div className="pr-2">{row?.index + 1}</div>,
         },
         {
-            Header: "Applied For",
-            accessor: "applied_for",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.applied_for)),
+            Header: "Category",
+            accessor: "category",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.category)),
         },
         {
-            Header: "Name",
-            accessor: "name",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.name)),
+            Header: "File",
+            accessor: "source",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.source)),
         },
         {
-            Header: "Mobile No.",
-            accessor: "mobile",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.mobile)),
+            Header: "Heading",
+            accessor: "heading",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.heading)),
         },
         {
-            Header: "Working",
-            accessor: "is_working",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.is_working)),
+            Header: "Top News",
+            accessor: "top_news",
+            Cell: ({ cell }) => <>
+                {
+                    (cell.row.original?.top_news) ? <span className="font-semibold text-green-500">Yes</span> : <span className="font-semibold text-red-500">No</span>
+                }
+            </>,
+        },
+        {
+            Header: "Author Name",
+            accessor: "author_name",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.author_name)),
+        },
+        {
+            Header: "Created At",
+            accessor: "created_at",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.created_at)),
         },
         {
             Header: "Action",
@@ -99,10 +110,16 @@ const CareerIndex = () => {
             Cell: ({ cell }) => (
                 <div className="flex flex-row flex-wrap gap-2">
                     <button
-                        onClick={() => handleModal('view', cell?.row?.original)}
-                        className={addButton}
+                        onClick={() => handleModal('edit', cell?.row?.original)}
+                        className={editButton}
                     >
-                        Preview
+                        Edit
+                    </button>
+                    <button
+                        onClick={() => handleModal('delete', cell?.row?.original)}
+                        className={deleteButton}
+                    >
+                        Delete
                     </button>
                 </div>
             ),
@@ -156,14 +173,14 @@ const CareerIndex = () => {
         enableReinitialize: true,
         validationSchema: schema,
         onSubmit: (values) => {
-            getCareerList(values)
+            getNewsList(values)
         },
     });
 
     // 👉 Function 3 👈
-    const getCareerList = () => {
+    const getNewsList = () => {
 
-        setcareerData([])
+        setnewsData([])
 
         setLoader(true)
 
@@ -173,10 +190,10 @@ const CareerIndex = () => {
         }
 
         axios
-            .post(api_getCareerList, payload, ApiJsonHeader())
+            .post(api_getNewsList, payload, ApiJsonHeader())
             .then((res) => {
                 if (res?.data?.status) {
-                    setcareerData(res?.data?.data)
+                    setnewsData(res?.data?.data)
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
                 }
@@ -194,7 +211,7 @@ const CareerIndex = () => {
 
     // 👉 To call Function 3 👈
     useEffect(() => {
-        getCareerList()
+        getNewsList()
     }, [])
 
     return (
@@ -203,13 +220,11 @@ const CareerIndex = () => {
             {/* 👉 Error Card 👈 */}
             <ErrorCard activateErrorCard={activateBottomErrorCard} status={errorState} message={errorMessage} />
 
-            <CareerFormView status={viewStatus} data={viewData} close={() => setViewStatus(false)} />
-
             <div className="poppins p-4 px-6">
 
                 {/* 👉 Heading 👈 */}
                 <div className="uppercase font-semibold text-cyan-900 text-2xl py-2 text-center tracking-[0.3rem] border-b border-cyan-900">
-                    Career Applied List
+                    News Master
                 </div>
 
                 {/* 👉 Searching Form 👈 */}
@@ -262,13 +277,15 @@ const CareerIndex = () => {
                 {/* 👉 Table 👈 */}
                 {!loader &&
                     <>
-                        {careerData?.length > 0 ?
+                        {newsData?.length > 0 ?
 
                             <>
                                 <ListTable
                                     columns={COLUMNS}
-                                    dataList={careerData}
-                                />
+                                    dataList={newsData}
+                                >
+                                    <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}>Add News</button>
+                                </ListTable>
                             </>
                             :
                             <>
@@ -278,7 +295,38 @@ const CareerIndex = () => {
                     </>}
             </div>
 
+            <dialog ref={dialogRef} className={`backdrop:backdrop-brightness-75 relative animate__animated animate__zoomIn animate__faster`}>
+
+                <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => dialogRef.current.close()}><RxCross2 /></span>
+
+                {
+                    mType != 'delete' &&
+                    <div className="w-[97vw] md:w-[50vw] h-[90vh] md:h-[70vh] m-4">
+                        asfd
+                    </div>
+                }
+
+                {
+                    mType == 'delete' &&
+                    <div className='border bg-white z-50 px-6 py-4 flex flex-col gap-4'>
+                        <div className='flex items-center gap-6'>
+                            <span className='text-red-500 bg-red-100 p-2 block rounded-full drop-shadow-md shadow-red-300'><FiAlertCircle size={25} /></span>
+                            <div className='flex flex-col gap-2'>
+                                <span className='text-xl font-semibold border-b pb-1'>Confirmation</span>
+                                <span className='text-base'>Are you sure want to delete ?</span>
+                            </div>
+                        </div>
+                        <div className='flex justify-end gap-2'>
+                            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => dialogRef.current.close()}>No</button>
+                            <button className='text-white bg-red-500 hover:bg-red-600 px-4 py-1 text-sm ' onClick={() => LogOutUser()}>Yes</button>
+                        </div>
+                    </div>
+                }
+
+            </dialog>
+
         </>
-    );
+    )
 }
-export default CareerIndex;
+
+export default NewsIndex

@@ -19,6 +19,7 @@ import LayoutIndex from './Components/Pages/Layouts/LayoutIndex';
 import ContentIndex from './Components/Pages/NaxatraComponents/Content/ContentIndex';
 import NavBarRoutes from './Components/Pages/Others/NavBarRoutes';
 import CareerIndex from './Components/Pages/Admin/Career/CareerIndex';
+import NewsIndex from './Components/Pages/Admin/News/NewsIndex';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
   // 👉 Private Routes Json 👈
   const privateRoutes = [
     { path: "/career-admin", element: <CareerIndex /> },
+    { path: "/news-master", element: <NewsIndex /> },
   ]
 
   let data = {
@@ -162,10 +164,8 @@ function App() {
       <Toaster />
 
       <contextVar.Provider value={contextData}>
-
-        <Routes>
-
-          {
+      <Routes>
+         {
             publicRoutes?.map((elem, index) =>
               <Route key={index} path={elem?.path} element={elem?.element} />
             )

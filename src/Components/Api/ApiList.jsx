@@ -16,6 +16,8 @@ export const ApiList = () => {
   
   api_getCareerList       : url + "/api/v1/job/list",
 
+  api_getNewsList       : url + "/api/v1/job/list",
+
 }
 
 return api;
