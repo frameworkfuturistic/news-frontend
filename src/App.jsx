@@ -20,6 +20,7 @@ import ContentIndex from './Components/Pages/NaxatraComponents/Content/ContentIn
 import NavBarRoutes from './Components/Pages/Others/NavBarRoutes';
 import CareerIndex from './Components/Pages/Admin/Career/CareerIndex';
 import NewsIndex from './Components/Pages/Admin/News/NewsIndex';
+import ReportMasterIndex from './Components/Pages/Admin/ReportMaster/ReportMasterIndex';
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
   const privateRoutes = [
     { path: "/career-admin", element: <CareerIndex /> },
     { path: "/news-master", element: <NewsIndex /> },
+    { path: "/report-master", element: <ReportMasterIndex /> },
   ]
 
   let data = {
