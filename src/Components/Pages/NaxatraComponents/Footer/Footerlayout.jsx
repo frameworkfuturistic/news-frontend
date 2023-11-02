@@ -3,12 +3,7 @@ import footerlogo from '@/Components/assets/footer-logo.webp'
 import footerimg1 from '@/Components/assets/footerimg1.jpg'
 import footerimg2 from '@/Components/assets/footerimg2 (1).jpeg'
 import footerimg3 from '@/Components/assets/footerimg3(2).jpeg'
-import user  from      '@/Components/assets/user_today.png'
-import totaluser  from '@/Components/assets/user_total.png'
-import viewstoday  from '@/Components/assets/views_today.png'
-import viewstotal  from '@/Components/assets/views_total.png'
-import whoonline  from '@/Components/assets/whos_online.png'
-import useryear  from '@/Components/assets/user_year.png'
+ 
 import { BsFire } from "react-icons/bs";
 
 import {  GoDotFill } from "react-icons/go";
