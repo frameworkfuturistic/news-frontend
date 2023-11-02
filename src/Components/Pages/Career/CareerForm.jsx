@@ -369,7 +369,7 @@ const CareerForm = (props) => {
 
       <div className='h-full w-screen flex justify-center relative'>
 
-        <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute top-2 left-2"} onClick={() => window.history.back()}>Back</button>
+        <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute top-2 left-2"} onClick={() => navigate('/')}>Back</button>
 
         {/* 👉 Main 👈 */}
         <form onChange={(e) => (formik.handleChange(e), handleChange(e))} onSubmit={formik.handleSubmit} className='w-full h-full py-4 px-4 md:px-6 border-zinc-200 bg-zinc-50 max-w-[1366px] border '>

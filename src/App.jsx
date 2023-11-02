@@ -21,6 +21,7 @@ import NavBarRoutes from './Components/Pages/Others/NavBarRoutes';
 import CareerIndex from './Components/Pages/Admin/Career/CareerIndex';
 import NewsIndex from './Components/Pages/Admin/News/NewsIndex';
 import ReportMasterIndex from './Components/Pages/Admin/ReportMaster/ReportMasterIndex';
+import NewsForm from './Components/Pages/Admin/News/NewsForm';
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
   const privateRoutes = [
     { path: "/career-admin", element: <CareerIndex /> },
     { path: "/news-master", element: <NewsIndex /> },
+    { path: "/news-form/:id?", element: <NewsForm /> },
     { path: "/report-master", element: <ReportMasterIndex /> },
   ]
 
