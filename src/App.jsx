@@ -22,6 +22,7 @@ import CareerIndex from './Components/Pages/Admin/Career/CareerIndex';
 import NewsIndex from './Components/Pages/Admin/News/NewsIndex';
 import ReportMasterIndex from './Components/Pages/Admin/ReportMaster/ReportMasterIndex';
 import NewsForm from './Components/Pages/Admin/News/NewsForm';
+import MediaMasterIndex from './Components/Pages/Admin/MediaMaster/MediaMasterIndex';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
     { path: "/news-master", element: <NewsIndex /> },
     { path: "/news-form/:id?", element: <NewsForm /> },
     { path: "/report-master", element: <ReportMasterIndex /> },
+    { path: "/media-master", element: <MediaMasterIndex /> },
   ]
 
   let data = {
