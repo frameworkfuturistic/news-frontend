@@ -129,10 +129,11 @@ const NewsSection = (props) => {
 
     return (
         <>
-            <div className="container mx-auto mt-4">
+            <div className="mx-auto p-4">
 
-                <div className='w-full flex justify-end'>
-                    <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-green-500 hover:bg-green-700 text-white py-1.5 px-4 mb-2" >Add Section</button>
+                <div className='flex item-center gap-4'>
+                    <label htmlFor="" className={`text-base font-semibold text-gray-700`}>Content Section</label>
+                    <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-amber-500 hover:bg-amber-700 text-white py-1 px-3 mb-2" >Add Content</button>
                 </div>
 
                 <div className="w-full md:block hidden">
@@ -172,9 +173,7 @@ const NewsSection = (props) => {
                     </div>
                     {
                         props?.finalData?.length == 0 &&
-                        <tr className='bg-white'>
-                            <div colSpan={4} className='text-center text-sm text-red-500 py-2'>No Content Section Added</div>
-                        </tr>
+                            <div className='w-full bg-slate-50 border text-center text-sm text-red-500 py-2'>No Content Section Added</div>
                     }
                 </div>
 
@@ -184,7 +183,7 @@ const NewsSection = (props) => {
                             <NewsCard
                                 key={index}
                                 index={index}
-                                image={URL.createObjectURL(props?.document[index])}
+                                image={props?.document[index] != null ? URL.createObjectURL(props?.document[index]) : ''}
                                 title={card.title}
                                 desc={card.desc}
                                 handleContent={(type, index) => handleContent(type, index)}
@@ -195,7 +194,7 @@ const NewsSection = (props) => {
 
                 {
                     props?.finalData?.length == 0 &&
-                    <div className='bg-white'>
+                    <div className='bg-slate-50 border md:hidden block'>
                         <span className='text-center text-sm text-red-500 p-2'>No Content Section Added</span>
                     </div>
                 }
