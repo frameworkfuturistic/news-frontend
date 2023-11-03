@@ -129,7 +129,7 @@ const NewsSection = (props) => {
 
     return (
         <>
-            <div className="container mx-auto mt-4">
+            <div className="mx-auto mt-4">
 
                 <div className='w-full flex justify-end'>
                     <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-green-500 hover:bg-green-700 text-white py-1.5 px-4 mb-2" >Add Section</button>
@@ -172,9 +172,7 @@ const NewsSection = (props) => {
                     </div>
                     {
                         props?.finalData?.length == 0 &&
-                        <tr className='bg-white'>
-                            <div colSpan={4} className='text-center text-sm text-red-500 py-2'>No Content Section Added</div>
-                        </tr>
+                            <div className='w-full bg-white text-center text-sm text-red-500 py-2'>No Content Section Added</div>
                     }
                 </div>
 
@@ -195,7 +193,7 @@ const NewsSection = (props) => {
 
                 {
                     props?.finalData?.length == 0 &&
-                    <div className='bg-white'>
+                    <div className='bg-white md:hidden block'>
                         <span className='text-center text-sm text-red-500 p-2'>No Content Section Added</span>
                     </div>
                 }
