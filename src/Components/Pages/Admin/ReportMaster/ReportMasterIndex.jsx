@@ -60,7 +60,7 @@ const CrudComponent = () => {
           onChange={(e) => setNewCard({ ...newCard, content: e.target.value })}
         />
         <button
-          className="w-full mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="w-full mt-2    text-white font-bold py-2 px-4 rounded" style={{color:"#164E63", backgroundColor:"#164E63" }}
           onClick={handleSave}
         >
           {editing !== null ? 'Save' : 'Add'}
