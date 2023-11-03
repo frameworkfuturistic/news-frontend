@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import * as yup from 'yup';
+import NewsCard from './NewsCard';
 
 const NewsSection = (props) => {
 
@@ -130,9 +131,9 @@ const NewsSection = (props) => {
         <>
             <div className="container mx-auto mt-4">
 
-                <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-green-500 hover:bg-green-700 text-white py-1.5 px-4 float-right mb-2" >Add Section</button>
+                <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-green-500 hover:bg-green-700 text-white py-1.5 px-4 md:float-right mb-2" >Add Section</button>
 
-                <table className="w-full border-collapse">
+                <table className="w-full border-collapse mds:block hidden">
                     <thead>
                         <tr className="bg-gray-100">
                             <th className="w-[10%] py-2 px-4 font-semibold border">File</th>
@@ -177,6 +178,28 @@ const NewsSection = (props) => {
                         }
                     </tbody>
                 </table>
+
+                {
+                    Array.isArray(props?.finalData) && props?.finalData?.map((card, index) =>
+                        <div className='flex justify-center flex-wrap gap-4'>
+                            <NewsCard
+                                key={index}
+                                index={index}
+                                image={URL.createObjectURL(props?.document[index])}
+                                title={card.title}
+                                desc={card.desc}
+                                handleContent={(type, index) => handleContent(type, index)}
+                            />
+                        </div>
+                    )
+                }
+
+{
+                            props?.finalData?.length == 0 &&
+                            <div className='bg-white'>
+                                <span className='text-center text-sm text-red-500 p-2'>No Content Section Added</span>
+                            </div>
+                        }
 
             </div>
 
