@@ -24,6 +24,8 @@ const NewsForm = () => {
     const [document, setDocument] = useState([]) // for news section passed by props
     const [finalData, setFinalData] = useState([]) // for news section passed by props
 
+    const [imageData, setImageData] = useState('') // to store image for preview
+
     // CSS Constants
     let style = {
         label: 'text-gray-800 text-sm',
@@ -33,21 +35,31 @@ const NewsForm = () => {
 
     // Initial values for form
     const initialValues = {
-
+        category: '',
+        media: '',
+        heading: ''
     }
 
     // validation schema for form
     const schema = yup.object().shape({
-
+        category: yup.string().required(),
+        media: yup.string().required(),
+        heading: yup.string().required(),
     })
 
     // Formik constant or functions
     const formik = useFormik({
         initialValues: initialValues,
         enableReinitialize: true,
-        validationSchema: schema,
+        // validationSchema: schema,
 
         onSubmit: (values) => {
+
+            if(finalData?.length == 0){
+                toast.error("Add content for your news.")
+                return;
+            }
+
             submitFun(values)
         }
     })
@@ -123,8 +135,6 @@ const NewsForm = () => {
         // getNewsDataFun()
     }, [id])
 
-    console.log('object ::::: ', document, finalData)
-    console.log('asdfdas')
 
     return (
         <>
@@ -139,22 +149,79 @@ const NewsForm = () => {
             <div className='relative'>
 
                 {/* Back Button */}
-                <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute -top-4 -left-3"} onClick={() => window.history.back()}>Back</button>
+                <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute -top-8 -left-3"} onClick={() => window.history.back()}>Back</button>
 
                 {/* 👉 Heading 👈 */}
-                <div className="uppercase font-semibold text-cyan-900 text-2xl py-2 text-center tracking-[0.2rem] border-b border-cyan-900">
-                    News {id ? 'Edit' : 'Add'} Form
+                <div className="font-semibold text-cyan-900 text-xl py-1 tracking-[0.1rem] border-b border-cyan-900 mt-4">
+                    News {id ? 'Update' : 'Add'} Form
                 </div>
 
-                {/* News Form */}
-                <form>
-                </form>
-                <NewsSection
-                    document={document}
-                    setDocument={setDocument}
-                    finalData={finalData}
-                    setFinalData={setFinalData}
-                />
+                <div className='bg-white mt-4'>
+
+                    {/* News Form */}
+                    <form className='p-4 grid grid-cols-12 gap-2'>
+
+                        {/* Media Preview */}
+                        {imageData != '' &&
+                            <div className='col-span-12 flex flex-col gap-1 '>
+                                <label htmlFor="" className={style.label + ' text-base font-semibold'}>Selected Media</label>
+                                <img src="" className='border py-1 px-4 text-sm w-full drop-shadow-md object-contain bg-contain' alt="Media" srcset="" />
+                            </div>
+                        }
+
+                        {/* Category */}
+                        <div className='col-span-12 md:col-span-3 flex flex-col gap-1 '>
+                            <label htmlFor="" className={style.label}>Select Category</label>
+                            <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+
+                                <option value="">Select</option>
+                                {/* {
+                                        options?.map((elem) => <option className='' value={elem[okey]}>{elem[ovalue]}</option>)
+                                    } */}
+
+                            </select>
+                        </div>
+
+                        {/* Media Selection */}
+                        <div className='col-span-12 md:col-span-3 flex flex-col gap-1 '>
+                            <label htmlFor="" className={style.label}>Select Media</label>
+                            <select name='media' {...formik.getFieldProps('media')} className={style.input + ` ${(formik.touched.media && formik.errors.media) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+
+                                <option value="">Select</option>
+                                {/* {
+                                        options?.map((elem) => <option className='' value={elem[okey]}>{elem[ovalue]}</option>)
+                                    } */}
+
+                            </select>
+                        </div>
+
+                        {/* Heading */}
+                        <div className='col-span-12 md:col-span-6 row-span-2 flex flex-col gap-1 '>
+                            <label htmlFor="" className={style.label}>Heading</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Heading"
+                                name='heading'
+                                value={formik.values.heading}
+                                className={style.input + ` ${(formik.touched.heading && formik.errors.heading) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                            />
+                        </div>
+
+                    </form>
+
+                    <NewsSection
+                        document={document}
+                        setDocument={setDocument}
+                        finalData={finalData}
+                        setFinalData={setFinalData}
+                    />
+
+                    <div className="w-full flex justify-start px-4 pb-4">
+                        <button type="submit" onClick={formik.handleSubmit} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{id ? 'Update' : 'Add'} News</button>
+                    </div>
+
+                </div>
+
             </div>
         </>
     )
