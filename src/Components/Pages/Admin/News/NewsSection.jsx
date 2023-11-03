@@ -1,15 +1,13 @@
-import { checkSizeValidation } from '@/Components/Common/PowerUpFunctions';
+import { checkSizeValidation, nullToNA } from '@/Components/Common/PowerUpFunctions';
 import { useFormik } from 'formik';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import * as yup from 'yup';
 
-const NewsSection = () => {
+const NewsSection = (props) => {
 
     const dialogRef = useRef()
 
-    const [document, setDocument] = useState([])
-    const [finalData, setFinalData] = useState([])
     const [tempDoc, setTempDoc] = useState(null)
     const [index, setIndex] = useState(0)
     const [mType, setMType] = useState('')
@@ -55,19 +53,19 @@ const NewsSection = () => {
                 setTempDoc(null)
             } break;
             case 'edit': {
-
-                console.log(document[index])
+                setTempDoc(null)
+                console.log(props?.document[index])
                 dialogRef.current.showModal()
                 formik.setFieldValue('media', '')
-                formik.setFieldValue('title', finalData[index]?.title)
-                formik.setFieldValue('desc', finalData[index]?.desc)
+                formik.setFieldValue('title', props?.finalData[index]?.title)
+                formik.setFieldValue('desc', props?.finalData[index]?.desc)
             } break;
             case 'delete': {
-                const newDocArray = [...document.slice(0, index), ...document.slice(index + 1)];
-                const sectionArray = [...finalData.slice(0, index), ...finalData.slice(index + 1)];
+                const newDocArray = [...props?.document.slice(0, index), ...props?.document.slice(index + 1)];
+                const sectionArray = [...props?.finalData.slice(0, index), ...props?.finalData.slice(index + 1)];
 
-                setDocument(newDocArray)
-                setFinalData(sectionArray)
+                props?.setDocument(newDocArray)
+                props?.setFinalData(sectionArray)
             } break;
             default: {
                 console.log("Type not passed...")
@@ -84,8 +82,7 @@ const NewsSection = () => {
 
         if (file) {
             setTempDoc(file)
-        } else {
-            setTempDoc(null)
+            console.log('entered with file')
         }
     }
 
@@ -96,22 +93,38 @@ const NewsSection = () => {
         switch (mType) {
 
             case "add": {
-                setFinalData(prev => [...prev, values])
-                setDocument(prev => [...prev, tempDoc])
+
+                props?.setFinalData(prev => [...prev, values])
+                props?.setDocument(prev => [...prev, tempDoc])
+
             } break;
 
             case 'edit': {
-                document[index] = tempDoc ? tempDoc : document[index];
-                finalData[index].media = values.media;
-                finalData[index].title = values.title;
-                finalData[index].desc = values.desc;
-            }
 
-            case 'delete': {
 
-            }
+                const updatedDocument = [...props.document];
+                const updatedFinalData = [...props.finalData];
+
+                console.log('in edit case : ', tempDoc, updatedDocument[index])
+
+                updatedDocument[index] = tempDoc != null ? tempDoc : updatedDocument[index];
+                updatedFinalData[index] = {
+                    ...updatedFinalData[index],
+                    media: values.media,
+                    title: values.title,
+                    desc: values.desc,
+                };
+
+                props.setDocument(updatedDocument);
+                props.setFinalData(updatedFinalData);
+
+            } break;
         }
     }
+
+    useEffect(() => {
+        formik.values.media == '' && setTempDoc(null)
+    }, [formik.values.media])
 
     return (
         <>
@@ -129,33 +142,35 @@ const NewsSection = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {Array.isArray(finalData) && finalData?.map((card, index) => (
-                            <tr key={index} className="bg-white">
-
-                                <>
-                                    <td className="w-[10%] py-2 px-4 border">{card.media ? <img src={URL.createObjectURL(document[index])} className='w-16' alt='' /> : 'N/A'}</td>
-                                    <td className="py-2 px-4 border">{card.title}</td>
-                                    <td className="py-2 px-4 border">{card.desc}</td>
-                                    <td className="w-[15%] py-2 px-4 border-b flex">
-                                        <div
-                                            className="w-max cursor-pointer bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded mr-2"
-                                            onClick={() => handleContent('edit', index)}
-                                        >
-                                            Edit
-                                        </div>
-                                        <div
-                                            className="w-max cursor-pointer bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-2 rounded"
-                                            onClick={() => handleContent('delete', index)}
-                                        >
-                                            Delete
-                                        </div>
-                                    </td>
-                                </>
-
-                            </tr>
-                        ))}
                         {
-                            finalData?.length == 0 &&
+                            Array.isArray(props?.finalData) && props?.finalData?.map((card, index) => (
+
+                                <tr key={index} className="bg-white">
+
+                                    <>
+                                        <td className="w-[10%] py-2 px-4 border">{props?.document[index] != null ? <img src={URL.createObjectURL(props?.document[index])} className='w-16' alt='' /> : 'N/A'}</td>
+                                        <td className="py-2 px-4 border">{nullToNA(card.title)}</td>
+                                        <td className="py-2 px-4 border">{nullToNA(card.desc)}</td>
+                                        <td className="w-[15%] py-2 px-4 border-b flex">
+                                            <div
+                                                className="w-max cursor-pointer bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded mr-2"
+                                                onClick={() => handleContent('edit', index)}
+                                            >
+                                                Edit
+                                            </div>
+                                            <div
+                                                className="w-max cursor-pointer bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-2 rounded"
+                                                onClick={() => handleContent('delete', index)}
+                                            >
+                                                Delete
+                                            </div>
+                                        </td>
+                                    </>
+
+                                </tr>
+                            ))}
+                        {
+                            props?.finalData?.length == 0 &&
                             <tr className='bg-white'>
                                 <td colSpan={4} className='text-center text-sm text-red-500 py-2'>No Content Section Added</td>
                             </tr>
@@ -173,7 +188,7 @@ const NewsSection = () => {
 
                 <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className=" rounded-md flex flex-col flex-wrap gap-4">
 
-                    {mType == 'edit' && document[index] && <img src={URL.createObjectURL(document[index])} className='w-full' alt="" srcset="" />}
+                    {mType == 'edit' && props?.document[index] && <img src={URL.createObjectURL(props?.document[index])} className='w-full' alt="" srcset="" />}
 
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="" className={style.label}>Upload Media</label>

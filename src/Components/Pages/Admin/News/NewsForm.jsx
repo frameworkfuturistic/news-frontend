@@ -21,6 +21,9 @@ const NewsForm = () => {
     const [errorState, setErrorState] = useState(false) // to store status of error
     const [errorMessage, setErrorMessage] = useState('') // to store error message
 
+    const [document, setDocument] = useState([]) // for news section passed by props
+    const [finalData, setFinalData] = useState([]) // for news section passed by props
+
     // CSS Constants
     let style = {
         label: 'text-gray-800 text-sm',
@@ -117,8 +120,11 @@ const NewsForm = () => {
 
     // To call function when having id
     useEffect(() => {
-        getNewsDataFun()
+        // getNewsDataFun()
     }, [id])
+
+    console.log('object ::::: ', document, finalData)
+    console.log('asdfdas')
 
     return (
         <>
@@ -137,14 +143,18 @@ const NewsForm = () => {
 
                 {/* 👉 Heading 👈 */}
                 <div className="uppercase font-semibold text-cyan-900 text-2xl py-2 text-center tracking-[0.2rem] border-b border-cyan-900">
-                   News {id ? 'Edit' : 'Add' } Form
+                    News {id ? 'Edit' : 'Add'} Form
                 </div>
 
                 {/* News Form */}
                 <form>
                 </form>
-                    <NewsSection />
-
+                <NewsSection
+                    document={document}
+                    setDocument={setDocument}
+                    finalData={finalData}
+                    setFinalData={setFinalData}
+                />
             </div>
         </>
     )
