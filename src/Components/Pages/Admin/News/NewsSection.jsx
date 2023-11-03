@@ -131,57 +131,56 @@ const NewsSection = (props) => {
         <>
             <div className="container mx-auto mt-4">
 
-                <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-green-500 hover:bg-green-700 text-white py-1.5 px-4 md:float-right mb-2" >Add Section</button>
+                <div className='w-full flex justify-end'>
+                    <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-green-500 hover:bg-green-700 text-white py-1.5 px-4 mb-2" >Add Section</button>
+                </div>
 
-                <table className="w-full border-collapse mds:block hidden">
-                    <thead>
-                        <tr className="bg-gray-100">
-                            <th className="w-[10%] py-2 px-4 font-semibold border">File</th>
-                            <th className="py-2 px-4 font-semibold border">Title</th>
-                            <th className="py-2 px-4 font-semibold border">Description</th>
-                            <th className="w-[15%] py-2 px-4 font-semibold border">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div className="w-full md:block hidden">
+                    <div className="grid grid-cols-12 bg-gray-100">
+                        <div className="col-span-2 py-2 px-4 font-semibold border">File</div>
+                        <div className="col-span-2 py-2 px-4 font-semibold border">Title</div>
+                        <div className="col-span-6  py-2 px-4 font-semibold border">Description</div>
+                        <div className="col-span-2  py-2 px-4 font-semibold border">Actions</div>
+                    </div>
+
+                    <div className="bg-white w-full grid grid-cols-12 ">
                         {
                             Array.isArray(props?.finalData) && props?.finalData?.map((card, index) => (
 
-                                <tr key={index} className="bg-white">
 
-                                    <>
-                                        <td className="w-[10%] py-2 px-4 border">{props?.document[index] != null ? <img src={URL.createObjectURL(props?.document[index])} className='w-16' alt='' /> : 'N/A'}</td>
-                                        <td className="py-2 px-4 border">{nullToNA(card.title)}</td>
-                                        <td className="py-2 px-4 border">{nullToNA(card.desc)}</td>
-                                        <td className="w-[15%] py-2 px-4 border-b flex">
-                                            <div
-                                                className="w-max cursor-pointer bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded mr-2"
-                                                onClick={() => handleContent('edit', index)}
-                                            >
-                                                Edit
-                                            </div>
-                                            <div
-                                                className="w-max cursor-pointer bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-2 rounded"
-                                                onClick={() => handleContent('delete', index)}
-                                            >
-                                                Delete
-                                            </div>
-                                        </td>
-                                    </>
+                                <>
+                                    <div key={index} className="col-span-2 py-2 px-4 border">{props?.document[index] != null ? <img src={URL.createObjectURL(props?.document[index])} className='w-16' alt='' /> : 'N/A'}</div>
+                                    <div className="col-span-2 py-2 px-4 border">{nullToNA(card.title)}</div>
+                                    <div className="col-span-6 py-2 px-4 border break-words">{nullToNA(card.desc)}</div>
+                                    <div className="col-span-2 py-2 px-4 border-b flex items-center justify-center">
+                                        <div
+                                            className="w-max cursor-pointer bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded mr-2"
+                                            onClick={() => handleContent('edit', index)}
+                                        >
+                                            Edit
+                                        </div>
+                                        <div
+                                            className="w-max cursor-pointer bg-red-500 hover:bg-red-700 text-white text-sm py-1 px-2 rounded"
+                                            onClick={() => handleContent('delete', index)}
+                                        >
+                                            Delete
+                                        </div>
+                                    </div>
+                                </>
 
-                                </tr>
                             ))}
-                        {
-                            props?.finalData?.length == 0 &&
-                            <tr className='bg-white'>
-                                <td colSpan={4} className='text-center text-sm text-red-500 py-2'>No Content Section Added</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    </div>
+                    {
+                        props?.finalData?.length == 0 &&
+                        <tr className='bg-white'>
+                            <div colSpan={4} className='text-center text-sm text-red-500 py-2'>No Content Section Added</div>
+                        </tr>
+                    }
+                </div>
 
                 {
                     Array.isArray(props?.finalData) && props?.finalData?.map((card, index) =>
-                        <div className='flex justify-center flex-wrap gap-4'>
+                        <div className='md:hidden flex justify-center flex-wrap gap-4'>
                             <NewsCard
                                 key={index}
                                 index={index}
@@ -194,12 +193,12 @@ const NewsSection = (props) => {
                     )
                 }
 
-{
-                            props?.finalData?.length == 0 &&
-                            <div className='bg-white'>
-                                <span className='text-center text-sm text-red-500 p-2'>No Content Section Added</span>
-                            </div>
-                        }
+                {
+                    props?.finalData?.length == 0 &&
+                    <div className='bg-white'>
+                        <span className='text-center text-sm text-red-500 p-2'>No Content Section Added</span>
+                    </div>
+                }
 
             </div>
 
