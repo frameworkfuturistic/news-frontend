@@ -9,15 +9,27 @@ export const ApiList = () => {
   apiLogin        : url + "/api/auth/login",
   apiLogout       : url + "/api/auth/logout",
   
+  // =========Career Form============
   apiCareerForm       : url + "/api/v1/job/apply",
 
-  apiGetNews           : url + "/api/crud/content/v1/show",
-  apiGetNewsById       : url + "/api/",
-  
+  // ============Career Applied List==============
   api_getCareerList       : url + "/api/v1/job/list",
 
+  // =============News Master List===============
   api_getNewsList       : url + "/api/v1/job/list",
 
+  // ==========Media Master==============
+  api_getMedia: `${url}/api/crud/media/v1/show`,
+  api_addMedia: `${url}/api/crud/media/v1/edit`,
+  api_updateMedia: `${url}/api/crud/media/v1/store`,
+
+    // ==========Media Master==============
+    api_getTag: `${url}/`,
+    api_addTag: `${url}/`,
+    api_updateTag: `${url}/`,
+  
+  apiGetNews           : url + "/api/crud/content/v1/show",
+  apiGetNewsById       : url + "/api/",
 }
 
 return api;
