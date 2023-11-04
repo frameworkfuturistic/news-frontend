@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ListTable from "@/Components/Common/ListTable/ListTable";
 import { ApiList } from "@/Components/api/ApiList";
-import { checkErrorMessage, getCurrentDate, indianDate, nullToNA } from "@/Components/Common/PowerupFunctions";
+import { checkErrorMessage, checkSizeValidation, getCurrentDate, indianDate, nullToNA } from "@/Components/Common/PowerupFunctions";
 import ShimmerEffectInline from "@/Components/Common/Loaders/ShimmerEffectInline";
 import * as yup from 'yup'
 import { useFormik } from "formik";
@@ -14,15 +14,17 @@ import { FiAlertCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import CreatableSelect from 'react-select/creatable';
+import ApiMultipartHeader from "@/Components/Api/ApiMultipartHeader";
+import toast from "react-hot-toast";
 
 const MediaMasterIndex = () => {
 
   // 👉 API constants 👈
-  const { api_addMedia, api_getMedia, api_updateMedia, api_getTag } = ApiList()
+  const { api_addMedia, api_getMedia, api_updateMedia, api_getTag, api_deleteMedia } = ApiList()
 
   // 👉 Dialog useRef 👈
   const dialogRef = useRef(null)
-  const deleteRef = useRef(null)
+  const fileRef = useRef()
 
   const navigate = useNavigate()
 
@@ -36,6 +38,7 @@ const MediaMasterIndex = () => {
   const [mType, setMType] = useState('')
   const [viewData, setViewData] = useState(null)
   const [tagList, setTagList] = useState([])
+  const [document, setDocument] = useState(null)
 
   // 👉 CSS constants 👈
   const addButton = "float-right focus:outline-none border border-green-500 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-green-500 hover:text-white text-green-500 flex items-center"
@@ -66,6 +69,10 @@ const MediaMasterIndex = () => {
 
     setMType(type)
 
+    setDocument(null)
+
+    fileRef.current.value = '';
+
     switch (type) {
       case 'add': {
         setSelectedOptions([])
@@ -78,7 +85,7 @@ const MediaMasterIndex = () => {
       } break;
       case 'delete': {
         setViewData(data)
-        deleteRef.current.showModal()
+        dialogRef.current.showModal()
       } break;
     }
 
@@ -193,29 +200,100 @@ const MediaMasterIndex = () => {
       })
       .finally(() => {
         setLoader(false)
+        dialogRef.current.close()
       })
   }
-
-  const schema = yup.object().shape({
-    media: yup.string().required(),
-    tags: yup.array().min(1, 'assign any tags').required()
-  })
-
-  // Formik
-  const formik = useFormik({
-    initialValues: {
-      media: '',
-      tags: [],
-    },
-    enableReinitialize: true,
-    validationSchema: schema,
-  })
 
   // 👉 To call Function 3 👈
   useEffect(() => {
     getNewsList()
-    getTagList()
+    // getTagList()
   }, [])
+
+  const handleDocChange = (e) => {
+
+    const file = e.target.files[0]
+
+    if (!checkSizeValidation(file)) {
+      setDocument(null);
+      fileRef.current.value = '';
+      return;
+    } else {
+      setDocument(file)
+    }
+
+  }
+
+  const submitNews = () => {
+
+    let url;
+    let fd = new FormData()
+
+    const modifiedTags = selectedOptions?.map(elem => elem?.value)
+
+    switch (mType) {
+
+      case 'add': {
+
+        if (document == null) {
+          toast.error("Select Document")
+          return;
+        }
+
+        if (modifiedTags?.length == 0) {
+          toast.error("Add any tags")
+          return;
+        }
+
+        url = api_addMedia
+
+        fd.append("mediaType", 'abc')
+        fd.append('file', document)
+        modifiedTags?.map((elem, index) => {
+          fd.append(`tags[${index}]`, elem)
+        }
+        )
+
+      } break;
+
+      case 'edit': {
+        url = api_updateMedia
+
+        fd.append("mediaType", 'abc')
+        fd.append("id", viewData?.id)
+        document && fd.append('file', document)
+        modifiedTags?.map((elem, index) => {
+          fd.append(`tags[${index}]`, elem)
+        })
+
+      } break;
+
+      case 'delete': {
+        url = api_deleteMedia
+        fd.append('id', viewData?.id)
+      }
+
+    }
+
+    setLoader(true)
+
+    axios
+      .post(url, fd, ApiMultipartHeader())
+      .then((res) => {
+        console.log('media response => ', res)
+        if (res?.data?.status) {
+          toast.success(`Media ${mType == 'add' && 'Added'} ${mType == 'edit' && 'Updated'} ${mType == 'delete' && 'Deleted'} Successfully`)
+        } else {
+          activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
+        }
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        getNewsList()
+        setLoader(false)
+        dialogRef.current.close()
+      })
+  }
 
   return (
     <>
@@ -255,9 +333,9 @@ const MediaMasterIndex = () => {
           </>}
       </div>
 
-      <dialog ref={deleteRef} className={`backdrop:backdrop-brightness-75 relative animate__animated animate__zoomIn animate__faster`}>
+      <dialog ref={dialogRef} className={`backdrop:backdrop-brightness-75 relative ${mType != 'delete' ? 'px-4 py-10 md:w-[30vw] h-max' : ' '} animate__animated animate__zoomIn animate__faster`}>
 
-        <div className='border bg-white z-50 px-6 py-4 flex flex-col gap-4'>
+        <div className={`border ${mType == 'delete' ? 'flex' : 'hidden'} bg-white z-50 px-6 py-4 flex flex-col gap-4`}>
           <div className='flex items-center gap-6'>
             <span className='text-red-500 bg-red-100 p-2 block rounded-full drop-shadow-md shadow-red-300'><FiAlertCircle size={25} /></span>
             <div className='flex flex-col gap-2'>
@@ -266,35 +344,50 @@ const MediaMasterIndex = () => {
             </div>
           </div>
           <div className='flex justify-end gap-2'>
-            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => deleteRef.current.close()}>No</button>
+            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => dialogRef.current.close()}>No</button>
             <button className='text-white bg-red-500 hover:bg-red-600 px-4 py-1 text-sm ' onClick={() => deleteFun()}>Yes</button>
           </div>
         </div>
 
-      </dialog>
+        <span className={`${mType != 'delete' ? 'block' : 'hidden'} absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer `} onClick={() => dialogRef.current.close()}><RxCross2 /></span>
 
+        <div className={`${mType != 'delete' ? 'flex flex-col gap-2' : 'hidden'}`}>
+          <h1 className="font-semibold text-xl border-b pb-1 mb-2">{mType == 'edit' ? "Update" : "Add"} Media</h1>
 
-      <dialog ref={dialogRef} className='backdrop:backdrop-brightness-75 px-4 py-10 md:w-[30vw] h-max w-full animate__animated animate__zoomIn animate__faster flex flex-col gap-2'>
+          {mType == 'edit' && <div className="">
+            <img src={`${url}/${viewData?.file_name}`} alt="" srcset="" />
+          </div>}
 
-        <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => dialogRef.current.close()}><RxCross2 /></span>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="" className={labelStyle}>Upload Image</label>
+            <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} name="media" id="" />
+          </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="" className={labelStyle}>Upload Image</label>
-          <input type="file" className={fileStyle} name="media" id="" />
-        </div>
+          <div className="flex flex-col gap-1">
+            <label htmlFor="" className={labelStyle}>Add Tags</label>
+            <CreatableSelect
+              isMulti
+              options={tagList}
+              onChange={handleChange}
+              value={selectedOptions}
+            />
+          </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="" className={labelStyle}>Upload Image</label>
-          <CreatableSelect
-            isMulti
-            options={tagList}
-            onChange={handleChange}
-            value={selectedOptions}
-          />
-        </div>
+          <div className="w-full flex justify-start mt-4">
 
-        <div className="w-full flex justify-start px-4 pb-4">
-          <button type="submit" onClick={formik.handleSubmit} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{mType == 'edit' ? 'Update' : 'Add'} News</button>
+            {
+              loader ?
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="25"
+                  visible={true}
+                />
+                :
+                <button type="submit" onClick={() => submitNews()} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{mType == 'edit' ? 'Update' : 'Add'} Media</button>
+            }
+          </div>
         </div>
 
       </dialog>

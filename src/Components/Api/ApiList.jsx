@@ -20,13 +20,15 @@ export const ApiList = () => {
 
   // ==========Media Master==============
   api_getMedia: `${url}/api/crud/media/v1/show`,
-  api_addMedia: `${url}/api/crud/media/v1/edit`,
-  api_updateMedia: `${url}/api/crud/media/v1/store`,
+  api_updateMedia: `${url}/api/crud/media/v1/edit`,
+  api_addMedia: `${url}/api/crud/media/v1/store`,
+  api_deleteMedia: `${url}/api/crud/media/v1/delete`,
 
     // ==========Media Master==============
     api_getTag: `${url}/`,
     api_addTag: `${url}/`,
     api_updateTag: `${url}/`,
+    api_deleteTag: `${url}/`,
   
   apiGetNews           : url + "/api/crud/content/v1/show",
   apiGetNewsById       : url + "/api/",
