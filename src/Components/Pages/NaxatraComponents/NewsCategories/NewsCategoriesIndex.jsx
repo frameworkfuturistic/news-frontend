@@ -32,6 +32,7 @@ const NewsCategoriesIndex = (props) => {
       route: "/Khel",
       subMenu: [],
     },
+    { title: "विदेश", route: "/Videsh", subMenu: [] },
   ];
 
   const dropFun = (val) => {
