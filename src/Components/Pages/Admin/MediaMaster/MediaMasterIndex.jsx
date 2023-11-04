@@ -43,6 +43,7 @@ const MediaMasterIndex = () => {
   const deleteButton = "float-right focus:outline-none border border-red-500 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-red-500 hover:text-white text-red-500 flex items-center"
   const labelStyle = 'text-gray-800 text-sm'
   const inputStyle = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
+  const fileStyle = 'block w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200'
 
   // Multiselect logic start
 
@@ -273,16 +274,28 @@ const MediaMasterIndex = () => {
       </dialog>
 
 
-      <dialog ref={dialogRef} className='backdrop:backdrop-brightness-75 px-4 py-10 md:w-[40vw] w-full animate__animated animate__zoomIn animate__faster'>
+      <dialog ref={dialogRef} className='backdrop:backdrop-brightness-75 px-4 py-10 md:w-[30vw] h-max w-full animate__animated animate__zoomIn animate__faster flex flex-col gap-2'>
 
         <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => dialogRef.current.close()}><RxCross2 /></span>
 
-        <CreatableSelect
-          isMulti
-          options={tagList}
-          onChange={handleChange}
-          value={selectedOptions}
-        />
+        <div className="flex flex-col gap-1">
+          <label htmlFor="" className={labelStyle}>Upload Image</label>
+          <input type="file" className={fileStyle} name="media" id="" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label htmlFor="" className={labelStyle}>Upload Image</label>
+          <CreatableSelect
+            isMulti
+            options={tagList}
+            onChange={handleChange}
+            value={selectedOptions}
+          />
+        </div>
+
+        <div className="w-full flex justify-start px-4 pb-4">
+          <button type="submit" onClick={formik.handleSubmit} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{mType == 'edit' ? 'Update' : 'Add'} News</button>
+        </div>
 
       </dialog>
 
