@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 const NewsIndex = () => {
 
     // 👉 API constants 👈
-    const { api_getNewsList } = ApiList()
+    const { api_getNews, api_deleteNews } = ApiList()
 
     // 👉 Dialog useRef 👈
     const dialogRef = useRef(null)
@@ -97,11 +97,11 @@ const NewsIndex = () => {
                 }
             </>,
         },
-        {
-            Header: "Author Name",
-            accessor: "author_name",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.author_name)),
-        },
+        // {
+        //     Header: "Author Name",
+        //     accessor: "author_name",
+        //     Cell: ({ cell }) => (nullToNA(cell.row.original?.author_name)),
+        // },
         {
             Header: "Created At",
             accessor: "created_at",
@@ -193,18 +193,18 @@ const NewsIndex = () => {
         }
 
         axios
-            .post(api_getNewsList, payload, ApiJsonHeader())
+            .post(api_getNews, payload, ApiJsonHeader())
             .then((res) => {
                 if (res?.data?.status) {
                     setnewsData(res?.data?.data)
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
                 }
-                console.log('career list response => ', res)
+                console.log('news list response => ', res)
             })
             .catch((err) => {
                 activateBottomErrorCard(true, 'Server Error! Please try again later.')
-                console.log('error career list => ', err)
+                console.log('error news list => ', err)
             })
             .finally(() => {
                 setLoader(false)

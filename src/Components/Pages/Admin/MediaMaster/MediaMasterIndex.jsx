@@ -17,7 +17,7 @@ import CreatableSelect from 'react-select/creatable';
 import ApiMultipartHeader from "@/Components/Api/ApiMultipartHeader";
 import toast from "react-hot-toast";
 
-const MediaMasterIndex = () => {
+const MediaMasterIndex = (props) => {
 
   // 👉 API constants 👈
   const { api_addMedia, api_getMedia, api_updateMedia, api_getTag, api_deleteMedia } = ApiList()
@@ -101,7 +101,7 @@ const MediaMasterIndex = () => {
       Header: "Media",
       accessor: "file_name",
       Cell: ({ cell }) => (<>
-        <img src={`${url}/${cell?.row?.original?.file_name}`} alt="" srcset="" />
+        <img src={`${cell?.row?.original?.file_name}`} alt="" srcset="" />
       </>),
       className: 'w-full md:w-[25%] px-2'
     },
@@ -143,6 +143,11 @@ const MediaMasterIndex = () => {
       ),
     },
   ]
+
+  const diaologCloseFun = () => {
+    dialogRef.current.close()
+    props?.addMedia && props.close()
+  }
 
   // 👉 Function 3 👈
   const getNewsList = () => {
@@ -200,15 +205,21 @@ const MediaMasterIndex = () => {
       })
       .finally(() => {
         setLoader(false)
-        dialogRef.current.close()
       })
   }
 
   // 👉 To call Function 3 👈
   useEffect(() => {
-    getNewsList()
-    // getTagList()
+    !props?.addMedia && getNewsList()
+    getTagList()
   }, [])
+
+  useEffect(() => {
+    if(props?.addMedia){
+      setMType('add')
+      dialogRef.current.showModal()
+    }
+  },[props])
 
   const handleDocChange = (e) => {
 
@@ -291,7 +302,7 @@ const MediaMasterIndex = () => {
       .finally(() => {
         getNewsList()
         setLoader(false)
-        dialogRef.current.close()
+        diaologCloseFun()
       })
   }
 
@@ -301,7 +312,7 @@ const MediaMasterIndex = () => {
       {/* 👉 Error Card 👈 */}
       <ErrorCard activateErrorCard={activateBottomErrorCard} status={errorState} message={errorMessage} />
 
-      <div className="poppins p-4 px-6">
+      {!props?.addMedia && <div className="poppins p-4 px-6">
 
         {/* 👉 Heading 👈 */}
         <div className="mb-4 uppercase font-semibold text-cyan-900 text-2xl py-2 text-center tracking-[0.3rem] border-b border-cyan-900">
@@ -331,7 +342,7 @@ const MediaMasterIndex = () => {
               </>}
 
           </>}
-      </div>
+      </div>}
 
       <dialog ref={dialogRef} className={`backdrop:backdrop-brightness-75 relative ${mType != 'delete' ? 'px-4 py-10 md:w-[30vw] h-max' : ' '} animate__animated animate__zoomIn animate__faster`}>
 
@@ -344,18 +355,18 @@ const MediaMasterIndex = () => {
             </div>
           </div>
           <div className='flex justify-end gap-2'>
-            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => dialogRef.current.close()}>No</button>
+            <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => diaologCloseFun()}>No</button>
             <button className='text-white bg-red-500 hover:bg-red-600 px-4 py-1 text-sm ' onClick={() => deleteFun()}>Yes</button>
           </div>
         </div>
 
-        <span className={`${mType != 'delete' ? 'block' : 'hidden'} absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer `} onClick={() => dialogRef.current.close()}><RxCross2 /></span>
+        <span className={`${mType != 'delete' ? 'block' : 'hidden'} absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer `} onClick={() => diaologCloseFun()}><RxCross2 /></span>
 
         <div className={`${mType != 'delete' ? 'flex flex-col gap-2' : 'hidden'}`}>
           <h1 className="font-semibold text-xl border-b pb-1 mb-2">{mType == 'edit' ? "Edit" : "Add"} Media</h1>
 
           {mType == 'edit' && <div className="">
-            <img src={`${url}/${viewData?.file_name}`} alt="" srcset="" />
+            <img src={`${viewData?.file_name}`} alt="" srcset="" />
           </div>}
 
           <div className="flex flex-col gap-1">
@@ -367,7 +378,9 @@ const MediaMasterIndex = () => {
             <label htmlFor="" className={labelStyle}>Add Tags</label>
             <CreatableSelect
               isMulti
-              options={tagList}
+              options={tagList?.map((elem) => {
+                return {label: elem?.tag_name, value: elem?.tag_name}
+              }) ?? []}
               onChange={handleChange}
               value={selectedOptions}
             />

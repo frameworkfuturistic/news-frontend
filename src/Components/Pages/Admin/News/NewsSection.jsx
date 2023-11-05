@@ -4,12 +4,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import * as yup from 'yup';
 import NewsCard from './NewsCard';
+import Select from 'react-select';
+import ImageSelect from '@/Components/Common/ImageSelect';
 
 const NewsSection = (props) => {
 
     const dialogRef = useRef()
 
-    const [tempDoc, setTempDoc] = useState(null)
     const [index, setIndex] = useState(0)
     const [mType, setMType] = useState('')
 
@@ -50,22 +51,20 @@ const NewsSection = (props) => {
         switch (type) {
             case 'add': {
                 dialogRef.current.showModal()
+                setSelectedOptions([])
                 formik.resetForm()
-                setTempDoc(null)
             } break;
             case 'edit': {
-                setTempDoc(null)
-                console.log(props?.document[index])
                 dialogRef.current.showModal()
-                formik.setFieldValue('media', '')
+                formik.setFieldValue('media', props?.finalData[index]?.media)
                 formik.setFieldValue('title', props?.finalData[index]?.title)
                 formik.setFieldValue('desc', props?.finalData[index]?.desc)
+                setSelectedOptions(props?.finalData[index]?.tags?.map((elem) => ({label: elem, value: elem})) ?? [])
+                setSelectedImage({image: props?.finalData[index]?.image, id: props?.finalData[index]?.id})
             } break;
             case 'delete': {
-                const newDocArray = [...props?.document.slice(0, index), ...props?.document.slice(index + 1)];
                 const sectionArray = [...props?.finalData.slice(0, index), ...props?.finalData.slice(index + 1)];
 
-                props?.setDocument(newDocArray)
                 props?.setFinalData(sectionArray)
             } break;
             default: {
@@ -87,58 +86,88 @@ const NewsSection = (props) => {
         }
     }
 
+    const diaologCloseFun = () => {
+        dialogRef.current.close()
+        setSelectedImage(null)
+        setSelectedOptions([])
+        formik.resetForm()
+    }
+
     const submitFun = (values) => {
 
-        dialogRef.current.close();
+        diaologCloseFun();
+
+        const modifiedTags = selectedOptions?.map(elem => elem?.value)
 
         switch (mType) {
 
             case "add": {
 
-                props?.setFinalData(prev => [...prev, values])
-                props?.setDocument(prev => [...prev, tempDoc])
+                props?.setFinalData(prev => [...prev, {...values,tags: modifiedTags, image: selectedImage?.image || ""}])
 
             } break;
 
             case 'edit': {
 
 
-                const updatedDocument = [...props.document];
                 const updatedFinalData = [...props.finalData];
 
-                console.log('in edit case : ', tempDoc, updatedDocument[index])
-
-                updatedDocument[index] = tempDoc != null ? tempDoc : updatedDocument[index];
                 updatedFinalData[index] = {
                     ...updatedFinalData[index],
+                    tags: modifiedTags,
+                    image: selectedImage?.image || "",
                     media: values.media,
                     title: values.title,
                     desc: values.desc,
                 };
 
-                props.setDocument(updatedDocument);
                 props.setFinalData(updatedFinalData);
 
             } break;
         }
     }
 
-    useEffect(() => {
-        formik.values.media == '' && setTempDoc(null)
-    }, [formik.values.media])
+    // Multiselect logic start
+
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [mediaList, setMediaList] = useState([])
+
+    const handleChange = (newValue, actionMeta) => {
+        setSelectedImage(null)
+        setSelectedOptions(newValue);
+        const modifiedTags = newValue?.map(elem => elem?.value)
+        console.log(newValue)
+        setMediaList(() => {
+            return props?.tagList.filter(item => modifiedTags?.includes(item?.tag_name));
+        })
+    };
+
+    // Multiselect logic end
+
+    // Image select logic start
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    const handleImageSelect = (obj) => {
+        formik.setFieldValue('media', obj?.id)
+        setSelectedImage(obj);
+    };
+
+    // Image select logic end
+
+    console.log('props final data', props?.finalData)
 
     return (
         <>
             <div className="mx-auto p-4">
 
                 <div className='flex item-center gap-4'>
-                    <label htmlFor="" className={`text-base font-semibold text-gray-700`}>Content Section</label>
+                    <label htmlFor="" className={`text-base font-semibold text-gray-700`}>Content or Sub-Heading Section</label>
                     <button onClick={() => handleContent('add', '')} className="cursor-pointer w-max text-sm bg-amber-500 hover:bg-amber-700 text-white py-1 px-3 mb-2" >Add Content</button>
                 </div>
 
                 <div className="w-full md:block hidden">
                     <div className="grid grid-cols-12 bg-gray-100">
-                        <div className="col-span-2 py-2 px-4 font-semibold border">File</div>
+                        <div className="col-span-2 py-2 px-4 font-semibold border">Media</div>
                         <div className="col-span-2 py-2 px-4 font-semibold border">Title</div>
                         <div className="col-span-6  py-2 px-4 font-semibold border">Description</div>
                         <div className="col-span-2  py-2 px-4 font-semibold border">Actions</div>
@@ -150,7 +179,7 @@ const NewsSection = (props) => {
 
 
                                 <>
-                                    <div key={index} className="col-span-2 py-2 px-4 border">{props?.document[index] != null ? <img src={URL.createObjectURL(props?.document[index])} className='w-16' alt='' /> : 'N/A'}</div>
+                                    <div key={index} className="col-span-2 py-2 px-4 border">{card?.image != "" ? <img src={card?.image} className='w-16' alt='' /> : 'N/A'}</div>
                                     <div className="col-span-2 py-2 px-4 border">{nullToNA(card.title)}</div>
                                     <div className="col-span-6 py-2 px-4 border break-words">{nullToNA(card.desc)}</div>
                                     <div className="col-span-2 py-2 px-4 border-b flex items-center justify-center">
@@ -173,7 +202,7 @@ const NewsSection = (props) => {
                     </div>
                     {
                         props?.finalData?.length == 0 &&
-                            <div className='w-full bg-slate-50 border text-center text-sm text-red-500 py-2'>No Content Section Added</div>
+                        <div className='w-full bg-slate-50 border text-center text-sm text-red-500 py-2'>No Content Section Added</div>
                     }
                 </div>
 
@@ -183,7 +212,7 @@ const NewsSection = (props) => {
                             <NewsCard
                                 key={index}
                                 index={index}
-                                image={props?.document[index] != null ? URL.createObjectURL(props?.document[index]) : ''}
+                                image={card?.image || ""}
                                 title={card.title}
                                 desc={card.desc}
                                 handleContent={(type, index) => handleContent(type, index)}
@@ -201,61 +230,85 @@ const NewsSection = (props) => {
 
             </div>
 
-            <dialog ref={dialogRef} className='backdrop:backdrop-brightness-75 px-4 py-10 md:w-[40vw] w-full animate__animated animate__zoomIn animate__faster'>
+            <dialog ref={dialogRef} className='backdrop:backdrop-brightness-75 shadow-lg md:w-[60vw] w-full animate__animated animate__zoomIn animate__faster'>
 
-                <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => dialogRef.current.close()}><RxCross2 /></span>
+                <div className=" grid grid-cols-12 w-full">
 
-                <h1 className='text-center border-b pb-1 mb-4 font-semibold'>Add Content Section</h1>
-
-                <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className=" rounded-md flex flex-col flex-wrap gap-4">
-
-                    {mType == 'edit' && props?.document[index] && <img src={URL.createObjectURL(props?.document[index])} className='w-full' alt="" srcset="" />}
-
-                    <div className='flex flex-col gap-1'>
-                        <label htmlFor="" className={style.label}>Upload Media</label>
-                        <input
-                            type="file"
-                            placeholder="File"
-                            name='media'
-                            value={formik.values.media}
-                            onChange={(e) => handleForm(e)}
-                            className={style.file + ` ${(formik.touched.media && formik.errors.media) ? ' border-red-200 placeholder:text-red-500 text-red-400 file:border-red-200 file:text-red-400' : ' focus:border-zinc-300 border-zinc-200 file:border-zinc-300 file:text-gray-600'}`}
-                            accept='.jpg, .jpeg, .png, .mp4'
-                        />
+                    <div className='col-span-4 '>
+                        {
+                            selectedImage != null ?
+                                <div className='bg-slate-200 w-full justify-center items-center h-full'>
+                                    <img src={selectedImage?.image} className='py-1 px-4 text-sm w-full h-full rop-shadow-md object-contain bg-contain' alt="" srcset="" />
+                                </div>
+                                :
+                                <span className="bg-slate-500 flex justify-center items-center w-full h-full font-semibold text-sm text-white">
+                                    No Image Selected
+                                </span>
+                        }
                     </div>
 
-                    <div className='flex flex-col gap-1'>
-                        <label htmlFor="" className={style.label}>Title</label>
-                        <input
-                            type="text"
-                            placeholder="Enter Title"
-                            name='title'
-                            value={formik.values.title}
-                            className={style.input + ` ${(formik.touched.title && formik.errors.title) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
-                        />
-                    </div>
+                    <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className="col-span-8 flex flex-row flex-wrap gap-2 rounded-md relative p-4">
 
-                    <div className='flex flex-col gap-1'>
-                        <label htmlFor="" className={style.label}>Description</label>
-                        <textarea
-                            rows={3}
-                            type="text"
-                            placeholder="Enter Description"
-                            name='desc'
-                            value={formik.values.desc}
-                            className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
-                        />
-                    </div>
+                        <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => diaologCloseFun()}><RxCross2 /></span>
 
-                    <div className='w-full flex justify-center'>
-                        <button
-                            className="cursor-pointer w-max bg-green-500 hover:bg-green-700 text-white font-semibold py-1.5 px-4 text-sm"
-                            type='submit'
-                        >
-                            {mType == 'edit' ? 'Update' : 'Add'}
-                        </button>
-                    </div>
-                </form>
+                        <h1 className='w-full text-center border-b pb-1 mb-4 font-semibold'>Add Content Section</h1>
+                        {/* {mType == 'edit' && props?.document[index] && <img src={URL.createObjectURL(props?.document[index])} className='w-full' alt="" srcset="" />} */}
+
+                        <div className='w-full md:w-[48%] flex flex-col gap-1 '>
+                            <label htmlFor="" className={style.label}>Select Tags </label>
+                            <Select
+                                isMulti
+                                options={props?.tagList?.map((elem) => {
+                                    return { label: elem?.tag_name, value: elem?.tag_name }
+                                }) ?? []}
+                                onChange={handleChange}
+                                value={selectedOptions}
+                            />
+                        </div>
+
+                        {/* Media Selection */}
+                        <div className='w-full md:w-[48%] flex flex-col gap-1'>
+                            <label htmlFor="" className={style.label}>Select Media </label>
+                            <div className={`w-full `}>
+                                <ImageSelect options={mediaList ?? []} okey={'media_id'} ovalue={'file_name'} imageSelected={(okey, ovalue) => handleImageSelect({ id: okey, image: ovalue })} />
+                            </div>
+                        </div>
+
+                        <div className='w-full flex flex-col gap-1'>
+                            <label htmlFor="" className={style.label}>Title</label>
+                            <input
+                                type="text"
+                                placeholder="Enter Title"
+                                name='title'
+                                value={formik.values.title}
+                                className={style.input + ` ${(formik.touched.title && formik.errors.title) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                            />
+                        </div>
+
+                        <div className='w-full flex flex-col gap-1'>
+                            <label htmlFor="" className={style.label}>Description <span className='text-red-500 font-bold text-xs'>*</span> </label>
+                            <textarea
+                                rows={3}
+                                type="text"
+                                placeholder="Enter Description"
+                                name='desc'
+                                value={formik.values.desc}
+                                className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                            />
+                        </div>
+
+                        <div className='w-full flex justify-center'>
+                            <button
+                                className="cursor-pointer w-max bg-green-500 hover:bg-green-700 text-white font-semibold py-1.5 px-4 text-sm"
+                                type='submit'
+                            >
+                                {mType == 'edit' ? 'Update' : 'Add'}
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
             </dialog>
         </>
     );
