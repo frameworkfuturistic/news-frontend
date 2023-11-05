@@ -352,7 +352,7 @@ const MediaMasterIndex = () => {
         <span className={`${mType != 'delete' ? 'block' : 'hidden'} absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer `} onClick={() => dialogRef.current.close()}><RxCross2 /></span>
 
         <div className={`${mType != 'delete' ? 'flex flex-col gap-2' : 'hidden'}`}>
-          <h1 className="font-semibold text-xl border-b pb-1 mb-2">{mType == 'edit' ? "Update" : "Add"} Media</h1>
+          <h1 className="font-semibold text-xl border-b pb-1 mb-2">{mType == 'edit' ? "Edit" : "Add"} Media</h1>
 
           {mType == 'edit' && <div className="">
             <img src={`${url}/${viewData?.file_name}`} alt="" srcset="" />
