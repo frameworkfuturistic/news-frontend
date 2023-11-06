@@ -187,7 +187,7 @@ export const newsJson = [
         categoryId: "Jharkhand",
         source: video, // right
         type: 'video',
-        date: "Nov 03, 2023",
+        date: "Nov 06, 2023",
         heading:
           "सीएम हेमंत सोरेन ने की 'अबुआ बीर अबुआ दिशोम अभियान' की शुरुआत, बोले- पेड़ लगाए अधिकारी वर्ना आवास लेने का क्या लाभ ",
         sections: [
