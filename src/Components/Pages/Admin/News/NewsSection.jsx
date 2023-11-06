@@ -234,7 +234,7 @@ const NewsSection = (props) => {
 
                 <div className=" grid grid-cols-12 w-full">
 
-                    <div className='col-span-4 '>
+                    <div className='col-span-12 md:col-span-4 '>
                         {
                             selectedImage != null ?
                                 <div className='bg-slate-200 w-full justify-center items-center h-full'>
@@ -247,7 +247,7 @@ const NewsSection = (props) => {
                         }
                     </div>
 
-                    <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className="col-span-8 flex flex-row flex-wrap gap-2 rounded-md relative p-4">
+                    <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className="col-span-12 md:col-span-8 flex flex-row flex-wrap gap-2 rounded-md relative p-4">
 
                         <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => diaologCloseFun()}><RxCross2 /></span>
 

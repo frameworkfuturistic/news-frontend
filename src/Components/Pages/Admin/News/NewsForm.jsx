@@ -335,7 +335,7 @@ const NewsForm = () => {
                             </div>
                         }
 
-                        <div className='cols-span-12 md:col-span-8 w-full flex flex-wrap items-center gap-2'>
+                        <div className='col-span-12 md:col-span-8 w-full flex flex-wrap items-center gap-2'>
                             {/* Category */}
                             <div className='w-full flex flex-col gap-1'>
                                 <label htmlFor="" className={style.label}>Select Category <span className='font-bold text-xs text-red-500'>*</span></label>
