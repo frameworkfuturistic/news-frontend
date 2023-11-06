@@ -73,15 +73,6 @@ const HomeIndex = () => {
       </>)
     }
 
-
-      
-
-      {/* {
-        newsJson?.map((elem, index) => <>
-          <HomeLayout key={index} index={index} data={elem} wpx={wpx} getFun={(id, index) => getDetailFun(id, index)} />
-        </>)
-      } */}
-
     </>
   )
 }

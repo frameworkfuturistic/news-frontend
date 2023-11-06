@@ -45,7 +45,7 @@ function App() {
   ]
 
   const navBarRoutes = [
-    { path: "/:type?", element: <HomeIndex /> },
+    { path: "/", element: <HomeIndex /> },
     { path: "/layout", element: <LayoutIndex /> },
     { path: "/news-details/:id/:index?", element: <ContentIndex /> },
   ]
@@ -58,111 +58,6 @@ function App() {
     { path: "/report-master", element: <ReportMasterIndex /> },
     { path: "/media-master", element: <MediaMasterIndex /> },
   ]
-
-  let data = {
-    Layout_name: "Landing Page",
-    Layout_width: "1366px",
-    Block: {
-      Block_type: "full- width",
-      Column: {
-        Width: "200px",
-        Height: "100px",
-        Section: {
-          "section_name": "Branding",
-          "height": "200px",
-          "width": "50px",
-          "renderer_code": 1,
-        }
-      },
-    },
-    Block: {
-      Block_type: "full - width",
-      Column: {
-        Width: "200px",
-        Height: "100px",
-        Section: {
-          "section_name": "News Categories",
-          "height": "200px",
-          "width": "50px",
-          "renderer_code": 1,
-        }
-      },
-    },
-    Block: {
-      Block_type: "full - width",
-      Column: {
-        Width: "200px",
-        Height: "100px",
-        Section: {
-          "section_name": "Breaking News",
-          "height": "200px",
-          "width": "50px",
-          "renderer_code": 2,
-        }
-      },
-    },
-    Block: {
-      Block_type: "split - 2",
-      Column: {
-        Width: "200px",
-        Height: "100px",
-        Section: {
-          "section_name": "Headlines",
-          "height": "200px",
-          "width": "50px",
-          "renderer_code": 2,
-        },
-        Section: {
-          "section_name": "Features",
-          "height": "200px",
-          "width": "50px",
-          "renderer_code": 2,
-        },
-      },
-      Column: {
-        Width: "800px",
-        Height: "100px",
-        Section: {
-          "section_name": "Live Feed",
-          "height": "200px",
-          "width": "50px",
-          "renderer_code": 2,
-        },
-        Row: {
-          Column: {
-            Width: "800px",
-            Height: "100px",
-            Section: {
-              "section_name": "Short News",
-              "height": "200px",
-              "width": "50px",
-              "renderer_code": 2,
-            },
-          },
-          Column: {
-            Width: "800px",
-            Height: "100px",
-            Section: {
-              "section_name": "Ad1",
-              "height": "200px",
-              "width": "50px",
-              "renderer_code": 2,
-            },
-            Section: {
-              "section_name": "Trending",
-              "height": "200px",
-              "width": "50px",
-              "renderer_code": 2,
-            },
-          }
-        },
-      },
-    },
-  }
-
-  useEffect(() => {
-    window.localStorage.setItem("layout", JSON.stringify(data))
-  }, [])
 
   return (
     <>
