@@ -25,7 +25,7 @@ const MukhyaSamachar = (props) => {
 
       <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-[35rem] w-full bg-slate-600  flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
-        <div className='w-full h-[80%]'>
+        <div className='w-full h-[80%]  '>
 
           <AssignNews type={'top'} data={props?.data} />
 
