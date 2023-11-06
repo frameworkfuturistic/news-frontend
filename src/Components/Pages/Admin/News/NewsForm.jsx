@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import ApiJsonHeader from '@/Components/Api/ApiJsonHeader'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ApiMultipartHeader from '@/Components/Api/ApiMultipartHeader'
 import toast from 'react-hot-toast'
 import BarLoader from '@/Components/Common/Loaders/BarLoader'
@@ -14,15 +14,15 @@ import Select from 'react-select'
 import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
 import ImageSelect from '@/Components/Common/ImageSelect'
-
+ 
 const NewsForm = () => {
 
     // URL constants
     const { id } = useParams()
 
     // Destructuring api list
-    const { api_getTag, api_getCategory, api_addNews, api_updateNews, api_getNews } = ApiList()
-
+    const { api_getTag, api_getCategory, api_addNews, api_updateNews, api_getNews , api_addActiveNews } = ApiList()
+      const navigate = useNavigate()  
     const [loader, setLoader] = useState(false) // loader
     const [newsData, setNewsData] = useState(null) // to store news data for modification
     const [errorState, setErrorState] = useState(false) // to store status of error
@@ -76,6 +76,7 @@ const NewsForm = () => {
             // if (finalData?.length == 0) {
             //     toast.error("Add content for your news.")
             //     return;
+        
             // }
 
             submitFun(values)
@@ -142,9 +143,10 @@ const NewsForm = () => {
                 id: id,
                 categoryId: values?.category,
                 featureImageId: values?.media,
-                featureTitle: values?.heading,
-                featureContent: values?.desc,
-                contentSection: finalData?.map((data) => ({
+                title: values?.heading,   //featureTitle  ->  title 
+                body: values?.desc,    //featureContent ->  body 
+                topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
+                storySections: finalData?.map((data) => ({     //contentSection -> storySections
                     mediaId: data?.media,
                     title: data?.title,
                     content: data?.desc
@@ -157,9 +159,10 @@ const NewsForm = () => {
             payload = {
                 categoryId: values?.category,
                 featureImageId: values?.media,
-                featureTitle: values?.heading,
-                featureContent: values?.desc,
-                contentSection: finalData?.map((data) => ({
+                title: values?.heading,   //featureTitle  ->  title 
+                body: values?.desc,   //featureContent ->  body 
+                topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
+                storySections: finalData?.map((data) => ({   //contentSection -> storySections
                     mediaId: data?.media,
                     title: data?.title,
                     content: data?.desc
@@ -172,10 +175,11 @@ const NewsForm = () => {
 
         setLoader(true)
 
-        axios.post(apiCareerForm, fd, ApiMultipartHeader())
+        axios.post(api_addNews, payload, ApiJsonHeader())
             .then((res) => {
                 if (res?.data?.status) {
                     toast.success("News Added Successfully !!!")
+                    navigate('/news-master')
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
                 }

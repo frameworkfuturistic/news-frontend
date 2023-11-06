@@ -80,13 +80,13 @@ const NewsIndex = () => {
         },
         {
             Header: "File",
-            accessor: "source",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.source)),
+            accessor: "file_name",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.file_name)),
         },
         {
             Header: "Heading",
-            accessor: "heading",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.heading)),
+            accessor: "title",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.title)),
         },
         {
             Header: "Top News",
@@ -104,8 +104,8 @@ const NewsIndex = () => {
         // },
         {
             Header: "Created At",
-            accessor: "created_at",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.created_at)),
+            accessor: "publication_date",
+            Cell: ({ cell }) => (nullToNA(cell.row.original?.publication_date)),    //created_at -> publication_date
         },
         {
             Header: "Action",
