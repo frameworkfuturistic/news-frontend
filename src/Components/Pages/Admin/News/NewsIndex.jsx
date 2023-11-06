@@ -287,7 +287,10 @@ const NewsIndex = () => {
                                     columns={COLUMNS}
                                     dataList={newsData}
                                 >
+                                    <div className="flex justify-end gap-2">
+                                    <button className={editButton + ' text-sm'} onClick={() => handleModal('add')}>Modify Home Page</button>
                                     <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}>Add News</button>
+                                    </div>
                                 </ListTable>
                             </>
                             :
