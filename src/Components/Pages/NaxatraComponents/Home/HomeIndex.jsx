@@ -42,7 +42,7 @@ const HomeIndex = () => {
     //   }
     // });
 
-    if(type){
+    if(type && type != 'edit'){
       let data = newsJson?.filter(item => item?.categoryId == type)
       if(data[0]?.news?.length == 0){
         setnewsData(newsJson)

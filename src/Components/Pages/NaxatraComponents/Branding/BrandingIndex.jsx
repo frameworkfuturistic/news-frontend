@@ -32,11 +32,13 @@ const BrandingIndex = (props) => {
       .then((res) => {
         if (res?.data?.status) {
           localStorage.clear()
-          window.location.reload()
           toast.success("Logout Successfully !!!")
         }
       })
-      .finally(() => dialogRef.current.close())
+      .finally(() => {
+        navigate('/')
+        dialogRef.current.close()
+      })
   }
 
   const navigateFun = (path) => {

@@ -13,8 +13,8 @@ const NavBarRoutes = () => {
     let breakingNews = "राज्यसभा में भी महिला आरक्षण विधेयक पारित, महिला सांसदों ने PM मोदी के साथ मनाया जश्न";
 
     useEffect(() => {
-        window.scroll(0,-100);
-      },[])
+        window.scroll(0, -100);
+    }, [])
 
     return (
         <>
@@ -25,12 +25,12 @@ const NavBarRoutes = () => {
                 {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />}
             </div>
 
-            <div className={`w-screen flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth ${bClose ? ' mt-[12.5rem] md:mt-[190px]' : ' mt-[12.5rem] md:mt-[160px]' } `}>
+            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth ${bClose ? ' mt-[12.5rem] md:mt-[190px]' : ' mt-[12.5rem] md:mt-[160px]'} `}>
                 <div className={`max-w-[${wpx}] h-full w-full`}>
                     <Outlet />
-                    <Footerlayout />
                 </div>
             </div>
+            <Footerlayout />
         </>
     )
 }

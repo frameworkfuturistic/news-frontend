@@ -14,15 +14,15 @@ import Select from 'react-select'
 import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
 import ImageSelect from '@/Components/Common/ImageSelect'
- 
+
 const NewsForm = () => {
 
     // URL constants
     const { id } = useParams()
 
     // Destructuring api list
-    const { api_getTag, api_getCategory, api_addNews, api_updateNews, api_getNews , api_addActiveNews } = ApiList()
-      const navigate = useNavigate()  
+    const { api_getTag, api_getCategory, api_addNews, api_updateNews, api_getNews, api_addActiveNews } = ApiList()
+    const navigate = useNavigate()
     const [loader, setLoader] = useState(false) // loader
     const [newsData, setNewsData] = useState(null) // to store news data for modification
     const [errorState, setErrorState] = useState(false) // to store status of error
@@ -76,7 +76,7 @@ const NewsForm = () => {
             // if (finalData?.length == 0) {
             //     toast.error("Add content for your news.")
             //     return;
-        
+
             // }
 
             submitFun(values)
@@ -107,8 +107,8 @@ const NewsForm = () => {
                 desc: elem?.content
             }
         ))
-        setSelectedImage({image: values?.file_name || "", id: values?.feature_image_id})
-        setSelectedOptions(values?.tags?.map((elem) => ({label: elem, value: elem})) ?? [])
+        setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
+        setSelectedOptions(values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
         setFinalData(contentSec)
     }
 
@@ -333,16 +333,17 @@ const NewsForm = () => {
                     <form className='p-4 grid grid-cols-12 gap-2'>
 
                         {/* Media Preview */}
-                        {selectedImage != null && selectedImage?.image != "" ?
-                            <div className='col-span-12 md:col-span-4 flex flex-col gap-1 justify-center border bg-slate-200'>
-                                <img src={selectedImage?.image} className=' py-1 px-4 text-sm w-50 rop-shadow-md object-contain bg-contain' alt="Media" srcset="" />
-                            </div>
-                            :
-                            <div className='col-span-12 md:col-span-4 flex flex-col gap-1 bg-gray-500'>
-                                <span className='border h-full py-1 px-4 text-sm w-50 rop-shadow-md  flex justify-center items-center font-semibold text-white'>
-                                    No Media Selected
-                                </span>
-                            </div>
+                        {
+                            selectedImage != null && selectedImage?.image != "" ?
+                                <div className='col-span-12 md:col-span-4 flex flex-col gap-1 justify-center border bg-slate-200'>
+                                    <img src={selectedImage?.image} className=' py-1 px-4 text-sm w-50 rop-shadow-md object-contain bg-contain' alt="Media" srcset="" />
+                                </div>
+                                :
+                                <div className='col-span-12 md:col-span-4 flex flex-col gap-1 bg-gray-500'>
+                                    <span className='border h-full py-1 px-4 text-sm w-50 rop-shadow-md  flex justify-center items-center font-semibold text-white'>
+                                        No Media Selected
+                                    </span>
+                                </div>
                         }
 
                         <div className='col-span-12 md:col-span-8 w-full flex flex-wrap items-center gap-2'>

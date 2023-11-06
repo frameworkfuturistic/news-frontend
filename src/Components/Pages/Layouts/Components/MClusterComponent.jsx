@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import VideoIndex from '../../NaxatraComponents/Home/VideoIndex'
+import AssignNews from '../../NaxatraComponents/Home/AssignNews'
 
 const MClusterComponent = (props) => {
 
@@ -31,7 +32,7 @@ const MClusterComponent = (props) => {
                 setWidth('w-full md:w-[calc(100%/5.2)]')
                 setContainer('w-[100%*5]')
             } break;
-            default : {
+            default: {
                 setWidth('w-full md:w-[calc(100%/3.2)]')
                 setContainer('w-[100%*3]')
             } break;
@@ -44,7 +45,9 @@ const MClusterComponent = (props) => {
             {
                 Array.isArray(props?.data) && props?.data?.slice(1, parseInt(props?.split || '3') + 1)?.map((elem, index) =>
                     <>
-                        <div className={`${width} grid grid-cols-12 border-t border-gray-300 p-2`} key={index}>
+                        <div className={`${width} grid grid-cols-12 border-t border-gray-300 p-2 relative`} key={index}>
+
+                            <AssignNews data={props?.allData} type="top" />
 
                             {elem?.type == 'video' ?
                                 <div className='col-span-4 object-contain mx-2 bg-contain h-16'>

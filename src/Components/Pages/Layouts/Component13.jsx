@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import HeadComponent from './Components/HeadComponent'
 import ClusterComponent from './Components/ClusterComponent';
 import VideoIndex from '../NaxatraComponents/Home/VideoIndex';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import { RxCross2 } from 'react-icons/rx';
+import { LiaEditSolid } from 'react-icons/lia'
+import AssignNews from '../NaxatraComponents/Home/AssignNews';
 
 const Component13 = (props) => {
 
   const navigate = useNavigate()
 
-  console.log("--1--", props?.ind)
+  const {type} = useParams()
+
+  const dialogRef = useRef()
 
   useEffect(() => {
     window.scroll(0, -50);
@@ -23,8 +27,10 @@ const Component13 = (props) => {
 
         <div className='w-full h-[80%]'>
 
+          <AssignNews data={props?.data} />
+
           <HeadComponent
-          cIndex={props?.ind}
+            cIndex={props?.ind}
             categoryId={props?.data?.categoryId}
             heading={props?.data?.news[0]?.heading}
             cid={props?.data?.news[0]?.id}
@@ -39,13 +45,13 @@ const Component13 = (props) => {
         </div>
 
         <div className=' w-full h-[100px] '>
-          <ClusterComponent categoryId={props?.data?.categoryId} data={props?.data?.news} split={'3'} />
+          <ClusterComponent categoryId={props?.data?.categoryId} data={props?.data?.news} allData={props?.data} split={'3'} />
         </div>
 
       </div>
 
       {
-        props?.data?.news?.length > 4 &&
+        type != 'edit' && props?.data?.news?.length > 4 &&
         <>
           <div className="col-span-12 md:col-span-4 flex flex-col gap-6 h-auto mb-4  mt-10">
             <header className="w-full col-span-12 border-t border-b">
@@ -54,8 +60,11 @@ const Component13 = (props) => {
               </span>
             </header>
 
-            <div className="w-full flex flex-wrap overflow-y-auto ">
-              {props?.data?.news?.slice(4, )?.map((elem) => (
+            <div className="w-full flex flex-wrap overflow-y-auto relative">
+
+              {props?.data?.news?.length > 12 && <span className='text-xs select-none cursor-pointer absolute bottom-1 right-1 bg-slate-300 px-4 py-1 hover:bg-slate-400 hover:text-white' onClick={() => dialogRef.current.showModal()}>See More &gt;&gt;</span>}
+
+              {props?.data?.news?.slice(4, 12)?.map((elem) => (
                 <>
                   <div className="grid w-full md:w-1/2 grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
 
@@ -84,6 +93,45 @@ const Component13 = (props) => {
               ))}
             </div>
           </div>
+
+          <dialog ref={dialogRef} className='p-4 focus:outline-none backdrop:backdrop-brightness-75 animate__animated animate__zoomIn animate__faster md:w-1/2 w-full relative'>
+
+            <span className='p-1 rounded-full bg-red-400 hover:bg-red-500 text-white cursor-pointer absolute top-1 right-1' onClick={() => dialogRef.current.close()}><RxCross2 /></span>
+
+            <div>
+
+              <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>{props?.data?.category} News</h1>
+
+              {props?.data?.news?.map((elem) => (
+                <>
+                  <div className="grid w-full grid-cols-12 items-center gap-4 bg-slate-100 hover:bg-slate-200 border drop-shadow-md py-1 mb-2">
+
+                    {
+                      elem?.type == 'video'
+                        ?
+                        <div className=" w-full col-span-4 object-cover bg-cover">
+                          <VideoIndex data={elem} />
+                        </div>
+                        :
+                        <img
+                          src={elem?.source}
+                          alt="image"
+                          srcSet=""
+                          className="border h-14 w-full col-span-4 object-cover bg-cover"
+                        />
+                    }
+                    <div className="flex flex-col gap-1 col-span-8">
+                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${props?.data?.categoryId}`)}>
+                        {elem?.heading}
+                      </span>
+                      <span className="text-sm text-zinc-500">{elem?.date}</span>
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+
+          </dialog>
         </>
       }
 
