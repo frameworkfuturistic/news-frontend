@@ -60,7 +60,7 @@ const NewsSection = (props) => {
                 formik.setFieldValue('title', props?.finalData[index]?.title)
                 formik.setFieldValue('desc', props?.finalData[index]?.desc)
                 setSelectedOptions(props?.finalData[index]?.tags?.map((elem) => ({label: elem, value: elem})) ?? [])
-                setSelectedImage({image: props?.finalData[index]?.image, id: props?.finalData[index]?.id})
+                setSelectedImage({image: props?.finalData[index]?.image || "", id: props?.finalData[index]?.id})
             } break;
             case 'delete': {
                 const sectionArray = [...props?.finalData.slice(0, index), ...props?.finalData.slice(index + 1)];
@@ -179,7 +179,7 @@ const NewsSection = (props) => {
 
 
                                 <>
-                                    <div key={index} className="col-span-2 py-2 px-4 border">{card?.image != "" ? <img src={card?.image} className='w-16' alt='' /> : 'N/A'}</div>
+                                    <div key={index} className="col-span-2 py-2 px-4 border">{card?.image != "" ? <img src={card?.image} className='w-16' alt='Image' /> : 'N/A'}</div>
                                     <div className="col-span-2 py-2 px-4 border">{nullToNA(card.title)}</div>
                                     <div className="col-span-6 py-2 px-4 border break-words">{nullToNA(card.desc)}</div>
                                     <div className="col-span-2 py-2 px-4 border-b flex items-center justify-center">
@@ -236,7 +236,7 @@ const NewsSection = (props) => {
 
                     <div className='col-span-12 md:col-span-4 '>
                         {
-                            selectedImage != null ?
+                            selectedImage != null && selectedImage?.image != '' ?
                                 <div className='bg-slate-200 w-full justify-center items-center h-full'>
                                     <img src={selectedImage?.image} className='py-1 px-4 text-sm w-full h-full rop-shadow-md object-contain bg-contain' alt="" srcset="" />
                                 </div>
@@ -251,7 +251,7 @@ const NewsSection = (props) => {
 
                         <span className='absolute top-2 right-2 text-sm p-1.5 bg-red-200 hover:bg-red-300 rounded-full cursor-pointer ' onClick={() => diaologCloseFun()}><RxCross2 /></span>
 
-                        <h1 className='w-full text-center border-b pb-1 mb-4 font-semibold'>Add Content Section</h1>
+                        <h1 className='w-full text-center border-b pb-1 mb-4 font-semibold'>{mType == 'edit' ? 'Edit' : 'Add'} Content Section</h1>
                         {/* {mType == 'edit' && props?.document[index] && <img src={URL.createObjectURL(props?.document[index])} className='w-full' alt="" srcset="" />} */}
 
                         <div className='w-full md:w-[48%] flex flex-col gap-1 '>

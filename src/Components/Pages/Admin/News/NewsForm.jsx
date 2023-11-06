@@ -92,17 +92,23 @@ const NewsForm = () => {
     // Function to make form pre-filled
     const feedNewsForm = (values) => {
 
-        formik.setFieldValue('category', values?.categoryId)
-        formik.setFieldValue('media', values?.featureImageId)
-        formik.setFieldValue('heading', values?.featureTitle)
-        formik.setFieldValue('desc', values?.featureContent)
-        const contentSec = values?.contentSection?.map((elem) => (
+        formik.setFieldValue('category', values?.category_id)
+        formik.setFieldValue('media', values?.feature_image_id)
+        formik.setFieldValue('heading', values?.title)
+        formik.setFieldValue('desc', values?.body)
+        formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
+        const contentSec = values?.storySections?.map((elem) => (
             {
+                id: elem?.id,
+                tags: elem?.tags,
+                image: elem?.media || '',
                 media: elem?.mediaId,
                 title: elem?.title,
                 desc: elem?.content
             }
         ))
+        setSelectedImage({image: values?.file_name || "", id: values?.feature_image_id})
+        setSelectedOptions(values?.tags?.map((elem) => ({label: elem, value: elem})) ?? [])
         setFinalData(contentSec)
     }
 
@@ -313,7 +319,7 @@ const NewsForm = () => {
 
                 {/* 👉 Heading 👈 */}
                 <div className="font-semibold text-cyan-900 text-xl py-1 tracking-[0.1rem] border-b border-cyan-900 mt-4">
-                    News {id ? 'Update' : 'Add'} Form
+                    News {id ? 'Edit' : 'Add'} Form
                 </div>
 
                 <div className='bg-white mt-4'>
@@ -327,7 +333,7 @@ const NewsForm = () => {
                     <form className='p-4 grid grid-cols-12 gap-2'>
 
                         {/* Media Preview */}
-                        {selectedImage != null ?
+                        {selectedImage != null && selectedImage?.image != "" ?
                             <div className='col-span-12 md:col-span-4 flex flex-col gap-1 justify-center border bg-slate-200'>
                                 <img src={selectedImage?.image} className=' py-1 px-4 text-sm w-50 rop-shadow-md object-contain bg-contain' alt="Media" srcset="" />
                             </div>

@@ -13,11 +13,12 @@ import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import { FiAlertCircle } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const NewsIndex = () => {
 
     // 👉 API constants 👈
-    const { api_getNews, api_deleteNews } = ApiList()
+    const { api_getNews, api_deleteActiveNews } = ApiList()
 
     // 👉 Dialog useRef 👈
     const dialogRef = useRef(null)
@@ -81,7 +82,9 @@ const NewsIndex = () => {
         {
             Header: "File",
             accessor: "file_name",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.file_name)),
+            Cell: ({ cell }) => <>
+            {cell.row.original?.file_name != '' ? <img src={cell.row.original?.file_name} alt="Image" className="w-10" srcset="" /> : 'N/A'}
+            </>,
         },
         {
             Header: "Heading",
@@ -211,6 +214,28 @@ const NewsIndex = () => {
             })
     }
 
+    const deletFun = () => {
+
+        setLoader(false)
+
+        axios
+          .post(api_deleteActiveNews, {id: viewData?.id}, ApiJsonHeader())
+          .then((res) => {
+            if(res?.data?.status){
+                toast.success("News Deleted Successfully !!!")
+            } else {
+                activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
+            }
+          })
+          .catch(err => {
+            console.error(err)
+            activateBottomErrorCard(true, 'Server Error! Please try again later.')
+        })
+        .finally(() => {
+            setLoader(false)
+            dialogRef.current.close()
+        })
+    }
 
     // 👉 To call Function 3 👈
     useEffect(() => {
@@ -313,7 +338,7 @@ const NewsIndex = () => {
                     </div>
                     <div className='flex justify-end gap-2'>
                         <button className='text-white bg-slate-400 hover:bg-slate-500 px-4 py-1 text-sm ' onClick={() => dialogRef.current.close()}>No</button>
-                        <button className='text-white bg-red-500 hover:bg-red-600 px-4 py-1 text-sm ' onClick={() => LogOutUser()}>Yes</button>
+                        <button className='text-white bg-red-500 hover:bg-red-600 px-4 py-1 text-sm ' onClick={() => deletFun()}>Yes</button>
                     </div>
                 </div>
 
