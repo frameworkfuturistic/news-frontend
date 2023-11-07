@@ -32,7 +32,7 @@ import yamunaexpress from "@/Components/assets/yamunaexpress.jpeg";
 import rbi from "@/Components/assets/rbi.jpeg";
 import Isro from "@/Components/assets/Isro.jpeg";
 import vidai from "@/Components/assets/vidai.jpeg";
-import shaebganj from "@/Components/assets/shaebganj.jpeg";
+
 import phonealert from "@/Components/assets/phonealert.jpeg";
 import chadragrahn from "@/Components/assets/chadragrahn.jpeg";
 import leo from "@/Components/assets/leo.jpeg";
