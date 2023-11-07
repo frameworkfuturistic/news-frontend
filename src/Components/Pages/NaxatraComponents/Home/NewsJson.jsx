@@ -1672,7 +1672,7 @@ export const newsJson = [
       //07-11-2023
       {
         category: 'राज्य',
-        source: prerpn,
+        source: murumrag,
         type: 'image',
         heading:
           " ओडिशा के राज्यपाल बनने के बाद रघुवर दास ने राष्ट्रपति, प्रधानमंत्री और गृह मंत्री से की मुलाकात   ",
