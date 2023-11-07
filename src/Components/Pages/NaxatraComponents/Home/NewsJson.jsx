@@ -38,7 +38,7 @@ import chadragrahn from "@/Components/assets/chadragrahn.jpeg";
 import leo from "@/Components/assets/leo.jpeg";
 import patnanews from "@/Components/assets/patnanews.jpeg";
 
-import visharjan from "@/Components/assets/visharjan.jpeg";
+ 
 import hemanthockey from "@/Components/assets/hemanthockey.jpeg";
 import jsr from "@/Components/assets/jsr.jpeg";
 import begusaray from "@/Components/assets/begusaray.jpeg";
