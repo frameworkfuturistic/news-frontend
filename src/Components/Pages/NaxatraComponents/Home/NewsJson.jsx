@@ -26,7 +26,7 @@
  * ]
  */
  
-import jharkhandpolice from "@/Components/assets/jharkhandpolice.jpeg";
+ 
 import Orrisaweather from "@/Components/assets/Orrisaweather.jpeg";
 import yamunaexpress from "@/Components/assets/yamunaexpress.jpeg";
 import rbi from "@/Components/assets/rbi.jpeg";
@@ -36,38 +36,26 @@ import phonealert from "@/Components/assets/phonealert.jpeg";
 import chadragrahn from "@/Components/assets/chadragrahn.jpeg";
 import leo from "@/Components/assets/leo.jpeg";
 import patnanews from "@/Components/assets/patnanews.jpeg";
-import jsr from "@/Components/assets/jsr.jpeg";
 import begusaray from "@/Components/assets/begusaray.jpeg";
 import petrolbusiness from "@/Components/assets/petrolbusiness.jpeg";
-import garhwajh from "@/Components/assets/garhwajh.jpeg";
-import bjpjhar from "@/Components/assets/bjpjhar.jpeg";
 import khelcategory from "@/Components/assets/khelcategory.jpeg";
 import womenschamp from "@/Components/assets/womenschamp.jpeg";
 import raashifal from "@/Components/assets/raashifal.jpeg";
-import rajkumar from "@/Components/assets/rajkumar.jpeg";
 import rammovie from "@/Components/assets/rammovie.jpeg";
 import nationalawrd from "@/Components/assets/nationalawrd.jpeg";
-import deoghar from "@/Components/assets/deoghar.jpeg";
 import kangana from "@/Components/assets/kangana.jpeg";
 import newweather from "@/Components/assets/newweather.jpeg";
 import video from '@/Components/assets/Video/video.mp4'
 import newbusiness from "@/Components/assets/newbusiness.jpeg";
 import newtechnology from "@/Components/assets/newtechnology.jpeg";
-import hockypolice from "@/Components/assets/hockypolice.jpeg";
-import top1 from "@/Components/assets/top1.jpeg";
-import top3 from "@/Components/assets/top3.jpeg";
 import modisarkar from "@/Components/assets/modisarkar.jpeg";
-import nadda from "@/Components/assets/nadda.jpeg";
 import dipawali from "@/Components/assets/dipawali.jpeg";
 import hemant from "@/Components/assets/hemant.jpg";
 import jantadal from "@/Components/assets/jantadal.jpeg";
 import lohka from "@/Components/assets/lohka.jpeg";
-import Ichagadh from "@/Components/assets/Ichagadh.jpeg";
 import purnima from "@/Components/assets/purnima.jpeg";
 import singham from "@/Components/assets/singham.jpeg";
-import socialmedia from "@/Components/assets/socialmedia.jpeg";
 import nifty from "@/Components/assets/nifty.jpeg";
-import aapradhi from "@/Components/assets/aapradhi.jpeg";
 import gopalgunj from "@/Components/assets/gopalgunj.jpeg";
 import matchstrt from "@/Components/assets/matchstrt.jpeg";
 import teamindia from "@/Components/assets/teamindia.jpeg";
@@ -80,59 +68,41 @@ import modisector from "@/Components/assets/modisector.jpeg";
 import pyaaj from "@/Components/assets/pyaaj.jpeg";
 import reliance from "@/Components/assets/reliance.jpeg";
 import nokia from "@/Components/assets/nokia.jpeg";
-import sankalp from "@/Components/assets/sankalp.jpeg";
 import indiawins from "@/Components/assets/indiawins.jpeg";
 import biharresult from "@/Components/assets/biharresult.jpeg";
-import Namkum from "@/Components/assets/Namkum.jpeg";
-import Dhnbad from "@/Components/assets/Dhnbad.jpeg";
 import kartik from "@/Components/assets/kartik.jpeg";
-import bjpnw from "@/Components/assets/bjpnw.jpeg";
 import deepika from "@/Components/assets/deepika.jpeg";
 import keral from "@/Components/assets/keral.jpeg";
 import sbi from "@/Components/assets/sbi.jpeg";
 import jio from "@/Components/assets/jio.jpeg";
 import andra from "@/Components/assets/andra.jpeg";
 import kerlablast from "@/Components/assets/kerlablast.jpeg";
-import nwdeoghar from "@/Components/assets/nwdeoghar.jpeg";
 import cricket from "@/Components/assets/cricket.jpeg";
 import tabussam from "@/Components/assets/tabussam.jpeg";
-import japan from "@/Components/assets/japan.jpeg";
-import bhukamp from "@/Components/assets/bhukamp.jpeg";
 import sapath from "@/Components/assets/sapath.jpeg";
-import bridge from "@/Components/assets/bridge.jpeg";
-import rnchidc from "@/Components/assets/rnchidc.jpeg";
-import bjppatel from "@/Components/assets/bjppatel.jpeg";
 import niftynw from "@/Components/assets/niftynw.jpeg";
 import patnaprotest from "@/Components/assets/patnaprotest.jpeg";
 import chatlck from "@/Components/assets/chatlck.jpeg";
-import rojgaar from "@/Components/assets/rojgaar.jpeg";
 import kheltop from "@/Components/assets/kheltop.jpeg";
 import topnov from "@/Components/assets/topnov.jpeg";
-import chaibasa from "@/Components/assets/chaibasa.jpeg";
 import pakwin from "@/Components/assets/pakwin.jpeg";
 import jiomall from "@/Components/assets/jiomall.jpeg";
 import AI from "@/Components/assets/AI.jpeg";
-import shooter from "@/Components/assets/shooter.jpeg";
-import central from "@/Components/assets/central.jpeg";
 import birsamunda from "@/Components/assets/birsamunda.jpeg";
 import twonov from "@/Components/assets/twonov.jpeg";
 import wrldcup from "@/Components/assets/wrldcup.jpeg";
 import rally from "@/Components/assets/rally.jpeg";
 import nitish from "@/Components/assets/nitish.jpeg";
-import meeting from "@/Components/assets/meeting.jpeg";
+ 
 import sharukh from "@/Components/assets/sharukh.jpeg";
 import jaipur from "@/Components/assets/jaipur.jpeg";
-import weather from "@/Components/assets/weather.jpeg";
+ 
 import whtsapp from "@/Components/assets/whtsapp.jpeg";
 import salman from "@/Components/assets/salman.jpeg";
-import dishum from "@/Components/assets/dishum.jpeg";
-import nwmarandi from "@/Components/assets/nwmarandi.jpeg";
-import passu from "@/Components/assets/passu.jpeg";
+ 
 import fifthwins from "@/Components/assets/fifthwins.jpeg";
 import shami from "@/Components/assets/shami.jpg";
-import khunti from "@/Components/assets/khunti.jpeg";
-import thandi from "@/Components/assets/thandi.jpeg";
-import sarkari from "@/Components/assets/sarkari.jpeg";
+ 
 import army from "@/Components/assets/army.jpeg";
 import semifinal from "@/Components/assets/semifinal.jpeg";
 import pokhar from "@/Components/assets/pokhar.jpeg";
@@ -189,6 +159,8 @@ import NIA from "@/Components/assets/NIA.jpeg";
 import nitishvulgar from "@/Components/assets/nitishvulgar.jpeg";
 import adaani from "@/Components/assets/adaani.jpeg";
 import chatttrain from "@/Components/assets/chatttrain.jpeg";
+import modianger from "@/Components/assets/modianger.jpeg";
+import rashmikafake from "@/Components/assets/rashmikafake.jpeg";
 
 export const newsJson = [
 
@@ -1852,6 +1824,34 @@ export const newsJson = [
       //-8-11-2023
       {
         category: 'झारखंड',
+        source: modianger,  
+        type: 'image',
+        date: " Nov 08, 2023",
+        heading:
+          "पीएम मोदी बिहार के सीएम नीतीश के बयान पर भड़के, कहा - ऐसी अमर्यादित भाषा शोभा नहीं देती ",
+        sections: [
+        {
+             content:
+            "गुना : मध्यप्रदेश विधानसभा चुनाव को लेकर बीजेपी  काफी रेस है. नेताओं की सभाओं का सिलसिला लगातार जारी है. इसी क्रम में प्रधानमंत्री नरेंद्र मोदी ने बुधवार (आठ नवंबर, 2023) को मध्य प्रदेश के दमोह और गुना में जनसभा को संबोधित किया. जनसभा को संबोधित करते हुए पीएम ने बिहार के मुख्यमंत्री नीतीश कुमार के बयान पर हमला बोला. कहा कि इंडिया एलायंस के नेता विधानसभा के अंदर ऐसी भाषा का प्रयोग कैसे कर सकते हैं, कोई सोच भी नहीं सकता. वहां माताएं-बहनें भी मौजूद थी,  कोई कल्पना नहीं कर सकता है, ऐसी भाषा में भद्दी बातें की. कोई शर्म नहीं है. इतना ही नहीं कि इंडिया एलायंस का एक भी नेता इस अपमान के खिलाफ एक शब्द बोला हो. जो लोग महिलाओं के बारे में ऐसा सोचते हैं, क्या वे आपके लिए कुछ अच्छा कर सकते हैं.  मोदी ने महिलाओं से पूछा कि क्या वो आपकी इज्जत बचा सकते हैं ?   आपका सम्मान या गौरव कर सकते हैं. कहा कि कैसा दुर्भाग्य आया है देश का. और कितना नीचे गिरोगे. दुनिया में देश की बेइज्जती करा रहे हो. मेरी माताएं-बहनें, मैं आपके सम्मान के लिए जो बन पड़ेगा, उसमें कभी पीछे नहीं हटूंगा.",
+          },
+        {
+            title: "पीएम ने कांग्रेस पर हमला बोला, कहा - गरीबों के हक का पैसा छीनती है  " ,
+             content: 
+            " दमोह में पीएम ने कांग्रेस पर भी हमला बोला और राज्य में बीजेपी सरकार बनाने की अपील की. पीएम मोदी ने कहा कि  हमारी गारंटी खजाने लुटाने की नहीं होती है, बल्कि देश को आन-बान-शान के साथ आगे ले जाने की होती है. हमारी गारंटी वोट बटोरने की नहीं, बल्कि देशवासियों के सामर्थ्य बढ़ाने की होती है. आज का ये समय कांग्रेस से सबसे ज्यादा सावधान रहने का है. कांग्रेस वो पार्टी है, जो गरीबों के हक का पैसा छीन लेती है, हजारों करोड़ रुपये के घोटाले करती है. कांग्रेस एक समाज को दूसरे समाज से लड़ाकर कुर्सी पर कब्जा करने का खेल खेलती है.  "  ,
+          },
+         {
+            title : "बीजपी में 5 पांडव हैं" ,
+             content: 
+            "बीजपी में पांच पांडव हैं. हमें गर्व है कि हम पांच पांडवों की राह पर चल रहे हैं. आज केंद्र में बीजपी के नेतृत्व वाली सरकार है.  बीजपी के सेवाकाल में देश गरीबी से बाहर निकल रहा है, अपनी गरीबी दूर कर रहा है. आज पूरी दुनिया भारत में हो रहे विकास की चर्चा कर रही है. 2014 में जब हम सरकार में आए, तब हमारा देश दुनिया की 10वें नंबर की आर्थिक  ताकत था. आज भारत ने पांचवें नंबर की अर्थव्यवस्था बनकर उस देश को पीछे छोड़ दिया है, जिसने 200 साल तक हम पर राज किया था.",
+          },
+     
+      
+        ] ,
+        id: 203 , 
+  
+      },
+      {
+        category: 'झारखंड',
         source: adaani,  
         type: 'image',
         date: " Nov 08, 2023",
@@ -2546,6 +2546,42 @@ export const newsJson = [
     categoryId: "Manoranjan",
     category: "मनोरंजन",
     news: [
+      {
+        category: 'मनोरंजन',
+        source: rashmikafake,
+        type: 'image',
+        heading:
+          " रश्मिका मंदाना Deepfake Video: ये खतरनाक है, वायरल वीडियो को लेकर चर्चा में 'Deepfake'  ",
+        sections: [
+          {
+
+            content:
+              " सोशल मीडिया पर National Crush के नाम से फेमस एक्ट्रेस रश्मिका मंदाना का एक Deepfake वीडियो वायरल हो रहा है. Deepfake वीडियो के जरिए तैयार इस वीडियो में नजर आ रही एक महिला को रश्मिका मंदाना की तरह दिखाने की कोशिश की गई. रश्मिका ने इसे लेकर ‘दुख’ जाहिर किया है और जल्दी से जल्दी इसका समाधान तलाशने की अपील की है जिससे किसी और उनके जैसी ‘तकलीफ न झेलनी पड़े.’   ",
+          },
+          {
+           title : "कैसे हुई Deepfake की पहचान ?" ,
+          content:
+          "    ये वीडियो सोशल मीडिया पर सामने आते ही वायरल होने लगा. महज कुछ ही घंटो में इस वीडियो को जबरदस्त व्यूअरशिप मिला. जिसके बाद वीडियो को लेकर चर्चा तेज हो गई. अब भी कई दिनों से इसपर बवाल मचा है. दरअसल, ये किसी और लड़की का वीडियो है, पर एडिटिंग करके इसमें रश्मिका का चेहरा लगा दिया गया है. Bollywood superstar अमिताभ बच्चन ने भी इस वीडियो को X पर शेयर कर अलर्ट जारी किया था. उन्होंने इस तरह की एडिटिंग के खिलाफ आवाज उठाते हुए कहा था कि इसपर सख्त एक्शन लिया जाना चाहिए. रश्मिका ने खुद इस Deepfake वीडियो पर रिएक्ट किया है. ये वायरल वीडियो Deepfake है, इसकी जानकारी एक फैक्ट चैक करने वाले एक शख्स ने दी.   ",
+          },
+          {
+            titile : "क्या है रश्मिका मंदाना के Deepfake Video का सच ?" ,
+            content:
+              "     रश्मिका मंदाना का जो वीडियो वायरल हो रहा है, वो असल में जारा पटेल नाम की लड़की का है. जारा, इंडिया-ब्रिटिश ओरिजन की हैं. इनके इंसाटाग्राम पर 415 हजार फॉलोअर्स हैं. जारा ने अपना यह वीडियो नौ अक्टूबर को खुद की टाइमलाइन पर डाला था, जिसे एडिट करके रश्मिका मंदाना का चेहरा लगा दिया गया. ",
+          },
+          {
+            titile : "कैसे बनाए जाते हैं Deepfake Video? " ,
+            content:
+              "    वैसे तो पिछले कुछ सालों से Deepfake वीडियोज का चलन काफ़ी बढ़ा है, लेकिन एक्ट्रेस रश्मिका मंदाना के वायरल Deepfake वीडियो से देश में इस पर चर्चा शुरू हो गई है. हर कोई जानना चाहता है कि Deepfake से कैसे असली दिखने वाले नकली वीडियोज बनाए जा रहे हैं? फोटोशॉप और दूसरे ऐप्स की मदद से फेक फोटोज या वीडियो क्रिएट करना नया नहीं है. Deepfake इससे थोड़ा आगे की कहानी है, जिसमें AI का इस्तेमाल किया जाता है. दरअसल, एक algorithm को किसी एक शख्स के तमाम रियल वीडियो से ट्रेन किया जाता है, इसे डीप लर्निंग कहते हैं. इसके बाद किसी दूसरे वीडियो में इसका इस्तेमाल किया जाता है. उदाहरण के लिए किसी दूसरे वीडियो में डीप लर्निंग की मदद से पहले वीडियो वाले शख्स के चेहरे को रिप्लेस किया जाता है. इसमें वॉयस क्लोनिंग का भी इस्तेमाल किया जाता है.    ",
+          },
+          {
+            titile : "बेहद डरावना है Deepfake     " ,
+            content:
+              "   इंस्टाग्राम पर पीएम मोदी की आवाज़ में कई गाने चलते हैं ये भी Deepfake का एक उदाहरण है. इस तरह के तमाम ऐप AI पर चलते हैं और ये भी एक तरह के Deepfake ही हैं. International रिपोर्ट्स के मुताबिक, AI जनरेटेड अश्लील तस्वीरें अपलोड करने वाली वेबसाइट्स पर 2018 के बाद से नकली अश्लील फोटोज की संख्या में 290 परसेंट की वृद्धि हुई है. उन्होंने बताया, Deepfake के लिए मशहूर 40 वेबसाइट्स को खंगालने पर पाया गया कि साल 2023 में ही 1.43 लाख के अधिक ऐसे वीडियो अपलोड किए गए हैं. इन वीडियोज में कम उम्र की लड़कियों के साथ अलग-अलग सेक्टर के पॉपुलर लोगों के वीडियो तक शामिल हैं. एक्सपर्ट्स की मानें तो कई ऐप्स का इस्तेमाल करके इस तरह के वीडियो क्रिएट किए जाते हैं.  ",
+          },
+      ],
+        id: 204,
+        date: "Nov 08, 2023",
+      },
       {
         category: 'मनोरंजन',
         source: Akansha,
