@@ -177,7 +177,7 @@ export const newsJson = [
         category: 'देश',
         source: video, // right
         type: 'video',
-        date: "Nov 07, 2023",
+        date: "Nov 08, 2023",
         heading:
           "ED के बाद अब NIA को भी झारखंड में खतरा, सुरक्षा बढ़ाने की मांग  ",
         sections: [
