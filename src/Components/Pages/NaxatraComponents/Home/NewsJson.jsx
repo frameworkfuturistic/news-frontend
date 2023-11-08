@@ -194,8 +194,8 @@ export const newsJson = [
     category: "मुख्य समाचार",
     news: [
       {
-        category: 'झारखंड',
-        categoryId: "Jharkhand",
+        categoryId: "Desh",
+        category: 'देश',
         source: video, // right
         type: 'video',
         date: "Nov 07, 2023",
@@ -222,13 +222,8 @@ export const newsJson = [
            content:
           " मंत्री पीयूष गोयल ने कहा कि परीक्षण के दौरान गेहूं के आटे की बिक्री कम थी क्योंकि इसे केवल कुछ दुकानों के माध्यम से खुदरा बेचा गया था. हालांकि, इस बार बेहतर उठान होगा क्योंकि उत्पाद देशभर में इन तीन एजेंसियों की 800 मोबाइल वैन और 2,000 दुकानों के माध्यम से बेचा जायेगा.",
         },
-       
-           
-          
-          
-         
-         ],
-        id: 189,
+       ],
+        id: 192,
       },
       {
         categoryId: "Khel",
@@ -2019,7 +2014,7 @@ export const newsJson = [
           
         
         ] ,
-        id: 189 , 
+        id: 192 , 
   
       },
       {
