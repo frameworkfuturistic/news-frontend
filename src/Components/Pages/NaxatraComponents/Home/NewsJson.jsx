@@ -2703,7 +2703,7 @@ export const newsJson = [
           },
       ],
         id: 198,
-        date: "Nov 09, 2023",
+        date: "Nov 08, 2023",
       },
       {
         category: 'मनोरंजन',
