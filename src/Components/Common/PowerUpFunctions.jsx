@@ -314,10 +314,10 @@ export const checkSizeValidation = (file) => {
 
     switch (fileType) {
         case 'jpeg': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('Image must be less than 2Mb', {
+                toast('Image must be less than 20Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -325,10 +325,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'jpg': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('Image must be less than 2Mb', {
+                toast('Image must be less than 20Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -336,10 +336,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'png': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('Image must be less than 2Mb', {
+                toast('Image must be less than 20Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -347,10 +347,21 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'pdf': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('PDF must be less than 2Mb', {
+                toast('PDF must be less than 20Mb', {
+                    icon: '🔔',
+                    duration: 3000
+                })
+                return false;
+            }
+        }
+        case 'mp4': {
+            if (fileSize <= 25) {
+                return true;
+            } else {
+                toast('PDF must be less than 25Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
