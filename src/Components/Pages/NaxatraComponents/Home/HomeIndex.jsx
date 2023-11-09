@@ -54,6 +54,7 @@ const HomeIndex = () => {
 
       {loader && <BarLoader />}
 
+{/*  !loader && Array.isArray(newsData) && newsData?.map((elem, index) => */}
 
       {
         !loader && Array.isArray(newsData?.news) && newsData?.news[0]?.news?.map((elem, index) =>
