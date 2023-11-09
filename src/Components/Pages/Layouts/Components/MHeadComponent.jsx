@@ -14,7 +14,7 @@ const MHeadComponent = (props) => {
 
                 <div className="w-full md:w-[45%] flex flex-col p-4 gap-2">
 
-                    <h1 className='font-bold text-slate-50 text-2xl pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/${props?.source?.categoryId}`)}>
+                    <h1 className='font-bold text-slate-50 text-2xl pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.data?.id}`)}>
                         {props?.heading}
                     </h1>
 

@@ -48,6 +48,7 @@ const NewsForm = () => {
         category: '',
         media: '',
         tags: [],
+        newsTags: [],
         media: '',
         topNews: false,
         heading: '',
@@ -60,6 +61,7 @@ const NewsForm = () => {
         media: yup.string().required(),
         heading: yup.string().required(),
         tags: yup.array().min(1, 'select atleast one').required(),
+        newsTags: yup.array().min(1, 'select atleast one').required(),
         desc: yup.string().required()
     })
 
@@ -96,6 +98,8 @@ const NewsForm = () => {
         formik.setFieldValue('media', values?.feature_image_id)
         formik.setFieldValue('heading', values?.title)
         formik.setFieldValue('desc', values?.body)
+        formik.setFieldValue('tags', values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+        formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })) ?? [])
         formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
         const contentSec = values?.storySections?.map((elem) => (
             {
@@ -109,6 +113,7 @@ const NewsForm = () => {
         ))
         setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
         setSelectedOptions(values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+        setNewsTags(values?.story_tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
         setFinalData(contentSec)
     }
 
@@ -148,7 +153,8 @@ const NewsForm = () => {
             payload = {
                 id: id,
                 categoryId: values?.category,
-                featureImageId: values?.media,
+                tags: values?.newsTags,
+                featureImageId: values?.media, 
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
                 topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
@@ -164,7 +170,8 @@ const NewsForm = () => {
 
             payload = {
                 categoryId: values?.category,
-                featureImageId: values?.media,
+                tags: values?.newsTags, // story tags
+                featureImageId: values?.media,   
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 
                 topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
@@ -276,6 +283,15 @@ const NewsForm = () => {
     // Multiselect logic start
 
     const [selectedOptions, setSelectedOptions] = useState([]);
+    const [newsTags, setNewsTags] = useState([]);
+
+    const handleNewsChange = (newValue, actionMeta) => {
+        setNewsTags(newValue);
+        const modifiedTags = newValue?.map(elem => {
+            return ({tagId: elem?.value})
+        })
+        formik.setFieldValue('newsTags', modifiedTags)
+    };
 
     const handleChange = (newValue, actionMeta) => {
         setSelectedImage(null)
@@ -299,8 +315,6 @@ const NewsForm = () => {
     };
 
     // Image select logic end
-
-    console.log('formik errors => ', formik.errors)
 
     return (
         <>
@@ -348,7 +362,7 @@ const NewsForm = () => {
 
                         <div className='col-span-12 md:col-span-8 w-full flex flex-wrap items-center gap-2'>
                             {/* Category */}
-                            <div className='w-full flex flex-col gap-1'>
+                            <div className='w-full md:w-[48%] flex flex-col gap-1'>
                                 <label htmlFor="" className={style.label}>Select Category <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
@@ -360,12 +374,27 @@ const NewsForm = () => {
                                 </select>
                             </div>
 
+                            <div className='w-full md:w-[48%] flex flex-col gap-1 '>
+                                <label htmlFor="" className={style.label}>Assign News Tags <span className='font-bold text-xs text-red-500'>*</span></label>
+                                <Select
+                                    name='newsTags'
+                                    {...formik.getFieldProps('newsTags')}
+                                    className={` ${(formik.touched.newsTags && formik.errors.newsTags) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                    isMulti
+                                    options={tagList?.map((elem) => {
+                                        return { label: elem?.tag_name, value: elem?.id }
+                                    }) ?? []}
+                                    onChange={handleNewsChange}
+                                    value={newsTags}
+                                />
+                            </div>
+
                             <div className='w-full flex flex-col gap-1 '>
-                                <label htmlFor="" className={style.label}>Select Tags <span className='font-bold text-xs text-red-500'>*</span></label>
+                                <label htmlFor="" className={style.label}>Select Tags to get media<span className='font-bold text-xs text-red-500'>*</span></label>
                                 <Select
                                     name='tags'
-                                    {...formik.getFieldProps('category')}
-                                    className={` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                    {...formik.getFieldProps('tags')}
+                                    className={` ${(formik.touched.tags && formik.errors.tags) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                     isMulti
                                     options={tagList?.map((elem) => {
                                         return { label: elem?.tag_name, value: elem?.tag_name }

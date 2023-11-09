@@ -41,32 +41,28 @@ const ClusterComponent = (props) => {
 
 
     return (
-        <div className={`${container} h-full flex flex-wrap gap-4 overflow-x-auto justify-start`}>
-            {
-                Array.isArray(props?.data) && props?.data?.slice(1, parseInt(props?.split || '3') + 1)?.map((elem, index) =>
+
                     <>
-                        <div className={`${width} grid grid-cols-12 border-t border-gray-300 p-2 relative`} key={index}>
+                        <div className={`w-full md:w-[calc(100%/3.2)] grid grid-cols-12 border-t border-gray-300 p-2 relative`} >
 
-                            <AssignNews data={props?.allData} />
+                            <AssignNews data={props?.data} code={props?.code} />
 
-                            {elem?.type == 'video' ?
+                            {props?.type == 'video' ?
                                 <div className='col-span-4 object-contain mx-2 bg-contain h-16'>
-                                    <VideoIndex data={elem} className='p-2 h-full object-cover' />
+                                    <VideoIndex data={props} className='p-2 h-full object-cover' />
                                 </div>
                                 :
-                                <img src={elem?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
+                                <img src={props?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
                             }
                             <div className="col-span-8">
-                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer' onClick={() => navigate(`/news-details/${elem?.id}/${props?.categoryId}`)}>
-                                    {elem?.heading}
+                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer'  onClick={() => navigate(`/news-details/${props?.data?.id}/${props?.data?.category_id}`)}>
+                                    {props?.heading}
                                 </h1>
                             </div>
 
                         </div>
                     </>
-                )
-            }
-        </div>
+                
     )
 }
 

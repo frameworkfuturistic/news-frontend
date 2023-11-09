@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import logo from '@/Components/assets/logo.webp'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ApiList } from '@/Components/Api/ApiList'
 import { toast } from 'react-hot-toast'
@@ -19,6 +19,8 @@ const Login = () => {
   const navigate = useNavigate()
 
   const { apiLogin } = ApiList()
+
+  const { type } = useParams()
 
   const labelStyle = "text-sm"
   const inputStyle = "focus:outline-none border rounded-sm focus:shadow-md px-2 py-1 text-sm"
@@ -48,7 +50,7 @@ const Login = () => {
     let payload = {
       email: values?.email,
       password: values?.password,
-      type: "web"
+      type: type || 'web'
     }
 
     axios.post(apiLogin, payload, ApiJsonHeader())

@@ -40,14 +40,14 @@ function App() {
 
   // 👉 Public Routes Json 👈
   const publicRoutes = [
-    { path: "/login", element: <Login /> },
+    { path: "/login/:type?", element: <Login /> },
     { path: "/career", element: <CareerForm /> },
   ]
 
   const navBarRoutes = [
     { path: ":type?", element: <HomeIndex /> },
     { path: "/layout", element: <LayoutIndex /> },
-    { path: "/news-details/:id/:index?", element: <ContentIndex /> },
+    { path: "/news-details/:id/:cId?", element: <ContentIndex /> },
   ]
 
   // 👉 Private Routes Json 👈

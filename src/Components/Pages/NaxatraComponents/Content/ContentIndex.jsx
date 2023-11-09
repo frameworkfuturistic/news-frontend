@@ -6,12 +6,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import { contextVar } from "@/Components/Context/ContextVar";
 import { newsJson } from "../Home/NewsJson";
 import VideoIndex from "../Home/VideoIndex";
+import toast from "react-hot-toast";
+import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
+import axios from "axios";
+import { ApiList } from "@/Components/Api/ApiList";
 
 const ContentIndex = () => {
 
-  const { id, index } = useParams()
+  const { id, cId } = useParams()
 
   const { wpx } = useContext(contextVar)
+
+  const {api_getActiveNewsList} = ApiList()
 
   const navigate = useNavigate()
 
@@ -20,22 +26,8 @@ const ContentIndex = () => {
   const [currentVideo, setCurrentVideo] = useState(null);
   const [data, setdata] = useState(null)
 
-  useEffect(() => {
-
-    window.scroll(0,0)
-
-    const filteredNews = newsJson?.filter(item => item?.categoryId == index);
-
-    const newsData = filteredNews[0]?.news?.filter(item => item?.id == id)
-
-
-    setdata({
-      main: filteredNews[0],
-      bigNews: newsData[0],
-      smallNews: filteredNews[0]?.news,
-    });
-
-  }, [id, index])
+const [newsList, setNewsList] = useState([])
+const [newsData, setNewsData] = useState(null)
 
   // Function to handle playing/pausing a video
   const handlePlay = (source) => {
@@ -107,12 +99,46 @@ const ContentIndex = () => {
         observer.disconnect();
       };
     }
-  }, [data?.rightMenu?.source, isPiPMode]);
+  }, [newsData?.rightMenu?.source, isPiPMode]);
+
+
+  const getActiveStories = () => {
+
+    setLoader(true)
+
+    axios.post(api_getActiveNewsList, {id: id}, ApiJsonHeader()).then((res) => {
+      console.log("Page response => ", res);
+      if (res?.newsData?.status) {
+        setnewsData(res?.newsData?.data)
+      } else {
+        toast.error(res?.newsData?.message)
+      }
+    }).finally(() => setLoader(false))
+  };
+
+  const getCategoryStories = () => {
+
+    setLoader(true)
+
+    axios.post(api_getActiveNewsList, {id: id}, ApiJsonHeader()).then((res) => {
+      console.log("Page response => ", res);
+      if (res?.newsData?.status) {
+        setNewsList(res?.newsData?.data)
+      } else {
+        toast.error(res?.newsData?.message)
+      }
+    }).finally(() => setLoader(false))
+  };
+
+  useEffect(() => {
+    getActiveStories()
+    getCategoryStories()
+  }, [refresh])
 
 
   return (
     <>
-      {data?.smallNews?.length > 0 &&
+
         <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
 
           <div
@@ -123,42 +149,40 @@ const ContentIndex = () => {
             </div>
             <div className="col-span-12 md:col-span-8">
               <h1 className="text-xl">
-                <span className=" font-semibold">{data?.bigNews?.heading?.split(":")[0]} </span>
-                <span className="">{data?.bigNews?.heading?.split(":")[1]}</span>
+                <span className=" font-semibold">{newsData?.headers?.story_title} </span>
               </h1>
               <div className="flex justify-between items-center text-sm my-2">
                 <div className="flex gap-2 items-center">
                   <span className="text-zinc-500 text-xl"><FaUserCircle /></span>
-                  <span>{data?.bigNews?.author}</span>
+                  {/* <span>{newsData?.headers?.story_title}</span> */}
                 </div>
                 <div>
-                  {data?.bigNews?.date}
+                {newsData?.headers?.created_at}
                 </div>
               </div>
               <div className="flex justify-center">
                 {
-                  data?.bigNews?.type == 'video' ?
-                    <VideoIndex data={data?.bigNews} />
+                  newsData?.headers?.media_type == 'video' ?
+                    <VideoIndex data={newsData} />
                     :
-                    <img src={data?.bigNews?.source} alt="" srcset="" />
+                    <img src={newsData?.headers?.file_name} alt="" srcset="" />
                 }
               </div>
               <div className="my-4 mb-6">
-                <span className=" font-semibold">{data?.bigNews?.content?.split(":")[0]} </span>
-                <span className="">{data?.bigNews?.content?.split(":")[1]}</span>
+                <span className=" font-semibold">{newsData?.header?.story_body} </span>
               </div>
 
               {
-                data?.bigNews?.sections?.map((elem) =>
+                newsData?.sections?.map((elem) =>
                   <div className="mb-6">
-                    <h3 className="mb-2 font-semibold">{elem.title}</h3>
+                    <h3 className="mb-2 font-semibold">{elem.section_storytitle}</h3>
                     {
-                  elem?.type == 'video' ?
-                    <VideoIndex data={elem} />
-                    :
-                    <img src={elem?.source} alt="" srcset="" />
-                }
-                    <div className="mb-2">{elem.content}</div>
+                      elem?.media_type == 'video' ?
+                        <VideoIndex data={elem} />
+                        :
+                        <img src={elem?.file_name} alt="" srcset="" />
+                    }
+                    <div className="mb-2">{elem.section_storycontent}</div>
                   </div>
                 )
               }
@@ -166,13 +190,13 @@ const ContentIndex = () => {
 
             <div className="col-span-12 md:col-span-4 flex flex-col">
 
-              {data?.smallNews[data?.smallNews?.length - 1]?.type == 'video'
+              {newsList[0]?.media_type == 'video'
                 ?
                 <>
 
                   <Video
-                    data={data?.smallNews[data?.smallNews?.length - 1]}
-                    isPlaying={currentVideo === data?.smallNews[data?.smallNews?.length - 1]?.id}
+                    data={newsList[0]}
+                    isPlaying={currentVideo === newsList[0]?.id}
                     onPlay={handlePlay}
                     currentVideo={currentVideo}
                     setCurrentVideo={setCurrentVideo}
@@ -180,25 +204,24 @@ const ContentIndex = () => {
                 </>
                 :
                 <img
-                  src={data?.smallNews[data?.smallNews?.length - 1]?.source}
+                  src={newsList[0]?.file_name}
                   alt="Image"
                   srcset=""
                   className="border h-60 w-full"
                 />}
 
               <div className="py-2 text-zinc-700">
-                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${data?.smallNews[data?.smallNews?.length - 1]?.id}/${data?.main?.categoryId}`)}>
-                  {data?.smallNews[data?.smallNews?.length - 1]?.heading}
+                <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${newsList[0]?.id}/${newsData?.main?.categoryId}`)}>
+                  {newsList[0]?.story_title}
                 </span>
               </div>
 
               <div className="text-sm text-gray-500 flex justify-between">
-                <span>{data?.smallNews[data?.smallNews?.length - 1]?.author}</span>
-                <span>{data?.smallNews[data?.smallNews?.length - 1]?.date}</span>
+                <span>{newsList[0]?.publication_date}</span>
               </div>
 
               <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-                {data?.smallNews[data?.smallNews?.length - 1]?.sections[0]?.content}
+                {newsList[0]?.sections[0]?.story_body}
               </div>
 
               <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
@@ -209,7 +232,7 @@ const ContentIndex = () => {
                 </header>
 
                 <div className=" overflow-y-auto ">
-                  {data?.smallNews?.map((elem) => (
+                  {newsList?.map((elem) => (
                     <>
                       <div className="grid grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
 
@@ -221,17 +244,17 @@ const ContentIndex = () => {
                             </div>
                             :
                             <img
-                              src={elem?.source}
+                              src={elem?.file_name}
                               alt="image"
                               srcSet=""
                               className="border h-14 w-full col-span-4 object-cover bg-cover"
                             />
                         }
                         <div className="flex flex-col gap-1 col-span-8">
-                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${data?.main?.categoryId}`)}>
-                            {elem?.heading}
+                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${elem?.category_id}`)}>
+                            {elem?.story_title}
                           </span>
-                          <span className="text-sm text-zinc-500">{elem?.date}</span>
+                          <span className="text-sm text-zinc-500">{elem?.publication_date}</span>
                         </div>
                       </div>
                     </>
@@ -243,7 +266,7 @@ const ContentIndex = () => {
 
           </div>
 
-        </div>}
+        </div>
     </>
   );
 };
