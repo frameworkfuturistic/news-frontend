@@ -467,3 +467,15 @@ export const checkErrorMessage = (text) => {
     }
 
 }
+
+export const codeCheck = (values, toCheck) => {
+
+    let result = values.replace(/\d/g, ''); // This will remove all digits from the string
+
+    if (result == toCheck) {
+        return true;
+    } else {
+        return false;
+    }
+
+}

@@ -54,7 +54,7 @@ const HomeIndex = () => {
 
       {loader && <BarLoader />}
 
-{/*  !loader && Array.isArray(newsData) && newsData?.map((elem, index) => */}
+      {/*  !loader && Array.isArray(newsData) && newsData?.map((elem, index) => */}
 
       {
         !loader && Array.isArray(newsData?.news) && newsData?.news[0]?.news?.map((elem, index) =>
@@ -63,18 +63,19 @@ const HomeIndex = () => {
             {elem?.section_renderer_code == 'TP01' && bClose && <BreakingNewsIndex wpx={wpx} bnews={elem?.story_body} bClose={(status) => setBClose(status)} />}
 
 
-            {elem?.sequence == 1 && <MukhyaSamachar code={'TP'} />}
-            {elem?.sequence == 2 && <Component13 code={'A'} />}
-            {elem?.sequence == 3 && <Component13 code={'B'} />}
-            {elem?.sequence == 4 && <Component13 code={'C'} />}
-            {elem?.sequence == 5 && <Component13 code={'D'} />}
-            {elem?.sequence == 6 && <Component13 code={'E'} />}
-            {elem?.sequence == 7 && <Component13 code={'F'} />}
-            {elem?.sequence == 8 && <Component13 code={'G'} />}
-            {elem?.sequence == 9 && <Component13 code={'H'} />}
-            {elem?.sequence == 10 && <Component13 code={'I'} />}
-            {elem?.sequence == 11 && <Component13 code={'J'} />}
-            {elem?.sequence == 12 && <Component13 code={'K'} />}
+            <MukhyaSamachar code={'TP'} />
+           
+            <Component13 code={'A'} />
+            <Component13 code={'B'} />
+            <Component13 code={'C'} />
+            <Component13 code={'D'} />
+            <Component13 code={'E'} />
+            <Component13 code={'F'} />
+            <Component13 code={'G'} />
+            <Component13 code={'H'} />
+            <Component13 code={'I'} />
+            <Component13 code={'J'} />
+            <Component13 code={'K'} />
 
           </>)
       }
