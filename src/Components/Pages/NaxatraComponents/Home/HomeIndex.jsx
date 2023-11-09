@@ -64,17 +64,17 @@ const HomeIndex = () => {
 
 
             {elem?.sequence == 1 && <MukhyaSamachar code={'TP'} />}
-            {elem?.sequence == 2 && <Component13 code={'JH'} />}
-            {elem?.sequence == 3 && <Component13 code={'BI'} />}
-            {elem?.sequence == 4 && <Component13 code={'RA'} />}
-            {elem?.sequence == 5 && <Component13 code={'DE'} />}
-            {elem?.sequence == 6 && <Component13 code={'MA'} />}
-            {elem?.sequence == 7 && <Component13 code={'VY'} />}
-            {elem?.sequence == 8 && <Component13 code={'TE'} />}
-            {elem?.sequence == 9 && <Component13 code={'RS'} />}
-            {elem?.sequence == 10 && <Component13 code={'DH'} />}
-            {elem?.sequence == 11 && <Component13 code={'KH'} />}
-            {elem?.sequence == 12 && <Component13 code={'VI'} />}
+            {elem?.sequence == 2 && <Component13 code={'A'} />}
+            {elem?.sequence == 3 && <Component13 code={'B'} />}
+            {elem?.sequence == 4 && <Component13 code={'C'} />}
+            {elem?.sequence == 5 && <Component13 code={'D'} />}
+            {elem?.sequence == 6 && <Component13 code={'E'} />}
+            {elem?.sequence == 7 && <Component13 code={'F'} />}
+            {elem?.sequence == 8 && <Component13 code={'G'} />}
+            {elem?.sequence == 9 && <Component13 code={'H'} />}
+            {elem?.sequence == 10 && <Component13 code={'I'} />}
+            {elem?.sequence == 11 && <Component13 code={'J'} />}
+            {elem?.sequence == 12 && <Component13 code={'K'} />}
 
           </>)
       }
