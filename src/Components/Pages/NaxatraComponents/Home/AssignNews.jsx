@@ -76,7 +76,7 @@ const AssignNews = (props) => {
                     toast.success("News Assigned Successfully!!!")
                     setrefresh(refresh + 1)
                 } else {
-                    activateBottomErrorCard(true, res?.data?.msg ?? "Something went wrong!")
+                    activateBottomErrorCard(true, res?.data?.message ?? "Something went wrong!")
                 }
                 console.log('assign news response => ', res)
             }
@@ -92,7 +92,7 @@ const AssignNews = (props) => {
     }
 
     useEffect(() => {
-        getStoryList()
+        // getStoryList()
     },[])
 
     return (
@@ -114,7 +114,7 @@ const AssignNews = (props) => {
 
                     <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>Assign News</h1>
 
-                    {storyList?.map((elem) => (
+                    {props?.storyList?.map((elem) => (
                         <>
                             <div className="grid w-full grid-cols-12 items-center gap-4 bg-slate-100 hover:bg-slate-200 border drop-shadow-md py-1 mb-2 cursor-pointer " onClick={() => actionFun(elem?.id)}>
 

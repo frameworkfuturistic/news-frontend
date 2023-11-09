@@ -468,9 +468,18 @@ export const checkErrorMessage = (text) => {
 
 }
 
-export const codeCheck = (values, toCheck) => {
+export const codeCheck = (values = "", toCheck = '') => {
 
-    let result = values.replace(/\d/g, ''); // This will remove all digits from the string
+    if (typeof values !== 'string') {
+        // Handle the case where values is not a string, or is undefined.
+        return false;
+    } else {
+        console.log('valid code', values)
+    }
+    
+    let result = values?.replace(/\d/g, ''); // This will remove all digits from the string
+
+    console.error('final result', result, toCheck, toCheck, result == toCheck)
 
     if (result == toCheck) {
         return true;

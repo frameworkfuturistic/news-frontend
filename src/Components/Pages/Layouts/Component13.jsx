@@ -7,8 +7,11 @@ import { RxCross2 } from 'react-icons/rx';
 import { LiaEditSolid } from 'react-icons/lia'
 import AssignNews from '../NaxatraComponents/Home/AssignNews';
 import BottomComponent from './Components/BottomComponent';
+import { codeCheck } from '@/Components/Common/PowerUpFunctions';
 
 const Component13 = (props) => {
+
+  console.log(`incoming ${props?.code}01`, props?.data, props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0])
 
   useEffect(() => {
     window.scroll(0, -50);
@@ -22,23 +25,23 @@ const Component13 = (props) => {
 
         <div className='w-full h-[80%]'>
 
-          <AssignNews data={props?.data} code={`${props?.code}01`} />
+          <AssignNews data={props?.data} code={`${props?.code}01`} storyList={props?.storyList} />
 
 
           <HeadComponent
-            auth={props?.data?.section_rendered_code == `${props?.code}01`}
-            data={props?.data}
+            // auth={props?.data?.section_renderer_code == `${props?.code}01`}
+            data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0]}
           />
 
-          <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.data?.category}</span>
+          <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0]?.category}</span>
 
         </div>
 
         <div className=' w-full h-[100px] '>
           <div className={`w-[100%*3] h-full flex flex-wrap gap-4 overflow-x-auto justify-start`}>
-            <ClusterComponent data={props?.data} auth={props?.data?.section_rendered_code == `${props?.code}02`} code={`${props?.code}02`} />
-            <ClusterComponent data={props?.data} auth={props?.data?.section_rendered_code == `${props?.code}03`} code={`${props?.code}03`} />
-            <ClusterComponent data={props?.data} auth={props?.data?.section_rendered_code == `${props?.code}04`} code={`${props?.code}04`} />
+            <ClusterComponent data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}02`))[0]} auth={props?.data?.section_renderer_code == `${props?.code}02`} code={`${props?.code}02`} storyList={props?.storyList} />
+            <ClusterComponent data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}03`))[0]} auth={props?.data?.section_renderer_code == `${props?.code}03`} code={`${props?.code}03`} storyList={props?.storyList} />
+            <ClusterComponent data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}04`))[0]} auth={props?.data?.section_renderer_code == `${props?.code}04`} code={`${props?.code}04`} storyList={props?.storyList} />
           </div>
         </div>
 
@@ -53,15 +56,14 @@ const Component13 = (props) => {
 
         <div className="w-full flex flex-wrap overflow-y-auto relative">
 
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}05`} code={`${props?.code}05`} data={props?.data} />
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}06`} code={`${props?.code}06`} data={props?.data} />
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}06`} code={`${props?.code}06`} data={props?.data} />
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}07`} code={`${props?.code}07`} data={props?.data} />
-
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}08`} code={`${props?.code}08`} data={props?.data} />
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}09`} code={`${props?.code}09`} data={props?.data} />
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}10`} code={`${props?.code}10`} data={props?.data} />
-          <BottomComponent auth={props?.data?.section_rendered_code == `${props?.code}11`} code={`${props?.code}11`} data={props?.data} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}05`} code={`${props?.code}05`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}05`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}06`} code={`${props?.code}06`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}06`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}07`} code={`${props?.code}07`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}07`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}08`} code={`${props?.code}08`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}08`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}09`} code={`${props?.code}09`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}09`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}10`} code={`${props?.code}10`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}10`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}11`} code={`${props?.code}11`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}11`))[0]} storyList={props?.storyList} />
+          <BottomComponent auth={props?.data?.section_renderer_code == `${props?.code}12`} code={`${props?.code}12`} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}12`))[0]} storyList={props?.storyList} />
 
         </div>
       </div>

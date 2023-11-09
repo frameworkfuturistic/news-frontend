@@ -79,7 +79,7 @@ const MediaMasterIndex = (props) => {
         dialogRef.current.showModal()
       } break;
       case 'edit': {
-        setSelectedOptions(data?.tags ?? [])
+        setSelectedOptions(data?.tags?.split(",") ?? [])
         setViewData(data)
         dialogRef.current.showModal()
       } break;
@@ -110,10 +110,7 @@ const MediaMasterIndex = (props) => {
       accessor: "tags",
       Cell: ({ cell }) => (
         <>
-          {Array.isArray(cell?.row?.original?.tags) ?
-            (cell?.row?.original?.tags)?.map((elem, index) => <>
-              <span>{elem}</span>
-            </>) : 'N/A'}
+          {nullToNA(cell?.row?.original?.tags)}
         </>
       ),
     },
@@ -168,11 +165,11 @@ const MediaMasterIndex = (props) => {
         } else {
           activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
         }
-        console.log('career list response => ', res)
+        console.log('media list response => ', res)
       })
       .catch((err) => {
         activateBottomErrorCard(true, 'Server Error! Please try again later.')
-        console.log('error career list => ', err)
+        console.log('error media list => ', err)
       })
       .finally(() => {
         setLoader(false)
@@ -258,7 +255,6 @@ const MediaMasterIndex = (props) => {
 
         url = api_addMedia
 
-        fd.append("mediaType", 'abc')
         fd.append('file', document)
         modifiedTags?.map((elem, index) => {
           fd.append(`tags[${index}]`, elem)
@@ -337,9 +333,10 @@ const MediaMasterIndex = (props) => {
                 </ListTable>
               </>
               :
-              <>
+              <div className="relative flex flex-col justify-center">
+                  <button className={addButton + ' text-sm self-end'} onClick={() => handleModal('add')}>Add Media</button>
                 <div className="my-4 bg-red-100 text-red-500 py-2 text-base font-semibold text-center border border-red-500 drop-shadow-sm">Oops! No Data Found.</div>
-              </>}
+              </div>}
 
           </>}
       </div>}
@@ -371,7 +368,8 @@ const MediaMasterIndex = (props) => {
 
           <div className="flex flex-col gap-1">
             <label htmlFor="" className={labelStyle}>Upload Image</label>
-            <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} name="media" id="" />
+            <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} accept=".png, .jpg, .jpeg, .mp4" name="media" id="" />
+            <span className="text-xs font-semibold italic">Image must be ".png, .jpg or .jpeg" and Video must be ".mp4"</span>
           </div>
 
           <div className="flex flex-col gap-1">

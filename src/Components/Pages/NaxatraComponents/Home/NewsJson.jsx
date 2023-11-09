@@ -93,16 +93,12 @@ import twonov from "@/Components/assets/twonov.jpeg";
 import wrldcup from "@/Components/assets/wrldcup.jpeg";
 import rally from "@/Components/assets/rally.jpeg";
 import nitish from "@/Components/assets/nitish.jpeg";
- 
 import sharukh from "@/Components/assets/sharukh.jpeg";
 import jaipur from "@/Components/assets/jaipur.jpeg";
- 
 import whtsapp from "@/Components/assets/whtsapp.jpeg";
 import salman from "@/Components/assets/salman.jpeg";
- 
 import fifthwins from "@/Components/assets/fifthwins.jpeg";
 import shami from "@/Components/assets/shami.jpg";
- 
 import army from "@/Components/assets/army.jpeg";
 import semifinal from "@/Components/assets/semifinal.jpeg";
 import pokhar from "@/Components/assets/pokhar.jpeg";
@@ -1606,13 +1602,7 @@ export const newsJson = [
              content:
               " इसी कड़ी में एसपी स्वर्ण प्रभात द्वारा एक ऐप लॉन्च किया गया है, जिसका नाम गोपालगंज पुलिस है. जिससे आम जनता को पुलिस से सहयोग लेने में काफी सहुलियत मिलेगी. इस ऐप के जरिए आम जनता पुलिस के बारे में तमाम जानकारी प्राप्त कर पाएगी. साथ ही अपनी समस्याओं का समाधान भी ऐप के जरिया कर पाएगी.  कोई भी व्यक्ति किसी भी मुसीबत में रहने पर इस ऐप के जरिए मदद  ले सकते हैं. यह ऐप आम जनता के लिए मुसीबत के वक्त मददगार साबित होगी. जो भी शख्स मुसीबत में फंसा है उसके पास पुलिस तुरंत पहुंच जाएगी. इस बात की जानकारी गोपालगंज पुलिस अधीक्षक स्वर्ण प्रभात ने प्रेसवार्ता कर लोगों को दी.    ",
           },
-     
-     
-          
-         
-       
-        
-        ],
+         ],
         id: 80,
         date: "Oct 27, 2023",
       },

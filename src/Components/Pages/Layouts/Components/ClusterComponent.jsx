@@ -39,24 +39,38 @@ const ClusterComponent = (props) => {
         }
     }, [props?.split])
 
+    console.log(props?.data)
+
 
     return (
 
                     <>
                         <div className={`w-full md:w-[calc(100%/3.2)] grid grid-cols-12 border-t border-gray-300 p-2 relative`} >
 
-                            <AssignNews data={props?.data} code={props?.code} />
+                            <AssignNews data={props?.data} code={props?.code} storyList={props?.storyList}/>
 
-                            {props?.type == 'video' ?
+                            {props?.data?.file_name != ""  &&
+                            <>{
+                            props?.data?.media_type == 'video' ?
                                 <div className='col-span-4 object-contain mx-2 bg-contain h-16'>
                                     <VideoIndex data={props} className='p-2 h-full object-cover' />
                                 </div>
                                 :
-                                <img src={props?.source} alt="" srcset="" className='col-span-4 object-contain bg-contain h-16' />
+                                <img src={props?.data?.file_name} alt="Image" srcset="" className='col-span-4 object-contain bg-contain h-16' />
+                                
+                            }</>
                             }
+
+                            {
+                                props?.data?.file_name == "" && 
+                                <div className='bg-slate-500 h-full flex justify-center items-center'>
+                                    Media
+                                </div>
+                            }
+
                             <div className="col-span-8">
-                                <h1 className='hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer'  onClick={() => navigate(`/news-details/${props?.data?.id}/${props?.data?.category_id}`)}>
-                                    {props?.heading}
+                                <h1 className={`hover:text-red-500 text-ellipsis line-clamp-3 font-semibold text-gray-700 text-sm cursor-pointer ${props?.data?.story_title ? '' : 'h-full flex justify-center items-center border-2'}`}  onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}`)}>
+                                    {props?.data?.story_title ?? "Heading"}
                                 </h1>
                             </div>
 

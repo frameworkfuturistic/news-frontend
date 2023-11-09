@@ -50,7 +50,7 @@ const NewsForm = () => {
         tags: [],
         newsTags: [],
         media: '',
-        topNews: false,
+        // topNews: false,
         heading: '',
         desc: ""
     }
@@ -100,7 +100,7 @@ const NewsForm = () => {
         formik.setFieldValue('desc', values?.body)
         formik.setFieldValue('tags', values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
         formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })) ?? [])
-        formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
+        // formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
         const contentSec = values?.storySections?.map((elem) => (
             {
                 id: elem?.id,
@@ -157,7 +157,7 @@ const NewsForm = () => {
                 featureImageId: values?.media, 
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
-                topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
+                // topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
                 storySections: finalData?.map((data) => ({     //contentSection -> storySections
                     mediaId: data?.media,
                     title: data?.title,
@@ -174,7 +174,7 @@ const NewsForm = () => {
                 featureImageId: values?.media,   
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 
-                topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
+                // topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
                 storySections: finalData?.map((data) => ({   //contentSection -> storySections
                     mediaId: data?.media,
                     title: data?.title,
@@ -389,7 +389,7 @@ const NewsForm = () => {
                                 />
                             </div>
 
-                            <div className='w-full flex flex-col gap-1 '>
+                            <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Select Tags to get media<span className='font-bold text-xs text-red-500'>*</span></label>
                                 <Select
                                     name='tags'
@@ -413,16 +413,16 @@ const NewsForm = () => {
                             </div>
 
                             {/* Media Selection */}
-                            <div className='w-full md:w-[48%] flex flex-col gap-1'>
+                            {/* <div className='w-full md:w-[48%] flex flex-col gap-1'>
                                 <label htmlFor="" className={style.label}>Top News <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <select name='topNews' {...formik.getFieldProps('topNews')} className={style.input + ` ${(formik.touched.topNews && formik.errors.topNews) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
                                     <option value={true}>Yes</option>
                                     <option value={false} selected>No</option>
                                 </select>
-                            </div>
+                            </div> */}
 
                             {/* Heading */}
-                            <div className='w-full row-span-2 flex flex-col gap-1 '>
+                            <div className='w-full flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Heading <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <input
                                     type="text"
@@ -437,7 +437,7 @@ const NewsForm = () => {
                             <div className='w-full row-span-2 flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Description <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <textarea
-                                    cols={3}
+                                    cols={5}
                                     type="text"
                                     placeholder="Enter Description"
                                     name='desc'

@@ -319,9 +319,10 @@ const NewsIndex = () => {
                                 </ListTable>
                             </>
                             :
-                            <>
+                            <div className="relative flex flex-col justify-center">
+                                <button className={addButton + ' text-sm self-end'} onClick={() => handleModal('add')}>Add News</button>
                                 <div className="my-4 bg-red-100 text-red-500 py-2 text-base font-semibold text-center border border-red-500 drop-shadow-sm">Oops! No Data Found.</div>
-                            </>}
+                            </div>}
 
                     </>}
             </div>

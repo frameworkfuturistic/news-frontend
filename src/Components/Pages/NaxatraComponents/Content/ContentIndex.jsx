@@ -15,9 +15,9 @@ const ContentIndex = () => {
 
   const { id, cId } = useParams()
 
-  const { wpx } = useContext(contextVar)
+  const { wpx, refresh } = useContext(contextVar)
 
-  const {api_getActiveNewsList} = ApiList()
+  const {api_getActiveNewsList, api_getNews} = ApiList()
 
   const navigate = useNavigate()
 
@@ -28,6 +28,7 @@ const ContentIndex = () => {
 
 const [newsList, setNewsList] = useState([])
 const [newsData, setNewsData] = useState(null)
+const [loader, setLoader] = useState(false)
 
   // Function to handle playing/pausing a video
   const handlePlay = (source) => {
@@ -106,12 +107,12 @@ const [newsData, setNewsData] = useState(null)
 
     setLoader(true)
 
-    axios.post(api_getActiveNewsList, {id: id}, ApiJsonHeader()).then((res) => {
-      console.log("Page response => ", res);
-      if (res?.newsData?.status) {
-        setnewsData(res?.newsData?.data)
+    axios.post(api_getNews, {id: id}, ApiJsonHeader()).then((res) => {
+      console.log("Page data => ", res);
+      if (res?.data?.status) {
+        setNewsData(res?.data?.data)
       } else {
-        toast.error(res?.newsData?.message)
+        toast.error(res?.data?.message)
       }
     }).finally(() => setLoader(false))
   };
@@ -122,10 +123,10 @@ const [newsData, setNewsData] = useState(null)
 
     axios.post(api_getActiveNewsList, {id: id}, ApiJsonHeader()).then((res) => {
       console.log("Page response => ", res);
-      if (res?.newsData?.status) {
-        setNewsList(res?.newsData?.data)
+      if (res?.data?.status) {
+        setNewsList(res?.data?.data)
       } else {
-        toast.error(res?.newsData?.message)
+        toast.error(res?.data?.message)
       }
     }).finally(() => setLoader(false))
   };
@@ -149,7 +150,7 @@ const [newsData, setNewsData] = useState(null)
             </div>
             <div className="col-span-12 md:col-span-8">
               <h1 className="text-xl">
-                <span className=" font-semibold">{newsData?.headers?.story_title} </span>
+                <span className=" font-semibold">{newsData?.title} </span>
               </h1>
               <div className="flex justify-between items-center text-sm my-2">
                 <div className="flex gap-2 items-center">
@@ -157,38 +158,38 @@ const [newsData, setNewsData] = useState(null)
                   {/* <span>{newsData?.headers?.story_title}</span> */}
                 </div>
                 <div>
-                {newsData?.headers?.created_at}
+                {newsData?.publication_date}
                 </div>
               </div>
               <div className="flex justify-center">
                 {
-                  newsData?.headers?.media_type == 'video' ?
+                  newsData?.media_type == 'video' ?
                     <VideoIndex data={newsData} />
                     :
-                    <img src={newsData?.headers?.file_name} alt="" srcset="" />
+                    <img src={newsData?.file_name} alt="" srcset="" />
                 }
               </div>
               <div className="my-4 mb-6">
-                <span className=" font-semibold">{newsData?.header?.story_body} </span>
+                <span className=" font-semibold">{newsData?.body} </span>
               </div>
 
               {
-                newsData?.sections?.map((elem) =>
+                newsData?.storySections?.map((elem) =>
                   <div className="mb-6">
-                    <h3 className="mb-2 font-semibold">{elem.section_storytitle}</h3>
+                    <h3 className="mb-2 font-semibold">{elem.title}</h3>
                     {
                       elem?.media_type == 'video' ?
                         <VideoIndex data={elem} />
                         :
                         <img src={elem?.file_name} alt="" srcset="" />
                     }
-                    <div className="mb-2">{elem.section_storycontent}</div>
+                    <div className="mb-2">{elem.content}</div>
                   </div>
                 )
               }
             </div>
 
-            <div className="col-span-12 md:col-span-4 flex flex-col">
+            {Array.isArray(newsList) && newsList?.length > 0 && <div className="col-span-12 md:col-span-4 flex flex-col">
 
               {newsList[0]?.media_type == 'video'
                 ?
@@ -221,7 +222,7 @@ const [newsData, setNewsData] = useState(null)
               </div>
 
               <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-                {newsList[0]?.sections[0]?.story_body}
+                {newsList[0]?.story_body}
               </div>
 
               <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
@@ -232,7 +233,7 @@ const [newsData, setNewsData] = useState(null)
                 </header>
 
                 <div className=" overflow-y-auto ">
-                  {newsList?.map((elem) => (
+                  {newsList?.slice(1,)?.map((elem) => (
                     <>
                       <div className="grid grid-cols-12 items-center gap-4 border-b pb-1 mb-2">
 
@@ -251,7 +252,7 @@ const [newsData, setNewsData] = useState(null)
                             />
                         }
                         <div className="flex flex-col gap-1 col-span-8">
-                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${elem?.category_id}`)}>
+                          <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.story_id}/${elem?.category_id}`)}>
                             {elem?.story_title}
                           </span>
                           <span className="text-sm text-zinc-500">{elem?.publication_date}</span>
@@ -262,7 +263,7 @@ const [newsData, setNewsData] = useState(null)
                 </div>
               </div>
 
-            </div>
+            </div>}
 
           </div>
 
