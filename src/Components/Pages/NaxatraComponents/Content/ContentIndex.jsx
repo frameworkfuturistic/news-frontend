@@ -121,10 +121,10 @@ const [loader, setLoader] = useState(false)
 
     setLoader(true)
 
-    axios.post(api_getActiveNewsList, {id: id}, ApiJsonHeader()).then((res) => {
+    axios.post(api_getActiveNewsList, {}, ApiJsonHeader()).then((res) => {
       console.log("Page response => ", res);
       if (res?.data?.status) {
-        setNewsList(res?.data?.data)
+        setNewsList((res?.data?.data)?.filter(item => item?.category_id == cId))
       } else {
         toast.error(res?.data?.message)
       }

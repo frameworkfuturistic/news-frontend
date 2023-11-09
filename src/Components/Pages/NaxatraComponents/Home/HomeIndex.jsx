@@ -37,9 +37,14 @@ const HomeIndex = () => {
     setLoader(true)
 
     axios.post(api_getActiveNewsList, {}, ApiJsonHeader()).then((res) => {
-      console.log("Page response => ", res);
+      console.log("Page response => ", type, res);
       if (res?.data?.status) {
-        setnewsData(res?.data?.data)
+        if((type != undefined) && !isNaN(type - 1)){
+          setnewsData((res?.data?.data)?.filter(item => item?.category_id == type))
+        } else {
+          console.log('entered 2')
+          setnewsData(res?.data?.data)
+        }
       } else {
         toast.error(res?.data?.message)
       }

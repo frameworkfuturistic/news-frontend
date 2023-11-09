@@ -40,7 +40,8 @@ function App() {
 
   // 👉 Public Routes Json 👈
   const publicRoutes = [
-    { path: "/login/:type?", element: <Login /> },
+    { path: "/login", element: <Login /> },
+    { path: "/mobile-login", element: <Login /> },
     { path: "/career", element: <CareerForm /> },
   ]
 
