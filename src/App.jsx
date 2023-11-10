@@ -23,6 +23,7 @@ import NewsIndex from './Components/Pages/Admin/News/NewsIndex';
 import ReportMasterIndex from './Components/Pages/Admin/ReportMaster/ReportMasterIndex';
 import NewsForm from './Components/Pages/Admin/News/NewsForm';
 import MediaMasterIndex from './Components/Pages/Admin/MediaMaster/MediaMasterIndex';
+import MobileLogin from './Components/Pages/Mobile/MobileLogin';
 
 function App() {
 
@@ -41,7 +42,7 @@ function App() {
   // 👉 Public Routes Json 👈
   const publicRoutes = [
     { path: "/login", element: <Login /> },
-    { path: "/mobile-login", element: <Login /> },
+    { path: "/mobile-login", element: <MobileLogin /> },
     { path: "/career", element: <CareerForm /> },
   ]
 
