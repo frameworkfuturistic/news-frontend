@@ -12,6 +12,10 @@ import { RotatingLines } from "react-loader-spinner";
 import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import { FiAlertCircle } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BiTrash  } from "react-icons/bi";
+import { GrUpdate  } from "react-icons/gr";
+import { IoMdAddCircle  } from "react-icons/Io";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -77,7 +81,9 @@ const NewsIndex = () => {
         {
             Header: "Category",
             accessor: "category",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.category)),
+            Cell: ({ cell }) =>    <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+          {(nullToNA(cell.row.original?.category))}  
+      </span>,
         },
         {
             Header: "File",
@@ -91,15 +97,15 @@ const NewsIndex = () => {
             accessor: "title",
             Cell: ({ cell }) => (nullToNA(cell.row.original?.title)),
         },
-        {
-            Header: "Top News",
-            accessor: "top_news",
-            Cell: ({ cell }) => <>
-                {
-                    (cell.row.original?.top_news) ? <span className="font-semibold text-green-500">Yes</span> : <span className="font-semibold text-red-500">No</span>
-                }
-            </>,
-        },
+        // {
+        //     Header: "Top News",
+        //     accessor: "top_news",
+        //     Cell: ({ cell }) => <>
+        //         {
+        //             (cell.row.original?.top_news) ? <span className="font-semibold text-green-500">Yes</span> : <span className="font-semibold text-red-500">No</span>
+        //         }
+        //     </>,
+        // },
         // {
         //     Header: "Author Name",
         //     accessor: "author_name",
@@ -119,13 +125,13 @@ const NewsIndex = () => {
                         onClick={() => handleModal('edit', cell?.row?.original)}
                         className={editButton}
                     >
-                        Edit
+                        <AiOutlineEdit />&nbsp; Edit 
                     </button>
                     <button
                         onClick={() => handleModal('delete', cell?.row?.original)}
                         className={deleteButton}
                     >
-                        Delete
+                        <BiTrash /> &nbsp; Delete
                     </button>
                 </div>
             ),
@@ -222,6 +228,7 @@ const NewsIndex = () => {
           .post(api_deleteActiveNews, {id: viewData?.id}, ApiJsonHeader())
           .then((res) => {
             if(res?.data?.status){
+                getNewsList () ;
                 toast.success("News Deleted Successfully !!!")
             } else {
                 activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
@@ -313,14 +320,14 @@ const NewsIndex = () => {
                                     dataList={newsData}
                                 >
                                     <div className="flex justify-end gap-2">
-                                    <button className={editButton + ' text-sm'} onClick={() => navigate('/edit')}>Modify Home Page</button>
-                                    <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}>Add News</button>
+                                    <button className={editButton + ' text-sm'} onClick={() => navigate('/edit')}> <GrUpdate />&nbsp; Modify Home Page</button>
+                                    <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}> <IoMdAddCircle />&nbsp; Add News</button>
                                     </div>
                                 </ListTable>
                             </>
                             :
                             <div className="relative flex flex-col justify-center">
-                                <button className={addButton + ' text-sm self-end'} onClick={() => handleModal('add')}>Add News</button>
+                                <button className={addButton + ' text-sm self-end'} onClick={() => handleModal('add')}><IoMdAddCircle />&nbsp; Add News</button>
                                 <div className="my-4 bg-red-100 text-red-500 py-2 text-base font-semibold text-center border border-red-500 drop-shadow-sm">Oops! No Data Found.</div>
                             </div>}
 

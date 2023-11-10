@@ -82,19 +82,19 @@ const Login = () => {
     <>
       {<ErrorCard message={errorMessage} status={errorState} activateErrorCard={activateErrorCard} />}
       
-      <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className='w-screen h-screen flex justify-center items-center bg-zinc-100'>
+      <form onChange={formik.handleChange} onSubmit={formik.handleSubmit} className='w-screen h-screen flex justify-center items-center bg-zinc-100' >
 
-        <div className='animate__animated animate__slideInDown animate__faster border bg-white border-blue-100 shadow-md rounded-sm py-4'>
+        <div className=' animate__animated animate__slideInDown animate__faster border   bg-white border-blue-100 shadow-md  rounded-sm py-4'>
 
           <div className='flex gap-2 items-center  px-8 py-2 border-b'>
             <span><img src={logo} alt="" srcSet="" className='w-14 drop-shadow-md' /></span>
-            <span className='text-lg font-semibold text-zinc-800'>Naxatra News Login</span>
+            <span className='text-3xl font-semibold text-zinc-800'>Naxatra News Login</span>
           </div>
 
-          <div className='px-8'>
+          <div className='px-8 w-full '>
 
             <div className='flex flex-col gap-2 my-4'>
-              <label htmlFor="" className={labelStyle}>Username or Email <span className='text-red-500'>*</span> </label>
+              <label htmlFor="" className={labelStyle}>Username or Email <span className='text-red-500 text-xl'>*</span> </label>
               <input type="text" name="email" id="" className={formik.touched.email && formik.errors.email ? inputStyleR : inputStyle} placeholder='Enter email or username' />
             </div>
 

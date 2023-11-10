@@ -16,6 +16,9 @@ import { RxCross2 } from "react-icons/rx";
 import CreatableSelect from 'react-select/creatable';
 import ApiMultipartHeader from "@/Components/Api/ApiMultipartHeader";
 import toast from "react-hot-toast";
+import { IoMdAddCircle } from "react-icons/io";
+import { AiFillEdit } from "react-icons/ai";
+import { FaTrashRestore } from "react-icons/fa";
 
 const MediaMasterIndex = (props) => {
 
@@ -128,12 +131,14 @@ const MediaMasterIndex = (props) => {
             onClick={() => handleModal('edit', cell?.row?.original)}
             className={editButton}
           >
+          <AiFillEdit />&nbsp; 
             Edit
           </button>
           <button
             onClick={() => handleModal('delete', cell?.row?.original)}
             className={deleteButton}
-          >
+          > 
+          <FaTrashRestore />&nbsp;
             Delete
           </button>
         </div>
@@ -301,7 +306,29 @@ const MediaMasterIndex = (props) => {
         diaologCloseFun()
       })
   }
+const deleteFun = () => {
 
+  setLoader (true) 
+  
+  axios 
+  .post (api_deleteMedia  , {id : viewData?.id} , ApiJsonHeader () )
+  .then((res) => {
+    if (res?.data?.status) {
+      toast.success ("Media Deleted Successfully !!!!")
+      getNewsList();
+    } else {
+      activateBottomErrorCard(true , checkErrorMessage(res?.data?.message))
+    }
+  }) 
+  .catch (err => {
+    console.error (err) 
+    activateBottomErrorCard (true , 'server Error ! Please try again later . ')
+  })
+  .finally ( () => {
+    setLoader (false) 
+    dialogRef.current.close()
+  })
+}
   return (
     <>
 
@@ -329,7 +356,7 @@ const MediaMasterIndex = (props) => {
                   columns={column}
                   dataList={mediaData}
                 >
-                  <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}>Add Media</button>
+                  <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}> <IoMdAddCircle />&nbsp; Add Media</button>
                 </ListTable>
               </>
               :
