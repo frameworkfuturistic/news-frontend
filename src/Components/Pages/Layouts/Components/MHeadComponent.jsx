@@ -34,7 +34,7 @@ const MHeadComponent = (props) => {
 
                 </div>
 
-                    {props?.source?.type == 'video' ?
+                    {props?.data?.media_type == 'video' ?
                             <div className='p-2 py-8 h-full object-cover w-full md:w-[50%] '>
                                 <VideoIndex data={props?.data} className='p-2 h-full object-cover w-[50%] ' />
                             </div>
