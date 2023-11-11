@@ -19,7 +19,7 @@ const HomeIndex = () => {
 
   const { refresh } = useContext(contextVar)
 
-  const { api_getActiveNewsList, api_getNews } = ApiList();
+  const { api_getActiveNewsList, api_getNews, api_getCategory } = ApiList();
 
   let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
@@ -31,13 +31,14 @@ const HomeIndex = () => {
   const [bClose, setBClose] = useState(true)
   const [loader, setLoader] = useState(false)
   const [storyList, setstoryList] = useState([])
+  const [categoryList, setCategoryList] = useState([])
 
   const getActiveStories = () => {
 
     setLoader(true)
 
     axios.post(api_getActiveNewsList, {}, ApiJsonHeader()).then((res) => {
-      console.log("Page response => ", type, res);
+      console.log("news list response => ", type, res);
       if (res?.data?.status) {
         if((type != undefined) && !isNaN(type - 1)){
           setnewsData((res?.data?.data)?.filter(item => item?.category_id == type))
@@ -56,7 +57,7 @@ const HomeIndex = () => {
     setLoader(true)
 
     axios.post(api_getNews, {}, ApiJsonHeader()).then((res) => {
-      console.log("Page response => ", res);
+      console.log("story list response => ", res);
       if (res?.data?.status) {
         setstoryList(res?.data?.data)
       } else {
@@ -66,11 +67,38 @@ const HomeIndex = () => {
     .finally(() => setLoader(false))
   };
 
+  const getCategoryList = () => {
+    setLoader(true)
+
+        let payload = {
+
+        }
+
+        axios
+            .post(api_getCategory, payload, ApiJsonHeader())
+            .then((res) => {
+                if (res?.data?.status) {
+                    setCategoryList(res?.data?.data)
+                } else {
+                    // activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
+                }
+                console.log('category list response => ', res)
+            })
+            .catch((err) => {
+                // activateBottomErrorCard(true, 'Server Error! Please try again later.')
+                console.log('error category list => ', err)
+            })
+            .finally(() => {
+                setLoader(false)
+            })
+  }
+
   var flag = 0
   useEffect(() => {
     flag = 1;
     flag <= 1 && getActiveStories()
     flag <= 1 && getStoryList()
+    flag <= 1 && getCategoryList()
   }, [refresh])
 
   if(loader){
