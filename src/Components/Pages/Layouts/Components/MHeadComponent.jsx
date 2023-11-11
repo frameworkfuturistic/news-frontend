@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import VideoIndex from '../../NaxatraComponents/Home/VideoIndex'
+import PIPIndex from '../../NaxatraComponents/Home/PIPIndex'
 
 const MHeadComponent = (props) => {
 
@@ -36,7 +36,7 @@ const MHeadComponent = (props) => {
 
                     {props?.data?.media_type == 'video' ?
                             <div className='p-2 py-8 h-full object-cover w-full md:w-[50%] '>
-                                <VideoIndex data={props?.data} className='p-2 h-full object-cover w-[50%] ' />
+                                <PIPIndex data={props?.data} className='p-2 h-full object-cover w-[50%] ' />
                             </div>
                             :
                             <img src={props?.data?.file_name} alt="" className='p-2 h-full object-cover w-full md:w-[50%]  ' srcset="" />}

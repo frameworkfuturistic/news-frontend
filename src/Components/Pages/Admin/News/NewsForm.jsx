@@ -14,6 +14,7 @@ import Select from 'react-select'
 import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
 import ImageSelect from '@/Components/Common/ImageSelect'
+import TinyEditor from '../Editor/TinyEditor'
 
 const NewsForm = () => {
 
@@ -436,14 +437,15 @@ const NewsForm = () => {
                             {/* Description */}
                             <div className='w-full row-span-2 flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Description <span className='font-bold text-xs text-red-500'>*</span></label>
-                                <textarea
+                                {/* <textarea
                                     cols={5}
                                     type="text"
                                     placeholder="Enter Description"
                                     name='desc'
                                     {...formik.getFieldProps('desc')}
                                     className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
-                                />
+                                /> */}
+                                <TinyEditor />
                             </div>
 
                         </div>

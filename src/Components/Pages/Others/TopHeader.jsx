@@ -24,6 +24,8 @@ const TopHeader = () => {
 
   const navigate = useNavigate()
 
+  console.log(window.localStorage.getItem('device'))
+
   // CALLBACK FUNCTION 
   const LogOutUser = () => {
     axios.post(apiLogout, {}, ApiJsonHeader())
@@ -35,7 +37,7 @@ const TopHeader = () => {
       })
       .finally(() => {
         dialogRef.current.close()
-        navigate('/')
+        window.localStorage.getItem('device') == 'mobile' ? navigate('/mobile-login') : navigate('/')
       })
   }
 

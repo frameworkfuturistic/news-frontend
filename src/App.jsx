@@ -8,28 +8,30 @@ import './App.css'
 import { contextVar } from '@/Components/Context/ContextVar'
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import HomeIndex from '@/Components/Pages/NaxatraComponents/Home/HomeIndex';
-import { useEffect, useState } from 'react';
-import ProtectedRoutes from '@/Components/Pages/Others/ProtectedRoutes';
-import ErrorPage from '@/Components/Pages/Others/404/ErrorPage';
-import Login from './Components/Pages/Others/Login';
+import { useState, lazy } from 'react';
 import 'animate.css'
-import CareerForm from './Components/Pages/Career/CareerForm';
-import LayoutIndex from './Components/Pages/Layouts/LayoutIndex';
-import ContentIndex from './Components/Pages/NaxatraComponents/Content/ContentIndex';
-import NavBarRoutes from './Components/Pages/Others/NavBarRoutes';
-import CareerIndex from './Components/Pages/Admin/Career/CareerIndex';
-import NewsIndex from './Components/Pages/Admin/News/NewsIndex';
-import ReportMasterIndex from './Components/Pages/Admin/ReportMaster/ReportMasterIndex';
-import NewsForm from './Components/Pages/Admin/News/NewsForm';
-import MediaMasterIndex from './Components/Pages/Admin/MediaMaster/MediaMasterIndex';
-import MobileLogin from './Components/Pages/Mobile/MobileLogin';
+import MobileRoutes from './Components/Pages/Others/MobileRoutes';
+
+const HomeIndex            =  lazy(() => import('@/Components/Pages/NaxatraComponents/Home/HomeIndex'))
+const ProtectedRoutes      =  lazy(() => import('@/Components/Pages/Others/ProtectedRoutes'))
+const ErrorPage            =  lazy(() => import('@/Components/Pages/Others/404/ErrorPage'))
+const Login                =  lazy(() => import('@/Components/Pages/Others/Login'))
+const CareerForm           =  lazy(() => import('@/Components/Pages/Career/CareerForm'))
+const LayoutIndex          =  lazy(() => import('@/Components/Pages/Layouts/LayoutIndex'))
+const ContentIndex         =  lazy(() => import('@/Components/Pages/NaxatraComponents/Content/ContentIndex'))
+const NavBarRoutes         =  lazy(() => import('@/Components/Pages/Others/NavBarRoutes'))
+const CareerIndex          =  lazy(() => import('@/Components/Pages/Admin/Career/CareerIndex'))
+const NewsIndex            =  lazy(() => import('@/Components/Pages/Admin/News/NewsIndex'))
+const ReportMasterIndex    =  lazy(() => import('@/Components/Pages/Admin/ReportMaster/ReportMasterIndex'))
+const NewsForm             =  lazy(() => import('@/Components/Pages/Admin/News/NewsForm'))
+const MediaMasterIndex     =  lazy(() => import('@/Components/Pages/Admin/MediaMaster/MediaMasterIndex'))
+const MobileLogin          =  lazy(() => import('@/Components/Pages/Mobile/MobileLogin'))
 
 function App() {
 
   // 👉 State constants 👈
   const [refresh, setrefresh] = useState(0)
-  const [toggleBar, settoggleBar] = useState(true)
+  const [toggleBar, settoggleBar] = useState(window.localStorage.getItem('device') == 'mobile' ? false : true)
   const wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
   // 👉 Context data (used globally) 👈
@@ -53,12 +55,18 @@ function App() {
   ]
 
   // 👉 Private Routes Json 👈
-  const privateRoutes = [
+const privateRoutes = [
     { path: "/career-admin", element: <CareerIndex /> },
     { path: "/news-master", element: <NewsIndex /> },
     { path: "/news-form/:id?", element: <NewsForm /> },
-    { path: "/report-master", element: <ReportMasterIndex /> },
     { path: "/media-master", element: <MediaMasterIndex /> },
+  ]
+  
+  // Mobile Routes
+  const mobileRoutes = [
+    { path: "/mobile/report-master", element: <NewsIndex /> },
+    { path: "/mobile/news-form/:id?", element: <NewsForm /> },
+    { path: "/mobile/media-master", element: <MediaMasterIndex /> },
   ]
 
   return (
@@ -90,6 +98,14 @@ function App() {
               )
             }
 
+          </Route>
+
+          <Route element={<MobileRoutes />}>
+          {
+              mobileRoutes?.map((elem, index) =>
+                <Route key={index} path={elem?.path} element={elem?.element} />
+              )
+            }
           </Route>
 
           <Route path='*' element={<ErrorPage />} />

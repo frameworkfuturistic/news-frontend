@@ -8,23 +8,18 @@
 // 👉 Importing Components and libraries 👈
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { contextVar } from '@/Components/context/contextVar'
-import { useContext } from 'react'
 import TopHeader from './TopHeader'
 import DashboardSidebarIndex from './SideBar/DashboardSidebarIndex'
 
-const ProtectedRoutes = () => {
+const MobileRoutes = () => {
 
     // 👉 Navigation constant 👈
     const navigate = useNavigate() 
 
     const token = window.localStorage.getItem('token');
-    
-    const device = window.localStorage.getItem('device');
-
 console.log('Token:', token);
 
-if (token == null || token == '' || token == undefined || device == 'mobile') {
+if (token == null || token == '' || token == undefined) {
     console.log('Navigating to /mobile-login');
     navigate('/mobile-login');
     return;
@@ -52,7 +47,7 @@ if (token == null || token == '' || token == undefined || device == 'mobile') {
 
                         {/* 👉 Checking Authentication to show outlets or navigate to login 👈 */}
                         <div className={` md:px-5 md:my-2 pt-6 md:pt-4 `}>
-                           <Outlet />
+                        <Outlet />
                             
                             {/* 👉 Bottom Space 👈 */}
                             <div className="h-[20vh]"></div>
@@ -66,4 +61,4 @@ if (token == null || token == '' || token == undefined || device == 'mobile') {
     )
 }
 
-export default ProtectedRoutes
+export default MobileRoutes

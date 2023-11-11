@@ -23,8 +23,6 @@ const MobileLogin = () => {
 
   const { apiLogin } = ApiList()
 
-  const { type } = useParams()
-
   const labelStyle = "text-base"
   const inputStyle = "focus:outline-none border rounded-sm focus:shadow-md px-2 py-1 text-base"
   const inputStyleR = "focus:outline-none border border-red-400 placeholder:text-red-400 rounded-sm focus:shadow-md px-2 py-1 text-base"
@@ -53,7 +51,7 @@ const MobileLogin = () => {
     let payload = {
       email: values?.email,
       password: values?.password,
-      type: type || 'web'
+      type: 'mobile'
     }
 
     axios.post(apiLogin, payload, ApiJsonHeader())
@@ -64,8 +62,9 @@ const MobileLogin = () => {
         if (res.data.status == true) {
           toast.success("Login Successfully !!!")
           window.localStorage.setItem('token', res?.data?.data?.token)
+          window.localStorage.setItem('device', 'mobile')
           localStorage.setItem("userDetails", JSON.stringify(res?.data?.data))
-          navigate('/career-admin')
+          navigate('/mobile/report-master')
         } else {
           toast.error(res?.data?.message)
           activateErrorCard(true, res?.data?.message)

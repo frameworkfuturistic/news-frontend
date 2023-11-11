@@ -9,7 +9,7 @@ const BottomComponent = (props) => {
         <>
             <div className="grid w-full md:w-1/2 grid-cols-12 items-center gap-4 border-b pb-1 mb-2 relative">
 
-                <AssignNews data={props?.data} code={props?.code} storyList={props?.storyList} />
+                <AssignNews data={props?.data} code={props?.code} storyList={props?.storyList} cId={props?.cId} cname={props?.cname} />
 
                 {
                     props?.media_type == 'video'

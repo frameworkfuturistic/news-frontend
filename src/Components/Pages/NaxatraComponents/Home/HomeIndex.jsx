@@ -101,10 +101,6 @@ const HomeIndex = () => {
     flag <= 1 && getCategoryList()
   }, [refresh])
 
-  if(loader){
-    return <BarLoader />
-  }
-
   // C = Component
   // OT = One, Three
   // A = Serial
@@ -125,20 +121,38 @@ const HomeIndex = () => {
   return (
     <>
 
-            {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
+    {
+      loader && <BarLoader />
+    }
 
-            {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && <MukhyaSamachar storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)}  code={'COTTP'} />}
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 1)}  code={'COTA'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 2)}  code={'COTB'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 3)}  code={'COTC'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 4)}  code={'COTD'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 5)}  code={'COTE'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 6)}  code={'COTF'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 7)}  code={'COTG'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 8)}  code={'COTH'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 9)}  code={'COTI'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 10)} code={'COTJ'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 11)} code={'COTK'} />
+    {
+      !loader && 
+      <>
+      {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
+
+      {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && <MukhyaSamachar storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)}  code={'COTTP'} />}
+      
+      
+      {
+        Array.isArray(categoryList) && 
+        categoryList?.map((elem, index) => 
+        <>
+      <Component13  cdata={elem}  storyList={[]} data={newsData?.filter(item => item?.sequence == (index+ 1))}  code={elem?.renderer_code} />
+        </>)
+      }
+      {/* <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 2)}  code={'COTB'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 3)}  code={'COTC'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 4)}  code={'COTD'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 5)}  code={'COTE'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 6)}  code={'COTF'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 7)}  code={'COTG'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 8)}  code={'COTH'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 9)}  code={'COTI'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 10)} code={'COTJ'} />
+      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 11)} code={'COTK'} /> */}
+      </>
+    }
+
 
          
     </>

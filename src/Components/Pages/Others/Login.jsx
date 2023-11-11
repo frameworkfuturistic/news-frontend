@@ -20,8 +20,6 @@ const Login = () => {
 
   const { apiLogin } = ApiList()
 
-  const { type } = useParams()
-
   const labelStyle = "text-sm"
   const inputStyle = "focus:outline-none border rounded-sm focus:shadow-md px-2 py-1 text-sm"
   const inputStyleR = "focus:outline-none border border-red-400 placeholder:text-red-400 rounded-sm focus:shadow-md px-2 py-1 text-sm"
@@ -50,7 +48,6 @@ const Login = () => {
     let payload = {
       email: values?.email,
       password: values?.password,
-      type: type || 'web'
     }
 
     axios.post(apiLogin, payload, ApiJsonHeader())

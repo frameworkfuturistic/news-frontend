@@ -33,7 +33,7 @@ const AssignNews = (props) => {
     const {type} = useParams()
 
     const editButton = (data) => {
-        return <button onClick={() => dialogRef.current.showModal()} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block': 'hidden'} absolute top-0 right-0 flex gap-1 items-center px-4 py-1 bg-green-500 hover:bg-green-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><BiSolidAddToQueue /> </span>Add</button>
+        return <button onClick={() => (getStoryList())} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block': 'hidden'} absolute top-0 right-0 flex gap-1 items-center px-4 py-1 bg-green-500 hover:bg-green-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><BiSolidAddToQueue /> </span>Add</button>
     }
 
     // To handle error card
@@ -46,7 +46,7 @@ const AssignNews = (props) => {
 
         setLoader(true)
 
-        axios.post(api_getNews, {}, ApiJsonHeader()).then((res) => {
+        axios.post(api_getNews, {categoryId: props?.cId}, ApiJsonHeader()).then((res) => {
           console.log("Page response => ", res);
           if (res?.data?.status) {
             setstoryList(res?.data?.data)
@@ -54,7 +54,10 @@ const AssignNews = (props) => {
             toast.error(res?.data?.message)
           }
         })
-        .finally(() => setLoader(false))
+        .finally(() => {
+            dialogRef.current.showModal()
+            setLoader(false)
+        })
       };
 
     const actionFun = (id) => {
@@ -112,9 +115,9 @@ const AssignNews = (props) => {
 
                 <div>
 
-                    <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>Assign News</h1>
+                    <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>Assign {props?.cname} News</h1>
 
-                    {props?.storyList?.map((elem) => (
+                    {storyList?.map((elem) => (
                         <>
                             <div className="grid w-full grid-cols-12 items-center gap-4 bg-slate-100 hover:bg-slate-200 border drop-shadow-md py-1 mb-2 cursor-pointer " onClick={() => actionFun(elem?.id)}>
 
@@ -129,7 +132,7 @@ const AssignNews = (props) => {
                                             src={elem?.file_name}
                                             alt="image"
                                             srcSet=""
-                                            className="border h-14 w-full col-span-4 object-cover bg-cover"
+                                            className="border h-28 w-full col-span-4 object-cover bg-cover"
                                         />
                                 }
                                 <div className="flex flex-col gap-1 col-span-8">
