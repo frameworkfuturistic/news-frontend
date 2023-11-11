@@ -89,7 +89,7 @@ const NewsCategoriesIndex = (props) => {
 
           <div className='flex gap-x-4 gap-y-2 text-base md:text-xl  items-center'>
             <span className='flex rounded-full cursor-pointer bg-red-600 p-1.5' onClick={() => window.open("https://www.youtube.com/channel/UCcQZe4GP_FGX6XRcH_EtG4Q", "_blank")}><BsYoutube /></span>
-            <span className='flex rounded-full cursor-pointer bg-black p-1.5 ' onClick={() => window.open("https://twitter.com/i/flow/login?redirect_after_login=%2Fnaxatrahindi", "_blank")}>  <FaXTwitter />  </span>
+            <span className='flex rounded-full cursor-pointer bg-black p-1.5 ' onClick={() => window.open("https://twitter.com/home?logout=1699530545012", "_blank")}>  <FaXTwitter />  </span>
             <span className='flex rounded-full cursor-pointer bg-white text-blue-700 text-[28px]' onClick={() => window.open('https://www.facebook.com/naxatranewshindi', "_blank")}><BsFacebook /></span>
             <span className='flex rounded-full cursor-pointer bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500  p-1.5' onClick={() => window.open("https://www.instagram.com/", "_blank")}><BsInstagram /></span>
 
