@@ -314,10 +314,10 @@ export const checkSizeValidation = (file) => {
 
     switch (fileType) {
         case 'jpeg': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('Image must be less than 2Mb', {
+                toast('Image must be less than 20Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -325,10 +325,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'jpg': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('Image must be less than 2Mb', {
+                toast('Image must be less than 20Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -336,10 +336,10 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'png': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('Image must be less than 2Mb', {
+                toast('Image must be less than 20Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -347,10 +347,21 @@ export const checkSizeValidation = (file) => {
             }
         }
         case 'pdf': {
-            if (fileSize <= 2) {
+            if (fileSize <= 20) {
                 return true;
             } else {
-                toast('PDF must be less than 2Mb', {
+                toast('PDF must be less than 20Mb', {
+                    icon: '🔔',
+                    duration: 3000
+                })
+                return false;
+            }
+        }
+        case 'mp4': {
+            if (fileSize <= 25) {
+                return true;
+            } else {
+                toast('PDF must be less than 25Mb', {
                     icon: '🔔',
                     duration: 3000
                 })
@@ -464,6 +475,27 @@ export const checkErrorMessage = (text) => {
     } else {
         console.log('%cSQL ERROR MSG ', 'color: red; font-size: 1.5em; border: 2px solid red; padding: 5px 20px', "\n", msg)
         return "Error! Please try again later."
+    }
+
+}
+
+export const codeCheck = (values = "", toCheck = '') => {
+
+    if (typeof values !== 'string') {
+        // Handle the case where values is not a string, or is undefined.
+        return false;
+    } else {
+        console.log('valid code', values)
+    }
+    
+    let result = values?.replace(/\d/g, ''); // This will remove all digits from the string
+
+    console.error('final result', result, toCheck, toCheck, result == toCheck)
+
+    if (result == toCheck) {
+        return true;
+    } else {
+        return false;
     }
 
 }

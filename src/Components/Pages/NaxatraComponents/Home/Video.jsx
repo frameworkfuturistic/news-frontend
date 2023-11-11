@@ -86,7 +86,7 @@ const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
         className={`border ${isPiPMode ? 'pip-mode' : ''}`}
         onPlay={handlePlayVideo}
       >
-        <source src={data?.source} type="video/mp4" />
+        <source src={data?.file_name} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       {/* {isPiPMode ? (

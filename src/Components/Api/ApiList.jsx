@@ -25,8 +25,8 @@ export const ApiList = () => {
     api_getActiveNewsList       : `${url}/api/crud/active-story/v1/news-list`,
     api_getActiveNews           : `${url}/api/crud/active-story/v1/show`,
     api_addActiveNews           : `${url}/api/crud/active-story/v1/store`,
-    api_updateActiveNews        : `${url}/api/crud/active-story/v1/edit`,
-    api_deleteActiveNews        : `${url}/api/crud/active-story/v1/delete`,
+    api_updateActiveNews        : `${url}/api/crud/story/v1/edit`,
+    api_deleteActiveNews        : `${url}/api/crud/story/v1/deactive-active`,
 
   // =============Category List==============
   api_getCategory        : `${url}/api/crud/category/v1/show`,

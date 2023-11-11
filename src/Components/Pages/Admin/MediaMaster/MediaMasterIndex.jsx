@@ -16,6 +16,9 @@ import { RxCross2 } from "react-icons/rx";
 import CreatableSelect from 'react-select/creatable';
 import ApiMultipartHeader from "@/Components/Api/ApiMultipartHeader";
 import toast from "react-hot-toast";
+import { IoMdAddCircle } from "react-icons/io";
+import { AiFillEdit } from "react-icons/ai";
+import { FaTrashRestore } from "react-icons/fa";
 
 const MediaMasterIndex = (props) => {
 
@@ -79,7 +82,7 @@ const MediaMasterIndex = (props) => {
         dialogRef.current.showModal()
       } break;
       case 'edit': {
-        setSelectedOptions(data?.tags ?? [])
+        setSelectedOptions(data?.tags?.split(",") ?? [])
         setViewData(data)
         dialogRef.current.showModal()
       } break;
@@ -117,10 +120,7 @@ const MediaMasterIndex = (props) => {
       accessor: "tags",
       Cell: ({ cell }) => (
         <>
-          {Array.isArray(cell?.row?.original?.tags) ?
-            (cell?.row?.original?.tags)?.map((elem, index) => <>
-              <span>{elem}</span>
-            </>) : 'N/A'}
+          {nullToNA(cell?.row?.original?.tags)}
         </>
       ),
     },
@@ -138,12 +138,14 @@ const MediaMasterIndex = (props) => {
             onClick={() => handleModal('edit', cell?.row?.original)}
             className={editButton}
           >
+          <AiFillEdit />&nbsp; 
             Edit
           </button>
           <button
             onClick={() => handleModal('delete', cell?.row?.original)}
             className={deleteButton}
-          >
+          > 
+          <FaTrashRestore />&nbsp;
             Delete
           </button>
         </div>
@@ -175,11 +177,11 @@ const MediaMasterIndex = (props) => {
         } else {
           activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
         }
-        console.log('career list response => ', res)
+        console.log('media list response => ', res)
       })
       .catch((err) => {
         activateBottomErrorCard(true, 'Server Error! Please try again later.')
-        console.log('error career list => ', err)
+        console.log('error media list => ', err)
       })
       .finally(() => {
         setLoader(false)
@@ -265,7 +267,6 @@ const MediaMasterIndex = (props) => {
 
         url = api_addMedia
 
-        fd.append("mediaType", 'abc')
         fd.append('file', document)
         modifiedTags?.map((elem, index) => {
           fd.append(`tags[${index}]`, elem)
@@ -312,7 +313,29 @@ const MediaMasterIndex = (props) => {
         diaologCloseFun()
       })
   }
+const deleteFun = () => {
 
+  setLoader (true) 
+  
+  axios 
+  .post (api_deleteMedia  , {id : viewData?.id} , ApiJsonHeader () )
+  .then((res) => {
+    if (res?.data?.status) {
+      toast.success ("Media Deleted Successfully !!!!")
+      getNewsList();
+    } else {
+      activateBottomErrorCard(true , checkErrorMessage(res?.data?.message))
+    }
+  }) 
+  .catch (err => {
+    console.error (err) 
+    activateBottomErrorCard (true , 'server Error ! Please try again later . ')
+  })
+  .finally ( () => {
+    setLoader (false) 
+    dialogRef.current.close()
+  })
+}
   return (
     <>
 
@@ -340,13 +363,14 @@ const MediaMasterIndex = (props) => {
                   columns={column}
                   dataList={mediaData}
                 >
-                  <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}>Add Media</button>
+                  <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}> <IoMdAddCircle />&nbsp; Add Media</button>
                 </ListTable>
               </>
               :
-              <>
+              <div className="relative flex flex-col justify-center">
+                  <button className={addButton + ' text-sm self-end'} onClick={() => handleModal('add')}>Add Media</button>
                 <div className="my-4 bg-red-100 text-red-500 py-2 text-base font-semibold text-center border border-red-500 drop-shadow-sm">Oops! No Data Found.</div>
-              </>}
+              </div>}
 
           </>}
       </div>}
@@ -378,7 +402,8 @@ const MediaMasterIndex = (props) => {
 
           <div className="flex flex-col gap-1">
             <label htmlFor="" className={labelStyle}>Upload Image</label>
-            <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} name="media" id="" />
+            <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} accept=".png, .jpg, .jpeg, .mp4" name="media" id="" />
+            <span className="text-xs font-semibold italic">Image must be ".png, .jpg or .jpeg" and Video must be ".mp4"</span>
           </div>
 
           <div className="flex flex-col gap-1">

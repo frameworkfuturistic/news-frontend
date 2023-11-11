@@ -6,27 +6,34 @@ import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
 import toast from 'react-hot-toast'
-import { LiaEditSolid } from 'react-icons/lia'
 import { RxCross2 } from 'react-icons/rx'
 import VideoIndex from './VideoIndex'
 import { useParams } from 'react-router-dom'
+import { BiSolidAddToQueue } from 'react-icons/bi'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useContext } from 'react'
+import { contextVar } from '@/Components/Context/ContextVar'
 
 const AssignNews = (props) => {
 
-    const { api_updateActiveNews } = ApiList()
+    const { api_addActiveNews, api_getNews } = ApiList()
+
+    const {refresh, setrefresh} = useContext(contextVar)
 
     const dialogRef = useRef()
 
     const [loader, setLoader] = useState(false)
     const [errorState, setErrorState] = useState(false) // to store status of error
     const [errorMessage, setErrorMessage] = useState('') // to store error message
+    const [storyList, setstoryList] = useState([])
 
     let userDetails = JSON.parse(localStorage.getItem('userDetails'))
 
     const {type} = useParams()
 
     const editButton = (data) => {
-        return <button onClick={() => dialogRef.current.showModal()} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block': 'hidden'} absolute top-0 right-0 flex gap-1 items-center px-4 py-1 bg-green-500 hover:bg-green-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><LiaEditSolid /> </span>Edit</button>
+        return <button onClick={() => dialogRef.current.showModal()} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block': 'hidden'} absolute top-0 right-0 flex gap-1 items-center px-4 py-1 bg-green-500 hover:bg-green-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><BiSolidAddToQueue /> </span>Add</button>
     }
 
     // To handle error card
@@ -35,29 +42,41 @@ const AssignNews = (props) => {
         setErrorMessage(message)
     }
 
+    const getStoryList = () => {
 
-    const actionFun = () => {
+        setLoader(true)
+
+        axios.post(api_getNews, {}, ApiJsonHeader()).then((res) => {
+          console.log("Page response => ", res);
+          if (res?.data?.status) {
+            setstoryList(res?.data?.data)
+          } else {
+            toast.error(res?.data?.message)
+          }
+        })
+        .finally(() => setLoader(false))
+      };
+
+    const actionFun = (id) => {
 
         let payload = {
-            sectionId: props?.sectionId,
-            categoryId: props?.data?.categoryId,
-            newsId: props?.data?.newsId
+            storyId: id,
+            rendererCode: props?.code
         }
 
         console.log('updating news stories => ', payload)
 
-        return;
-
         setLoader(true)
 
         axios
-            .post(api_updateActiveNews, payload, ApiJsonHeader())
+            .post(api_addActiveNews, payload, ApiJsonHeader())
             .then((res) => {
                 if (res?.data?.status) {
                     dialogRef.current.showModal()
                     toast.success("News Assigned Successfully!!!")
+                    setrefresh(refresh + 1)
                 } else {
-                    activateBottomErrorCard(true, res?.data?.msg ?? "Something went wrong!")
+                    activateBottomErrorCard(true, res?.data?.message ?? "Something went wrong!")
                 }
                 console.log('assign news response => ', res)
             }
@@ -71,6 +90,10 @@ const AssignNews = (props) => {
             })
 
     }
+
+    useEffect(() => {
+        // getStoryList()
+    },[])
 
     return (
         <>
@@ -89,21 +112,21 @@ const AssignNews = (props) => {
 
                 <div>
 
-                    <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>Assign {props?.data?.category} News</h1>
+                    <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>Assign News</h1>
 
-                    {props?.data?.news?.map((elem) => (
+                    {props?.storyList?.map((elem) => (
                         <>
-                            <div className="grid w-full grid-cols-12 items-center gap-4 bg-slate-100 hover:bg-slate-200 border drop-shadow-md py-1 mb-2 cursor-pointer " onClick={() => actionFun()}>
+                            <div className="grid w-full grid-cols-12 items-center gap-4 bg-slate-100 hover:bg-slate-200 border drop-shadow-md py-1 mb-2 cursor-pointer " onClick={() => actionFun(elem?.id)}>
 
                                 {
-                                    elem?.type == 'video'
+                                    elem?.media_type == 'video'
                                         ?
                                         <div className=" w-full col-span-4 object-cover bg-cover">
                                             <VideoIndex data={elem} />
                                         </div>
                                         :
                                         <img
-                                            src={elem?.source}
+                                            src={elem?.file_name}
                                             alt="image"
                                             srcSet=""
                                             className="border h-14 w-full col-span-4 object-cover bg-cover"
@@ -111,9 +134,9 @@ const AssignNews = (props) => {
                                 }
                                 <div className="flex flex-col gap-1 col-span-8">
                                     <span className="text-zinc-800 text-sm cursor-pointer" >
-                                        {elem?.heading}
+                                        {elem?.title}
                                     </span>
-                                    <span className="text-sm text-zinc-500">{elem?.date}</span>
+                                    <span className="text-sm text-zinc-500">{elem?.publication_date}</span>
                                 </div>
                             </div>
                         </>
