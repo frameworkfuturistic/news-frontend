@@ -22,10 +22,10 @@ const NavBarRoutes = () => {
                 <BrandingIndex wpx={wpx} />
                 <div className='h-[1.7rem]'></div>
                 <NewsCategoriesIndex wpx={wpx} />
-                {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />}
+                {/* {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />} */}
             </div>
 
-            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth ${bClose ? ' mt-[12.5rem] md:mt-[190px]' : ' mt-[12.5rem] md:mt-[160px]'} `}>
+            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth mt-[12.5rem] md:mt-[150px] `}>
                 <div className={`max-w-[${wpx}] h-full w-full`}>
                     <Outlet />
                 </div>

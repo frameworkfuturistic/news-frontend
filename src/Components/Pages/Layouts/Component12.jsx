@@ -70,7 +70,7 @@ const Component12 = (props) => {
                         />
                     }
                     <div className="flex flex-col gap-1 col-span-8">
-                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.id}/${props?.data?.categoryId}`)}>
+                      <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.categoryId}`)}>
                         {elem?.heading}
                       </span>
                       <span className="text-sm text-zinc-500">{elem?.date}</span>

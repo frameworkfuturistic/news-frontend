@@ -2,77 +2,145 @@ import React, { useEffect } from "react";
 import HomeLayout from "./HomeLayout";
 import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
-import  ApiJsonHeader  from "@/Components/Api/ApiJsonHeader";
+import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { newsJson } from "./NewsJson";
 import Component13 from "../../Layouts/Component13";
 import { useState } from "react";
 import MukhyaSamachar from "../../Layouts/MukhyaSamachar";
+import BreakingNewsIndex from "../BreakinNews/BreakingNewsIndex";
+import toast from "react-hot-toast";
+import { useContext } from "react";
+import { contextVar } from "@/Components/Context/ContextVar";
+import BarLoader from "@/Components/Common/Loaders/BarLoader";
+import { codeCheck } from "@/Components/Common/PowerUpFunctions";
 
 const HomeIndex = () => {
-  const { apiGetNewsById, apiGetNews   } = ApiList();
+
+  const { refresh } = useContext(contextVar)
+
+  const { api_getActiveNewsList, api_getNews, api_getCategory } = ApiList();
 
   let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
   const navigate = useNavigate()
 
-  const {type} = useParams()
+  const { type } = useParams()
 
-  const [newsData, setnewsData ] = useState([])
+  const [newsData, setnewsData] = useState([])
+  const [bClose, setBClose] = useState(true)
+  const [loader, setLoader] = useState(false)
+  const [storyList, setstoryList] = useState([])
+  const [categoryList, setCategoryList] = useState([])
 
-  const getDetailFun = (id, index) => {
+  const getActiveStories = () => {
 
-    navigate(`/news-details/${id}/${index}`)
+    setLoader(true)
 
-    return;
-    console.log(id);
-    axios.post(apiGetNewsById, { id: id }, ApiJsonHeader()).then((res) => {
-      console.log("Page response => ", res);
+    axios.post(api_getActiveNewsList, {}, ApiJsonHeader()).then((res) => {
+      console.log("news list response => ", type, res);
       if (res?.data?.status) {
-        setPageData(res?.data?.data);
-        setPageToggle(true);
+        if((type != undefined) && !isNaN(type - 1)){
+          setnewsData((res?.data?.data)?.filter(item => item?.category_id == type))
+        } else {
+          console.log('entered 2')
+          setnewsData(res?.data?.data)
+        }
+      } else {
+        toast.error(res?.data?.message)
       }
-    });
+    }).finally(() => setLoader(false))
   };
 
-  useEffect(() => {
-    // axios.post(apiGetNews, {}, ApiJsonHeader()).then((res) => {
-    //   console.log("Page response => ", res);
-    //   if (res?.data?.status) {
-    //   }
-    // });
+  const getStoryList = () => {
 
-    if(type && type != 'edit'){
-      let data = newsJson?.filter(item => item?.categoryId == type)
-      if(data[0]?.news?.length == 0){
-        setnewsData(newsJson)
+    setLoader(true)
+
+    axios.post(api_getNews, {}, ApiJsonHeader()).then((res) => {
+      console.log("story list response => ", res);
+      if (res?.data?.status) {
+        setstoryList(res?.data?.data)
       } else {
-        setnewsData(data)
+        toast.error(res?.data?.message)
       }
-    } else {
-      setnewsData(newsJson)
-    }
+    })
+    .finally(() => setLoader(false))
+  };
 
-  },[type])
+  const getCategoryList = () => {
+    setLoader(true)
 
+        let payload = {
+
+        }
+
+        axios
+            .post(api_getCategory, payload, ApiJsonHeader())
+            .then((res) => {
+                if (res?.data?.status) {
+                    setCategoryList(res?.data?.data)
+                } else {
+                    // activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
+                }
+                console.log('category list response => ', res)
+            })
+            .catch((err) => {
+                // activateBottomErrorCard(true, 'Server Error! Please try again later.')
+                console.log('error category list => ', err)
+            })
+            .finally(() => {
+                setLoader(false)
+            })
+  }
+
+  var flag = 0
+  useEffect(() => {
+    flag = 1;
+    flag <= 1 && getActiveStories()
+    flag <= 1 && getStoryList()
+    flag <= 1 && getCategoryList()
+  }, [refresh])
+
+  if(loader){
+    return <BarLoader />
+  }
+
+  // C = Component
+  // OT = One, Three
+  // A = Serial
+
+// ['COTTP01', 'COTTP02', 'COTTP03', 'COTTP04']
+// ['COTA01', 'COTA02', 'COTA03', 'COTA04', 'COTA05', 'COTA06', 'COTA07', 'COTA08', 'COTA09', 'COTA10', 'COTA11', 'COTA12']
+// ['COTB01', 'COTB02', 'COTB03', 'COTB04', 'COTB05', 'COTB06', 'COTB07', 'COTB08', 'COTB09', 'COTB10', 'COTB11', 'COTB12']
+// ['COTC01', 'COTC02', 'COTC03', 'COTC04', 'COTC05', 'COTC06', 'COTC07', 'COTC08', 'COTC09', 'COTC10', 'COTC11', 'COTC12']
+// ['COTD01', 'COTD02', 'COTD03', 'COTD04', 'COTD05', 'COTD06', 'COTD07', 'COTD08', 'COTD09', 'COTD10', 'COTD11', 'COTD12']
+// ['COTE01', 'COTE02', 'COTE03', 'COTE04', 'COTE05', 'COTE06', 'COTE07', 'COTE08', 'COTE09', 'COTE10', 'COTE11', 'COTE12']
+// ['COTF01', 'COTF02', 'COTF03', 'COTF04', 'COTF05', 'COTF06', 'COTF07', 'COTF08', 'COTF09', 'COTF10', 'COTF11', 'COTF12']
+// ['COTG01', 'COTG02', 'COTG03', 'COTG04', 'COTG05', 'COTG06', 'COTG07', 'COTG08', 'COTG09', 'COTG10', 'COTG11', 'COTG12']
+// ['COTH01', 'COTH02', 'COTH03', 'COTH04', 'COTH05', 'COTH06', 'COTH07', 'COTH08', 'COTH09', 'COTH10', 'COTH11', 'COTH12']
+// ['COTI01', 'COTI02', 'COTI03', 'COTI04', 'COTI05', 'COTI06', 'COTI07', 'COTI08', 'COTI09', 'COTI10', 'COTI11', 'COTI12']
+// ['COTJ01', 'COTJ02', 'COTJ03', 'COTJ04', 'COTJ05', 'COTJ06', 'COTJ07', 'COTJ08', 'COTJ09', 'COTJ10', 'COTJ11', 'COTJ12']
+// ['COTK01', 'COTK02', 'COTK03', 'COTK04', 'COTK05', 'COTK06', 'COTK07', 'COTK08', 'COTK09', 'COTK10', 'COTK11', 'COTK12']
 
   return (
     <>
 
-{
-      newsData?.length > 0 && newsData?.filter(item => item?.categoryId == 'MukhyaSamachar')?.map((elem, index) => 
-      <>
-        {elem?.news?.length > 0 && <MukhyaSamachar ind={index} key={index} data={elem} />}
-      </>)
-    }
-    
-    {
-      newsData?.length > 0 && newsData?.filter(item => item?.categoryId != 'MukhyaSamachar')?.map((elem, index) => 
-      <>
-        {elem?.news?.length > 0 && <Component13 ind={index} key={index} data={elem} />}
-      </>)
-    }
+            {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
 
+            {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && <MukhyaSamachar storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)}  code={'COTTP'} />}
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 1)}  code={'COTA'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 2)}  code={'COTB'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 3)}  code={'COTC'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 4)}  code={'COTD'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 5)}  code={'COTE'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 6)}  code={'COTF'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 7)}  code={'COTG'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 8)}  code={'COTH'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 9)}  code={'COTI'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 10)} code={'COTJ'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 11)} code={'COTK'} />
+
+         
     </>
   )
 }

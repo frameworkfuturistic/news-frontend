@@ -74,21 +74,20 @@ const Video = ({ data, onPlay, isPlaying, setCurrentVideo, currentVideo }) => {
     
   }, [data, isPiPMode]);
 
-
   return (
     <div>
-      <video
+      {data?.file_name != '' && <video
         ref={videoRef}
         autoPlay
         muted 
         controls
-        onError={(e) => console.log('Error loading video:', e)}
+        // onError={(e) => console.log('Error loading video:', e)}
         className={`border ${isPiPMode ? 'pip-mode' : ''}`}
         onPlay={handlePlayVideo}
       >
-        <source src={data?.source} type="video/mp4" />
+        <source src={data?.file_name} type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
+      </video>}
       {/* {isPiPMode ? (
         <button onClick={handleExitPiPMode}>Exit PiP Mode</button>
       ) : (

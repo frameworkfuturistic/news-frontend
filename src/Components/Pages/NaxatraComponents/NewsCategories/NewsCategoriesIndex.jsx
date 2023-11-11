@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import logo from '@/Components/assets/logo.webp'
 import { FaXTwitter } from 'react-icons/fa6'
@@ -7,17 +7,25 @@ import { VscThreeBars } from 'react-icons/vsc'
 import { RxCross2 } from 'react-icons/rx'
 import { BsChevronDown } from 'react-icons/bs'
 import './style.css'
+import ApiJsonHeader from '@/Components/Api/ApiJsonHeader'
+import axios from 'axios'
+import { ApiList } from '@/Components/Api/ApiList'
+import BarLoader from '@/Components/Common/Loaders/BarLoader'
 
 const NewsCategoriesIndex = (props) => {
+
+  const {api_getCategory} = ApiList()
 
   const [toggle, setToggle] = useState(false)
   const [dropDown, setdropDown] = useState(false)
   const [dropName, setdropName] = useState('')
+  const [categoryList, setCategoryList] = useState([])
+  const [loader, setLoader] = useState(false)
 
   const navigate = useNavigate()
 
   const newsCategoriesMenu = [
-    { title: "मुख्य समाचार", route: "/MukhyaSamachar", subMenu: [] },
+
     { title: "झारखंड", route: "/Jharkhand", subMenu: [] },
     { title: "बिहार", route: "/Bihar", subMenu: [] },
     { title: "राज्य", route: "/Rajya", subMenu: [] },
@@ -45,6 +53,46 @@ const NewsCategoriesIndex = (props) => {
     setdropName("")
   }
 
+      // Function to get category list
+      const getCategoryList = () => {
+
+        setLoader(true)
+
+        let payload = {
+
+        }
+
+        axios
+            .post(api_getCategory, payload, ApiJsonHeader())
+            .then((res) => {
+                if (res?.data?.status) {
+                    setCategoryList(res?.data?.data?.map((elem) => {
+                      return (
+                        { title: elem?.category, route: `/${elem?.id}`, subMenu: [] }
+                      )
+                    }))
+                } else {
+                    // activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
+                }
+                console.log('category list response => ', res)
+            })
+            .catch((err) => {
+                // activateBottomErrorCard(true, 'Server Error! Please try again later.')
+                console.log('error category list => ', err)
+            })
+            .finally(() => {
+                setLoader(false)
+            })
+    }
+
+  useEffect(() => {
+    getCategoryList()
+  },[])
+
+  if(loader){
+    return <BarLoader />
+  }
+
   return (
     <>
       <div className='w-screen bg-blue-900 text-zinc-50 flex justify-center items-center relative animate__animated animate__flipInX animate__faster' onMouseLeave={() => dropClean()}>
@@ -61,11 +109,11 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             <div style={{ zIndex: 999 }} className=' ml-2 text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
-              <NavLink to={'/'} className={'  hover:underline flex gap-1 items-center '}>होम</NavLink>
+              <NavLink to={'/'} className={'  hover:underline flex gap-1 items-center '}>Home</NavLink>
             </div>
 
             {
-              newsCategoriesMenu?.map((item) => <>
+              Array.isArray(categoryList) && categoryList?.map((item) => <>
                 <div style={{ zIndex: 999 }} className=' text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
                   <NavLink to={`${item?.route}`} className={'  hover:underline flex gap-1 items-center '} onClick={() => {
                     dropFun(item?.title)

@@ -6,33 +6,35 @@ const HeadComponent = (props) => {
 
     const navigate = useNavigate()
 
+    console.log('01 data', props?.data)
+
     return (
         <>
-            <div className={`flex flex-wrap-reverse justify-between w-full h-full ${parseInt(props?.cIndex) % 2 == 0 ? 'flex-row ' : 'flex-row-reverse '}`}>
+            <div className={`flex flex-wrap-reverse justify-between w-full h-full flex-row`}>
 
                 <div className="w-full md:w-[45%] flex flex-col p-4 gap-8">
 
-                    <h1 className='font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.cid}/${props?.categoryId}`)}>
-                        {props?.heading}
+                    <h1 className={`font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500 ${props?.data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${props?.data?.story_id}`)}>
+                        {props?.data?.story_title ?? "Heading"}
                     </h1>
 
-                    <p className={`text-gray-600 text-ellipsis line-clamp-4 ${props?.csource ? " flex object-cover" : ""}  `}>
+                    <p className={`text-gray-600 text-ellipsis line-clamp-4 ${props?.data?.story_body ? '' : " border-2 h-full flex justify-center items-center"}`}>
                         {
-                            props?.csource ? 
-                            <img src={props?.csource} className='w-full md:w-[20rem]' alt="" srcset="" />
-                            :
-                            props?.content
+                            // props?.csource ? 
+                            // <img src={props?.csource} className='w-full md:w-[20rem]' alt="" srcset="" />
+                            // :
+                            props?.data?.story_body ?? "Description"
                         }
                     </p>
 
                 </div>
 
-                {props?.type == 'video' ?
+                {props?.data?.media_type == 'video' ?
                     <div className='p-2 h-full object-cover w-full md:w-[40%]'>
-                        <VideoIndex data={props} className='p-2 h-full object-cover w-[50%]' />
+                        <VideoIndex data={props?.data} className='p-2 h-full object-cover w-[50%]' />
                     </div>
                     :
-                    <img src={props?.source} alt="" className='p-2 h-full object-cover w-full md:w-[50%] ' srcset="" />}
+                    <img src={props?.data?.file_name} alt="Image" className='p-2 h-full object-contain w-full md:w-[50%] ' srcset="" />}
 
             </div>
         </>
