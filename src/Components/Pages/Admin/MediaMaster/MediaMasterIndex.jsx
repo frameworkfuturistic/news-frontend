@@ -107,7 +107,7 @@ const MediaMasterIndex = (props) => {
         {
           cell.row.original?.media_type == 'video' ? 
           <>
-            <iframe src={cell.row.origina?.file_name} frameborder="0"></iframe>
+            <iframe src={cell.row.original?.file_name} style={{border: '0'}}></iframe>
           </>
           :
           <img src={`${cell?.row?.original?.file_name}`} alt="" srcset="" />

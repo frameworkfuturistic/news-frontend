@@ -34,7 +34,7 @@ const HeadComponent = (props) => {
                         <VideoIndex data={props?.data} className='p-2 h-full object-cover w-[50%]' />
                     </div>
                     :
-                    <img src={props?.data?.file_name} alt="Image" className='p-2 h-full object-cover w-full md:w-[50%] ' srcset="" />}
+                    <img src={props?.data?.file_name} alt="Image" className='p-2 h-full object-contain w-full md:w-[50%] ' srcset="" />}
 
             </div>
         </>

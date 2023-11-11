@@ -15,7 +15,7 @@ import { RxCross2 } from "react-icons/rx";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BiTrash  } from "react-icons/bi";
 import { GrUpdate  } from "react-icons/gr";
-import { IoMdAddCircle  } from "react-icons/Io";
+import { IoMdAddCircle  } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 

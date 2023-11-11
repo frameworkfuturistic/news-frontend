@@ -97,20 +97,20 @@ const HomeIndex = () => {
   return (
     <>
 
-            {bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
+            {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
 
-            <MukhyaSamachar storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTA')  == true)} code={'COTA'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTB')  == true)} code={'COTB'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTC')  == true)} code={'COTC'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTD')  == true)} code={'COTD'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTE')  == true)} code={'COTE'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTF')  == true)} code={'COTF'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTG')  == true)} code={'COTG'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTH')  == true)} code={'COTH'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTI')  == true)} code={'COTI'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTJ')  == true)} code={'COTJ'} />
-            <Component13    storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTK')  == true)} code={'COTK'} />
+            {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && <MukhyaSamachar storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)}  code={'COTTP'} />}
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 1)}  code={'COTA'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 2)}  code={'COTB'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 3)}  code={'COTC'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 4)}  code={'COTD'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 5)}  code={'COTE'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 6)}  code={'COTF'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 7)}  code={'COTG'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 8)}  code={'COTH'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 9)}  code={'COTI'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 10)} code={'COTJ'} />
+            <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 11)} code={'COTK'} />
 
          
     </>
