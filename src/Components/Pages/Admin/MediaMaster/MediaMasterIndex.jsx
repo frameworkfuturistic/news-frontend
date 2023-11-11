@@ -101,7 +101,14 @@ const MediaMasterIndex = (props) => {
       Header: "Media",
       accessor: "file_name",
       Cell: ({ cell }) => (<>
-        <img src={`${cell?.row?.original?.file_name}`} alt="" srcset="" />
+        {
+          cell.row.original?.media_type == 'video' ? 
+          <>
+            <iframe src={cell.row.origina?.file_name} frameborder="0"></iframe>
+          </>
+          :
+          <img src={`${cell?.row?.original?.file_name}`} alt="" srcset="" />
+        }
       </>),
       className: 'w-full md:w-[25%] px-2'
     },
