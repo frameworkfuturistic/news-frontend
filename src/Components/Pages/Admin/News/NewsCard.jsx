@@ -17,7 +17,7 @@ const NewsCard = (props) => {
                     </>}
                 </div>
                 <h6 className='px-4 py-2 text-lg mt-4 font-semibold text-cyan-900'>{props?.title}</h6>
-                <p className='px-4 py-2 text-sm break-words'>{props?.desc}</p>
+                <div className='px-4 py-2 text-sm break-words'  dangerouslySetInnerHTML={{ __html: props?.desc }}></div>
                 <div className='flex w-full mt-2'>
                     <span className='py-1.5 bg-cyan-600 w-full text-center text-white hover:bg-cyan-600 text-sm cursor-pointer flex justify-center items-center gap-1' onClick={() => props?.handleContent('edit', props?.index)}> <MdOutlineEdit/> Edit</span>
                     <span className='py-1.5 bg-red-400 w-full text-center text-white hover:bg-red-600 text-sm cursor-pointer flex justify-center items-center gap-1' onClick={() => props?.handleContent('delete', props?.index)}> <RiDeleteBin6Line /> Delete</span>

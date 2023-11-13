@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import NewsCard from './NewsCard';
 import Select from 'react-select';
 import ImageSelect from '@/Components/Common/ImageSelect';
+import TinyEditor from '../Editor/TinyEditor';
 
 const NewsSection = (props) => {
 
@@ -59,8 +60,8 @@ const NewsSection = (props) => {
                 formik.setFieldValue('media', props?.finalData[index]?.media)
                 formik.setFieldValue('title', props?.finalData[index]?.title)
                 formik.setFieldValue('desc', props?.finalData[index]?.desc)
-                setSelectedOptions(props?.finalData[index]?.tags?.map((elem) => ({label: elem, value: elem})) ?? [])
-                setSelectedImage({image: props?.finalData[index]?.image || "", id: props?.finalData[index]?.id})
+                setSelectedOptions(props?.finalData[index]?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+                setSelectedImage({ image: props?.finalData[index]?.image || "", id: props?.finalData[index]?.id })
             } break;
             case 'delete': {
                 const sectionArray = [...props?.finalData.slice(0, index), ...props?.finalData.slice(index + 1)];
@@ -103,7 +104,7 @@ const NewsSection = (props) => {
 
             case "add": {
 
-                props?.setFinalData(prev => [...prev, {...values,tags: modifiedTags, image: selectedImage?.image || ""}])
+                props?.setFinalData(prev => [...prev, { ...values, tags: modifiedTags, image: selectedImage?.image || "" }])
 
             } break;
 
@@ -154,6 +155,11 @@ const NewsSection = (props) => {
 
     // Image select logic end
 
+    // Tinymy Change
+    const tinyChange = (code) => {
+        formik.setFieldValue('desc', code)
+    }
+
     console.log('props final data', props?.finalData)
 
     return (
@@ -181,7 +187,7 @@ const NewsSection = (props) => {
                                 <>
                                     <div key={index} className="col-span-2 py-2 px-4 border">{card?.image != "" ? <img src={card?.image} className='w-16' alt='Image' /> : 'N/A'}</div>
                                     <div className="col-span-2 py-2 px-4 border">{nullToNA(card.title)}</div>
-                                    <div className="col-span-6 py-2 px-4 border break-words">{nullToNA(card.desc)}</div>
+                                    <div className="col-span-6 py-2 px-4 border break-words" dangerouslySetInnerHTML={{ __html: card.desc }}></div>
                                     <div className="col-span-2 py-2 px-4 border-b flex items-center justify-center">
                                         <div
                                             className="w-max cursor-pointer bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded mr-2"
@@ -287,14 +293,17 @@ const NewsSection = (props) => {
 
                         <div className='w-full flex flex-col gap-1'>
                             <label htmlFor="" className={style.label}>Description <span className='text-red-500 font-bold text-xs'>*</span> </label>
-                            <textarea
+                            {/* <textarea
                                 rows={3}
                                 type="text"
                                 placeholder="Enter Description"
                                 name='desc'
                                 value={formik.values.desc}
                                 className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
-                            />
+                            /> */}
+                            <div className={` ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+                                <TinyEditor tinyChange={code => tinyChange(code)} />
+                            </div>
                         </div>
 
                         <div className='w-full flex justify-center'>

@@ -155,7 +155,7 @@ const NewsForm = () => {
                 id: id,
                 categoryId: values?.category,
                 tags: values?.newsTags,
-                featureImageId: values?.media, 
+                featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
                 // topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
@@ -172,7 +172,7 @@ const NewsForm = () => {
             payload = {
                 categoryId: values?.category,
                 tags: values?.newsTags, // story tags
-                featureImageId: values?.media,   
+                featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 
                 // topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
@@ -289,7 +289,7 @@ const NewsForm = () => {
     const handleNewsChange = (newValue, actionMeta) => {
         setNewsTags(newValue);
         const modifiedTags = newValue?.map(elem => {
-            return ({tagId: elem?.value})
+            return ({ tagId: elem?.value })
         })
         formik.setFieldValue('newsTags', modifiedTags)
     };
@@ -316,6 +316,11 @@ const NewsForm = () => {
     };
 
     // Image select logic end
+
+    // Tinymy Change
+    const tinyChange = (code) => {
+        formik.setFieldValue('desc', code)
+    }
 
     return (
         <>
@@ -445,7 +450,9 @@ const NewsForm = () => {
                                     {...formik.getFieldProps('desc')}
                                     className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                 /> */}
-                                <TinyEditor />
+                                <div className={` ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+                                    <TinyEditor tinyChange={code => tinyChange(code)}/>
+                                </div>
                             </div>
 
                         </div>
