@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 
-export default function TinyEditor(props) {
+export default function TinyEditor2(props) {
 
   const key = import.meta.env.VITE_REACT_APP_API_KEY;
 

@@ -38,7 +38,7 @@ const NewsForm = () => {
 
     // CSS Constants
     let style = {
-        label: 'text-gray-800 text-sm',
+        label: 'text-gray-900 font-semibold text-sm',
         input: 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm',
         reactSelect: 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md text-gray-700 shadow-black placeholder:text-sm',
         file: 'block w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200',
@@ -439,6 +439,10 @@ const NewsForm = () => {
                                 />
                             </div>
 
+
+                        </div>
+
+                    </form>
                             {/* Description */}
                             <div className='w-full row-span-2 flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Description <span className='font-bold text-xs text-red-500'>*</span></label>
@@ -454,10 +458,6 @@ const NewsForm = () => {
                                     <TinyEditor tinyChange={code => tinyChange(code)}/>
                                 </div>
                             </div>
-
-                        </div>
-
-                    </form>
 
                     <NewsSection
                         tagList={tagList}

@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import NewsCard from './NewsCard';
 import Select from 'react-select';
 import ImageSelect from '@/Components/Common/ImageSelect';
-import TinyEditor from '../Editor/TinyEditor';
+import TinyEditor2 from '../Editor/TinyEditor2';
 
 const NewsSection = (props) => {
 
@@ -17,7 +17,7 @@ const NewsSection = (props) => {
 
     // CSS Constants
     let style = {
-        label: 'text-gray-800 text-sm',
+        label: 'text-gray-900 font-semibold text-sm',
         input: 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm',
         file: 'block bg-white w-full border focus:outline-none drop-shadow-sm focus:drop-shadow-md p-1 text-sm text-slate-500 file:mr-4 file:py-1 file:px-4 file:rounded-sm file:border file:text-xs file:font-semibold file:bg-zinc-100 hover:file:bg-zinc-200',
     }
@@ -291,7 +291,11 @@ const NewsSection = (props) => {
                             />
                         </div>
 
-                        <div className='w-full flex flex-col gap-1'>
+
+
+                    </form>
+                </div>
+                        <div className='w-full flex flex-col gap-1 px-4 py-4'>
                             <label htmlFor="" className={style.label}>Description <span className='text-red-500 font-bold text-xs'>*</span> </label>
                             {/* <textarea
                                 rows={3}
@@ -301,23 +305,20 @@ const NewsSection = (props) => {
                                 value={formik.values.desc}
                                 className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                             /> */}
-                            <div className={` ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
-                                <TinyEditor tinyChange={code => tinyChange(code)} />
+                            <div className={`z-50 ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+                                <TinyEditor2 tinyChange={code => tinyChange(code)} height={200} />
                             </div>
                         </div>
 
-                        <div className='w-full flex justify-center'>
+                        <div className='w-full flex justify-center pb-4'>
                             <button
                                 className="cursor-pointer w-max bg-green-500 hover:bg-green-700 text-white font-semibold py-1.5 px-4 text-sm"
                                 type='submit'
+                                onClick={formik.handleSubmit}
                             >
                                 {mType == 'edit' ? 'Update' : 'Add'}
                             </button>
                         </div>
-
-                    </form>
-                </div>
-
             </dialog>
         </>
     );
