@@ -54,7 +54,7 @@ const MClusterComponent = (props) => {
                                     <VideoIndex data={props} className='p-2 h-full object-cover' />
                                 </div>
                                 :
-                                <img src={props?.data?.file_name} alt="Image" srcset="" className='col-span-4 object-contain bg-contain h-16' />
+                                <img src={props?.data?.file_name} alt="Image" srcset="" className='col-span-4  bg-contain object-contain h-16' />
                                 
                             }</>
                             }

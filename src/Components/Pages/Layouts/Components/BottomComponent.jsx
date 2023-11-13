@@ -22,7 +22,7 @@ const BottomComponent = (props) => {
                             src={props?.data?.file_name}
                             alt="image"
                             srcSet=""
-                            className="border h-14 w-full col-span-4 object-cover bg-cover"
+                            className="border h-14 w-full col-span-4  bg-contain object-contain"
                         />
                 }
                 <div className="flex flex-col gap-1 col-span-8">
