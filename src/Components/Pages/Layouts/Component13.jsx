@@ -1,13 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import HeadComponent from './Components/HeadComponent'
 import ClusterComponent from './Components/ClusterComponent';
-import VideoIndex from '../NaxatraComponents/Home/VideoIndex';
-import { useNavigate, useParams } from 'react-router-dom';
-import { RxCross2 } from 'react-icons/rx';
-import { LiaEditSolid } from 'react-icons/lia'
 import AssignNews from '../NaxatraComponents/Home/AssignNews';
 import BottomComponent from './Components/BottomComponent';
-import { codeCheck } from '@/Components/Common/PowerUpFunctions';
 
 const Component13 = (props) => {
 
