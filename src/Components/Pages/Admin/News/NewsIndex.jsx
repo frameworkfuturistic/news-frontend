@@ -88,10 +88,23 @@ const NewsIndex = () => {
         {
             Header: "File",
             accessor: "file_name",
-            Cell: ({ cell }) => <>
-            {cell.row.original?.file_name != '' ? <img src={cell.row.original?.file_name} alt="Image" className="w-10" srcset="" /> : 'N/A'}
-            </>,
-        },
+            Cell: ({ cell }) => {
+              const fileName = cell.row.original?.file_name;
+          
+              if (fileName.endsWith('.jpeg') || fileName.endsWith('.png'))  {
+                return <img src={fileName} alt="Image" className="w-10" srcSet="" />;
+              } else if (fileName.endsWith('.mp4')) {
+                return (
+                  <video width="300" height="240" controls>
+                    <source src={fileName} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                );
+              } else {
+                return 'N/A';
+              }
+            },
+          } ,
         {
             Header: "Heading",
             accessor: "title",
