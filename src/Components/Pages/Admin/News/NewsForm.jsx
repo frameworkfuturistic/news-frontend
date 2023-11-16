@@ -455,7 +455,7 @@ const NewsForm = () => {
                                     className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                 /> */}
                                 <div className={` ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
-                                    <TinyEditor tinyChange={code => tinyChange(code)}/>
+                                    <TinyEditor tinyChange={code => tinyChange(code)} initial={formik.values.desc}/>
                                 </div>
                             </div>
 
