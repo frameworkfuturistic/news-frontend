@@ -170,10 +170,10 @@ const [loader, setLoader] = useState(false)
                 }
               </div>
               <div className="my-4 mb-6">
-                <span className=" font-semibold">{newsData?.body} </span>
+              <div className="col-span-6 break-words" dangerouslySetInnerHTML={{ __html: newsData?.body }}></div>
               </div>
 
-              {
+              {/* {
                 newsData?.storySections?.map((elem) =>
                   <div className="mb-6">
                     <h3 className="mb-2 font-semibold">{elem.title}</h3>
@@ -186,7 +186,7 @@ const [loader, setLoader] = useState(false)
                     <div className="mb-2">{elem.content}</div>
                   </div>
                 )
-              }
+              } */}
             </div>
 
             {Array.isArray(newsList) && newsList?.length > 0 && <div className="col-span-12 md:col-span-4 flex flex-col">

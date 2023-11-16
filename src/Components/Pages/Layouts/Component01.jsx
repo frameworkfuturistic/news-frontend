@@ -13,17 +13,16 @@ const Component01 = (props) => {
 
   let data = props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0]
 
-
   return (
     <>
 
-      <div id={props?.data?.categoryId} className='border-t border-b h-full w-full bg-black text-gray-50 flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
+      <div id={data?.categoryId} className='border-t border-b h-full w-full bg-black text-gray-50 flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
         <div className='w-full h-full'>
 
-          <AssignNews data={props?.data} code={`${props?.code}01`} storyList={props?.storyList} cId={props?.cdata?.id} cname={props?.cdata?.category} />
+          <AssignNews data={data} code={`${props?.code}01`} storyList={props?.storyList} cId={props?.cdata?.id} cname={props?.cdata?.category} type="br" />
 
-          <div className={`flex flex-wrap-reverse justify-between w-full h-full flex-row`}>
+          <div className={`flex flex-wrap justify-between w-full h-full flex-row `}>
 
             <div className="w-full md:w-[50%] flex flex-col p-4 gap-8">
 
@@ -35,17 +34,15 @@ const Component01 = (props) => {
                 <img src={data?.file_name} alt="Image" className='p-2  bg-contain object-contain w-full  ' srcset="" />}
 
             </div>
-            <div className="w-full md:w-[50%] flex flex-col p-4 gap-8">
-              <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${props?.data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${props?.data?.story_id}`)}>
+            <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
+              <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${data?.story_id}`)}>
                 {data?.story_title ?? "Heading"}
               </h1>
 
-              <p className={`text-gray-50 text-ellipsis line-clamp-4 ${data?.story_body ? '' : " border-2 h-full flex justify-center items-center"}`}>
+              <p className={`text-gray-50 text-ellipsis line-clamp-3 ${data?.story_body ? '' : " border-2 h-full "}`}>
+                {!data?.story_body && "Description"}
                 {
-                  // props?.csource ? 
-                  // <img src={props?.csource} className='w-full md:w-[20rem]' alt="" srcset="" />
-                  // :
-                  data?.story_body ?? "Description"
+                  data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: data?.story_body }}></div>
                 }
               </p>
 

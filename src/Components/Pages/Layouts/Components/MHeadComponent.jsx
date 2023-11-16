@@ -18,28 +18,29 @@ const MHeadComponent = (props) => {
                         {props?.data?.story_title}
                     </h1>
 
-                        {/* {props?.csource?.type == 'video' ?
+                    {/* {props?.csource?.type == 'video' ?
                             <div className='p-2 h-full object-cover w-full md:w-[40%] '>
                                 <VideoIndex data={props?.csource} className='p-4 h-full object-cover w-[50%] ' />
                             </div>
                             :
                             <img src={props?.csource?.source} alt="" className='p-2 object-contain h-max w-full md:w-[50%]  ' srcset="" />} */}
 
-                    <p className={`text-slate-50 text-ellipsis line-clamp-4 flex object-cover ${props?.data?.story_body ? '' : " border h-full"}`}>
-                        {
-                            props?.data?.story_body
-                        }
-                    </p>
+                        <p className={`text-gray-50 text-ellipsis line-clamp-3 ${props?.data?.story_body ? '' : " border-2 h-full "}`}>
+                            {!props?.data?.story_body && "Description"}
+                            {
+                                props?.data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: props?.data?.story_body }}></div>
+                            }
+                        </p>
 
 
                 </div>
 
-                    {props?.data?.media_type == 'video' ?
-                            <div className='p-2 py-8 h-full object-cover w-full md:w-[50%] '>
-                                <PIPIndex data={props?.data} className='p-2 h-full object-cover w-[50%] ' />
-                            </div>
-                            :
-                            <img src={props?.data?.file_name} alt="" className='p-2 h-full bg-contain object-contain w-full md:w-[50%]  ' srcset="" />}
+                {props?.data?.media_type == 'video' ?
+                    <div className='p-2 py-8 h-full object-cover w-full md:w-[50%] '>
+                        <PIPIndex data={props?.data} className='p-2 h-full object-cover w-[50%] ' />
+                    </div>
+                    :
+                    <img src={props?.data?.file_name} alt="" className='p-2 h-full bg-contain object-contain w-full md:w-[50%]  ' srcset="" />}
 
             </div>
         </>

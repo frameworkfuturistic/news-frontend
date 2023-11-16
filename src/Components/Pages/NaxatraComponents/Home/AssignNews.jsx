@@ -14,12 +14,13 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useContext } from 'react'
 import { contextVar } from '@/Components/Context/ContextVar'
+import { RiDeleteBin2Line } from 'react-icons/ri'
 
 const AssignNews = (props) => {
 
     const { api_addActiveNews, api_getNews } = ApiList()
 
-    const {refresh, setrefresh} = useContext(contextVar)
+    const { refresh, setrefresh } = useContext(contextVar)
 
     const dialogRef = useRef()
 
@@ -30,10 +31,14 @@ const AssignNews = (props) => {
 
     let userDetails = JSON.parse(localStorage.getItem('userDetails'))
 
-    const {type} = useParams()
+    const { type } = useParams()
 
-    const editButton = (data) => {
-        return <button onClick={() => (getStoryList())} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block': 'hidden'} absolute top-0 right-0 flex gap-1 items-center px-4 py-1 bg-green-500 hover:bg-green-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><BiSolidAddToQueue /> </span>Add</button>
+    const editButton = () => {
+        return <button onClick={() => (getStoryList())} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block' : 'hidden'} absolute top-0 right-0 flex gap-1 items-center px-4 py-1 bg-green-500 hover:bg-green-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><BiSolidAddToQueue /> </span>Add</button>
+    }
+
+    const removeButton = () => {
+        return <button onClick={() => actionFun('', 'remove')} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block' : 'hidden'} absolute top-0 right-24 flex gap-1 items-center px-4 py-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><RiDeleteBin2Line /> </span>Remove</button>
     }
 
     // To handle error card
@@ -46,25 +51,35 @@ const AssignNews = (props) => {
 
         setLoader(true)
 
-        axios.post(api_getNews, {categoryId: props?.cId}, ApiJsonHeader()).then((res) => {
-          console.log("Page response => ", res);
-          if (res?.data?.status) {
-            setstoryList(res?.data?.data)
-          } else {
-            toast.error(res?.data?.message)
-          }
+        axios.post(api_getNews, { categoryId: props?.cId }, ApiJsonHeader()).then((res) => {
+            console.log("Page response => ", res);
+            if (res?.data?.status) {
+                setstoryList(res?.data?.data)
+            } else {
+                toast.error(res?.data?.message)
+            }
         })
-        .finally(() => {
-            dialogRef.current.showModal()
-            setLoader(false)
-        })
-      };
+            .finally(() => {
+                dialogRef.current.showModal()
+                setLoader(false)
+            })
+    };
 
-    const actionFun = (id) => {
+    const actionFun = (id = '', type = '') => {
 
-        let payload = {
-            storyId: id,
-            rendererCode: props?.code
+        let payload;
+
+        if (type == 'remove') {
+            payload = {
+                rendererCode: props?.code,
+                isVisible: 0
+            }
+        } else {
+            payload = {
+                storyId: id,
+                rendererCode: props?.code,
+                isVisible: 1
+            }
         }
 
         console.log('updating news stories => ', payload)
@@ -96,7 +111,7 @@ const AssignNews = (props) => {
 
     useEffect(() => {
         // getStoryList()
-    },[])
+    }, [])
 
     return (
         <>
@@ -107,6 +122,7 @@ const AssignNews = (props) => {
             {/* Loader */}
             {loader && <BarLoader />}
 
+            {props?.type == 'br' && removeButton()}
             {editButton()}
 
             <dialog ref={dialogRef} className='p-4 focus:outline-none backdrop:backdrop-brightness-75 animate__animated animate__zoomIn animate__faster md:w-1/2 w-full fixed'>

@@ -10,7 +10,7 @@ const BreakingNewsIndex = (props) => {
         <div className={`max-w-[${props?.wpx}] bg-red-600 h-full w-full flex justify-between px-4 py-1 rounded-full font-semibold`} >
             <div className='font-semibold md:text-base text-xs flex w-full'>
             <span className='uppercase italic border-r-2 pr-1 md:mr-2 w-[15%]'>News Update</span>
-            <Marquee style={{zIndex: 0}} className='pl-1 md:pl-1 z-0'>{props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0]?.story_body}</Marquee>
+            <Marquee style={{zIndex: 0}} className='pl-1 md:pl-1 z-0'>{props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0]?.story_title}</Marquee>
             </div>
 
             <div className='flex items-center' onClick={() => props?.bClose(false)}>

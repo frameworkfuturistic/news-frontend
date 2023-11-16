@@ -9,7 +9,7 @@ import toast from 'react-hot-toast'
 import BarLoader from '@/Components/Common/Loaders/BarLoader'
 import { checkErrorMessage } from '@/Components/Common/PowerUpFunctions'
 import ErrorCard from '@/Components/Common/ErrorCard'
-import NewsSection from './NewsSection'
+// import NewsSection from './NewsSection'
 import Select from 'react-select'
 import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
@@ -49,7 +49,7 @@ const NewsForm = () => {
         category: '',
         media: '',
         tags: [],
-        newsTags: [],
+        // newsTags: [],
         media: '',
         // topNews: false,
         heading: '',
@@ -62,7 +62,7 @@ const NewsForm = () => {
         media: yup.string().required(),
         heading: yup.string().required(),
         tags: yup.array().min(1, 'select atleast one').required(),
-        newsTags: yup.array().min(1, 'select atleast one').required(),
+        // newsTags: yup.array().min(1, 'select atleast one').required(),
         desc: yup.string().required()
     })
 
@@ -100,22 +100,22 @@ const NewsForm = () => {
         formik.setFieldValue('heading', values?.title)
         formik.setFieldValue('desc', values?.body)
         formik.setFieldValue('tags', values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
-        formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })) ?? [])
+        // formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })) ?? [])
         // formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
-        const contentSec = values?.storySections?.map((elem) => (
-            {
-                id: elem?.id,
-                tags: elem?.tags,
-                image: elem?.media || '',
-                media: elem?.mediaId,
-                title: elem?.title,
-                desc: elem?.content
-            }
-        ))
+        // const contentSec = values?.storySections?.map((elem) => (
+        //     {
+        //         id: elem?.id,
+        //         tags: elem?.tags,
+        //         image: elem?.media || '',
+        //         media: elem?.mediaId,
+        //         title: elem?.title,
+        //         desc: elem?.content
+        //     }
+        // ))
         setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
         setSelectedOptions(values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
-        setNewsTags(values?.story_tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
-        setFinalData(contentSec)
+        // setNewsTags(values?.story_tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+        // setFinalData(contentSec)
     }
 
     // To get news data to modify
@@ -154,16 +154,16 @@ const NewsForm = () => {
             payload = {
                 id: id,
                 categoryId: values?.category,
-                tags: values?.newsTags,
+                // tags: values?.newsTags,
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
                 // topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
-                storySections: finalData?.map((data) => ({     //contentSection -> storySections
-                    mediaId: data?.media,
-                    title: data?.title,
-                    content: data?.desc
-                }))
+                // storySections: finalData?.map((data) => ({     //contentSection -> storySections
+                //     mediaId: data?.media,
+                //     title: data?.title,
+                //     content: data?.desc
+                // }))
             }
 
         } else {
@@ -171,16 +171,16 @@ const NewsForm = () => {
 
             payload = {
                 categoryId: values?.category,
-                tags: values?.newsTags, // story tags
+                // tags: values?.newsTags, // story tags
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 
                 // topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
-                storySections: finalData?.map((data) => ({   //contentSection -> storySections
-                    mediaId: data?.media,
-                    title: data?.title,
-                    content: data?.desc
-                }))
+                // storySections: finalData?.map((data) => ({   //contentSection -> storySections
+                //     mediaId: data?.media,
+                //     title: data?.title,
+                //     content: data?.desc
+                // }))
             }
 
         }
@@ -380,7 +380,7 @@ const NewsForm = () => {
                                 </select>
                             </div>
 
-                            <div className='w-full md:w-[48%] flex flex-col gap-1 '>
+                            {/* <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Assign News Tags <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <Select
                                     name='newsTags'
@@ -393,7 +393,7 @@ const NewsForm = () => {
                                     onChange={handleNewsChange}
                                     value={newsTags}
                                 />
-                            </div>
+                            </div> */}
 
                             <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Select Tags to get media<span className='font-bold text-xs text-red-500'>*</span></label>
@@ -459,11 +459,11 @@ const NewsForm = () => {
                                 </div>
                             </div>
 
-                    <NewsSection
+                    {/* <NewsSection
                         tagList={tagList}
                         finalData={finalData}
                         setFinalData={setFinalData}
-                    />
+                    /> */}
 
                     <div className="w-full flex justify-start px-4 pb-4">
                         <button type="submit" onClick={formik.handleSubmit} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{id ? 'Update' : 'Add'} News</button>
