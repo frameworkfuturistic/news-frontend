@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import toast from 'react-hot-toast';
+import { FaRegCopy } from 'react-icons/fa';
 import { RxCross2 } from 'react-icons/rx';
 
 const ImageSelect = (props) => {
@@ -17,6 +19,21 @@ const ImageSelect = (props) => {
     dialogRef.current.close()
   }
 
+  const copyImageLink = (imageLink) => {
+    navigator.clipboard.writeText(imageLink)
+      .then(() => {
+        toast.success('Image Link Copied')
+        alert('Image Link Copied')
+        console.log('Image link copied to clipboard:', imageLink);
+        // You can add any additional logic or feedback here
+      })
+      .catch((error) => {
+        console.error('Error copying image link to clipboard:', error);
+        // Handle the error or provide user feedback
+      });
+  };
+  
+
   return (
     <>
         <div className='cursor-pointer text-sm w-full text-center h-full bg-slate-300 py-1 hover:text-white hover:bg-slate-500' onClick={() => dialogRef.current.showModal()}>View Media</div>
@@ -31,9 +48,10 @@ const ImageSelect = (props) => {
 
                 {
                     props?.options?.map((elem, index) => 
-                    <>
-                        <img onClick={() => handleOptionChange(elem)} src={elem[props?.ovalue]} className='border cursor-pointer hover:drop-shadow-lg hover:bg-slate-200 bg-white py-1 px-4 text-sm w-full md:w-1/4 rop-shadow-md object-contain bg-contain' alt="Media" srcset="" />
-                    </>)
+                    <div className='w-full md:w-1/4 flex flex-col items-center justify-center'>
+                        <img onClick={() => handleOptionChange(elem)} src={elem[props?.ovalue]} className='border cursor-pointer hover:drop-shadow-lg hover:bg-slate-200 bg-white py-1 px-4 text-sm w-full rop-shadow-md object-contain bg-contain' alt="Media" srcset="" />
+                        <div onClick={() => copyImageLink(elem?.file_name)} className='cursor-pointer select-none text-center w-full text-sm flex items-center gap-2 justify-center my-2 bg-green-500 py-1 text-white hover:bg-green-600 hover:drop-shadow-lg '><FaRegCopy /> Copy Image Link</div>
+                    </div>)
                 }
 
                 {

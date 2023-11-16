@@ -145,7 +145,7 @@ const [loader, setLoader] = useState(false)
           <div
             className={` h-full w-full grid grid-cols-12 md:px-10 gap-8`}
           >
-            <div className="w-full col-span-12 -mb-20 -mt-4">
+            <div className="w-full col-span-12 -mb-20 ">
               <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigate('/')}>Back</button>
             </div>
             <div className="col-span-12 md:col-span-8">

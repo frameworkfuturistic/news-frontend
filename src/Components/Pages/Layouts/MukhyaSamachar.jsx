@@ -20,7 +20,7 @@ const MukhyaSamachar = (props) => {
 
         <div className='w-full h-[90%]  '>
 
-          <AssignNews data={props?.data} code={`${props?.code}01`} storyList={props?.storyList} />
+          <AssignNews data={props?.data} code={`${props?.code}01`}  cList={props?.categoryList} storyList={props?.storyList} />
 
 
           <MHeadComponent
@@ -31,9 +31,9 @@ const MukhyaSamachar = (props) => {
 
         <div className=' w-full h-[100px] '>
           <div className={`w-[100%*3] h-full flex flex-wrap gap-4 overflow-x-auto justify-start`}>
-            <MClusterComponent data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}02`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}02`} code={`${props?.code}02`} storyList={props?.storyList} />
-            <MClusterComponent data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}03`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}03`} code={`${props?.code}03`} storyList={props?.storyList} />
-            <MClusterComponent data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}04`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}04`} code={`${props?.code}04`} storyList={props?.storyList} />
+            <MClusterComponent  cList={props?.categoryList} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}02`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}02`} code={`${props?.code}02`} storyList={props?.storyList} />
+            <MClusterComponent  cList={props?.categoryList} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}03`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}03`} code={`${props?.code}03`} storyList={props?.storyList} />
+            <MClusterComponent  cList={props?.categoryList} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}04`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}04`} code={`${props?.code}04`} storyList={props?.storyList} />
           </div>
         </div>
 

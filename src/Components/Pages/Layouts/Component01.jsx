@@ -20,7 +20,7 @@ const Component01 = (props) => {
 
         <div className='w-full h-full'>
 
-          <AssignNews data={data} code={`${props?.code}01`} storyList={props?.storyList} cId={props?.cdata?.id} cname={props?.cdata?.category} type="br" />
+          <AssignNews data={data} code={`${props?.code}01`} storyList={props?.storyList} cList={props?.categoryList} cId={props?.cdata?.id} cname={props?.cdata?.category} type="br" />
 
           <div className={`flex flex-wrap justify-between w-full h-full flex-row `}>
 
@@ -36,10 +36,10 @@ const Component01 = (props) => {
             </div>
             <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
               <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${data?.story_id}`)}>
-                {data?.story_title ?? "Heading"}
+                <span className='text-red-500'>Breaking News:</span> {data?.story_title ?? "Heading"}
               </h1>
 
-              <p className={`text-gray-50 text-ellipsis line-clamp-3 ${data?.story_body ? '' : " border-2 h-full "}`}>
+              <p className={`text-gray-50 text-ellipsis line-clamp-5 ${data?.story_body ? '' : " border-2 h-full "}`}>
                 {!data?.story_body && "Description"}
                 {
                   data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: data?.story_body }}></div>
