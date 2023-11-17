@@ -76,9 +76,17 @@ const AssignNews = (props) => {
         let payload;
 
         if (type == 'remove') {
-            payload = {
-                rendererCode: props?.code,
-                isVisible: 0
+            if(props?.type == 'br'){
+                payload = {
+                    rendererCode: props?.code,
+                    isVisible: 0
+                }
+            } else {
+                payload = {
+                    rendererCode: props?.code,
+                    storyId: null,
+                    isVisible: 1
+                }
             }
         } else {
             payload = {
@@ -119,8 +127,6 @@ const AssignNews = (props) => {
         // getStoryList()
     }, [])
 
-    console.log(props?.cList, props?.cId)
-
     return (
         <>
 
@@ -130,7 +136,7 @@ const AssignNews = (props) => {
             {/* Loader */}
             {loader && <BarLoader />}
 
-            {props?.type == 'br' && removeButton()}
+            {removeButton()}
             {editButton()}
 
             <dialog ref={dialogRef} className='p-4 focus:outline-none backdrop:backdrop-brightness-75 animate__animated animate__zoomIn animate__faster md:w-1/2 w-full fixed'>

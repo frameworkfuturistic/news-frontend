@@ -12,7 +12,9 @@ const BreakingNewsIndex = (props) => {
         <div className={`max-w-[${props?.wpx}] bg-red-600 h-full w-full flex justify-between px-4 py-1 rounded-full font-semibold`} >
             <div className='font-semibold md:text-base text-xs flex w-full'>
             <span className='uppercase italic border-r-2 pr-1 md:mr-2 w-[15%]'>News Update</span>
-            <Marquee style={{zIndex: 0}} className='pl-1 md:pl-1 z-0'><span className='bg-white px-2 py-2 text-sm text-black mr-4'>{indianDate(data?.publication_date)} - {data?.publication_time} </span> {data?.story_title}</Marquee>
+            <Marquee style={{zIndex: 0}} className='pl-1 md:pl-1 z-0'>
+              {/* <span className='bg-white px-2 py-2 text-sm text-black mr-4'>{indianDate(data?.publication_date)} - {data?.publication_time} </span>  */}
+              {data?.story_title}</Marquee>
             </div>
 
             <div className='flex items-center' onClick={() => props?.bClose(false)}>

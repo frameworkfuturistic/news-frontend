@@ -95,12 +95,14 @@ const NewsForm = () => {
     // Function to make form pre-filled
     const feedNewsForm = (values) => {
 
+        console.log(tagList)
+
         formik.setFieldValue('category', values?.category_id)
         formik.setFieldValue('media', values?.feature_image_id)
         formik.setFieldValue('heading', values?.title)
         formik.setFieldValue('desc', values?.body)
-        formik.setFieldValue('tags', values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
-        formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })) ?? [])
+        formik.setFieldValue('tags', values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id }) ))
+        formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })))
         // formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
         // const contentSec = values?.storySections?.map((elem) => (
         //     {
@@ -113,8 +115,13 @@ const NewsForm = () => {
         //     }
         // ))
         setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
-        setSelectedOptions(values?.tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+        setSelectedOptions(values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })) ?? [])
         setNewsTags(values?.story_tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+        getTagList(values?.mediaTags)
+        // setMediaList(() => {
+        //     const modifiedTags = values?.mediaTags?.map(elem => elem?.value)
+        //     return tagList.filter(item => values?.mediaTags?.includes(item?.tag_name));
+        // })
         // setFinalData(contentSec)
     }
 
@@ -209,7 +216,7 @@ const NewsForm = () => {
     }
 
     // Function to get tag list
-    const getTagList = () => {
+    const getTagList = (values = []) => {
 
         setTagList([])
 
@@ -224,6 +231,10 @@ const NewsForm = () => {
             .then((res) => {
                 if (res?.data?.status) {
                     setTagList(res?.data?.data)
+                    setMediaList(() => {
+                        const modifiedTags = values?.map(elem => elem?.tag_name)
+                        return res?.data?.data?.filter(item => modifiedTags?.includes(item?.tag_name));
+                    })
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
                 }
@@ -385,7 +396,7 @@ const NewsForm = () => {
                                 <Select
                                     name='newsTags'
                                     {...formik.getFieldProps('newsTags')}
-                                    className={` ${(formik.touched.newsTags && formik.errors.newsTags) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                    className={` ${(formik.errors.newsTags) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                     isMulti
                                     options={tagList?.map((elem) => {
                                         return { label: elem?.tag_name, value: elem?.id }
@@ -400,7 +411,7 @@ const NewsForm = () => {
                                 <Select
                                     name='tags'
                                     {...formik.getFieldProps('tags')}
-                                    className={` ${(formik.touched.tags && formik.errors.tags) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                    className={` ${(formik.errors.tags) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                     isMulti
                                     options={tagList?.map((elem) => {
                                         return { label: elem?.tag_name, value: elem?.tag_name }

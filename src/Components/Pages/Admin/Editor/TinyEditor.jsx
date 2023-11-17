@@ -19,6 +19,7 @@ export default function TinyEditor(props) {
         onInit={(evt, editor) => editorRef.current = editor}
         onKeyUp={() => log()}
         initialValue={props?.initial}
+        onProgressState={false}
         init={{
           selector: 'textarea#default',
           height: props?.height || 400,
