@@ -25,7 +25,7 @@ const MHeadComponent = (props) => {
                             :
                             <img src={props?.csource?.source} alt="" className='p-2 object-contain h-max w-full md:w-[50%]  ' srcset="" />} */}
 
-                        <p className={`text-gray-50 text-ellipsis line-clamp-3 ${props?.data?.story_body ? '' : " border-2 h-full "}`}>
+                        <p className={`text-gray-50 text-ellipsis line-clamp-5 ${props?.data?.story_body ? '' : " border-2 h-full "}`}>
                             {!props?.data?.story_body && "Description"}
                             {
                                 props?.data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: props?.data?.story_body }}></div>

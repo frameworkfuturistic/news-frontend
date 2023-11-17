@@ -45,7 +45,7 @@ const MClusterComponent = (props) => {
         <>
             <div className={`w-full md:w-[calc(100%/3.2)] grid grid-cols-12  border-t border-gray-300 p-2 relative`} >
 
-                <AssignNews data={props?.data} code={props?.code} storyList={props?.storyList} />
+                <AssignNews data={props?.data} code={props?.code} cList={props?.cList} storyList={props?.storyList} />
 
                 {props?.data?.file_name != ""  &&
                             <>{

@@ -154,7 +154,7 @@ const NewsForm = () => {
             payload = {
                 id: id,
                 categoryId: values?.category,
-                // tags: values?.newsTags,
+                tags: values?.newsTags,
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
@@ -171,7 +171,7 @@ const NewsForm = () => {
 
             payload = {
                 categoryId: values?.category,
-                // tags: values?.newsTags, // story tags
+                tags: values?.newsTags, // story tags
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 

@@ -28,6 +28,7 @@ const AssignNews = (props) => {
     const [errorState, setErrorState] = useState(false) // to store status of error
     const [errorMessage, setErrorMessage] = useState('') // to store error message
     const [storyList, setstoryList] = useState([])
+    const [catId, setcatId] = useState('')
 
     let userDetails = JSON.parse(localStorage.getItem('userDetails'))
 
@@ -39,6 +40,11 @@ const AssignNews = (props) => {
 
     const removeButton = () => {
         return <button onClick={() => actionFun('', 'remove')} className={`${(type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin') ? 'block' : 'hidden'} absolute top-0 right-24 flex gap-1 items-center px-4 py-1 bg-red-500 hover:bg-red-600 text-white text-sm font-bold`}> <span className='text-white text-lg'><RiDeleteBin2Line /> </span>Remove</button>
+    }
+
+    let style = {
+        label: 'text-gray-900 font-semibold text-sm',
+        input: 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm',
     }
 
     // To handle error card
@@ -113,6 +119,8 @@ const AssignNews = (props) => {
         // getStoryList()
     }, [])
 
+    console.log(props?.cList, props?.cId)
+
     return (
         <>
 
@@ -133,7 +141,21 @@ const AssignNews = (props) => {
 
                     <h1 className=' text-2xl font-semibold text-center border-b pb-1 mb-4'>Assign {props?.cname} News</h1>
 
-                    {storyList?.map((elem) => (
+                    {!props?.cId && <div className='my-2'>
+                        <label className={style?.label} htmlFor="">Select Category: </label>
+                        <select className={style?.input} name="" id="" onChange={e => setcatId(e.target?.value)}>
+                            <option value="">All</option>
+                            {
+                                Array.isArray(props?.cList) &&
+                                props?.cList.map((elem, index) => 
+                                <>
+                                    <option value={elem?.id}>{elem?.category}</option>
+                                </>)
+                            }
+                        </select>
+                    </div>}
+
+                    {storyList?.filter(item => item?.category_id == (props?.cId ?? catId) || !props?.cId && !catId).map((elem) => (
                         <>
                             <div className="grid w-full grid-cols-12 items-center gap-4 bg-slate-100 hover:bg-slate-200 border drop-shadow-md py-1 mb-2 cursor-pointer " onClick={() => actionFun(elem?.id)}>
 

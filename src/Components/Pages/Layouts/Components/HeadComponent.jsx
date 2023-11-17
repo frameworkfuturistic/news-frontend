@@ -18,7 +18,7 @@ const HeadComponent = (props) => {
                         {props?.data?.story_title ?? "Heading"}
                     </h1>
 
-                    <p className={`text-gray-600 text-ellipsis line-clamp-3 ${props?.data?.story_body ? '' : " border-2 h-full flex justify-center items-center"}`}>
+                    <p className={`text-gray-600 text-ellipsis line-clamp-5 ${props?.data?.story_body ? '' : " border-2 h-full flex justify-center items-center"}`}>
                         {!props?.data?.story_body && "Description"}
                         {
                             props?.data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: props?.data?.story_body }}></div>
