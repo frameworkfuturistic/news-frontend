@@ -82,7 +82,8 @@ const MediaMasterIndex = (props) => {
         dialogRef.current.showModal()
       } break;
       case 'edit': {
-        setSelectedOptions(data?.tags?.split(",") ?? [])
+        const mTag = data?.tags?.split(",") ?? []
+        setSelectedOptions(mTag?.map((elem) => ({label: elem, value: elem})))
         setViewData(data)
         dialogRef.current.showModal()
       } break;
@@ -301,7 +302,7 @@ const MediaMasterIndex = (props) => {
       .then((res) => {
         console.log('media response => ', res)
         if (res?.data?.status) {
-          toast.success(`Media ${mType == 'add' && 'Added'} ${mType == 'edit' && 'Updated'} ${mType == 'delete' && 'Deleted'} Successfully`)
+          toast.success(`Media ${mType}ed Successfully`)
         } else {
           activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
         }

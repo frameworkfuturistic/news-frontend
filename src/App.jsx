@@ -58,7 +58,7 @@ function App() {
 const privateRoutes = [
     { path: "/career-admin", element: <CareerIndex /> },
     { path: "/news-master", element: <NewsIndex /> },
-    { path: "/news-form/:id?", element: <NewsForm /> },
+    { path: "/news-form/:id?/:type?", element: <NewsForm /> },
     { path: "/media-master", element: <MediaMasterIndex /> },
   ]
   

@@ -62,7 +62,7 @@ const NewsIndex = () => {
             } break;
             case 'edit': {
                 setViewData(data)
-                navigate(`/news-form/${data?.id}`)
+                navigate(`/news-form/${data?.id}/edit`)
             } break;
             case 'delete': {
                 setViewData(data)
