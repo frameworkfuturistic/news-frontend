@@ -45,7 +45,6 @@ const Component01 = (props) => {
                   data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: data?.story_body }}></div>
                 }
               </p>
-
             </div>
 
 

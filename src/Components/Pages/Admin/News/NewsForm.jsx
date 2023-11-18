@@ -15,6 +15,7 @@ import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
 import ImageSelect from '@/Components/Common/ImageSelect'
 import TinyEditor from '../Editor/TinyEditor'
+import CreatableSelect from 'react-select/creatable'
 
 const NewsForm = () => {
 
@@ -393,7 +394,7 @@ const NewsForm = () => {
 
                             <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Assign News Tags <span className='font-bold text-xs text-red-500'>*</span></label>
-                                <Select
+                                <CreatableSelect
                                     name='newsTags'
                                     {...formik.getFieldProps('newsTags')}
                                     className={` ${(formik.errors.newsTags) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}

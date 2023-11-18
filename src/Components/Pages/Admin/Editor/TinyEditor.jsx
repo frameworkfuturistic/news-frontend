@@ -12,13 +12,17 @@ export default function TinyEditor(props) {
       props?.tinyChange(editorRef.current.getContent())
     }
   };
+
   return (
     <>
       <Editor
         apiKey={key}
-        onInit={(evt, editor) => editorRef.current = editor}
+        onInit={(evt, editor) => {
+          editorRef.current = editor;
+          // Set the initial content
+          editor.setContent(props?.initial ?? "");
+        }}
         onKeyUp={() => log()}
-        initialValue={props?.initial}
         onProgressState={false}
         init={{
           selector: 'textarea#default',
@@ -27,7 +31,7 @@ export default function TinyEditor(props) {
           plugins: [
             'paste', 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
             'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-            'table', 'emoticons', 'template', 'codesample', 'uploadimage'
+            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues' // Added 'initialvalues' plugin
           ],
           theme_advanced_buttons1: "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
           toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
@@ -41,7 +45,7 @@ export default function TinyEditor(props) {
           promotion: false,
           branding: false,
           automatic_uploads: true,
-          paste_data_images: true
+          paste_data_images: true,
         }}
       />
       {/* <button onClick={log}>Log editor content</button> */}
