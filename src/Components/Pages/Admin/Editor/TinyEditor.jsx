@@ -26,6 +26,7 @@ export default function TinyEditor(props) {
         onProgressState={false}
         init={{
           selector: 'textarea#default',
+          language: "hi_IN",
           height: props?.height || 400,
           forced_root_block: 'div',
           plugins: [

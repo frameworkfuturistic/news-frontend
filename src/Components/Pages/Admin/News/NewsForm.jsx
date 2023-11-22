@@ -101,8 +101,8 @@ const NewsForm = () => {
         formik.setFieldValue('media', values?.feature_image_id)
         formik.setFieldValue('heading', values?.title)
         formik.setFieldValue('desc', values?.body)
-        formik.setFieldValue('tags', values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id }) ))
-        formik.setFieldValue('newsTags', values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })))
+        formik.setFieldValue('tags', Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id }) ))
+        formik.setFieldValue('newsTags', Array.isArray(values?.story_tags) && values?.story_tags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })))
         // formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
         // const contentSec = values?.storySections?.map((elem) => (
         //     {
@@ -115,8 +115,8 @@ const NewsForm = () => {
         //     }
         // ))
         setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
-        setSelectedOptions(values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })) ?? [])
-        setNewsTags(values?.story_tags?.map((elem) => ({ label: elem, value: elem })) ?? [])
+        setSelectedOptions( Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
+        setNewsTags(Array.isArray(values?.story_tags) && values?.story_tags?.map((elem) => ({ label: elem, value: elem })))
         getTagList(values?.mediaTags)
         // setMediaList(() => {
         //     const modifiedTags = values?.mediaTags?.map(elem => elem?.value)

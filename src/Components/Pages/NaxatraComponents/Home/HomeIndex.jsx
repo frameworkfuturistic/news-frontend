@@ -20,7 +20,7 @@ const HomeIndex = () => {
 
   const { refresh } = useContext(contextVar)
 
-  const { api_getActiveNewsList, api_getNews, api_getCategory } = ApiList();
+  const { api_getActiveNewsList, api_getNews, api_getCategory, api_getTag } = ApiList();
 
   let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
@@ -35,6 +35,7 @@ const HomeIndex = () => {
   const [loader, setLoader] = useState(false)
   const [storyList, setstoryList] = useState([])
   const [categoryList, setCategoryList] = useState([])
+  const [mediaList, setMediaList] = useState([])
 
   const getActiveStories = () => {
 
@@ -96,12 +97,41 @@ const HomeIndex = () => {
       })
   }
 
+   // Function to get tag list
+   const getMediaList = () => {
+
+    setLoader(true)
+
+    let payload = {
+
+    }
+
+    axios
+        .post(api_getTag, payload, ApiJsonHeader())
+        .then((res) => {
+            if (res?.data?.status) {
+                setMediaList(() => {
+                    return res?.data?.data?.filter(item => item?.tag_name == 'vedio');
+                })
+            } else {
+            }
+            console.log('media list response => ', res)
+        })
+        .catch((err) => {
+            console.log('error tag list => ', err)
+        })
+        .finally(() => {
+            setLoader(false)
+        })
+}
+
   var flag = 0
   useEffect(() => {
     flag = 1;
     flag <= 1 && getActiveStories()
     flag <= 1 && getStoryList()
     flag <= 1 && getCategoryList()
+    flag <= 1 && getMediaList()
   }, [refresh])
 
   // C = Component
@@ -137,7 +167,7 @@ const HomeIndex = () => {
           {/* Hide and show component */}
           {(newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
 
-          {(newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
+          {(newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
 
           {
             Array.isArray(categoryList) &&

@@ -12,6 +12,7 @@ import ApiJsonHeader from '@/Components/Api/ApiJsonHeader'
 const BrandingIndex = (props) => {
 
   const [toggle, setToggle] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const { apiLogout } = ApiList()
 
@@ -28,6 +29,9 @@ const BrandingIndex = (props) => {
   const navigate = useNavigate()
 
   const LogOutUser = () => {
+
+    setLoader(true)
+
     axios.post(apiLogout, {}, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
@@ -36,6 +40,7 @@ const BrandingIndex = (props) => {
         }
       })
       .finally(() => {
+        setLoader(false)
         navigate('/')
         dialogRef.current.close()
       })
@@ -73,7 +78,7 @@ const BrandingIndex = (props) => {
 
             {!token ? <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/login')}><span>Sign In</span> <span className='text-lg'><BiUser /></span></button>
               :
-              <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => dialogRef.current.showModal()}><span>Sign Out</span></button>}
+              <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' disabled={loader} onClick={() => dialogRef.current.showModal()}><span>{!loader ? 'Sign' : 'Signing'} Out</span></button>}
 
           </div>
 

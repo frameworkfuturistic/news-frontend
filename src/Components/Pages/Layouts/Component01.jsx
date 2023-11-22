@@ -39,10 +39,10 @@ const Component01 = (props) => {
                 <span className='text-red-500'>Breaking News:</span> {data?.story_title ?? "Heading"}
               </h1>
 
-              <p className={`text-gray-50 text-ellipsis line-clamp-5 ${data?.story_body ? '' : " border-2 h-full "}`}>
+              <p className={`text-gray-50  ${data?.story_body ? '' : " border-2 h-full "}`}>
                 {!data?.story_body && "Description"}
                 {
-                  data?.story_body && <div className="col-span-6 py-2 px-4 break-words" dangerouslySetInnerHTML={{ __html: data?.story_body }}></div>
+                  data?.story_body && <div className="col-span-6 h-[20rem] overflow-auto" dangerouslySetInnerHTML={{ __html: data?.story_body }}></div>
                 }
               </p>
             </div>
