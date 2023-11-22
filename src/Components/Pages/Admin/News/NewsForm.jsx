@@ -11,6 +11,7 @@ import { checkErrorMessage } from '@/Components/Common/PowerUpFunctions'
 import ErrorCard from '@/Components/Common/ErrorCard'
 // import NewsSection from './NewsSection'
 import Select from 'react-select'
+import Creatable from 'react-select/creatable'
 import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
 import ImageSelect from '@/Components/Common/ImageSelect'
@@ -393,7 +394,7 @@ const NewsForm = () => {
 
                             <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Assign News Tags <span className='font-bold text-xs text-red-500'>*</span></label>
-                                <Select
+                                <Creatable
                                     name='newsTags'
                                     {...formik.getFieldProps('newsTags')}
                                     className={` ${(formik.errors.newsTags) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}

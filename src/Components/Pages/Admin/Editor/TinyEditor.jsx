@@ -22,6 +22,7 @@ export default function TinyEditor(props) {
           // Set the initial content
           editor.setContent(props?.initial ?? "");
         }}
+        initialValue={props?.initial ?? ""}
         onKeyUp={() => log()}
         onProgressState={false}
         init={{
