@@ -55,7 +55,7 @@ const MClusterComponent = (props) => {
                             </div>
                             :
                             <>
-                                <img src={props?.data?.file_name} alt="Image" srcset="" className='col-span-4 bg-contain object-contain' />
+                                <img src={props?.data?.file_name} alt="Image" srcset="" className='col-span-4 h-16 bg-contain object-contain' />
                             </>
                     }</>
                 }

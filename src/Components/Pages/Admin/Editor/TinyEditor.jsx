@@ -33,7 +33,7 @@ export default function TinyEditor(props) {
           plugins: [
             'paste', 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
             'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues' // Added 'initialvalues' plugin
+            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues'
           ],
           theme_advanced_buttons1: "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
           toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
