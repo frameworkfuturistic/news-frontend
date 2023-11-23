@@ -68,7 +68,7 @@ const NewsCategoriesIndex = (props) => {
                 if (res?.data?.status) {
                     setCategoryList(res?.data?.data?.map((elem) => {
                       return (
-                        { title: elem?.category, route: `/${elem?.id}`, subMenu: [] }
+                        { title: elem?.category, route: `/${elem?.id}/${elem?.category}`, subMenu: [] }
                       )
                     }))
                 } else {
