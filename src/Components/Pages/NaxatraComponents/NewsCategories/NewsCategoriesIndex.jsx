@@ -156,7 +156,7 @@ const NewsCategoriesIndex = (props) => {
           </div>
 
           {
-            newsCategoriesMenu?.map((item) => <>
+           Array.isArray(categoryList) && categoryList?.map((item) => <>
               <span className='flex flex-col justify-between text-sm transition-all duration-200'>
                 <NavLink to={item?.route == '' ? null : item?.route} className={({ isActive }) => ((isActive && item?.subMenu?.length == 0) ? "bg-blue-800 " : " ") + ` p-2 border-b border-blue-800  ` + 'flex gap-1 items-center'} onClick={() => {
                   dropFun(item?.title)
@@ -167,7 +167,7 @@ const NewsCategoriesIndex = (props) => {
                   {
                     item?.subMenu?.map((elem) => <>
                       <li class="relative cursor-pointer">
-                        <NavLink to={elem?.path} className={({ isActive }) => (isActive ? "bg-blue-800 " : " ") + ' text-xs border-b pl-4 border-blue-800 px-2 py-1 flex items-center'} onClick={() => {
+                        <NavLink to={elem?.route} className={({ isActive }) => (isActive ? "bg-blue-800 " : " ") + ' text-xs border-b pl-4 border-blue-800 px-2 py-1 flex items-center'} onClick={() => {
                         }}><span>{elem?.title}</span></NavLink>
                       </li>
                     </>)
