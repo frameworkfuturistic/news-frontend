@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.tox .tox-editor-header {
+  z-index: 0 !important;
+}
+
 ::-webkit-scrollbar-track{
   border-radius: 5px;
 }

@@ -26,10 +26,10 @@ const HomeIndex = () => {
 
   const navigate = useNavigate()
 
-  const { type } = useParams()
+  const { type, name } = useParams()
 
   let userDetails = JSON.parse(localStorage.getItem('userDetails'))
-  
+
   const [newsData, setnewsData] = useState([])
   const [bClose, setBClose] = useState(true)
   const [loader, setLoader] = useState(false)
@@ -72,6 +72,9 @@ const HomeIndex = () => {
   };
 
   const getCategoryList = () => {
+
+    console.log("param data => ", type, name)
+
     setLoader(true)
 
     let payload = {
@@ -82,7 +85,15 @@ const HomeIndex = () => {
       .post(api_getCategory, payload, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
-          setCategoryList(res?.data?.data)
+          if (type && !isNaN(type - 1)) {
+            console.log('enter first:', res?.data?.data?.filter(item => item?.id == type))
+            setCategoryList(() => {
+              return res?.data?.data?.filter(item => item?.id == type)
+            })
+          } else {
+          console.log("enter second:", res?.data?.data)
+            setCategoryList(res?.data?.data)
+          }
         } else {
           // activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
         }
@@ -97,8 +108,8 @@ const HomeIndex = () => {
       })
   }
 
-   // Function to get tag list
-   const getMediaList = () => {
+  // Function to get tag list
+  const getMediaList = () => {
 
     setLoader(true)
 
@@ -107,23 +118,23 @@ const HomeIndex = () => {
     }
 
     axios
-        .post(api_getTag, payload, ApiJsonHeader())
-        .then((res) => {
-            if (res?.data?.status) {
-                setMediaList(() => {
-                    return res?.data?.data?.filter(item => item?.tag_name == 'vedio');
-                })
-            } else {
-            }
-            console.log('media list response => ', res)
-        })
-        .catch((err) => {
-            console.log('error tag list => ', err)
-        })
-        .finally(() => {
-            setLoader(false)
-        })
-}
+      .post(api_getTag, payload, ApiJsonHeader())
+      .then((res) => {
+        if (res?.data?.status) {
+          setMediaList(() => {
+            return res?.data?.data?.filter(item => item?.tag_name == 'vedio');
+          })
+        } else {
+        }
+        console.log('media list response => ', res)
+      })
+      .catch((err) => {
+        console.log('error tag list => ', err)
+      })
+      .finally(() => {
+        setLoader(false)
+      })
+  }
 
   var flag = 0
   useEffect(() => {
@@ -132,7 +143,9 @@ const HomeIndex = () => {
     flag <= 1 && getStoryList()
     flag <= 1 && getCategoryList()
     flag <= 1 && getMediaList()
-  }, [refresh])
+  }, [refresh, type])
+
+  console.log('cat list => ', categoryList)
 
   // C = Component
   // OT = One, Three
@@ -165,9 +178,9 @@ const HomeIndex = () => {
           {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
 
           {/* Hide and show component */}
-          {(newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
+          {!type && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
 
-          {(newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
+          {!type && (newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
 
           {
             Array.isArray(categoryList) &&

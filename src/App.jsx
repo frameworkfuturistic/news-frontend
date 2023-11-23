@@ -49,7 +49,7 @@ function App() {
   ]
 
   const navBarRoutes = [
-    { path: "/:type?", element: <HomeIndex /> },
+    { path: "/:type?/:name?", element: <HomeIndex /> },
     { path: "/layout", element: <LayoutIndex /> },
     { path: "/news-details/:id/:cId?", element: <ContentIndex /> },
   ]

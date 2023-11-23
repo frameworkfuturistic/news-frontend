@@ -30,7 +30,7 @@ const MukhyaSamachar = (props) => {
 
         </div>
 
-        <div className=' w-full h-[10%]'>
+        <div className=' w-full h-[10%] '>
           <div className={`w-[100%*3] h-max flex flex-wrap gap-4 overflow-x-auto justify-start`}>
             <MClusterComponent  cList={props?.categoryList} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}02`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}02`} code={`${props?.code}02`} storyList={props?.storyList} />
             <MClusterComponent  cList={props?.categoryList} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}03`) == true)[0]} auth={props?.data?.section_renderer_code == `${props?.code}03`} code={`${props?.code}03`} storyList={props?.storyList} />
