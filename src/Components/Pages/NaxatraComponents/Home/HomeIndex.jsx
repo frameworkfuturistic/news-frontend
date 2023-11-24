@@ -15,6 +15,7 @@ import { contextVar } from "@/Components/Context/ContextVar";
 import BarLoader from "@/Components/Common/Loaders/BarLoader";
 import { codeCheck } from "@/Components/Common/PowerUpFunctions";
 import Component01 from "../../Layouts/Component01";
+import BrandLoader from "@/Components/Common/Loaders/BrandLoader";
 
 const HomeIndex = () => {
 
@@ -33,15 +34,18 @@ const HomeIndex = () => {
   const [newsData, setnewsData] = useState([])
   const [bClose, setBClose] = useState(true)
   const [loader, setLoader] = useState(false)
+  const [loader2, setLoader2] = useState(false)
   const [storyList, setstoryList] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [mediaList, setMediaList] = useState([])
 
   const getActiveStories = () => {
 
-    setLoader(true)
+    setLoader2(true)
 
-    axios.post(api_getActiveNewsList, {}, ApiJsonHeader()).then((res) => {
+    axios
+    .post(api_getActiveNewsList, {}, ApiJsonHeader())
+    .then((res) => {
       console.log("news list response => ", type, res);
       if (res?.data?.status) {
         if ((type != undefined) && !isNaN(type - 1)) {
@@ -53,12 +57,12 @@ const HomeIndex = () => {
       } else {
         toast.error(res?.data?.message)
       }
-    }).finally(() => setLoader(false))
+    }).finally(() => setLoader2(false))
   };
 
   const getStoryList = () => {
 
-    setLoader(true)
+    // setLoader(true)
 
     axios.post(api_getNews, {}, ApiJsonHeader()).then((res) => {
       console.log("story list response => ", res);
@@ -68,7 +72,7 @@ const HomeIndex = () => {
         toast.error(res?.data?.message)
       }
     })
-      .finally(() => setLoader(false))
+      // .finally(() => setLoader(false))
   };
 
   const getCategoryList = () => {
@@ -111,7 +115,7 @@ const HomeIndex = () => {
   // Function to get tag list
   const getMediaList = () => {
 
-    setLoader(true)
+    // setLoader(true)
 
     let payload = {
 
@@ -132,7 +136,7 @@ const HomeIndex = () => {
         console.log('error tag list => ', err)
       })
       .finally(() => {
-        setLoader(false)
+        // setLoader(false)
       })
   }
 
@@ -145,7 +149,7 @@ const HomeIndex = () => {
     flag <= 1 && getMediaList()
   }, [refresh, type])
 
-  console.log('cat list => ', categoryList)
+  console.log('loader status => ', (loader || loader2))
 
   // C = Component
   // OT = One, Three
@@ -168,11 +172,11 @@ const HomeIndex = () => {
     <>
 
       {
-        loader && <BarLoader />
+        (loader || loader2) && <BrandLoader />
       }
 
       {
-        !loader &&
+        (!loader && !loader2) &&
         <>
 
           {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
@@ -189,19 +193,19 @@ const HomeIndex = () => {
                 <Component13 cdata={elem} storyList={[]} data={newsData?.filter(item => item?.sequence == (index + 1))} code={elem?.renderer_code} />
               </>)
           }
-          {/* <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 2)}  code={'COTB'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 3)}  code={'COTC'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 4)}  code={'COTD'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 5)}  code={'COTE'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 6)}  code={'COTF'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 7)}  code={'COTG'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 8)}  code={'COTH'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 9)}  code={'COTI'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 10)} code={'COTJ'} />
-      <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 11)} code={'COTK'} /> */}
         </>
       }
 
+      {/* <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 2)}  code={'COTB'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 3)}  code={'COTC'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 4)}  code={'COTD'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 5)}  code={'COTE'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 6)}  code={'COTF'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 7)}  code={'COTG'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 8)}  code={'COTH'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 9)}  code={'COTI'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 10)} code={'COTJ'} />
+  <Component13    storyList={storyList} data={newsData?.filter(item => item?.sequence == 11)} code={'COTK'} /> */}
 
 
     </>

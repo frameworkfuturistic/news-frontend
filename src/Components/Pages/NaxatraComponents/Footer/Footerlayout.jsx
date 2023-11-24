@@ -11,7 +11,7 @@ const Footerlayout = () => {
   let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
   return (
-    <div className='w-full bg-black flex justify-center items-center relative animate__animated animate__fadeIn animate__faster'>
+    <div className='w-full bg-black flex justify-center items-center z-0 animate__animated animate__fadeIn animate__faster'>
       <div className={`max-w-[${wpx}] `} >
         <div className='grid grid-cols-12   p-2 m-2  my-2  '>
           <div className='col-span-12 lg:col-span-4'>
