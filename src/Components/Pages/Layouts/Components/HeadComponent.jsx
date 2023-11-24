@@ -14,7 +14,7 @@ const HeadComponent = (props) => {
 
                 <div className="w-full md:w-[45%] flex flex-col p-4 gap-8">
 
-                    <h1 className={`font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500 ${props?.data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${props?.data?.story_id}`)}>
+                    <h1 className={`font-bold text-2xl text-gray-800 pt-8 cursor-pointer hover:text-red-500 ${props?.data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}`)}>
                         {props?.data?.story_title ?? "Heading"}
                     </h1>
 
