@@ -2,6 +2,16 @@ import React, { useEffect } from 'react'
 import VideoIndex from '../NaxatraComponents/Home/VideoIndex';
 import { useNavigate } from 'react-router-dom';
 import AssignNews from '../NaxatraComponents/Home/AssignNews';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay } from 'swiper/modules'
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 const Component01 = (props) => {
 
@@ -16,45 +26,67 @@ const Component01 = (props) => {
   return (
     <>
 
-      <div id={data?.categoryId} className='border-t border-b h-full w-full bg-black text-gray-50 flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
+      <Swiper
+        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        spaceBetween={50}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true }}
+        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => console.log('slide change')}
+      >
 
-        <div className='w-full h-full'>
+        {Array.isArray(props?.data) &&
+          props?.data?.map((elem, index) =>
+            <SwiperSlide>
+              <div id={data?.categoryId} className='border-t border-b h-full w-full bg-black text-gray-50 flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
-          <AssignNews data={data} code={`${props?.code}01`} storyList={props?.storyList} cList={props?.categoryList} cId={props?.cdata?.id} cname={props?.cdata?.category} type="br" />
+                <div className='w-full h-full'>
 
-          <div className={`flex flex-wrap justify-between w-full h-full flex-row `}>
+                  <AssignNews data={elem} code={`${props?.code}0${index + 1}`} storyList={props?.storyList} cList={props?.categoryList} cId={props?.cdata?.id} cname={props?.cdata?.category} type="br" />
 
-            <div className="w-full md:w-[50%] flex flex-col p-4 gap-8">
+                  <div className={`flex flex-wrap justify-between w-full h-full flex-row `}>
 
-              {data?.media_type == 'video' ?
-                <div className='p-2 object-cover w-full md:w-[40%] '>
-                  <VideoIndex data={data} className='p-2 h-full object-cover w-[50%]' />
+                    <div className="w-full md:w-[50%] flex flex-col p-4 gap-8">
+
+                      {elem?.media_type == 'video' ?
+                        <div className='p-2 object-cover w-full md:w-[40%] '>
+                          <VideoIndex elem={elem} className='p-2 h-full object-cover w-[50%]' />
+                        </div>
+                        :
+                        <img src={elem?.file_name} alt="Image" className='p-2  bg-contain object-contain w-full  ' srcset="" />}
+
+                    </div>
+                    <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
+                      <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${elem?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${elem?.story_id}/${props?.elem?.category_id}`)}>
+                        <span className='text-red-500'>Breaking News:</span> {elem?.story_title ?? "Heading"}
+                      </h1>
+
+                      <p className={`text-gray-50  ${elem?.story_body ? '' : " border-2 h-full "}`}>
+                        {!elem?.story_body && "Description"}
+                        {
+                          elem?.story_body && <div className="col-span-6 h-[20rem] overflow-auto" dangerouslySetInnerHTML={{ __html: elem?.story_body }}></div>
+                        }
+                      </p>
+                    </div>
+
+
+                  </div>
+
+                  <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>Breaking News</span>
+
                 </div>
-                :
-                <img src={data?.file_name} alt="Image" className='p-2  bg-contain object-contain w-full  ' srcset="" />}
 
-            </div>
-            <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
-              <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${data?.story_id}/${props?.data?.category_id}`)}>
-                <span className='text-red-500'>Breaking News:</span> {data?.story_title ?? "Heading"}
-              </h1>
+              </div>
+            </SwiperSlide>
+          )}
 
-              <p className={`text-gray-50  ${data?.story_body ? '' : " border-2 h-full "}`}>
-                {!data?.story_body && "Description"}
-                {
-                  data?.story_body && <div className="col-span-6 h-[20rem] overflow-auto" dangerouslySetInnerHTML={{ __html: data?.story_body }}></div>
-                }
-              </p>
-            </div>
-
-
-          </div>
-
-          <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>Breaking News</span>
-
-        </div>
-
-      </div>
+      </Swiper>
 
     </>
   )
