@@ -135,6 +135,9 @@ const HomeIndex = () => {
 
   var flag = 0
   useEffect(() => {
+
+    window.scroll(0, -100);
+    
     flag = 1;
     flag <= 1 && getActiveStories()
     flag <= 1 && getStoryList()
