@@ -47,15 +47,7 @@ const HomeIndex = () => {
     .post(api_getActiveNewsList, {}, ApiJsonHeader())
     .then((res) => {
       if (res?.data?.status) {
-        // if ((type != undefined) && !isNaN(type - 1)) {
-        //   console.log('entering', type)
-        //   setnewsData(() => {
-        //     return res?.data?.data?.filter(item => item?.category_id == type)
-        //   })
-        // } else {
-        //   console.log('entered 2')
           setnewsData(res?.data?.data)
-        // }
       } else {
         toast.error(res?.data?.message)
       }
@@ -91,7 +83,7 @@ const HomeIndex = () => {
       .post(api_getCategory, payload, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
-          if (type && !isNaN(type - 1)) {
+          if (type && type != 'edit') {
             setCategoryList(() => {
               return res?.data?.data?.filter(item => item?.id == type)
             })
