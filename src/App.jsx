@@ -4,14 +4,15 @@
 // 👉 Status      : Open
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// NPM Libararies and React libraries
 import './App.css'
 import { contextVar } from '@/Components/Context/ContextVar'
 import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useState, lazy } from 'react';
 import 'animate.css'
-import MobileRoutes from './Components/Pages/Others/MobileRoutes';
 
+// Imported Components or Pages 
 const HomeIndex            =  lazy(() => import('@/Components/Pages/NaxatraComponents/Home/HomeIndex'))
 const ProtectedRoutes      =  lazy(() => import('@/Components/Pages/Others/ProtectedRoutes'))
 const ErrorPage            =  lazy(() => import('@/Components/Pages/Others/404/ErrorPage'))
@@ -26,11 +27,12 @@ const ReportMasterIndex    =  lazy(() => import('@/Components/Pages/Admin/Report
 const NewsForm             =  lazy(() => import('@/Components/Pages/Admin/News/NewsForm'))
 const MediaMasterIndex     =  lazy(() => import('@/Components/Pages/Admin/MediaMaster/MediaMasterIndex'))
 const MobileLogin          =  lazy(() => import('@/Components/Pages/Mobile/MobileLogin'))
+const MobileRoutes         =  lazy(() => import('@/Components/Pages/Others/MobileRoutes'))
 
 function App() {
 
-  // 👉 State constants 👈
-  const [refresh, setrefresh] = useState(0)
+  // 👉 Created to handle Global State constants 👈
+  const [refresh, setrefresh] = useState(0) // refresh state
   const [toggleBar, settoggleBar] = useState(window.localStorage.getItem('device') == 'mobile' ? false : true)
   const wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 

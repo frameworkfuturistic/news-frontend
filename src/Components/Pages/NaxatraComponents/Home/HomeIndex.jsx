@@ -46,14 +46,16 @@ const HomeIndex = () => {
     axios
     .post(api_getActiveNewsList, {}, ApiJsonHeader())
     .then((res) => {
-      console.log("news list response => ", type, res);
       if (res?.data?.status) {
-        if ((type != undefined) && !isNaN(type - 1)) {
-          setnewsData((res?.data?.data)?.filter(item => item?.category_id == type))
-        } else {
-          console.log('entered 2')
+        // if ((type != undefined) && !isNaN(type - 1)) {
+        //   console.log('entering', type)
+        //   setnewsData(() => {
+        //     return res?.data?.data?.filter(item => item?.category_id == type)
+        //   })
+        // } else {
+        //   console.log('entered 2')
           setnewsData(res?.data?.data)
-        }
+        // }
       } else {
         toast.error(res?.data?.message)
       }
@@ -90,7 +92,6 @@ const HomeIndex = () => {
       .then((res) => {
         if (res?.data?.status) {
           if (type && !isNaN(type - 1)) {
-            console.log('enter first:', res?.data?.data?.filter(item => item?.id == type))
             setCategoryList(() => {
               return res?.data?.data?.filter(item => item?.id == type)
             })
@@ -190,7 +191,7 @@ const HomeIndex = () => {
             Array.isArray(categoryList) &&
             categoryList?.map((elem, index) =>
               <>
-                <Component13 cdata={elem} storyList={[]} data={newsData?.filter(item => item?.sequence == (index + 1))} code={elem?.renderer_code} />
+                <Component13 cdata={elem} storyList={[]} data={newsData?.filter(item => ((!type && item?.sequence == index + 1) || (type && item?.category_id == type)))} code={elem?.renderer_code} />
               </>)
           }
         </>

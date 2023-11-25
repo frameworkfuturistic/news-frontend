@@ -5,6 +5,11 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import { Suspense } from 'react'
 
+// console.log = () => {}
+// console.error = () => {}
+// console.warn = () => {}
+// console.info = () => {}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Suspense fallback={

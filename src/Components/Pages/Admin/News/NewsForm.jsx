@@ -37,6 +37,8 @@ const NewsForm = () => {
     const [mediaList, setMediaList] = useState([]) // to store media list by tags
     const [categoryList, setCategoryList] = useState([]) // to store category list
 
+    const [submitType, setSubmitType] = useState('')
+
     // CSS Constants
     let style = {
         label: 'text-gray-900 font-semibold text-sm',
@@ -102,7 +104,7 @@ const NewsForm = () => {
         formik.setFieldValue('media', values?.feature_image_id)
         formik.setFieldValue('heading', values?.title)
         formik.setFieldValue('desc', values?.body)
-        formik.setFieldValue('tags', Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id }) ))
+        formik.setFieldValue('tags', Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })))
         formik.setFieldValue('newsTags', Array.isArray(values?.storyTags) && values?.storyTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
         // formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
         // const contentSec = values?.storySections?.map((elem) => (
@@ -116,7 +118,7 @@ const NewsForm = () => {
         //     }
         // ))
         setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
-        setSelectedOptions( Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
+        setSelectedOptions(Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
         setNewsTags(Array.isArray(values?.storyTags) && values?.storyTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
         getTagList(values?.mediaTags)
         // setMediaList(() => {
@@ -166,7 +168,8 @@ const NewsForm = () => {
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
-                contentTags: newsTags?.map(item => item?.label)
+                contentTags: newsTags?.map(item => item?.label),
+                toPublish: submitType == 'publish'
                 // topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
                 // storySections: finalData?.map((data) => ({     //contentSection -> storySections
                 //     mediaId: data?.media,
@@ -184,7 +187,8 @@ const NewsForm = () => {
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 
-                contentTags: newsTags?.map(item => item?.label)
+                contentTags: newsTags?.map(item => item?.label),
+                toPublish: submitType == 'publish'
                 // topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
                 // storySections: finalData?.map((data) => ({   //contentSection -> storySections
                 //     mediaId: data?.media,
@@ -457,10 +461,10 @@ const NewsForm = () => {
                         </div>
 
                     </form>
-                            {/* Description */}
-                            <div className='w-full row-span-2 flex flex-col gap-1 '>
-                                <label htmlFor="" className={style.label}>Description <span className='font-bold text-xs text-red-500'>*</span></label>
-                                {/* <textarea
+                    {/* Description */}
+                    <div className='w-full row-span-2 flex flex-col gap-1 '>
+                        <label htmlFor="" className={style.label}>Description <span className='font-bold text-xs text-red-500'>*</span></label>
+                        {/* <textarea
                                     cols={5}
                                     type="text"
                                     placeholder="Enter Description"
@@ -468,10 +472,10 @@ const NewsForm = () => {
                                     {...formik.getFieldProps('desc')}
                                     className={style.input + ` ${(formik.touched.desc && formik.errors.desc) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                 /> */}
-                                <div className={` ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
-                                    <TinyEditor tinyChange={code => tinyChange(code)} initial={newsData?.body}/>
-                                </div>
-                            </div>
+                        <div className={` ${(formik.touched.desc && formik.errors.desc) ? ' border rounded-md border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+                            <TinyEditor tinyChange={code => tinyChange(code)} initial={newsData?.body} />
+                        </div>
+                    </div>
 
                     {/* <NewsSection
                         tagList={tagList}
@@ -479,8 +483,9 @@ const NewsForm = () => {
                         setFinalData={setFinalData}
                     /> */}
 
-                    <div className="w-full flex justify-start px-4 pb-4">
-                        <button type="submit" onClick={formik.handleSubmit} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{id ? 'Update' : 'Add'} News</button>
+                    <div className="w-full flex justify-start px-4 pb-4 gap-2">
+                        <button type="submit" onClick={() => (formik.handleSubmit(), setSubmitType(""))} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{id ? 'Update' : 'Add'} News</button>
+                        <button type="submit" onClick={() => (formik.handleSubmit(), setSubmitType("publish"))} className='bg-blue-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-blue-600'>Publish News</button>
                     </div>
 
                 </div>

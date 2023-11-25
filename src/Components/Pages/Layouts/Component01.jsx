@@ -35,7 +35,7 @@ const Component01 = (props) => {
 
             </div>
             <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
-              <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${data?.story_id}`)}>
+              <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${data?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${data?.story_id}/${props?.data?.category_id}`)}>
                 <span className='text-red-500'>Breaking News:</span> {data?.story_title ?? "Heading"}
               </h1>
 

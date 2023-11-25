@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
-import { indianDate } from "@/Components/Common/PowerUpFunctions";
+import { codeCheck, indianDate } from "@/Components/Common/PowerUpFunctions";
 
 const ContentIndex = () => {
 
@@ -109,7 +109,7 @@ const ContentIndex = () => {
     setLoader(true)
 
     axios.post(api_getNews, { id: id }, ApiJsonHeader()).then((res) => {
-      console.log("Page data => ", res);
+      console.log("News by id data => ", res);
       if (res?.data?.status) {
         setNewsData(res?.data?.data)
       } else {
@@ -123,9 +123,11 @@ const ContentIndex = () => {
     setLoader(true)
 
     axios.post(api_getActiveNewsList, {}, ApiJsonHeader()).then((res) => {
-      console.log("Page response => ", res);
+      console.log("Category news list response => ", res);
       if (res?.data?.status) {
-        setNewsList((res?.data?.data)?.filter(item => item?.category_id == cId))
+        setNewsList(() => {
+          return res?.data?.data?.filter(item => (item?.category_id == cId && !codeCheck(item?.section_renderer_code, 'COTTP')))
+        })
       } else {
         toast.error(res?.data?.message)
       }
@@ -136,6 +138,8 @@ const ContentIndex = () => {
     getActiveStories()
     getCategoryStories()
   }, [refresh])
+
+  console.log("news list => ", newsList)
 
 
   return (
