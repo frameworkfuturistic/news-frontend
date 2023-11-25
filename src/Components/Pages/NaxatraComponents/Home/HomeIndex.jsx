@@ -181,15 +181,15 @@ const HomeIndex = () => {
           {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
 
           {/* Hide and show component */}
-          {(!type || isNaN(type - 1)) && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
+          {(!type || type == 'edit') && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
 
-          {(!type || isNaN(type - 1)) && (newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
+          {(!type || type == 'edit') && (newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
 
           {
             Array.isArray(categoryList) &&
             categoryList?.map((elem, index) =>
               <>
-                <Component13 cdata={elem} storyList={[]} data={newsData?.filter(item => (((!type || isNaN(type - 1)) && item?.sequence == index + 1) || (!isNaN(type - 1) && type && item?.category_id == type)))} code={elem?.renderer_code} />
+                <Component13 cdata={elem} storyList={[]} data={(!type || type == 'edit') ? newsData?.filter(item => item?.sequence == index + 1) : newsData?.filter(item => item?.category_id == type)} code={elem?.renderer_code} />
               </>)
           }
         </>
