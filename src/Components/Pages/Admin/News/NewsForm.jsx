@@ -391,8 +391,11 @@ const NewsForm = () => {
                                 <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
                                     <option value="">Select</option>
+                                    {/* <option className='' value={"1"}>Breaking News</option> */}
                                     {
-                                        categoryList?.map((elem) => <option className='' value={elem?.id}>{elem?.category}</option>)
+                                        categoryList?.map((elem) => 
+                                        <option className='' value={elem?.id}>{elem?.category}</option>
+                                        )
                                     }
 
                                 </select>
