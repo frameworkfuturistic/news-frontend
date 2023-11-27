@@ -391,7 +391,7 @@ const NewsForm = () => {
                                 <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
                                     <option value="">Select</option>
-                                    {/* <option className='' value={"1"}>Breaking News</option> */}
+                                 <option className='' value={"12"}>Breaking News</option> 
                                     {
                                         categoryList?.map((elem) => 
                                         <option className='' value={elem?.id}>{elem?.category}</option>
@@ -432,6 +432,20 @@ const NewsForm = () => {
                             </div> */}
 
                             {/* Media Selection */}
+                            <div className='w-full md:w-[48%] flex flex-col gap-1 '>
+                            <label htmlFor="" className={style.label}>Assign News Keywords <span className='font-bold text-xs text-red-500'>*</span></label>
+                            <Creatable
+                                name='newsTags'
+                                {...formik.getFieldProps('newsTags')}
+                                className={` ${(formik.errors.newsTags) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                isMulti
+                                options={tagList?.map((elem) => {
+                                    return { label: elem?.tag_name, value: elem?.id }
+                                }) ?? []}
+                                onChange={handleNewsChange}
+                                value={newsTags}
+                            />
+                        </div>
                             <div className='w-full md:w-[48%] flex flex-col gap-1'>
                                 <label htmlFor="" className={style.label}>Select Media <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <div name='media' {...formik.getFieldProps('media')} className={style.input + ` ${(formik.touched.media && formik.errors.media) ? ' w-full border-red-200 placeholder:text-red-500 ' : ' w-full focus:border-zinc-300 border-zinc-200'}`} >
