@@ -47,15 +47,7 @@ const HomeIndex = () => {
     .post(api_getActiveNewsList, {}, ApiJsonHeader())
     .then((res) => {
       if (res?.data?.status) {
-        // if ((type != undefined) && !isNaN(type - 1)) {
-        //   console.log('entering', type)
-        //   setnewsData(() => {
-        //     return res?.data?.data?.filter(item => item?.category_id == type)
-        //   })
-        // } else {
-        //   console.log('entered 2')
           setnewsData(res?.data?.data)
-        // }
       } else {
         toast.error(res?.data?.message)
       }
@@ -91,7 +83,7 @@ const HomeIndex = () => {
       .post(api_getCategory, payload, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
-          if (type && !isNaN(type - 1)) {
+          if (type && type != 'edit') {
             setCategoryList(() => {
               return res?.data?.data?.filter(item => item?.id == type)
             })
@@ -143,14 +135,15 @@ const HomeIndex = () => {
 
   var flag = 0
   useEffect(() => {
+
+    window.scroll(0, -100);
+    
     flag = 1;
     flag <= 1 && getActiveStories()
     flag <= 1 && getStoryList()
     flag <= 1 && getCategoryList()
     flag <= 1 && getMediaList()
   }, [refresh, type])
-
-  console.log('loader status => ', (loader || loader2))
 
   // C = Component
   // OT = One, Three
@@ -183,15 +176,15 @@ const HomeIndex = () => {
           {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
 
           {/* Hide and show component */}
-          {!type && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
+          {(!type || type == 'edit') && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
 
-          {!type && (newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
+          {(!type || type == 'edit') && (newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
 
           {
             Array.isArray(categoryList) &&
             categoryList?.map((elem, index) =>
               <>
-                <Component13 cdata={elem} storyList={[]} data={newsData?.filter(item => ((!type && item?.sequence == index + 1) || (type && item?.category_id == type)))} code={elem?.renderer_code} />
+                <Component13 cdata={elem} storyList={[]} data={(!type || type == 'edit') ? newsData?.filter(item => item?.sequence == index + 1) : newsData?.filter(item => item?.category_id == type)} code={elem?.renderer_code} />
               </>)
           }
         </>

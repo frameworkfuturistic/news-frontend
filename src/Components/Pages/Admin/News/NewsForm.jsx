@@ -391,8 +391,11 @@ const NewsForm = () => {
                                 <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
                                     <option value="">Select</option>
+                                    {/* <option className='' value={"1"}>Breaking News</option> */}
                                     {
-                                        categoryList?.map((elem) => <option className='' value={elem?.id}>{elem?.category}</option>)
+                                        categoryList?.map((elem) => 
+                                        <option className='' value={elem?.id}>{elem?.category}</option>
+                                        )
                                     }
 
                                 </select>
@@ -413,7 +416,7 @@ const NewsForm = () => {
                                 />
                             </div>
 
-                            <div className='w-full md:w-[48%] flex flex-col gap-1 '>
+                            {/* <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                                 <label htmlFor="" className={style.label}>Select Tags to get media<span className='font-bold text-xs text-red-500'>*</span></label>
                                 <Select
                                     name='tags'
@@ -426,13 +429,18 @@ const NewsForm = () => {
                                     onChange={handleChange}
                                     value={selectedOptions}
                                 />
-                            </div>
+                            </div> */}
 
                             {/* Media Selection */}
                             <div className='w-full md:w-[48%] flex flex-col gap-1'>
-                                <label htmlFor="" className={style.label}>Select Media <span className='italic text-xs font-semibold'>(Select tags to get media list)</span> <span className='font-bold text-xs text-red-500'>*</span></label>
+                                <label htmlFor="" className={style.label}>Select Media <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <div name='media' {...formik.getFieldProps('media')} className={style.input + ` ${(formik.touched.media && formik.errors.media) ? ' w-full border-red-200 placeholder:text-red-500 ' : ' w-full focus:border-zinc-300 border-zinc-200'}`} >
-                                    <ImageSelect options={mediaList ?? []} okey={'media_id'} ovalue={'file_name'} imageSelected={(okey, ovalue) => handleImageSelect({ id: okey, image: ovalue })} />
+                                    <ImageSelect
+                                    style={style}
+                                    tagList={tagList}
+                                    handleChange={handleChange}
+                                    selectedOptions={selectedOptions}
+                                    options={mediaList ?? []} okey={'media_id'} ovalue={'file_name'} imageSelected={(okey, ovalue) => handleImageSelect({ id: okey, image: ovalue })} />
                                 </div>
                             </div>
 
