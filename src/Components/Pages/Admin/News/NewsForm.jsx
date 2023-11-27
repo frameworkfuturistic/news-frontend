@@ -33,6 +33,7 @@ const NewsForm = () => {
     const [finalData, setFinalData] = useState([]) // for news section passed by props
 
     const [tagList, setTagList] = useState([]) // to store tag list
+    const [keywordList, setKeywordList] = useState([]) // to store tag list
     const [addMedia, setAddMedia] = useState(false) // to toggle pop-up for adding new media
     const [mediaList, setMediaList] = useState([]) // to store media list by tags
     const [categoryList, setCategoryList] = useState([]) // to store category list
@@ -53,6 +54,7 @@ const NewsForm = () => {
         media: '',
         tags: [],
         newsTags: [],
+        keywords:[],
         media: '',
         // topNews: false,
         heading: '',
@@ -66,6 +68,7 @@ const NewsForm = () => {
         heading: yup.string().required(),
         tags: yup.array().min(1, 'select atleast one').required(),
         newsTags: yup.array().min(1, 'select atleast one').required(),
+        keywords: yup.array().min(1, 'select atleast one').required(),
         desc: yup.string().required()
     })
 
@@ -106,6 +109,7 @@ const NewsForm = () => {
         formik.setFieldValue('desc', values?.body)
         formik.setFieldValue('tags', Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.id })))
         formik.setFieldValue('newsTags', Array.isArray(values?.storyTags) && values?.storyTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
+        formik.setFieldValue('keywords', Array.isArray(values?.keywords) && values?.storyTags?.map((elem) => ({ label: elem?.keyword, value: elem?.keyword })))
         // formik.setFieldValue('topNews', values?.is_top_news == '1' ? true : false)
         // const contentSec = values?.storySections?.map((elem) => (
         //     {
@@ -120,6 +124,7 @@ const NewsForm = () => {
         setSelectedImage({ image: values?.file_name || "", id: values?.feature_image_id })
         setSelectedOptions(Array.isArray(values?.mediaTags) && values?.mediaTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
         setNewsTags(Array.isArray(values?.storyTags) && values?.storyTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
+        setKeywordList(Array.isArray(values?.keywords) && values?.keywords?.map((elem) => ({ label: elem?.keyword, value: elem?.keyword })))
         getTagList(values?.mediaTags)
         // setMediaList(() => {
         //     const modifiedTags = values?.mediaTags?.map(elem => elem?.value)
@@ -169,6 +174,7 @@ const NewsForm = () => {
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,    //featureContent ->  body 
                 contentTags: newsTags?.map(item => item?.label),
+                keywords: keywordList?.map(item => item?.label),
                 toPublish: submitType == 'publish'
                 // topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
                 // storySections: finalData?.map((data) => ({     //contentSection -> storySections
@@ -188,6 +194,7 @@ const NewsForm = () => {
                 title: values?.heading,   //featureTitle  ->  title 
                 body: values?.desc,   //featureContent ->  body 
                 contentTags: newsTags?.map(item => item?.label),
+                keywords: keywordList?.map(item => item?.label),
                 toPublish: submitType == 'publish'
                 // topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
                 // storySections: finalData?.map((data) => ({   //contentSection -> storySections
@@ -310,6 +317,14 @@ const NewsForm = () => {
             return ({ tagId: elem?.value })
         })
         formik.setFieldValue('newsTags', modifiedTags)
+    };
+
+    const handleKeywordsChange = (newValue, actionMeta) => {
+        setKeywordList(newValue);
+        const modifiedTags = newValue?.map(elem => {
+            return ({ label: elem?.value })
+        })
+        formik.setFieldValue('keywords', modifiedTags)
     };
 
     const handleChange = (newValue, actionMeta) => {
@@ -435,15 +450,15 @@ const NewsForm = () => {
                             <div className='w-full md:w-[48%] flex flex-col gap-1 '>
                             <label htmlFor="" className={style.label}>Assign News Keywords <span className='font-bold text-xs text-red-500'>*</span></label>
                             <Creatable
-                                name='newsTags'
-                                {...formik.getFieldProps('newsTags')}
-                                className={` ${(formik.errors.newsTags) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                name='keywords'
+                                {...formik.getFieldProps('keywords')}
+                                className={` ${(formik.errors.keywords) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
                                 isMulti
-                                options={tagList?.map((elem) => {
-                                    return { label: elem?.tag_name, value: elem?.id }
-                                }) ?? []}
-                                onChange={handleNewsChange}
-                                value={newsTags}
+                                // options={keywordList?.map((elem) => {
+                                //     return { label: elem?.keyword, value: elem?.keyword }
+                                // }) ?? []}
+                                onChange={handleKeywordsChange}
+                                value={keywordList}
                             />
                         </div>
                             <div className='w-full md:w-[48%] flex flex-col gap-1'>
