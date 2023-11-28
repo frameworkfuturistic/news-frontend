@@ -17,7 +17,7 @@ const Footerlayout = () => {
           <div className='col-span-12 lg:col-span-4'>
             <div>
               <img src={footerlogo} alt="" className='p-2 my-6' />
-              <p className='p-3 text-white'>आपका अपने चहेते चैनल "नक्षत्र न्यूज़ हिंदी" में तहे दिल से स्वागत है। राजनीति सहित देश के बड़े मुद्दों पर सवाल करना ही हमारी पहचान है। जन-जन तक की आवाज को हमने देश के कोने-कोने में पहुंचाया है इसी तरीके से आप "नक्षत्र न्यूज़ हिंदी" को प्यार देते रहिए। हम भी बेबाक, बेखौफ बोलते रहेंगे।</p>
+              <p className='p-3 text-white'>आपका अपने चहेते चैनल "नक्षत्र न्यूज़ हिंदी" में तहे दिल से स्वागत है। झारखंड-बिहार सहित देश के बड़े मुद्दों पर सवाल करना ही हमारी पहचान है। जन-जन तक की आवाज को हमने देश के कोने-कोने में पहुंचाया है इसी तरीके से आप "नक्षत्र न्यूज़ हिंदी" को प्यार देते रहिए। हम भी बेबाक, बेखौफ बोलते रहेंगे।</p>
               <div className='flex'><GoDotFill className='text-white my-1 mx-1' /> <p className='text-white'>Email:info@naxatranewshindi.com</p></div>
               <div className='flex'><GoDotFill className='text-white my-1 mx-1' /> <p className='text-white'>Phone: +91-8271776646</p></div>
             </div>
