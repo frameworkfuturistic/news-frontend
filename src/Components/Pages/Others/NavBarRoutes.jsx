@@ -2,18 +2,29 @@ import React, { useEffect, useState } from 'react'
 import BrandingIndex from '../NaxatraComponents/Branding/BrandingIndex';
 import NewsCategoriesIndex from '../NaxatraComponents/NewsCategories/NewsCategoriesIndex';
 import BreakingNewsIndex from '../NaxatraComponents/BreakinNews/BreakingNewsIndex';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Footerlayout from '../NaxatraComponents/Footer/Footerlayout';
 
 const NavBarRoutes = () => {
 
     const [bClose, setBClose] = useState(true);
+
+    const navigate = useNavigate()
+
     let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
 
     let breakingNews = "राज्यसभा में भी महिला आरक्षण विधेयक पारित, महिला सांसदों ने PM मोदी के साथ मनाया जश्न";
 
     useEffect(() => {
         window.scroll(0, -100);
+    
+        const device = window.localStorage.getItem('device');
+    
+            if(device == 'mobile'){
+                navigate('/mobile-login')
+                return;
+            }
+        
     }, [])
 
     return (

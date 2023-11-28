@@ -11,6 +11,10 @@ import { Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useState, lazy } from 'react';
 import 'animate.css'
+import MobileNewsIndex from './Components/Pages/Mobile/News/MobileNewsIndex';
+import MobileNewsForm from './Components/Pages/Mobile/News/MobileNewsForm';
+import MobileMediaMasterIndex from './Components/Pages/Mobile/MediaMaster/MobileMediaMasterIndex';
+import Profile from './Components/Pages/Mobile/Profile';
 
 // Imported Components or Pages 
 const HomeIndex            =  lazy(() => import('@/Components/Pages/NaxatraComponents/Home/HomeIndex'))
@@ -66,9 +70,10 @@ const privateRoutes = [
   
   // Mobile Routes
   const mobileRoutes = [
-    { path: "/mobile/report-master", element: <NewsIndex /> },
-    { path: "/mobile/news-form/:id?", element: <NewsForm /> },
-    { path: "/mobile/media-master", element: <MediaMasterIndex /> },
+    { path: "/mobile/report-master", element: <MobileNewsIndex /> },
+    { path: "/mobile/news-form/:id?", element: <MobileNewsForm /> },
+    { path: "/mobile/media-master", element: <MobileMediaMasterIndex /> },
+    { path: "/mobile/profile", element: <Profile /> },
   ]
 
   return (

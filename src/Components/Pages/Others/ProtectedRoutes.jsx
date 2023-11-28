@@ -6,7 +6,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 👉 Importing Components and libraries 👈
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { contextVar } from '@/Components/context/contextVar'
 import { useContext } from 'react'
@@ -22,13 +22,22 @@ const ProtectedRoutes = () => {
     
     const device = window.localStorage.getItem('device');
 
-console.log('Token:', token);
+    useEffect(() => {
 
-if (token == null || token == '' || token == undefined || device == 'mobile') {
-    console.log('Navigating to /mobile-login');
-    navigate('/mobile-login');
-    return;
-}
+        console.log('Token:', token);
+
+        if(device == 'mobile'){
+            navigate('/mobile-login')
+            return;
+        }
+        
+        if (token == null || token == '' || token == undefined) {
+            console.log('Navigating to /mobile-login');
+            navigate(device == 'mobile' ? '/mobile-login' : '/login')
+            return;
+        }
+
+    },[])
 
     return (
         <>

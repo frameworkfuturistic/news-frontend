@@ -4,20 +4,18 @@ import * as yup from 'yup'
 import axios from 'axios'
 import ApiJsonHeader from '@/Components/Api/ApiJsonHeader'
 import { useNavigate, useParams } from 'react-router-dom'
-import ApiMultipartHeader from '@/Components/Api/ApiMultipartHeader'
 import toast from 'react-hot-toast'
 import BarLoader from '@/Components/Common/Loaders/BarLoader'
 import { checkErrorMessage } from '@/Components/Common/PowerUpFunctions'
 import ErrorCard from '@/Components/Common/ErrorCard'
-// import NewsSection from './NewsSection'
 import Select from 'react-select'
 import Creatable from 'react-select/creatable'
-import MediaMasterIndex from '../MediaMaster/MediaMasterIndex'
 import { ApiList } from '@/Components/Api/ApiList'
 import ImageSelect from '@/Components/Common/ImageSelect'
-import TinyEditor from '../Editor/TinyEditor'
+import TinyEditor from '../../Admin/Editor/TinyEditor'
+import MobileMediaMasterIndex from '../MediaMaster/MobileMediaMasterIndex'
 
-const NewsForm = () => {
+const MobileNewsForm = () => {
 
     // URL constants
     const { id, type } = useParams()
@@ -556,9 +554,9 @@ const NewsForm = () => {
                 </div>
             </div>
 
-            {addMedia && <MediaMasterIndex addMedia={addMedia} close={() => closeMediaAddFun()} />}
+            {addMedia && <MobileMediaMasterIndex addMedia={addMedia} close={() => closeMediaAddFun()} />}
         </>
     )
 }
 
-export default NewsForm
+export default MobileNewsForm
