@@ -16,7 +16,7 @@ const MukhyaSamachar = (props) => {
   return (
     <>
 
-      <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-max w-full bg-slate-600  flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
+      <div id={props?.data?.categoryId} className='border-t border-b h-full md:h-max w-full bg-slate-600 shadow-xl rounded-xl flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
 
         <div className='w-full h-[90%]  '>
 

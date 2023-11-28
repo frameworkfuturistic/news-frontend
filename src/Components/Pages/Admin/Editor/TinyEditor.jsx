@@ -33,12 +33,12 @@ export default function TinyEditor(props) {
           plugins: [
             'paste', 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
             'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues'
+            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues' , 'textcolor colorpicker'
           ],
           theme_advanced_buttons1: "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
           toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +
             'bullist numlist outdent indent | link image | print preview media fullscreen uploadimage| ' +
-            'forecolor backcolor emoticons',
+            'forecolor backcolor emoticons' + 'forecolor backcolor | fontsizeselect', 
           menu: {
             favs: { title: 'menu', items: 'code visualaid | searchreplace | emoticons' }
           },
