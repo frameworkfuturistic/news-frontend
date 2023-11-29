@@ -93,9 +93,9 @@ const CameraCap = (props) => {
 
             .then((stream) => {
 
-                videoRef.current.srcObject = stream;
+                videoRef.current && (videoRef.current.srcObject = stream)
 
-                videoRef.current.onloadedmetadata = () => {
+                videoRef.current && (videoRef.current.onloadedmetadata = () => {
 
                     // set the canvas size to match the video stream size
 
@@ -103,7 +103,7 @@ const CameraCap = (props) => {
 
                     canvasRef.current.height = videoRef.current.videoHeight;
 
-                };
+                })
 
             })
 
@@ -138,8 +138,7 @@ const CameraCap = (props) => {
 
     const stopCamera = () => {
 
-        const stream = videoRef.current.srcObject;
-
+        const stream = videoRef?.current?.srcObject;
 
 
         if (stream) {
@@ -201,13 +200,18 @@ const CameraCap = (props) => {
 
         link.click();
 
-        closeModal()
+        modal.current.close()
 
     };
 
     const handleModal = () => {
         modal.current.showModal()
         startCamera()
+    }
+
+    const handleCloseModal = () => {
+        stopCamera()
+        modal.current.close()
     }
 
     return (
@@ -220,7 +224,7 @@ const CameraCap = (props) => {
 
             < dialog ref={modal} className="bg-gray-50 px-2 py-8 relative focus:outline-none animate__animated animate__zoomIn animate__faster backdrop:backdrop-brightness-50 backdrop:backdrop-blur-md w-full">
 
-                <div className="absolute top-1 z-10 bg-red-200 hover:bg-red-300 right-1 rounded-full p-2 cursor-pointer" onClick={() => modal.current.close()}>
+                <div className="absolute top-1 z-10 bg-red-200 hover:bg-red-300 right-1 rounded-full p-2 cursor-pointer" onClick={() => handleCloseModal()}>
 
                     <RxCross2 fontSize={16} />
 
@@ -229,30 +233,27 @@ const CameraCap = (props) => {
 
                 {/* =======To open camera and take picture */}
 
-                <div className='flex justify-center gap-2'>
+                {/* <div className='flex justify-center gap-2'>
 
                     <button onClick={startCamera} className="text-sm px-4 py-1 bg-green-100 hover:bg-green-600 focus:bg-green-500 text-green-800 rounded-sm border border-green-600 hover:text-white focus:text-white shadow-md">Start Camera</button>
 
                     <button onClick={stopCamera} className="text-sm px-4 py-1 bg-red-100 hover:bg-red-600 focus:bg-red-500 text-red-800 rounded-sm border border-red-600 hover:text-white focus:text-white shadow-md">Stop Camera</button>
 
-                </div>
+                </div> */}
 
                 <div className='mt-6 w-full flex flex-wrap gap-4'>
 
-                    <div>
+                    {!imageData && <div>
 
                         <video ref={videoRef} autoPlay className='-scale-x-1' />
 
                         <canvas ref={canvasRef} style={{ display: "none" }} />
 
                         <div className='w-full flex justify-center gap-2 text-center my-4'>
-
-                            {
-                                videoRef?.current?.srcObject != null && <button onClick={captureImage} className="text-sm px-4 py-1 bg-gray-500 hover:bg-gray-600 focus:bg-gray-600 text-black rounded-md shadow-md">Capture</button>
-                            }
+                            <button onClick={captureImage} className="text-sm px-4 py-1 border border-blue-600 text-blue-600 bg-blue-100 hover:bg-blue-600 focus:bg-blue-600 hover:text-white focus:text-white shadow-md">Capture</button>
                         </div>
 
-                    </div>
+                    </div>}
 
                     {imageData && <>
 
@@ -260,9 +261,10 @@ const CameraCap = (props) => {
 
                             <img src={imageData} alt="Captured Image" />
 
-                            <div className='w-full text-center my-4'>
+                            <div className='w-full my-4 flex gap-2 justify-center items-center'>
 
-                                <button onClick={handleDownload} className="text-sm px-4 py-1 bg-gray-500 hover:bg-gray-600 focus:bg-gray-600 text-black rounded-md shadow-md">Save</button>
+                                <button onClick={() => (setImageData(null), startCamera())} className="text-sm px-4 py-1 border border-blue-600 text-blue-600 bg-blue-100 hover:bg-blue-600 focus:bg-blue-600 hover:text-white focus:text-white shadow-md">Re-Capture</button>
+                                <button onClick={handleDownload} className="text-sm px-4 py-1 border border-green-600 text-green-600 bg-green-100 hover:bg-green-600 focus:bg-green-600 hover:text-white focus:text-white shadow-md">Confirm</button>
 
                             </div>
 

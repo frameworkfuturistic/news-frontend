@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import { IoMdAddCircle } from "react-icons/io";
 import { AiFillEdit } from "react-icons/ai";
 import { FaTrashRestore } from "react-icons/fa";
+import CameraCap from "./CameraCap";
 
 const MobileMediaMasterIndex = (props) => {
 
@@ -410,7 +411,11 @@ const deleteFun = () => {
 
           <div className="flex flex-col gap-1">
             <label htmlFor="" className={labelStyle}>Upload Image</label>
+            <div className="flex gap-2 items-center">
             <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} accept=".png, .jpg, .jpeg, .mp4" name="media" id="" />
+            <span className="font-semibold text-sm">OR</span>
+            <CameraCap />
+            </div>
             <span className="text-xs font-semibold italic">Image must be ".png, .jpg or .jpeg" and Video must be ".mp4"</span>
           </div>
 
