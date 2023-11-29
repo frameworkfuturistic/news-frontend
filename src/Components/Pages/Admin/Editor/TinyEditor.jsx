@@ -27,13 +27,14 @@ export default function TinyEditor(props) {
         onProgressState={false}
         init={{
           selector: 'textarea#default',
+          extended_valid_elements: true,
           language: "hi_IN",
           height: props?.height || 400,
           forced_root_block: 'div',
           plugins: [
             'paste', 'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'prewiew', 'anchor', 'pagebreak',
             'searchreplace', 'wordcount', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media',
-            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues' , 'textcolor colorpicker'
+            'table', 'emoticons', 'template', 'codesample', 'uploadimage', 'initialvalues' , 'textcolor ', 'colorpicker' , 'contextmenu' , 'visualblocks'
           ],
           theme_advanced_buttons1: "newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
           toolbar: 'undo redo | styles | bold italic underline | alignleft aligncenter alignright alignjustify |' +

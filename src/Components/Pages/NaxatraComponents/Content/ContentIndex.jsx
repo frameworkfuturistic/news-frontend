@@ -11,6 +11,7 @@ import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
 import { codeCheck, indianDate } from "@/Components/Common/PowerUpFunctions";
+import BrandLoader from "@/Components/Common/Loaders/BrandLoader";
 
 const ContentIndex = () => {
 
@@ -137,7 +138,7 @@ const ContentIndex = () => {
   useEffect(() => {
     getActiveStories()
     getCategoryStories()
-  }, [refresh])
+  }, [refresh, id, cId])
 
   console.log("news list => ", newsList)
 
@@ -145,7 +146,10 @@ const ContentIndex = () => {
   return (
     <>
 
-      <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
+{
+  loader && <BrandLoader />
+}
+      {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
 
         <div
           className={` h-full w-full grid grid-cols-12 md:px-10 gap-8`}
@@ -154,6 +158,14 @@ const ContentIndex = () => {
             <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigate('/')}>Back</button>
           </div>
           <div className="col-span-12 md:col-span-8">
+            <div className="w-full flex gap-2 flex-wrap my-2">
+              {
+                newsData?.storyTags?.map((elem) => 
+                <span className="w-max px-4 py-0.5 rounded-full border border-zinc-600 text-zinc-700">
+                {elem?.tag_name}
+                </span>)
+              }
+            </div>
             <h1 className="text-xl">
               <span className=" font-semibold">{newsData?.title} </span>
             </h1>
@@ -216,7 +228,7 @@ const ContentIndex = () => {
               />}
 
             <div className="py-2 text-zinc-700">
-              <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${newsList[0]?.id}/${newsData?.main?.categoryId}`)}>
+              <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${newsList[0]?.story_id}/${newsList[0]?.category_id}`)}>
                 {newsList[0]?.story_title}
               </span>
             </div>
@@ -271,7 +283,7 @@ const ContentIndex = () => {
 
         </div>
 
-      </div>
+      </div>}
     </>
   );
 };

@@ -65,7 +65,7 @@ const NewsForm = () => {
 
     // validation schema for form
     const schema = yup.object().shape({
-        category: yup.string().required,
+        category: yup.string().required(),
         // category: yup.array().min(1, 'select atleast one').required(),
         media: yup.string().required(),
         heading: yup.string().required(),
@@ -193,7 +193,7 @@ const NewsForm = () => {
             url = api_addNews
 
             payload = {
-                category: values?.category,
+                categoryId: values?.category,
                 //categoryId: categories?.map(item => item?.value),
                 tags: values?.newsTags, // story tags
                 featureImageId: values?.media,
