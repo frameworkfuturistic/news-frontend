@@ -57,7 +57,7 @@ function App() {
   const navBarRoutes = [
     { path: "/:type?/:name?", element: <HomeIndex /> },
     { path: "/layout", element: <LayoutIndex /> },
-    { path: "/news-details/:id/:cId?", element: <ContentIndex /> },
+    { path: "/news-details/:id/:cId?/:cat?/:heading?", element: <ContentIndex /> },
   ]
 
   // 👉 Private Routes Json 👈
@@ -71,7 +71,7 @@ const privateRoutes = [
   // Mobile Routes
   const mobileRoutes = [
     { path: "/mobile/report-master", element: <MobileNewsIndex /> },
-    { path: "/mobile/news-form/:id?", element: <MobileNewsForm /> },
+    { path: "/mobile/news-form/:id?/:type?", element: <MobileNewsForm /> },
     { path: "/mobile/media-master", element: <MobileMediaMasterIndex /> },
     { path: "/mobile/profile", element: <Profile /> },
   ]

@@ -54,7 +54,7 @@ const MobileNewsForm = () => {
         media: '',
         tags: [],
         newsTags: [],
-        keywords:[],
+        keywords: [],
         media: '',
         // topNews: false,
         heading: '',
@@ -63,7 +63,7 @@ const MobileNewsForm = () => {
 
     // validation schema for form
     const schema = yup.object().shape({
-        category: yup.string().required,
+        category: yup.string().required(),
         // category: yup.array().min(1, 'select atleast one').required(),
         media: yup.string().required(),
         heading: yup.string().required(),
@@ -178,7 +178,7 @@ const MobileNewsForm = () => {
                 body: values?.desc,    //featureContent ->  body 
                 contentTags: newsTags?.map(item => item?.label),
                 keywords: keywordList?.map(item => item?.label),
-                toPublish: submitType == 'publish'
+                // toPublish: submitType == 'publish'
                 // topNews: values?.topNews == 'true' ? 1 : 0, //add topnews payload 
                 // storySections: finalData?.map((data) => ({     //contentSection -> storySections
                 //     mediaId: data?.media,
@@ -191,7 +191,7 @@ const MobileNewsForm = () => {
             url = api_addNews
 
             payload = {
-                category: values?.category,
+                categoryId: values?.category,
                 //categoryId: categories?.map(item => item?.value),
                 tags: values?.newsTags, // story tags
                 featureImageId: values?.media,
@@ -199,7 +199,7 @@ const MobileNewsForm = () => {
                 body: values?.desc,   //featureContent ->  body 
                 contentTags: newsTags?.map(item => item?.label),
                 keywords: keywordList?.map(item => item?.label),
-                toPublish: submitType == 'publish'
+                // toPublish: submitType == 'publish'
                 // topNews: values?.topNews == 'true' ? 1 : 0,  //add topnews payloadNN
                 // storySections: finalData?.map((data) => ({   //contentSection -> storySections
                 //     mediaId: data?.media,
@@ -218,7 +218,7 @@ const MobileNewsForm = () => {
             .then((res) => {
                 if (res?.data?.status) {
                     toast.success("News Added Successfully !!!")
-                    navigate('/news-master')
+                    navigate('/mobile/report-master')
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
                 }
@@ -381,10 +381,10 @@ const MobileNewsForm = () => {
             <div className='relative'>
 
                 {/* Back Button */}
-                <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer absolute -top-8 -left-3"} onClick={() => window.history.back()}>Back</button>
+                <button className={"px-4 py-1 text-sm m-2 bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer  "} onClick={() => window.history.back()}>Back</button>
 
                 {/* 👉 Heading 👈 */}
-                <div className="font-semibold text-cyan-900 text-xl py-1 tracking-[0.1rem] border-b border-cyan-900 mt-4">
+                <div className="font-semibold text-cyan-900 text-xl py-1 mx-2 tracking-[0.1rem] border-b border-cyan-900">
                     News {id ? 'Edit' : 'Add'} Form
                 </div>
 
@@ -419,10 +419,10 @@ const MobileNewsForm = () => {
                                 <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
                                     <option value="">Select</option>
-                                 <option className='' value={"12"}>Breaking News</option> 
+                                    <option className='' value={"12"}>Breaking News</option>
                                     {
-                                        categoryList?.map((elem) => 
-                                        <option className='' value={elem?.id}>{elem?.category}</option>
+                                        categoryList?.map((elem) =>
+                                            <option className='' value={elem?.id}>{elem?.category}</option>
                                         )
                                     }
 
@@ -474,28 +474,28 @@ const MobileNewsForm = () => {
 
                             {/* Media Selection */}
                             <div className='w-full md:w-[48%] flex flex-col gap-1 '>
-                            <label htmlFor="" className={style.label}>Assign News Keywords <span className='font-bold text-xs text-red-500'>*</span></label>
-                            <Creatable
-                                name='keywords'
-                                {...formik.getFieldProps('keywords')}
-                                className={` ${(formik.errors.keywords) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
-                                isMulti
-                                // options={keywordList?.map((elem) => {
-                                //     return { label: elem?.keyword, value: elem?.keyword }
-                                // }) ?? []}
-                                onChange={handleKeywordsChange}
-                                value={keywordList}
-                            />
-                        </div>
+                                <label htmlFor="" className={style.label}>Assign News Keywords <span className='font-bold text-xs text-red-500'>*</span></label>
+                                <Creatable
+                                    name='keywords'
+                                    {...formik.getFieldProps('keywords')}
+                                    className={` ${(formik.errors.keywords) ? ' border border-red-300 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}
+                                    isMulti
+                                    // options={keywordList?.map((elem) => {
+                                    //     return { label: elem?.keyword, value: elem?.keyword }
+                                    // }) ?? []}
+                                    onChange={handleKeywordsChange}
+                                    value={keywordList}
+                                />
+                            </div>
                             <div className='w-full md:w-[48%] flex flex-col gap-1'>
                                 <label htmlFor="" className={style.label}>Select Media <span className='font-bold text-xs text-red-500'>*</span></label>
                                 <div name='media' {...formik.getFieldProps('media')} className={style.input + ` ${(formik.touched.media && formik.errors.media) ? ' w-full border-red-200 placeholder:text-red-500 ' : ' w-full focus:border-zinc-300 border-zinc-200'}`} >
                                     <ImageSelect
-                                    style={style}
-                                    tagList={tagList}
-                                    handleChange={handleChange}
-                                    selectedOptions={selectedOptions}
-                                    options={mediaList ?? []} okey={'media_id'} ovalue={'file_name'} imageSelected={(okey, ovalue) => handleImageSelect({ id: okey, image: ovalue })} />
+                                        style={style}
+                                        tagList={tagList}
+                                        handleChange={handleChange}
+                                        selectedOptions={selectedOptions}
+                                        options={mediaList ?? []} okey={'media_id'} ovalue={'file_name'} imageSelected={(okey, ovalue) => handleImageSelect({ id: okey, image: ovalue })} />
                                 </div>
                             </div>
 
@@ -548,7 +548,6 @@ const MobileNewsForm = () => {
 
                     <div className="w-full flex justify-start px-4 pb-4 gap-2">
                         <button type="submit" onClick={() => (formik.handleSubmit(), setSubmitType(""))} className='bg-green-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-green-600'>{id ? 'Update' : 'Add'} News</button>
-                        <button type="submit" onClick={() => (formik.handleSubmit(), setSubmitType("publish"))} className='bg-blue-500 text-white px-4 py-1 text-sm drop-shadow-md hover:bg-blue-600'>Publish News</button>
                     </div>
 
                 </div>

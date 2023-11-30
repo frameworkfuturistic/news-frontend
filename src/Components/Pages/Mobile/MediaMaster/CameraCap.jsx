@@ -7,6 +7,7 @@ import { FcCamera } from 'react-icons/fc'
 import { RxCross2 } from 'react-icons/rx'
 import exifr from 'exifr';
 import { FaCamera } from 'react-icons/fa'
+import { getCurrentDate } from '@/Components/Common/PowerUpFunctions';
 
 const CameraCap = (props) => {
 
@@ -14,42 +15,10 @@ const CameraCap = (props) => {
 
     const [cameraUpload, setcameraUpload] = useState()
     const [cameraUrl, setcameraUrl] = useState(null)
-    const [camera, setcamera] = useState(false)
 
     // ===========fetching application data end=========
 
     const modal = useRef(null)
-
-
-
-    const submitDocFun = () => {
-
-
-
-        let url;
-
-
-
-        let fd = new FormData();
-
-
-
-        fd.append('safId', id)
-
-
-
-        fd.append("directionType[2]", 'Front')
-
-        {
-
-            !camera ? fd.append('imagePath[2]', cameraUpload) :
-
-                fd.append("imagePath[2]", dataURLtoFile(cameraUrl, "FrontImage.jpg"))
-
-        }
-
-    }
-
 
 
     function dataURLtoFile(dataurl, filename) {
@@ -167,7 +136,7 @@ const CameraCap = (props) => {
 
         setImageData(data);
 
-        console.log('image data captured => ', data)
+        // console.log('image data captured => ', data)
 
     };
 
@@ -181,9 +150,6 @@ const CameraCap = (props) => {
 
     // ===========to get location from image end here==================
 
-
-
-
     // =====download image==========
 
     const handleDownload = () => {
@@ -194,11 +160,14 @@ const CameraCap = (props) => {
 
         // link.download = "./Images/CapturedImage.jpg";
 
-        setcamera(true)
-
         setcameraUrl(imageData)
 
-        link.click();
+        let data = dataURLtoFile(imageData, `CAM-${getCurrentDate()}.jpg`)
+
+        props?.image(data)
+        props?.imageUrl(imageData)
+
+        // link.click();
 
         modal.current.close()
 
@@ -206,6 +175,7 @@ const CameraCap = (props) => {
 
     const handleModal = () => {
         modal.current.showModal()
+        setImageData(null)
         startCamera()
     }
 
