@@ -8,7 +8,7 @@ export default function TinyEditor(props) {
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
-      console.log('editor typing', editorRef.current.getContent());
+      // console.log('editor typing', editorRef.current.getContent());
       props?.tinyChange(editorRef.current.getContent())
     }
   };

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaCalendarAlt, FaUserCircle } from "react-icons/fa";
+import { FaCalendarAlt, FaRegShareSquare, FaUserCircle } from "react-icons/fa";
 import Video from "../Home/Video";
 import "../Home/style.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -12,6 +12,7 @@ import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
 import { codeCheck, indianDate } from "@/Components/Common/PowerUpFunctions";
 import BrandLoader from "@/Components/Common/Loaders/BrandLoader";
+import { FaShareFromSquare } from "react-icons/fa6";
 
 const ContentIndex = () => {
 
@@ -140,15 +141,34 @@ const ContentIndex = () => {
     getCategoryStories()
   }, [refresh, id, cId])
 
-  console.log("news list => ", newsList)
+  const handleShare = async () => {
+    try {
+      if (navigator?.share) {
+
+        const originalUrl = window.location.href;
+        const trimmedUrl = originalUrl.substring(0, originalUrl.lastIndexOf('/'));
+        
+        await navigator.share({
+          title: 'Check out this news',
+          text: newsData?.title,
+          url: trimmedUrl,
+        });
+      } else {
+        throw new Error('Web Share API not supported.');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error.message);
+    }
+  };
+  
 
 
   return (
     <>
 
-{
-  loader && <BrandLoader />
-}
+      {
+        loader && <BrandLoader />
+      }
       {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
 
         <div
@@ -160,10 +180,10 @@ const ContentIndex = () => {
           <div className="col-span-12 md:col-span-8">
             <div className="w-full flex gap-2 flex-wrap my-2">
               {
-                newsData?.storyTags?.map((elem) => 
-                <span className="w-max px-4 py-0.5 rounded-full border border-zinc-600 text-zinc-700">
-                {elem?.tag_name}
-                </span>)
+                newsData?.storyTags?.map((elem) =>
+                  <span className="w-max px-4 py-0.5 rounded-full border border-zinc-600 text-zinc-700">
+                    {elem?.tag_name}
+                  </span>)
               }
             </div>
             <h1 className="text-xl">
@@ -173,6 +193,8 @@ const ContentIndex = () => {
               <div className="flex gap-2 items-center">
                 <span className="text-zinc-500 text-xl"><FaCalendarAlt /></span>
                 {indianDate(newsData?.publication_date)} - {newsData?.publication_time}
+
+                <attr className="text-blue-900 text-xl font-bold ml-10 cursor-pointer" title="Share Link" onClick={() => handleShare()}><FaShareFromSquare size={22} /></attr>
               </div>
               <div>
               </div>
@@ -238,7 +260,7 @@ const ContentIndex = () => {
             </div>
 
             <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-              {newsList[0]?.story_body && <div dangerouslySetInnerHTML={{__html: newsList[0]?.story_body}} />}
+              {newsList[0]?.story_body && <div dangerouslySetInnerHTML={{ __html: newsList[0]?.story_body }} />}
             </div>
 
             <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
