@@ -26,7 +26,7 @@ const BottomComponent = (props) => {
                         />
                 }
                 <div className="flex flex-col gap-1 col-span-8">
-                    <span className={`text-zinc-800 text-sm cursor-pointer hover:text-red-500 ${props?.data?.story_title ? '' : 'h-full flex justify-center items-center border-2'}`}  onClick={() => navigate(`/news-details/${props?.data?.story_id}`)}>
+                    <span className={`text-zinc-800 text-sm cursor-pointer hover:text-red-500 ${props?.data?.story_title ? '' : 'h-full flex justify-center items-center border-2'}`}  onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.cname}/${props?.data?.story_title}`)}>
                         {props?.data?.story_title ?? "Heading"}
                     </span>
                     <span className="text-sm text-zinc-500">{props?.data?.publication_date}</span>

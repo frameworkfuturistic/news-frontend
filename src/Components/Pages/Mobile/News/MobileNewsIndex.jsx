@@ -1,6 +1,6 @@
 // 👉 Importing Packages 👈
 import React, { useEffect, useRef, useState } from "react";
-import ListTable from "@/Components/Common/ListTable/ListTable";
+import ListTable from "./ListTable/ListTable";
 import { ApiList } from "@/Components/api/ApiList";
 import { checkErrorMessage, getCurrentDate, indianDate, nullToNA } from "@/Components/Common/PowerupFunctions";
 import ShimmerEffectInline from "@/Components/Common/Loaders/ShimmerEffectInline";
@@ -13,9 +13,9 @@ import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import { FiAlertCircle } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { AiOutlineEdit } from "react-icons/ai";
-import { BiTrash  } from "react-icons/bi";
-import { GrUpdate  } from "react-icons/gr";
-import { IoMdAddCircle  } from "react-icons/io";
+import { BiTrash } from "react-icons/bi";
+import { GrUpdate } from "react-icons/gr";
+import { IoMdAddCircle } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -38,9 +38,9 @@ const MobileNewsIndex = () => {
     const [viewData, setViewData] = useState(null)
 
     // 👉 CSS constants 👈
-    const addButton = "float-right focus:outline-none border border-green-500 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-green-500 hover:text-white text-green-500 flex items-center"
-    const editButton = "float-right focus:outline-none border border-cyan-900 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-cyan-900 hover:text-white text-cyan-900 flex items-center"
-    const deleteButton = "float-right focus:outline-none border border-red-500 px-3 py-1 rounded-sm shadow-lg hover:drop-shadow-md hover:bg-red-500 hover:text-white text-red-500 flex items-center"
+    const addButton = "float-left mt-2 focus:outline-none border border-green-500 px-3 py-1 rounded-sm bg-green-500 text-white flex items-center"
+    const editButton = "float-right focus:outline-none border border-cyan-900 px-3 py-1 rounded-sm hover:drop-shadow-md hover:bg-cyan-900 hover:text-white text-cyan-900 flex items-center"
+    const deleteButton = "float-right focus:outline-none border border-red-500 px-3 py-1 rounded-sm hover:drop-shadow-md hover:bg-red-500 hover:text-white text-red-500 flex items-center"
     const labelStyle = 'text-gray-800 text-sm'
     const inputStyle = 'border focus:outline-none drop-shadow-sm focus:drop-shadow-md px-4 py-1 text-gray-700 shadow-black placeholder:text-sm'
 
@@ -58,11 +58,11 @@ const MobileNewsIndex = () => {
 
         switch (type) {
             case 'add': {
-                navigate('/news-form')
+                navigate('/mobile/news-form')
             } break;
             case 'edit': {
                 setViewData(data)
-                navigate(`/news-form/${data?.id}/edit`)
+                navigate(`/mobile/news-form/${data?.id}/edit`)
             } break;
             case 'delete': {
                 setViewData(data)
@@ -77,38 +77,41 @@ const MobileNewsIndex = () => {
         {
             Header: "#",
             Cell: ({ row }) => <div className="pr-2">{row?.index + 1}</div>,
+            className: "absolute top-2 left-2 text-blue-500 font-extrabold pl-2 drop-shadow-md text-sm bg-white text-center"
         },
         {
             Header: "Category",
             accessor: "category",
-            Cell: ({ cell }) =>    <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-          {(nullToNA(cell.row.original?.category))}  
-      </span>,
+            Cell: ({ cell }) => <span className="items-center rounded-md px-2 py-1 text-sm font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                {(nullToNA(cell.row.original?.category))}
+            </span>,
+            className: "absolute top-2 right-2 text-blue-500 font-extrabold drop-shadow-md text-sm bg-white text-center"
         },
         {
             Header: "File",
             accessor: "file_name",
             Cell: ({ cell }) => {
-              const fileName = cell.row.original?.file_name;
-          
-              if (fileName.endsWith('.jpeg') || fileName.endsWith('.png'))  {
-                return <img src={fileName} alt="Image" className="w-10" srcSet="" />;
-              } else if (fileName.endsWith('.mp4')) {
-                return (
-                  <video width="300" height="240" controls>
-                    <source src={fileName} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                );
-              } else {
-                return 'N/A';
-              }
+                const fileName = cell.row.original?.file_name;
+
+                if (fileName.endsWith('.jpeg') || fileName.endsWith('.png')) {
+                    return <img src={fileName} alt="Image" className="" srcSet="" />;
+                } else if (fileName.endsWith('.mp4')) {
+                    return (
+                        <video width="" height="240" controls>
+                            <source src={fileName} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    );
+                } else {
+                    return 'N/A';
+                }
             },
-          } ,
+            className: 'w-full px-2 mb-4'
+        },
         {
             Header: "Heading",
             accessor: "title",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.title)),
+            Cell: ({ cell }) => <><span className="font-bold my-1 px-2">Heading:</span> {nullToNA(cell.row.original?.title)}</>,
         },
         // {
         //     Header: "Top News",
@@ -127,18 +130,18 @@ const MobileNewsIndex = () => {
         {
             Header: "Created At",
             accessor: "publication_date",
-            Cell: ({ cell }) => (nullToNA(cell.row.original?.publication_date)),    //created_at -> publication_date
+            Cell: ({ cell }) => <><span className="font-bold my-1 px-2">Created At:</span> {nullToNA(cell.row.original?.publication_date)}</>,
         },
         {
             Header: "Action",
             accessor: "id",
             Cell: ({ cell }) => (
-                <div className="flex flex-row flex-wrap gap-2">
+                <div className="flex flex-row flex-wrap gap-2 my-2 px-2">
                     <button
                         onClick={() => handleModal('edit', cell?.row?.original)}
                         className={editButton}
                     >
-                        <AiOutlineEdit />&nbsp; Edit 
+                        <AiOutlineEdit />&nbsp; Edit
                     </button>
                     <button
                         onClick={() => handleModal('delete', cell?.row?.original)}
@@ -238,23 +241,23 @@ const MobileNewsIndex = () => {
         setLoader(false)
 
         axios
-          .post(api_deleteActiveNews, {id: viewData?.id}, ApiJsonHeader())
-          .then((res) => {
-            if(res?.data?.status){
-                getNewsList () ;
-                toast.success("News Deleted Successfully !!!")
-            } else {
-                activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
-            }
-          })
-          .catch(err => {
-            console.error(err)
-            activateBottomErrorCard(true, 'Server Error! Please try again later.')
-        })
-        .finally(() => {
-            setLoader(false)
-            dialogRef.current.close()
-        })
+            .post(api_deleteActiveNews, { id: viewData?.id }, ApiJsonHeader())
+            .then((res) => {
+                if (res?.data?.status) {
+                    getNewsList();
+                    toast.success("News Deleted Successfully !!!")
+                } else {
+                    activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
+                }
+            })
+            .catch(err => {
+                console.error(err)
+                activateBottomErrorCard(true, 'Server Error! Please try again later.')
+            })
+            .finally(() => {
+                setLoader(false)
+                dialogRef.current.close()
+            })
     }
 
     // 👉 To call Function 3 👈
@@ -268,11 +271,11 @@ const MobileNewsIndex = () => {
             {/* 👉 Error Card 👈 */}
             <ErrorCard activateErrorCard={activateBottomErrorCard} status={errorState} message={errorMessage} />
 
-            <div className="poppins p-4 px-6">
+            <div className="poppins p-4">
 
                 {/* 👉 Heading 👈 */}
                 <div className="uppercase font-semibold text-cyan-900 text-2xl py-2 text-center tracking-[0.3rem] border-b border-cyan-900">
-                    News Master
+                    News List
                 </div>
 
                 {/* 👉 Searching Form 👈 */}
@@ -331,11 +334,9 @@ const MobileNewsIndex = () => {
                                 <ListTable
                                     columns={COLUMNS}
                                     dataList={newsData}
+                                    exportStatus={false}
                                 >
-                                    <div className="flex justify-end gap-2">
-                                    <button className={editButton + ' text-sm'} onClick={() => navigate('/edit')}> <GrUpdate />&nbsp; Modify Home Page</button>
-                                    <button className={addButton + ' text-sm'} onClick={() => handleModal('add')}> <IoMdAddCircle />&nbsp; Add News</button>
-                                    </div>
+                                        <button className={addButton + ' text-sm '} onClick={() => handleModal('add')}> <IoMdAddCircle />&nbsp; Add News</button>
                                 </ListTable>
                             </>
                             :

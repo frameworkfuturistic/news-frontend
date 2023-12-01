@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import { IoMdAddCircle } from "react-icons/io";
 import { AiFillEdit } from "react-icons/ai";
 import { FaTrashRestore } from "react-icons/fa";
+import CameraCap from "./CameraCap";
 
 const MobileMediaMasterIndex = (props) => {
 
@@ -42,6 +43,7 @@ const MobileMediaMasterIndex = (props) => {
   const [viewData, setViewData] = useState(null)
   const [tagList, setTagList] = useState([])
   const [document, setDocument] = useState(null)
+  const [imageUrl, setImageUrl] = useState('')
 
   // 👉 CSS constants 👈
   const addButton = "float-left mt-2 focus:outline-none border border-green-500 px-3 py-1 rounded-sm bg-green-500 text-white flex items-center"
@@ -79,12 +81,14 @@ const MobileMediaMasterIndex = (props) => {
     switch (type) {
       case 'add': {
         setSelectedOptions([])
+        setImageUrl('')
         dialogRef.current.showModal()
       } break;
       case 'edit': {
         const mTag = data?.tags?.split(",") ?? []
         setSelectedOptions(mTag?.map((elem) => ({label: elem, value: elem})))
         setViewData(data)
+        setImageUrl(data?.file_name)
         dialogRef.current.showModal()
       } break;
       case 'delete': {
@@ -247,6 +251,7 @@ const MobileMediaMasterIndex = (props) => {
       return;
     } else {
       setDocument(file)
+      setImageUrl(URL.createObjectURL(file))
     }
 
   }
@@ -353,7 +358,7 @@ const deleteFun = () => {
 
         {/* 👉 Heading 👈 */}
         <div className="mb-4 uppercase font-semibold text-cyan-900 text-2xl py-2 text-center tracking-[0.3rem] border-b border-cyan-900">
-          Media Master
+          Media List
         </div>
 
         {/* 👉 Table Loader 👈 */}
@@ -404,13 +409,19 @@ const deleteFun = () => {
         <div className={`${mType != 'delete' ? 'flex flex-col gap-2' : 'hidden'}`}>
           <h1 className="font-semibold text-xl border-b pb-1 mb-2">{mType == 'edit' ? "Edit" : "Add"} Media</h1>
 
-          {mType == 'edit' && <div className="">
-            <img src={`${viewData?.file_name}`} alt="" srcset="" />
-          </div>}
+          {/* {mType == 'edit' &&  */}
+          <div className="">
+            <img src={imageUrl} alt="Media" srcset="" />
+          </div>
+          {/* } */}
 
           <div className="flex flex-col gap-1">
             <label htmlFor="" className={labelStyle}>Upload Image</label>
+            <div className="flex gap-2 items-center">
             <input type="file" ref={fileRef} onChange={handleDocChange} className={fileStyle} accept=".png, .jpg, .jpeg, .mp4" name="media" id="" />
+            <span className="font-semibold text-sm">OR</span>
+            <CameraCap image={data => setDocument(data)} imageUrl={loc => setImageUrl(loc)} />
+            </div>
             <span className="text-xs font-semibold italic">Image must be ".png, .jpg or .jpeg" and Video must be ".mp4"</span>
           </div>
 

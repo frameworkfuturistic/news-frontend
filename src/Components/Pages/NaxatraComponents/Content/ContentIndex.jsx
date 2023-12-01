@@ -228,17 +228,17 @@ const ContentIndex = () => {
               />}
 
             <div className="py-2 text-zinc-700">
-              <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${newsList[0]?.story_id}/${newsList[0]?.category_id}`)}>
+              <span className="font-semibold text-xl line-clamp-2 text-ellipsis cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${newsList[0]?.story_id}/${newsList[0]?.category_id}/${newsList[0]?.category}/${newsList[0]?.story_title}`)}>
                 {newsList[0]?.story_title}
               </span>
             </div>
 
             <div className="text-sm text-gray-500 flex justify-between">
-              <span>{newsList[0]?.publication_date}</span>
+              <span>{indianDate(newsList[0]?.publication_date)}</span>
             </div>
 
             <div className="text-sm text-gray-500 line-clamp-2 text-ellipsis">
-              {newsList[0]?.story_body}
+              {newsList[0]?.story_body && <div dangerouslySetInnerHTML={{__html: newsList[0]?.story_body}} />}
             </div>
 
             <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
@@ -268,10 +268,10 @@ const ContentIndex = () => {
                           />
                       }
                       <div className="flex flex-col gap-1 col-span-8">
-                        <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.story_id}/${elem?.category_id}`)}>
+                        <span className="text-zinc-800 text-sm cursor-pointer hover:text-red-500" onClick={() => navigate(`/news-details/${elem?.story_id}/${elem?.category_id}/${elem?.category}/${elem?.story_title}`)}>
                           {elem?.story_title}
                         </span>
-                        <span className="text-sm text-zinc-500">{elem?.publication_date}</span>
+                        <span className="text-sm text-zinc-500">{indianDate(elem?.publication_date)}</span>
                       </div>
                     </div>
                   </>

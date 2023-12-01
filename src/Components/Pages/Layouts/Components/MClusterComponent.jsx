@@ -68,7 +68,7 @@ const MClusterComponent = (props) => {
                 }
 
                 <div className="col-span-8">
-                    <h1 className={`hover:text-red-500 text-slate-50 text-ellipsis line-clamp-3 font-semibold text-sm cursor-pointer ${props?.data?.story_title ? '' : 'h-10 flex justify-center items-center border-2'}`} onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}`)}>
+                    <h1 className={`hover:text-red-500 text-slate-50 text-ellipsis line-clamp-3 font-semibold text-sm cursor-pointer ${props?.data?.story_title ? '' : 'h-10 flex justify-center items-center border-2'}`} onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}/${props?.data?.category}/${props?.data?.story_title}`)}>
                         {props?.data?.story_title ?? "Heading"}
                     </h1>
                 </div>

@@ -25,6 +25,7 @@ const Component13 = (props) => {
           <HeadComponent
             // auth={props?.data?.section_renderer_code == `${props?.code}01`}
             data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}01`))[0]}
+            cname={props?.cdata?.category}
           />
 
           <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>{props?.cdata?.category}</span>
