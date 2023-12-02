@@ -53,8 +53,9 @@ function App() {
     { path: "/mobile-login", element: <MobileLogin /> },
     { path: "/career", element: <CareerForm /> },
   ]
-
+  
   const navBarRoutes = [
+    { path: "/mobile", element: <HomeIndex /> },
     { path: "/:type?/:name?", element: <HomeIndex /> },
     { path: "/layout", element: <LayoutIndex /> },
     { path: "/news-details/:id/:cId?/:cat?/:heading?", element: <ContentIndex /> },

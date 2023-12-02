@@ -54,10 +54,15 @@ const BrandingIndex = (props) => {
     // }
   }
 
+  const navigateFun2 = () => {
+    const device = window.localStorage?.getItem('device')
+    device == 'mobile' ? navigate('/mobile-login') : navigate('/login')
+}
+
   return (
     <>
       <div className='w-screen border-b flex justify-center items-center animate__animated animate__slideInDown animate__faster z-50'>
-        <div className={`max-w-[${props?.wpx}] h-full w-full flex justify-between md:px-10`} >
+        <div className={`max-w-[${props?.wpx}] h-full w-full flex flex-wrap justify-between md:px-10`} >
 
           <div className='flex gap-2 md:gap-4 items-center md:px-0 px-2 md:py-0 py-2'>
             <span className=' md:block hidden font-semibold cursor-pointer' onClick={() => navigate('/')}>Naxatra</span>
@@ -76,7 +81,7 @@ const BrandingIndex = (props) => {
             {token &&
               <button className='flex gap-2 items-center bg-green-600 hover:bg-green-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/career-admin')}><span>Dashboard</span></button>}
 
-            {!token ? <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/login')}><span>Sign In</span> <span className='text-lg'><BiUser /></span></button>
+            {!token ? <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigateFun2()}><span>Sign In</span> <span className='text-lg'><BiUser /></span></button>
               :
               <button className='flex gap-2 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' disabled={loader} onClick={() => dialogRef.current.showModal()}><span>{!loader ? 'Sign' : 'Signing'} Out</span></button>}
 

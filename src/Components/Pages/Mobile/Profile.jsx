@@ -23,7 +23,7 @@ const Profile = () => {
         }
       })
       .finally(() => {
-        navigate('/mobile-login')
+        navigate('/mobile')
       })
       
   }

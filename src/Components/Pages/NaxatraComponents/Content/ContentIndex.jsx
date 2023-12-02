@@ -160,6 +160,11 @@ const ContentIndex = () => {
       console.error('Error sharing:', error.message);
     }
   };
+
+  const navigateFun = () => {
+    const type = window.localStorage?.getItem('type')
+    type == 'mobile' ? navigate('/mobile') : navigate('/')
+  }
   
 
 
@@ -169,13 +174,13 @@ const ContentIndex = () => {
       {
         loader && <BrandLoader />
       }
-      {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster mt-2 relative">
+      {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster md:mt-2 relative">
 
         <div
           className={` h-full w-full grid grid-cols-12 md:px-10 gap-8`}
         >
           <div className="w-full col-span-12 -mb-20 ">
-            <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigate('/')}>Back</button>
+            <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigateFun()}>Back</button>
           </div>
           <div className="col-span-12 md:col-span-8">
             <div className="w-full flex gap-2 flex-wrap my-2">

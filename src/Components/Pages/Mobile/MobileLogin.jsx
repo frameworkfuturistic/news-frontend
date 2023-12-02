@@ -141,6 +141,10 @@ const MobileLogin = () => {
               }
             </div>
 
+            <div className='flex justify-center mt-2 '>
+              <span className='text-sm hover:underline text-blue-200 cursor-pointer ' onClick={() => navigate('/mobile')}>Back to Naxatra News</span>
+            </div>
+
           </div>
 
         </div>

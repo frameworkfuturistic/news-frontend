@@ -3,7 +3,7 @@ import HomeLayout from "./HomeLayout";
 import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
 import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { newsJson } from "./NewsJson";
 import Component13 from "../../Layouts/Component13";
 import { useState } from "react";
@@ -133,8 +133,14 @@ const HomeIndex = () => {
       })
   }
 
+  const location = useLocation()
+
   var flag = 0
   useEffect(() => {
+
+    if(location?.pathname == '/mobile'){
+      window.localStorage.setItem('device', 'mobile')
+    }
 
     window.scroll(0, -100);
     
