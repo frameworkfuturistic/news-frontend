@@ -44,7 +44,7 @@ const Component01 = (props) => {
         {Array.isArray(props?.data) &&
           props?.data?.map((elem, index) =>
             <SwiperSlide>
-              <div id={data?.categoryId} className='border-t border-b h-full w-full bg-black text-gray-50 flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'>
+              <div id={data?.categoryId} className='border-t border-b h-full w-full   rounded-xl text-black flex flex-col md:px-4 px-2 mb-4 md:mb-6 relative'  >
 
                 <div className='w-full h-full'>
 
@@ -63,11 +63,11 @@ const Component01 = (props) => {
 
                     </div>
                     <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
-                      <h1 className={`font-bold text-2xl text-gray-50 pt-8 cursor-pointer hover:text-red-500 ${elem?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${elem?.story_id}/${props?.elem?.category_id ?? '0'}/${props?.cdata?.category ?? 'breaking'}/${elem?.story_title}`)}>
+                      <h1 className={`font-bold text-2xl text-black pt-8 cursor-pointer hover:text-red-500 ${elem?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${elem?.story_id}/${props?.elem?.category_id ?? '0'}/${props?.cdata?.category ?? 'breaking'}/${elem?.story_title}`)}>
                         <span className='text-red-500'>Breaking News:</span> {elem?.story_title ?? "Heading"}
                       </h1>
 
-                      <p className={`text-gray-50  ${elem?.story_body ? '' : " border-2 h-full "}`}>
+                      <p className={`text-black  ${elem?.story_body ? '' : " border-2 h-full "}`}>
                         {!elem?.story_body && "Description"}
                         {
                           elem?.story_body && <div className="col-span-6 h-[20rem] overflow-auto" dangerouslySetInnerHTML={{ __html: elem?.story_body }}></div>

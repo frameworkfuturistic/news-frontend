@@ -109,7 +109,7 @@ const NewsCategoriesIndex = (props) => {
             </span>
 
             <div style={{ zIndex: 999 }} className=' ml-2 text-base text-zinc-50 font-semibold cursor-pointer md:block hidden relative transition-all duration-200 z-50'>
-              <NavLink to={'/'} className={'  hover:underline flex gap-1 items-center '}>Home</NavLink>
+              <NavLink to={'/'} className={'  hover:underline flex gap-1 items-center '}>होम </NavLink>
             </div>
 
             {
