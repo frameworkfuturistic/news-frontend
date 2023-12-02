@@ -66,7 +66,7 @@ const NewsForm = () => {
     // validation schema for form
     const schema = yup.object().shape({
         // category: yup.string().required(),
-        category: yup.array().min(1, 'select atleast one').required(),
+        // category: yup.array().min(1, 'select atleast one').required(),
         // media: yup.string().when('category', {
         //     is: (category) => Array.isArray(category) && category.some(item => item?.label == 12),
         //     then: yup.string().required(),
@@ -90,20 +90,28 @@ const NewsForm = () => {
 
         onSubmit: (values) => {
 
-            const check = values?.category.some(item => item?.label == 12)
-            
-            if (check) {
-                submitFun(values)
-                return;
-            } 
-
-            if(!check){
-                if(values?.tags?.length == 0 || values?.media == ''){
-                    toast.error("Select media")
+            if(type == 'edit'){
+                if(values?.category == ""){
+                    toast.error("Select Category")
                     return;
                 }
-                submitFun()
-            } 
+            } else {
+                if(values?.category?.length == 0){
+                    toast.error("Select alteast one category")
+                    return;
+                }
+                
+                const check = values?.category.some(item => item?.label == 12)
+
+                if(!check){
+                    if(values?.tags?.length == 0 || values?.media == ''){
+                        toast.error("Select media")
+                        return;
+                    }
+                } 
+            }
+
+            submitFun(values)
 
         }
     })
@@ -120,7 +128,7 @@ const NewsForm = () => {
         console.log(tagList)
 
         // formik.setFieldValue('category', values?.category_id)
-        formik.setFieldValue('category', [{ label: values?.category, value: values?.category_id }])
+        formik.setFieldValue('category', values?.category_id)
         formik.setFieldValue('media', values?.feature_image_id)
         formik.setFieldValue('heading', values?.title)
         formik.setFieldValue('desc', values?.body)
@@ -143,7 +151,7 @@ const NewsForm = () => {
         setNewsTags(Array.isArray(values?.storyTags) && values?.storyTags?.map((elem) => ({ label: elem?.tag_name, value: elem?.tag_name })))
         setKeywordList(Array.isArray(values?.keywords) && values?.keywords?.map((elem) => ({ label: elem?.keyword, value: elem?.keyword })))
         getTagList(values?.mediaTags)
-        setCategories([{ label: values?.category, value: values?.category_id }])
+        // setCategories([{ label: values?.category, value: values?.category_id }])
         // setMediaList(() => {
         //     const modifiedTags = values?.mediaTags?.map(elem => elem?.value)
         //     return tagList.filter(item => values?.mediaTags?.includes(item?.tag_name));
@@ -186,8 +194,7 @@ const NewsForm = () => {
 
             payload = {
                 id: id,
-                // categoryId: values?.category,
-                categoryId: categories?.map(item => item?.value),
+                categoryId: values?.category,
                 tags: values?.newsTags,
                 featureImageId: values?.media,
                 title: values?.heading,   //featureTitle  ->  title 
@@ -233,7 +240,7 @@ const NewsForm = () => {
         axios.post(url, payload, ApiJsonHeader())
             .then((res) => {
                 if (res?.data?.status) {
-                    toast.success("News Added Successfully !!!")
+                    toast.success(`News ${type == 'edit' ? 'Updated' : 'Added'} Successfully !!!`)
                     navigate('/news-master')
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
@@ -283,6 +290,8 @@ const NewsForm = () => {
             })
     }
 
+    console.log('Validation : ', formik.errors)
+
     // Function to get category list
     const getCategoryList = () => {
 
@@ -298,8 +307,13 @@ const NewsForm = () => {
             .post(api_getCategory, payload, ApiJsonHeader())
             .then((res) => {
                 if (res?.data?.status) {
-                    // setCategoryList(res?.data?.data)
-                    setCategoryList([{id:12, category: "Breaking News"}, ...res?.data?.data])
+                    setCategoryList(() => {
+                        if(type == 'edit'){
+                            return res?.data?.data
+                        } else {
+                            return [{id:12, category: "Breaking News"}, ...res?.data?.data]
+                        }
+                    })
                 } else {
                     activateBottomErrorCard(true, checkErrorMessage(res?.data?.message))
                 }
@@ -430,7 +444,7 @@ const NewsForm = () => {
                             {/* Category */}
                             <div className='w-full md:w-[48%] flex flex-col gap-1'>
                                 <label htmlFor="" className={style.label}>Select Category <span className='font-bold text-xs text-red-500'>*</span></label>
-                                {/* <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
+                               {type == 'edit' ? <select name='category' {...formik.getFieldProps('category')} className={style.input + ` ${(formik.touched.category && formik.errors.category) ? ' border-red-200 placeholder:text-red-500 ' : ' focus:border-zinc-300 border-zinc-200'}`}>
 
                                     <option value="">Select</option>
                                  <option className='' value={"12"}>Breaking News</option> 
@@ -440,8 +454,8 @@ const NewsForm = () => {
                                         )
                                     }
 
-                                </select> */}
-
+                                </select>
+:
                                 <Select
                                     name='category'
                                     {...formik.getFieldProps('category')}
@@ -453,7 +467,7 @@ const NewsForm = () => {
                                     onChange={handleCategoryChange}
                                     value={categories}
                                 />
-
+}
                             </div>
 
                             <div className='w-full md:w-[48%] flex flex-col gap-1 '>

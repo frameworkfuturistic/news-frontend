@@ -461,7 +461,7 @@ export const checkErrorMessage = (text) => {
 
     const keywords = ['SQLSTATE', 'Undefined table', 'Connection', 'SQL', 'SELECT'];
 
-    const lowerText = msg.toLowerCase();
+    const lowerText = msg?.toLowerCase();
     const foundKeywords = [];
 
     keywords.forEach((keyword) => {
