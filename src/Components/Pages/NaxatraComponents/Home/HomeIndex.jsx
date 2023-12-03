@@ -4,7 +4,7 @@ import axios from "axios";
 import { ApiList } from "@/Components/Api/ApiList";
 import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { newsJson } from "./NewsJson";
+// import { newsJson } from "./NewsJson";
 import Component13 from "../../Layouts/Component13";
 import { useState } from "react";
 import MukhyaSamachar from "../../Layouts/MukhyaSamachar";
