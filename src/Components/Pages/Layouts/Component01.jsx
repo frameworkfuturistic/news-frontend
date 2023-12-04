@@ -52,18 +52,18 @@ const Component01 = (props) => {
 
                   <div className={`flex flex-wrap justify-between w-full h-full flex-row `}>
 
-                    <div className="w-full md:w-[50%] flex flex-col p-4 gap-8">
+                    <div className="w-full md:w-[50%] flex flex-col p-2 md:p-4 gap-8 ">
 
                       {elem?.media_type == 'video' ?
-                        <div className='p-2 object-cover w-full md:w-[40%] '>
-                          <VideoIndex elem={elem} className='p-2 h-full object-cover w-[50%]' />
+                        <div className='md:p-2 object-cover w-full md:w-[40%] '>
+                          <VideoIndex elem={elem} className='md:p-2 h-full object-cover w-[50%]' />
                         </div>
                         :
-                        <img src={elem?.file_name} alt="Image" className='p-2  bg-contain object-contain w-full  ' srcset="" />}
+                        <img src={elem?.file_name} alt="Image" className='md:p-2  bg-contain object-contain w-full  ' srcset="" />}
 
                     </div>
-                    <div className="w-full md:w-[50%] flex flex-col p-4 gap-8 ">
-                      <h1 className={`font-bold text-2xl text-black pt-8 cursor-pointer hover:text-red-500 ${elem?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${elem?.story_id}/${props?.elem?.category_id ?? '0'}/${props?.cdata?.category ?? 'breaking'}/${elem?.story_title}`)}>
+                    <div className="w-full md:w-[50%] flex flex-col p-2 md:p-4 gap-8 ">
+                      <h1 className={`font-bold text-lg md:text-2xl text-black md:pt-8 cursor-pointer hover:text-red-500 ${elem?.story_title ? '' : " border-2 h-max flex justify-center items-center"}`} onClick={() => navigate(`/news-details/${elem?.story_id}/${props?.elem?.category_id ?? '0'}/${props?.cdata?.category ?? 'breaking'}/${elem?.story_title}`)}>
                         <span className='text-red-500'>Breaking News:</span> {elem?.story_title ?? "Heading"}
                       </h1>
 
@@ -78,7 +78,7 @@ const Component01 = (props) => {
 
                   </div>
 
-                  <span className='text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-6'>Breaking News</span>
+                  <span className='text-xs md:text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-4 md:left-6'>Breaking News</span>
 
                 </div>
 

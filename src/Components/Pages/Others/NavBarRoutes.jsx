@@ -1,39 +1,71 @@
 import React, { useEffect, useState } from 'react'
 import BrandingIndex from '../NaxatraComponents/Branding/BrandingIndex';
 import NewsCategoriesIndex from '../NaxatraComponents/NewsCategories/NewsCategoriesIndex';
-import BreakingNewsIndex from '../NaxatraComponents/BreakinNews/BreakingNewsIndex';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Footerlayout from '../NaxatraComponents/Footer/Footerlayout';
+import logo from '@/Components/assets/logo.webp'
+import { BiUser } from 'react-icons/bi';
+import { VscThreeBars } from 'react-icons/vsc';
+import MobileToggle from '../NaxatraComponents/NewsCategories/MobileToggle';
 
 const NavBarRoutes = () => {
 
-    const [bClose, setBClose] = useState(true);
+    const [toggle, setToggle] = useState(false)
 
     const navigate = useNavigate()
 
-    let wpx = JSON.parse(localStorage.getItem("layout"))?.Layout_width || "1366px";
+    let wpx = "1366px";
 
-    let breakingNews = "राज्यसभा में भी महिला आरक्षण विधेयक पारित, महिला सांसदों ने PM मोदी के साथ मनाया जश्न";
+    const location = useLocation()
 
     useEffect(() => {
-        window.scroll(0, -100);        
+
+        window.scroll(0, -100);
+
+        if (location?.pathname == '/mobile') {
+            window.localStorage.setItem('device', 'mobile')
+        }
+
     }, [])
+
+    const device = window.localStorage.getItem('device') ?? 'web'
 
     return (
         <>
-            <div className='fixed top-0 bg-white z-50'>
-                <BrandingIndex wpx={wpx} />
-                <div className='h-[1.7rem]'></div>
-                <NewsCategoriesIndex wpx={wpx} />
-                {/* {bClose && <BreakingNewsIndex wpx={wpx} bnews={breakingNews} bClose={(status) => setBClose(status)} />} */}
-            </div>
+            {device != 'mobile' &&
+                <div className='fixed top-0 bg-white z-50'>
+                    <BrandingIndex wpx={wpx} />
+                    <div className='h-[1.7rem]'></div>
+                    <NewsCategoriesIndex wpx={wpx} />
+                </div>
+            }
 
-            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth mt-[9.5rem] md:mt-[150px] `}>
+            {
+                device == 'mobile' &&
+                <div className='flex items-center justify-between p-2'>
+                    <div className='flex items-center gap-2'>
+                        <span onClick={() => setToggle(!toggle)}><VscThreeBars size={24} /></span>
+                        <span className=' text-sm font-semibold cursor-pointer relative ' onClick={() => navigate('/mobile')}>
+                            <img src={logo} className='w-16' alt="" srcSet="" />
+                        </span>
+                        <span className='font-bold text-blue-950'>Naxatra News</span>
+                    </div>
+                    
+                    <div>
+                    <button className='flex gap-1 items-center bg-green-600 hover:bg-green-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/mobile-login')}><BiUser size={18}/>Login</button>
+                    </div>
+
+                    <MobileToggle setToggle={toggle} />
+
+                </div>
+            }
+
+            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth ${device != 'mobile' ? "mt-[9.5rem] md:mt-[150px]" : "mt-2"} `}>
                 <div className={`max-w-[${wpx}] h-full w-full`}>
                     <Outlet />
                 </div>
             </div>
-            <Footerlayout />
+            {device != 'mobile' && <Footerlayout />}
         </>
     )
 }

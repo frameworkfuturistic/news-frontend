@@ -69,3 +69,10 @@
      transform: rotate(360deg);
   }
 }
+
+@media (max-width: 720px) {
+  iframe {
+    width: 100% !important; 
+    max-width: 100% !important;
+  }
+}

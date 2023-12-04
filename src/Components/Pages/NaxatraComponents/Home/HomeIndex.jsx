@@ -189,9 +189,9 @@ const HomeIndex = () => {
           {
             Array.isArray(categoryList) &&
             categoryList?.map((elem, index) =>
-              <>
+              <div className="md:p-4 2xl:p-0 p-0">
                 <Component13 cdata={elem} storyList={[]} data={(!type || type == 'edit') ? newsData?.filter(item => item?.sequence == index + 1) : newsData?.filter(item => item?.category_id == type)} code={elem?.renderer_code} />
-              </>)
+              </div>)
           }
         </>
       }
