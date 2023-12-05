@@ -32,7 +32,7 @@ const Component13 = (props) => {
 
         </div>
 
-        <div className=' w-full h-[100px] '>
+        <div className=' w-full h-[10%] md:h-[100px]'>
           <div className={`w-[100%*3] h-full flex flex-wrap gap-4 overflow-x-auto justify-start`}>
             <ClusterComponent cname={props?.cdata?.category}  cId={props?.cdata?.id} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}02`))[0]} auth={props?.data?.section_renderer_code == `${props?.code}02`} code={`${props?.code}02`} storyList={props?.storyList} />
             <ClusterComponent cname={props?.cdata?.category}  cId={props?.cdata?.id} data={props?.data?.filter(item => (item?.section_renderer_code == `${props?.code}03`))[0]} auth={props?.data?.section_renderer_code == `${props?.code}03`} code={`${props?.code}03`} storyList={props?.storyList} />
