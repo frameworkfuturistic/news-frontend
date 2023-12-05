@@ -90,7 +90,7 @@ const MobileToggle = (props) => {
   }, [])
 
   useEffect(() => {
-    props?.toggle && setToggle(props?.setToggle)
+    props?.setToggle && setToggle(props?.setToggle)
   }, [props?.setToggle])
 
   if (loader) {

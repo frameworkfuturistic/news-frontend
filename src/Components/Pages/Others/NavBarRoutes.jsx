@@ -42,7 +42,7 @@ const NavBarRoutes = () => {
 
             {
                 device == 'mobile' &&
-                <div className='flex items-center justify-between p-2'>
+                <div className='flex items-center justify-between p-2 fixed top-0 z-50 bg-white w-screen border-b'>
                     <div className='flex items-center gap-2'>
                         <span onClick={() => setToggle(!toggle)}><VscThreeBars size={24} /></span>
                         <span className=' text-sm font-semibold cursor-pointer relative ' onClick={() => navigate('/mobile')}>
@@ -60,7 +60,7 @@ const NavBarRoutes = () => {
                 </div>
             }
 
-            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth ${device != 'mobile' ? "mt-[9.5rem] md:mt-[150px]" : "mt-2"} `}>
+            <div className={`w-full overflow-x-hidden flex justify-center items-center animate__animated animate__fadeIn animate__faster scroll-smooth ${device != 'mobile' ? "mt-[9.5rem] md:mt-[150px]" : "mt-[4.3rem]"} `}>
                 <div className={`max-w-[${wpx}] h-full w-full`}>
                     <Outlet />
                 </div>

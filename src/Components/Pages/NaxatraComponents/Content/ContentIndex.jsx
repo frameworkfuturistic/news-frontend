@@ -174,6 +174,7 @@ const ContentIndex = () => {
       {
         loader && <BrandLoader />
       }
+      
       {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster p-2 md:p-0 md:mt-2 relative">
 
         <div
