@@ -147,7 +147,7 @@ const ContentIndex = () => {
 
         const originalUrl = window.location.href;
         const trimmedUrl = originalUrl.substring(0, originalUrl.lastIndexOf('/'));
-        
+
         await navigator.share({
           title: 'Check out this news',
           text: newsData?.title,
@@ -165,7 +165,7 @@ const ContentIndex = () => {
     const type = window.localStorage?.getItem('type')
     type == 'mobile' ? navigate('/mobile') : navigate('/')
   }
-  
+
 
 
   return (
@@ -174,32 +174,33 @@ const ContentIndex = () => {
       {
         loader && <BrandLoader />
       }
-      {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster md:mt-2 relative">
+      
+      {!loader && <div className=" flex justify-center items-center animate__animated animate__fadeIn animate__faster p-2 md:p-0 md:mt-2 relative">
 
         <div
           className={` h-full w-full grid grid-cols-12 md:px-10 gap-8`}
         >
           <div className="w-full col-span-12 -mb-20 ">
-            <button className={"px-4 py-1 text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigateFun()}>Back</button>
+            <button className={"px-4 py-1 text-xs md:text-sm bg-zinc-400 hover:bg-zinc-600 select-none rounded-sm hover:drop-shadow-md text-white cursor-pointer"} onClick={() => navigateFun()}>Back</button>
           </div>
           <div className="col-span-12 md:col-span-8">
             <div className="w-full flex gap-2 flex-wrap my-2">
               {
                 newsData?.storyTags?.map((elem) =>
-                  <span className="w-max px-4 py-0.5 rounded-full border border-zinc-600 text-zinc-700">
+                  <span className="w-max px-4 text-xs md:text-base py-0.5 rounded-full border border-zinc-600 text-zinc-700">
                     {elem?.tag_name}
                   </span>)
               }
             </div>
-            <h1 className="text-xl">
+            <h1 className="text-lg md:text-xl">
               <span className=" font-semibold">{newsData?.title} </span>
             </h1>
             <div className="flex justify-between items-center text-sm my-2">
               <div className="flex gap-2 items-center">
-                <span className="text-zinc-500 text-xl"><FaCalendarAlt /></span>
+                <span className="text-zinc-500 text-lg md:text-xl"><FaCalendarAlt /></span>
                 {indianDate(newsData?.publication_date)} - {newsData?.publication_time}
 
-                <attr className="text-blue-900 text-xl font-bold ml-10 cursor-pointer" title="Share Link" onClick={() => handleShare()}><FaShareFromSquare size={22} /></attr>
+                <attr className="text-blue-900 text-lg md:text-xl font-bold ml-10 cursor-pointer" title="Share Link" onClick={() => handleShare()}><FaShareFromSquare size={22} /></attr>
               </div>
               <div>
               </div>
@@ -268,7 +269,7 @@ const ContentIndex = () => {
               {newsList[0]?.story_body && <div dangerouslySetInnerHTML={{ __html: newsList[0]?.story_body }} />}
             </div>
 
-            <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
+            {newsList?.length > 1 && <div className="col-span-12 md:col-span-4 flex flex-col gap-6 md:h-[80vh] mt-10">
               <header className="w-full col-span-12 border-t border-b">
                 <span className="font-semibold pb-2 border-t-4 w-max border-red-600 pt-2 block">
                   You May Also Like
@@ -304,7 +305,7 @@ const ContentIndex = () => {
                   </>
                 ))}
               </div>
-            </div>
+            </div>}
 
           </div>}
 

@@ -12,18 +12,18 @@ const MHeadComponent = (props) => {
         <>
             <div className={`flex flex-row justify-between items-center flex-wrap-reverse md:flex-wrap w-full h-full text-white `}>
 
-                <div className="w-full md:w-[45%] flex flex-col p-4 gap-2 ">
+                <div className="w-full md:w-[45%] flex flex-col p-2 md:p-4 gap-2 ">
 
-                    <h1 className='font-bold text-slate-50 text-2xl pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}/${props?.data?.category}/${props?.data?.story_title}`)}>
+                    <h1 className='font-bold text-slate-50 text-lg md:text-2xl pt-4 md:pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}/${props?.data?.category}/${props?.data?.story_title}`)}>
                         {props?.data?.story_title}
                     </h1>
 
                     {props?.data?.media_type == 'video' ?
-                        <div className='p-2 py-8 object-cover w-full md:w-[50%]'>
-                            <PIPIndex data={props?.data} className='p-2 object-cover ' />
+                        <div className='md:p-2 py-8 object-cover w-full md:w-[50%]'>
+                            <PIPIndex data={props?.data} className='md:p-2 object-cover ' />
                         </div>
                         :
-                        <img src={props?.data?.file_name} alt="" className='p-2 bg-contain object-contain w-full  md:w-[50%]' srcset="" />
+                        <img src={props?.data?.file_name} alt="" className='md:p-2 bg-contain object-contain w-full  md:w-[50%]' srcset="" />
                     }
 
                     <p className={`text-gray-50 ${props?.data?.story_body ? '' : " border-2 h-full "}`}>
@@ -36,8 +36,8 @@ const MHeadComponent = (props) => {
 
                 </div>
 
-                <div className='p-2 h-full object-cover w-full md:w-[50%]'>
-                    <PIPIndex data={props?.mediaList} className='p-2 h-full object-cover ' />
+                <div className='p-2 h-full object-cover w-full md:w-[50%] md:pt-0 pt-4'>
+                    <PIPIndex data={props?.mediaList} className='md:p-2 h-full object-cover ' />
                 </div>
 
 
