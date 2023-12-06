@@ -35,7 +35,7 @@ const Footerlayout = () => {
               <div className='flex'><GoDotFill className='text-white my-1 mx-1' /> <p className='text-white'>Phone: +91-8271776646</p></div>
             </div>
           </div>
-          <div className='col-span-12 lg:col-span-4 text-white my-6 m-1 mr-2 '>
+          <div className='col-span-12 lg:col-span-4 text-white my-6 m-1  mx-4  '>
             <div>
               <div className=" my-2  w-1/2 h-1 bg-red-500     ">
                 <div className="h-px border-red-500  w-full "></div>
@@ -63,7 +63,7 @@ const Footerlayout = () => {
           </div>
 
           
-          <div className='col-span-12 lg:col-span-4 text-white my-5 m-1 '>
+          <div className='col-span-12 lg:col-span-4 text-white my-5 m-1 mx-4 '>
           
           <div>
               <div className=" my-2  w-1/2 h-1 bg-red-500     ">
