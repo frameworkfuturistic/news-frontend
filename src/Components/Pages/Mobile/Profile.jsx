@@ -18,21 +18,22 @@ const Profile = () => {
     axios.post(apiLogout, {}, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
-          window.localStorage.clear()
+          window.localStorage.removeItem('token')
+          window.localStorage.removeItem('userDetails')
           toast.success("Logout Successfully !!!")
         }
       })
       .finally(() => {
         navigate('/mobile')
       })
-      
+
   }
 
   return (
     <>
 
       <div className='flex flex-col items-center w-full h-full mt-10 justify-center'>
-       
+
         <div className='border-4 drop-shadow-lg border-slate-700 rounded-full w-max overflow-clip p-4 bg-slate-50 flex items-center justify-center'>
           <FcBusinessman size={180} />
         </div>
@@ -45,9 +46,9 @@ const Profile = () => {
 
           <span className='my-4 bg-red-200 px-5 py-2 font-semibold border border-red-500 hover:bg-red-500 hover:text-white text-red-600 text-center cursor-pointer shadow-md' onClick={() => logoutFun()}> Logout</span>
 
-      </div>
+        </div>
 
-    </div >
+      </div >
 
     </>
   )

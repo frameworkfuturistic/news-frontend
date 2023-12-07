@@ -31,7 +31,8 @@ const TopHeader = () => {
     axios.post(apiLogout, {}, ApiJsonHeader())
       .then((res) => {
         if (res?.data?.status) {
-          localStorage.clear()
+          window.localStorage.removeItem('token')
+          window.localStorage.removeItem('userDetails')
           toast.success("Logout Successfully !!!")
         }
       })

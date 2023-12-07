@@ -105,7 +105,7 @@ const AssignNews = (props) => {
             .then((res) => {
                 if (res?.data?.status) {
                     dialogRef.current.showModal()
-                    toast.success("News Assigned Successfully!!!")
+                    toast.success(`News ${type == 'remove' ? 'Removed' : 'Assigned' } Successfully!!!`)
                     setrefresh(refresh + 1)
                 } else {
                     activateBottomErrorCard(true, res?.data?.message ?? "Something went wrong!")
