@@ -10,7 +10,7 @@ const BreakingNewsIndex = (props) => {
   const mDataFun = (content ='', last = false) => {
     return (
       <>
-        <span>{content}</span> {last == true && <span className='mx-4'>|</span>}
+        <span>👉 {content} 👈</span>  <span className='mx-4 text-blue-100'>|</span>
       </>
     )
   }

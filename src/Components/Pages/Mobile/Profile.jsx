@@ -44,7 +44,8 @@ const Profile = () => {
           <span className='bg-white px-5 py-2 font-semibold border shadow-md'> <span className='text-base font-normal mr-2'>Email: </span> {data?.email}</span>
           <span className='bg-white px-5 py-2 font-semibold border shadow-md'> <span className='text-base font-normal mr-2'>User Type: </span> {data?.usertype}</span>
 
-          <span className='my-4 bg-red-200 px-5 py-2 font-semibold border border-red-500 hover:bg-red-500 hover:text-white text-red-600 text-center cursor-pointer shadow-md' onClick={() => logoutFun()}> Logout</span>
+          <span className=' bg-blue-200 mt-4 px-5 py-2 font-semibold border border-blue-500 hover:bg-blue-500 hover:text-white text-blue-600 text-center cursor-pointer shadow-md' onClick={() => navigate('/')}>Back To News</span>
+          <span className=' bg-red-200 px-5 py-2 font-semibold border border-red-500 hover:bg-red-500 hover:text-white text-red-600 text-center cursor-pointer shadow-md' onClick={() => logoutFun()}> Logout</span>
 
         </div>
 

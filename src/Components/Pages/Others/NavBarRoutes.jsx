@@ -4,9 +4,10 @@ import NewsCategoriesIndex from '../NaxatraComponents/NewsCategories/NewsCategor
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Footerlayout from '../NaxatraComponents/Footer/Footerlayout';
 import logo from '@/Components/assets/logo.webp'
-import { BiUser } from 'react-icons/bi';
+import { BiLogOutCircle, BiUser } from 'react-icons/bi';
 import { VscThreeBars } from 'react-icons/vsc';
 import MobileToggle from '../NaxatraComponents/NewsCategories/MobileToggle';
+import toast from 'react-hot-toast';
 
 const NavBarRoutes = () => {
 
@@ -28,6 +29,14 @@ const NavBarRoutes = () => {
 
     }, [])
 
+    const logoutFun = () => {
+        window.localStorage.removeItem('token')
+        window.localStorage.removeItem('userDetails')
+        toast.success("Logout Successfully !!!")
+        navigate('/mobile')
+    }
+
+    const token = window.localStorage.getItem('token') ?? ''
     const device = window.localStorage.getItem('device') ?? 'web'
 
     return (
@@ -50,9 +59,13 @@ const NavBarRoutes = () => {
                         </span>
                         <span className='font-bold text-blue-950'>Naxatra News</span>
                     </div>
-                    
+
                     <div>
-                    <button className='flex gap-1 items-center bg-green-600 hover:bg-green-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/mobile-login')}><BiUser size={18}/>Login</button>
+                        {
+                            !token ? <button className='flex gap-1 items-center bg-green-600 hover:bg-green-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => navigate('/mobile-login')}><BiUser size={18} />Login</button>
+                                :
+                                <button className='flex gap-1 items-center bg-red-600 hover:bg-red-500 select-none font-semibold text-white text-xs md:text-sm px-2 md:px-3 py-1.5' onClick={() => logoutFun()}><BiLogOutCircle size={18} />Logout</button>
+                        }
                     </div>
 
                     <MobileToggle setToggle={toggle} />
