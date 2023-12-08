@@ -182,8 +182,7 @@ const HomeIndex = () => {
           {newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 && bClose && <BreakingNewsIndex wpx={wpx} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} bClose={(status) => setBClose(status)} />}
 
           {/* Hide and show component */}
-          {(!type || type == 'edit') && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}
-
+          {/*  {(!type || type == 'edit') && (newsData?.filter(item => (codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1))?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <Component01 categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'BR') == true && item?.is_visible == 1)} code={'BR'} />}*/}
           {(!type || type == 'edit') && (newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)?.length > 0 || (type == 'edit' && (userDetails?.usertype)?.toLowerCase() == 'admin')) && <MukhyaSamachar mediaList={mediaList[0]} categoryList={categoryList} storyList={storyList} data={newsData?.filter(item => codeCheck(item?.section_renderer_code, 'COTTP') == true)} code={'COTTP'} />}
 
           {
