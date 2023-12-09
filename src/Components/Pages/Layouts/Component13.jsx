@@ -28,7 +28,7 @@ const Component13 = (props) => {
             cname={props?.cdata?.category}
           />
 
-          <span className='text-xs md:text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute top-0 left-4 md:left-6'>{props?.cdata?.category}</span>
+          <span className='text-xs md:text-sm bg-red-600 text-white font-semibold px-4 py-1 absolute -top-4 left-4 md:left-6'>{props?.cdata?.category}</span>
 
         </div>
 
