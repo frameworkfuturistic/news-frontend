@@ -4,7 +4,7 @@ import Video from "../Home/Video";
 import "../Home/style.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { contextVar } from "@/Components/Context/ContextVar";
-import { Linking } from 'react-native';
+// import { Linking } from 'react-native';
 import VideoIndex from "../Home/VideoIndex";
 import toast from "react-hot-toast";
 import ApiJsonHeader from "@/Components/Api/ApiJsonHeader";
