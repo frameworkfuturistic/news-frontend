@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PIPIndex from '../../NaxatraComponents/Home/PIPIndex'
 
 const MHeadComponent = (props) => {
 
-    console.log("incoming media", props?.mediaList)
+    console.log("incoming media in mukhya component", props?.mediaList)
 
     const navigate = useNavigate()
+
+    const videoData = {
+        "id": 'C13M',
+        "tag_name": "stream",
+        "media_id": "C13MV",
+        "created_date": "21-12-2023",
+        "file_name": "https://smartstream.in/naxatra/",
+        "media_upload_date": "21-12-2023"
+    }
 
     return (
         <>
@@ -36,8 +45,10 @@ const MHeadComponent = (props) => {
 
                 </div>
 
-                <div className='p-2 h-full object-cover w-full md:w-[50%] md:pt-0 pt-4'>
-                    <PIPIndex data={props?.mediaList} className='md:p-2 h-full object-cover ' />
+                <div className='p-2 h-full object-cover w-full md:w-[50%] md:pt-0 pt-4 '>
+                    {/* <PIPIndex data={props?.mediaList} className='md:p-2 h-full object-cover ' /> */}
+                    {/* <PIPIndex data={videoData} className='md:p-2 h-full object-cover ' /> */}
+                    <iframe className='w-full h-[250px] md:h-[500px]' src="https://smartstream.in/naxatra/" title="Naxatra News Live Stream" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
 
 

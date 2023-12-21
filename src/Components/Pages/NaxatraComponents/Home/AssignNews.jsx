@@ -85,7 +85,7 @@ const AssignNews = (props) => {
                 payload = {
                     rendererCode: props?.code,
                     storyId: null,
-                    isVisible: 1
+                    isVisible: 1 // ignore
                 }
             }
         } else {
