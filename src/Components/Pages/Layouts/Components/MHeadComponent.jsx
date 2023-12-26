@@ -48,7 +48,7 @@ const MHeadComponent = (props) => {
                 <div className='p-2 h-full object-cover w-full md:w-[50%] md:pt-0 pt-4 '>
                     {/* <PIPIndex data={props?.mediaList} className='md:p-2 h-full object-cover ' /> */}
                     {/* <PIPIndex data={videoData} className='md:p-2 h-full object-cover ' /> */}
-                    <iframe className='w-full h-[250px] md:h-[500px]' src="https://smartstream.in/naxatra/" title="Naxatra News Live Stream" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe className='w-full h-[250px] md:h-[500px]' src="https://smartstream.in/naxatra/" title="Naxatra News Live Stream" frameborder="0" allow="accelerometer;    clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
 
 
