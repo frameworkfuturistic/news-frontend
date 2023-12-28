@@ -21,9 +21,9 @@ const MHeadComponent = (props) => {
         <>
             <div className={`flex flex-row justify-between items-center flex-wrap-reverse md:flex-wrap w-full h-full text-white `}>
 
-                <div className="w-full md:w-[45%] flex flex-col p-2 md:p-2 gap-2 ">
+                <div className="w-full md:w-[45%] flex flex-col p-2 md:p-2 gap-2  bottom-0 left-0 right-0  ">
 
-                    <h1 className='font-bold text-slate-50 text-lg md:text-2xl   md:pt-8 cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}/${props?.data?.category}/${props?.data?.story_title}`)}>
+                    <h1 className='font-bold text-slate-50 text-lg md:text-2xl md:pt-0   cursor-pointer hover:text-red-500' onClick={() => navigate(`/news-details/${props?.data?.story_id}/${props?.data?.category_id}/${props?.data?.category}/${props?.data?.story_title}`)}>
                         {props?.data?.story_title}
                     </h1>
 
@@ -45,10 +45,10 @@ const MHeadComponent = (props) => {
 
                 </div>
 
-                <div className='h-full object-cover w-full md:w-[50%] md:pt-0    '>
+                <div className='h-full object-cover w-full md:w-[50%] md:pt-0 '>
                     {/* <PIPIndex data={props?.mediaList} className='md:p-2 h-full object-cover ' /> */}
                     {/* <PIPIndex data={videoData} className='md:p-2 h-full object-cover ' /> */}
-                    <iframe className='w-full h-[250px] md:h-[500px] pt-10 ' src="https://smartstream.in/naxatra/" title="Naxatra News Live Stream"></iframe>
+                    <iframe className='w-full h-[250px] md:h-[500px] pt-8  ' src="https://smartstream.in/naxatra/" title="Naxatra News Live Stream"  ></iframe>
                 </div>
 
 
