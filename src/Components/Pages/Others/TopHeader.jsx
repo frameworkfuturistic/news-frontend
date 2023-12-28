@@ -12,11 +12,11 @@ import ApiJsonHeader from '@/Components/Api/ApiJsonHeader';
 import { RxCross2 } from 'react-icons/rx';
 
 
-const TopHeader = () => {
+const TopHeader = ({ toggleBar, settoggleBar }) => {
 
   const [isLoading, setisLoading] = useState(false)
 
-  const { toggleBar, settoggleBar } = useContext(contextVar)
+  // const { toggleBar, settoggleBar } = useContext(contextVar)
 
   const { apiLogout } = ApiList()
 

@@ -9,9 +9,9 @@ import { BsBuildings, BsCaretRight } from 'react-icons/bs';
 import profile from '@/Components/assets/profile.png'
 
 
-const SideBar = (props) => {
+const SideBar = ({ menu, toggleBar, settoggleBar }) => {
 
-  const { toggleBar, settoggleBar } = useContext(contextVar)
+  // const { toggleBar, settoggleBar } = useContext(contextVar)
 
   let userDetails = JSON.parse(localStorage.getItem('userDetails'))
 
@@ -82,7 +82,7 @@ const SideBar = (props) => {
                 <nav class="relative flex flex-wrap items-center justify-between overflow-x-hidden">
                   <ul id="side-menu" class="w-full float-none flex flex-col">
                     {
-                      props?.menu?.map((item) => <>
+                      Array.isArray(menu) && menu?.map((item) => <>
                         <li className='relative cursor-pointer mb-1' onClick={() => { (window.innerWidth <= 763 && item?.children?.length == 0) && settoggleBar(!toggleBar) }}>
                           <NavLink to={item?.path == '' ? null : item?.path} className={({ isActive }) => ((isActive && item?.children?.length == 0) ? "bg-cyan-800 text-cyan-50 " : " ") + `${mobileMenuBtn} ` + 'flex gap-4 items-center'} onClick={() => {
                             dropFun(item?.name)

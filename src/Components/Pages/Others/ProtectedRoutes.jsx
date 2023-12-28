@@ -6,12 +6,15 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 👉 Importing Components and libraries 👈
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import TopHeader from './TopHeader'
 import DashboardSidebarIndex from './SideBar/DashboardSidebarIndex'
+import { contextVar } from '@/Components/Context/ContextVar'
 
 const ProtectedRoutes = () => {
+
+    const { toggleBar, settoggleBar } = useContext(contextVar)
 
     // 👉 Navigation constant 👈
     const navigate = useNavigate() 
@@ -47,14 +50,14 @@ const ProtectedRoutes = () => {
 
                     {/* 👉 Side Bar 👈 */}
                     <div className={'md:flex md:relative absolute top-[3.4rem] md:top-0 h-full'} style={{ zIndex: 5 }}>
-                        <DashboardSidebarIndex />
+                        <DashboardSidebarIndex toggleBar={toggleBar} settoggleBar={settoggleBar} />
                     </div>
 
                     <div className='flex-1 h-full w-[60%] relative overflow-auto border md:border-none' >
 
                     {/* 👉 Top header 👈 */}
                    <div className="w-full animate__animated animate__slideInDown animate__faster " style={{ zIndex: 999 }}>
-                        <TopHeader />
+                        <TopHeader toggleBar={toggleBar} settoggleBar={settoggleBar} />
                     </div>
 
                         {/* 👉 Checking Authentication to show outlets or navigate to login 👈 */}

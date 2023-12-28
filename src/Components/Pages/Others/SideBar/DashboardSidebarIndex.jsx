@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import SideBar from './SideBar'
 
-const DashboardSidebarIndex = () => {
+const DashboardSidebarIndex = ({ toggleBar, settoggleBar }) => {
 
   let menuList = [
     {name: "Home", path:'/', children:[]},
@@ -13,7 +13,7 @@ const DashboardSidebarIndex = () => {
 
   return (
     <>
-      <SideBar menu={menuList} />
+      <SideBar menu={menuList} toggleBar={toggleBar} settoggleBar={settoggleBar} />
     </>
   )
 }
