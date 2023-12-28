@@ -8,8 +8,6 @@
 // 👉 Importing Components and libraries 👈
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { contextVar } from '@/Components/context/contextVar'
-import { useContext } from 'react'
 import TopHeader from './TopHeader'
 import DashboardSidebarIndex from './SideBar/DashboardSidebarIndex'
 

@@ -57,7 +57,7 @@ const TopHeader = () => {
         <div className='flex items-center sm:gap-4 gap-2'>
           <span className='sm:visible flex items-center '>
             <Tooltip anchorId="logout" className='z-50' />
-            <button id='logout' data-tooltip-content="Log Out" onClick={() => dialogRef.current.showModal()} className='text-2xl font-semibold'><BiLogOutCircle /></button></span>
+            <button id='logout' data-tooltip-content="Log Out" onClick={() => dialogRef?.current?.showModal()} className='text-2xl font-semibold'><BiLogOutCircle /></button></span>
         </div>
       </div>
 
