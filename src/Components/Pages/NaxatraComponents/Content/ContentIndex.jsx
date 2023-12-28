@@ -16,6 +16,7 @@ import { FaShareFromSquare } from "react-icons/fa6";
 import { FaXTwitter } from 'react-icons/fa6'
 import { BsFacebook, BsInstagram } from 'react-icons/bs'
 import { IoLogoWhatsapp } from "react-icons/io";
+import logo from '../../../assets/logohd.png'
 
 const ContentIndex = () => {
 
@@ -151,9 +152,15 @@ const ContentIndex = () => {
         const originalUrl = window.location.href;
         const trimmedUrl = originalUrl.substring(0, originalUrl.lastIndexOf('/'));
 
+        const response = await fetch("https://www.jru.edu.in/wp-content/uploads/2020/04/Naxatra-News.jpg");
+        const blob = await response.blob();
+
+        var image = new File([blob], 'logo.jpg', { type: 'image/jpg' });
+
         await navigator.share({
-          title: 'Check out this news',
-          text: newsData?.title,
+          text: "",
+          file: [image],
+          title: newsData?.title,
           url: trimmedUrl,
         });
       } else {
@@ -283,7 +290,7 @@ const ContentIndex = () => {
               <div className="flex gap-2 items-center">
                 <span className="text-zinc-500 text-lg md:text-xl"><FaCalendarAlt /></span>
                 {indianDate(newsData?.publication_date)} - {newsData?.publication_time}
-<button id="shareButton">share web</button>
+                <button id="shareButton">share web</button>
                 {
                   device == 'mobile' ?
                     <>
